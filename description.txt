@@ -1,0 +1,237 @@
+A mod that introduces content inspired from the Epic Battle Fantasy universe developed by Kupo Games (Matt Roszek). Still very early progress.
+Soon more will be added with frequent updates as long as i have time for that.
+Coding: Aweguy
+Literally the closest associate : AngryBiskoti
+Lead Spriting: Listochik (aka Leaf),Maskano , Renatm, The Purified, codingMadm, speedynamo, DigitalZero
+Concept art:Hamstermer (aka Squire of REL)
+
+
+Thanks to the EBF discord community for giving some ideas and TML discord community for helping me learn how to mod and the Example mod for helping me code. Enjoy.
+
+
+
+
+
+
+                                  CHANGELOG
+
+
+    v0.1
+
+    -Initial release of the mod
+
+
+    v0.1.0.1
+
+    Little changes here. Tweaked the Fireball code a bit.
+
+    -Renamed Fireball to Fireball Spell
+    -Fireball Spell now shoots a small fireball that explodes to the big one when it dies. (idea by Listochik)
+
+    Note: I know the small fireball's sprite is bad but i am waiting for a better sprite so i can update it. Also i am still working on the sound. Sorry about that.
+
+
+
+    v0.1.2
+
+    -The small fireball's sprite is now better and updated.
+    -Slightly increased small fireball's hitbox (1 pixel for the sake of the sprite)
+
+
+
+    v0.1.3
+
+    -Aether's Blade is no longer unobtainable. Spawns with a chance in sky chests on world generation
+    -Heaven's Gate recipe changed
+    -Aether's Blade tooltip changed
+
+
+
+    v0.2
+
+    -The first instance of the icon is ready
+
+
+
+    v0.2.1
+
+    -The icon is now ready.
+
+
+
+    v0.2.2
+
+    -Fixed the name of the Angelic Candle and its tooltip. (Sorry about that)
+    -Big nerf to the damage of the Angelic Mirror minion (100 -> 60) but made the buff give a slight mana regeneration boost and 5 defense.
+    -Optimised the description layout to be more appealing.
+
+
+
+    v0.3.1
+    
+    -Fixed the issue that Fireball Spell, Airstrike and Dirt Gun could not get their repsective modifiers.
+    -Made the sprites of Fireball Spell and Angelic Candle a bit larger.
+    -Huge nerf to Airstrike's use time to be as bad as the EBF5's one. (Airstrike Bad)
+    -New item (still unobtainable). Royal Guard Shield. Slows the player by 25% but provides 65 defense and knockback immunity. It's planned to be obtained by an endgame NPC with low chances. (NPC is wip).
+
+
+
+    v0.3.2
+    
+    -Better sprite for the Royal Guard Shield.
+    -Now Royal Guard Shield draws in front of the player as it should (like a shield (thanks to Renatm to draw the equip Sprite Sheet))
+
+
+
+    v0.3.3
+    
+    -New item. Black Fang. Poisons the enemy and drains a small amount of life.
+
+
+
+    v0.4.1
+
+    -New spriter The Purified
+    -Made the dirt gun smaller
+    -Made the dirt gun only shoot dirtballs and adjusted the tooltip
+
+    Note: Sprite optimisations are wip.
+
+
+
+    v0.5.1
+
+    -Removed the super long animation of airstrike. Now there will be a huge cooldown that will not let you use that.
+    -Nerfed the Regeneration Spell's regeneration from + 1000 to + 100
+    -You can now only use the Regeneration Spell when its cooldown is down.
+    -Now the Sugar Rush buff increases jump height as it was intended from the beginning
+    -Optimised the sprite of Regeneration Spell
+    -Removed the Spell of the Severely Weakened as it was an item that i was testing my coding.
+    -Now the Angelic Mirror now detects enemies at a lower range.
+    -Increased the cooldown of the Regeneration Spell after being used.
+    -New buff and item. Hate buff and Haste Spell. For a small duration it doubles the speed of almost all your actions.
+    -Nerfed the melee speed increase of Sugar Rush
+    -Removed the crafting recipe of Aether's Blade as it is not intended to be crafted.
+    -Nerfed Aether's Blade by 10 damage.
+    -Increased the mana regen the Angelic Mirror buff gives from 5 to 7 since it was a bit underwhelming in testing.
+    -Changed the Regeneration Spell sprite.
+
+    Note: The normal Weakening Spell and debuff from EBF5 is wip.
+
+
+
+
+    v0.5.2
+
+    -Made the Haste Spell only be obtained through ice Chests in the Ice Biome with a 33% chance to spawn in them.
+    -Fixed a bug that made Aether's Blade spawn in Sky chests with 100% chance.
+
+
+
+    v0.6.1
+    
+    -Fixed the Fireball Spell sound.
+    -Completely fixed the Airstrike. Now it's a decent spell. Spawns in dungeon gold chests with a chance.
+    -New Spell. Protection Spell. Reduces damage taken by 30% for 10 seconds. Obtained by underground Gold Chests.
+    -Made the Haste Spell increase the firing speed of throwing weapons or items.
+    -New endgame spell. Firestorm Spell.(still unobtainable)
+
+
+
+    v0.7.1
+    
+    This update brings a bunch of new items.
+
+    -Target Badge, Angry Faic (upgrade to target badge) and lastly Dark Tooth with a new interesting projectile.
+    -New, supporter items. I am making items for my supporters. 2 new supporter items. They can only be obtained by cheating them in for the time being.
+    -Made a change to the Regeneration Buff. It now heals a small portion of health per second.
+    
+
+    Note: Sorry for the long wait for an update. Dark Tooth had a lot of work, both the sprites and the code. Hope you enjoy.
+
+
+
+    v0.7.2
+
+    -New material, Dark Matter which will be used to craft Dark Tooth and future dark items. Obtained by killing bosses.
+    -Adjusted the projectiles that spawn when Pulsar explodes. 
+    -New Gun. Shadow Gun. Will be accompanied by Shadow Blaster at future update.
+    -Rebalanced some things.
+    -New Weapon, Giant Slayer. A spear that bypasses defense.
+    -New Item for a supporter.
+
+    v0.7.2.2
+
+    -Changed the name of Shadow Gun to Shadow Revolver.
+
+    v0.8.1
+
+    MAJOR UPDATE (Rise of the Guns) : 
+    
+    -Whole new weapon type, Launchers. (Currently 9 are added)
+    -New ammo type, Shots, that only Launchers can shoot (9 different shots with different elements).
+    -New enemy NPCs, Wraiths. Currently there are 5 new NPCs.
+    -New Town NPC, Matt. (for now he sells all the Launchers' ammunition)
+    -Many new Revolvers for their Launcher counterparts.
+    -New Consumable Chilli Pepper. Doubles your damage and attack speed for 10 seconds while going on a 10 minute cooldown.
+    -Each Launcher has special effects if you have their revolver in your inventory, same for some revolvers. (Some will be implemented in a later update)
+    -Many new materials.
+    -Pulsar now sucks enemies in.
+    -Fixed the Dragon's Feather not increasing the player's speed.
+    -Buffed Soul Eater's damage buff to compensate the lost defense.
+    -Now Heaven's Gate and Fusion Blade shoot their projectiles when you left click. (I was just testing what i could do back then)
+    -Tooltip Changes
+    -Optimized some recipes.
+    -Removed some unecessary items.
+    -Optimized some code.
+    
+
+    v0.8.1.2
+
+    Minor Patch:
+
+
+    -Added a new material.
+    -Changed a recipe.
+    -Added a forgotten recipe.
+    -Reduce some sell prices due to the fact they could be exploited.
+
+
+    v0.8.2
+
+    Minor Patch:
+
+
+    -Added 1 new material.
+    -Changed the name of the Royal Guard shield to King's Guard Shield.
+    -Changed some tooltips
+    -Fixed some missing accessory rarities
+    -Optimized a recipe.
+    -Optimized and increased the movement decrease from King's Guard Shield.
+    -Changed Heaven's Gate recipe.
+    -Adjusted some prices.
+
+
+
+    v0.8.3
+
+    Minor Update:
+
+    -1 new enemy NPC, Steel Wraith.
+    -Changed some sounds.
+    -Added some Launcher Special effects.
+    -Added 3 new swords Lightning Shard, Ice Needle and Bone Blade.
+    -Changed some Tooltips
+    -Removed some useless things.
+    -Reduced the movement decrease from King's Guard Shield.
+    -New Launcher special effect for Shadow Blaster. Affects only the revolver.
+
+
+
+    v0.8.3.2
+
+    Minor Patch:
+    
+    -Reduced the given money to silver instead of gold. Many could spam this mechanic for very quick money.
+    -Randomized the amount of coins that Matt gives when you give him gems. (15 - 30 coins)
+    -Added the recipe for Bone Blade that i had forgotten to add.
