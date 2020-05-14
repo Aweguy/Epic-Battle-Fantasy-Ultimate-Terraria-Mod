@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Avenger");
-            Tooltip.SetDefault("A heavy weapon with a stone edge and unyielding rage.");
+            Tooltip.SetDefault("For every scar, for every dishonor, the Avenger sharpens its edge. Grows stronger at low health.");
         }
 
         public override void SetDefaults()

@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Tired");
-            Description.SetDefault("You are tired because of the battle. You are moving and attacking slower, and jump lower.");
+            Description.SetDefault("Your joints feel stiff and slow.");
             Main.debuff[Type] = true;
             canBeCleared = false;
         }

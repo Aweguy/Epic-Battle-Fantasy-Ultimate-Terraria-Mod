@@ -234,4 +234,12 @@ Thanks to the EBF discord community for giving some ideas and TML discord commun
     
     -Reduced the given money to silver instead of gold. Many could spam this mechanic for very quick money.
     -Randomized the amount of coins that Matt gives when you give him gems. (15 - 30 coins)
-    -Added the recipe for Bone Blade that i had forgotten to add.
+    -Added the recipe for Bone Blade that I had forgotten to add.
+
+
+
+    v.0.8.3.3
+
+    Test Patch:
+
+    -The mod changed somethings in the code and that's a test publish to see if it's working. 
