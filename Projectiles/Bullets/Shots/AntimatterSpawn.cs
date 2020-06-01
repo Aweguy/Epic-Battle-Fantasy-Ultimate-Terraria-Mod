@@ -73,7 +73,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots
             
 
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AntimatterExplosion"), projectile.damage, 0, projectile.owner);
+            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AntimatterExplosion"), projectile.damage / 4, 0, projectile.owner);
 
 
 

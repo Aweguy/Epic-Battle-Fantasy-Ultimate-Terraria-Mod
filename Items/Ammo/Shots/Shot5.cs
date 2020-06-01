@@ -20,12 +20,13 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             item.damage = 10;
             item.ranged = true;
+            item.consumable = true;
             item.width = 12;
             item.height = 12;
             item.maxStack = 1;
             item.knockBack = 0.5f;
             item.value = 10000;
-            item.rare = 6;
+            item.rare = ItemRarityID.LightPurple;
             item.shoot = mod.ProjectileType("WaveShot");
             item.shootSpeed = 5f;
             item.ammo = mod.ItemType("Shot");

@@ -19,11 +19,11 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.damage = 1;
             item.width = 40;
             item.height = 40;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 50;
             item.useAnimation = 50;
             item.mana = 10;
-            item.rare = 9;
+            item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(platinum: 1);
             item.useTurn = true;
             item.shoot = mod.ProjectileType("Pulsar");
@@ -39,21 +39,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;
-
-
-            
-
-
-
-
-
-
             return true;
-
-
-            
-
-
         }
 
 

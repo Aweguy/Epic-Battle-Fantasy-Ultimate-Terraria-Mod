@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.melee = true;
             item.width = 64;
             item.height = 64;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 40;
             item.useAnimation = 40;
             item.knockBack = 5f;

@@ -52,7 +52,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 
             #region Weakened Reset
 
-            if (Weakened = false)
+            if (Weakened == false)
             {
                 WeakenedStacks = 0;
             }

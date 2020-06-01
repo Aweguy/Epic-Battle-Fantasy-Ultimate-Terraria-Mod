@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
         public override void SetDefaults()
         {
             item.damage = 60;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useAnimation = 20;
             item.useTime = 30;
             item.shootSpeed = 3.7f;
@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             item.width = 32;
             item.height = 32;
             item.scale = 1f;
-            item.rare = 5;
+            item.rare= ItemRarityID.Pink;
             item.value = Item.sellPrice(gold: 10);
             item.melee = true;
         }
@@ -65,7 +65,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             if (player.altFunctionUse == 2)
             {
                 item.damage = 60;
-                item.useStyle = 5;
+                item.useStyle = ItemUseStyleID.HoldingOut;
                 item.useAnimation = 20;
                 item.useTime = 30;
                 item.shootSpeed = 3.7f;
@@ -73,7 +73,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.width = 32;
                 item.height = 32;
                 item.scale = 1f;
-                item.rare = 5;
+                item.rare= ItemRarityID.Pink;
                 item.value = Item.sellPrice(gold: 10);
                 item.melee = true;
                 item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
@@ -86,7 +86,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             else
             {
                 item.damage = 60;
-                item.useStyle = 1;
+                item.useStyle = ItemUseStyleID.SwingThrow;
                 item.useAnimation = 20;
                 item.useTime = 30;
                 item.shootSpeed = 3.7f;
@@ -94,7 +94,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.width = 32;
                 item.height = 32;
                 item.scale = 1f;
-                item.rare = 5;
+                item.rare= ItemRarityID.Pink;
                 item.value = Item.sellPrice(gold: 10);
                 item.melee = true;
                 item.noMelee = false; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.

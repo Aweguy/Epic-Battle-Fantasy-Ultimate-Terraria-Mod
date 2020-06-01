@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.UseSound = SoundID.Item41;
             item.shoot = 10;
             item.shootSpeed = 11f;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
 

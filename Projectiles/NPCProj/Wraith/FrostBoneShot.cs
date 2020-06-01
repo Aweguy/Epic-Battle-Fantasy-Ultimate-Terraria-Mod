@@ -16,14 +16,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void SetDefaults()
         {
-            projectile.width = 9;
-            projectile.height = 9;
+            projectile.width = 18;
+            projectile.height = 18;
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
             aiType = ProjectileID.Bullet;
-            projectile.scale = 0.5f;
             projectile.timeLeft = 120;
             drawOffsetX = -2;
             projectile.hostile = true;

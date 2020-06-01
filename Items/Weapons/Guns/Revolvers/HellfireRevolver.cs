@@ -35,13 +35,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 2);
-            item.rare = 5;
+            item.rare= ItemRarityID.Pink;
 
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item36;
             item.shoot = 10;
             item.shootSpeed = 9f;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
 
         }
 

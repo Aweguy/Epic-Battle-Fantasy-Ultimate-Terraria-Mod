@@ -23,23 +23,23 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.width = 110;
             item.height = 56;
 
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 30;
+            item.useAnimation = 30;
             item.reuseDelay = 100;
 
 
-            item.damage = 43;
+            item.damage = 45;
             item.ranged = true;
             item.noMelee = true;
 
-            item.value = Item.sellPrice(gold: 50);
-            item.rare = 11;
+            item.value = Item.sellPrice(gold: 10);
+            item.rare= ItemRarityID.Purple;
 
             item.shoot = 10;
             item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item36;
             item.shootSpeed = 7f;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
 

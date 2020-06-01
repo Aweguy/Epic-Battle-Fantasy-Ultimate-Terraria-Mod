@@ -25,8 +25,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             projectile.aiStyle = -1;
             aiType = ProjectileID.Bullet;
             projectile.friendly = true;
+            drawOriginOffsetY = -5;
         }
 
+        #region OnHitNPC
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -54,13 +56,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             }
                 
 
-
-
-
-
         }
 
-
+        #endregion
 
 
 
@@ -71,7 +69,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             //If collide with tile, reduce the penetrate.
-            //So the projectile can reflect at most 5 times
+            //So the projectile can reflect at most 10 times
             projectile.penetrate--;
             if (projectile.penetrate <= 0)
             {

@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 30;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare = 11;
+            item.rare= ItemRarityID.Purple;
             item.maxStack = 99;
 
 

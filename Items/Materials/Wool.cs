@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
              item.value = Item.sellPrice(copper: 30);
              item.rare = 3;
              item.maxStack = 999;
-
+            item.scale = 0.3f;
 
          }
 

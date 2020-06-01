@@ -26,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 			item.height = 38;
 			item.useTime = 80;
 			item.useAnimation = 80;
-			item.useStyle = 5;
+			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.noMelee = true;
 			item.knockBack = 5f;
 			item.value = Item.buyPrice(platinum: 2);

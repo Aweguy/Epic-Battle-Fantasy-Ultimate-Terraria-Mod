@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
             item.useTime = 100;
             item.useAnimation = 100;
             item.mana = 30;
-            item.rare = 6;
+            item.rare = ItemRarityID.LightPurple;
             item.useTurn = true;
             item.shoot = mod.ProjectileType("Fireball");
             item.shootSpeed = 4f;

@@ -20,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
         public override void SetDefaults()
         {
             item.damage = 40;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.useAnimation = 50;
             item.useTime = 70;
             item.shootSpeed = 3.7f;
@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             item.width = 32;
             item.height = 32;
             item.scale = 0.7f;
-            item.rare = 5;
+            item.rare= ItemRarityID.Pink;
             item.value = Item.sellPrice(gold : 10);
             item.melee = true;
             item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.

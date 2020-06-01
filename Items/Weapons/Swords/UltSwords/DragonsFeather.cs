@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.height = 48;
 			item.useTime = 15;
 			item.useAnimation = 15;
-			item.useStyle = 1;
+			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.knockBack = 50f;
 			item.value = Item.sellPrice(gold: 7);
 			item.rare = 9;

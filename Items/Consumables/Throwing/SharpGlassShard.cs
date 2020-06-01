@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Throwing
             item.damage = 30;
             item.useTime = 10;
             item.useAnimation = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.ranged = true;
 

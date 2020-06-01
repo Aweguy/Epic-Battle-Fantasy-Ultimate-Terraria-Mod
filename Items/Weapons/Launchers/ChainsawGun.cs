@@ -23,8 +23,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.width = 112;
             item.height = 56;
 
-            item.useTime = 30;
-            item.useAnimation = 30;
+            item.useTime = 40;
+            item.useAnimation = 40;
 
 
             item.damage = 87;
@@ -32,14 +32,14 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.melee = true;
             item.noMelee = true;
 
-            item.value = Item.sellPrice(gold: 50);
-            item.rare = 11;
+            item.value = Item.sellPrice(gold: 2);
+            item.rare= ItemRarityID.Purple;
 
             item.shoot = 10;
             item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 12f;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
 

@@ -25,6 +25,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             projectile.CloneDefaults(ProjectileID.Bat);
             projectile.penetrate = 1;
             projectile.timeLeft = 1000;
+            drawOffsetX = -5;
         }
 
 

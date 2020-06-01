@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories
             item.height = 32;
             item.defense = 65;
             item.accessory = true;
-            item.rare = 11;
+            item.rare= ItemRarityID.Purple;
         }
 
 

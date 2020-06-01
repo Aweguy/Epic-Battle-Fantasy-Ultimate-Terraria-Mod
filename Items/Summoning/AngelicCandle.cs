@@ -30,7 +30,7 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
 			item.height = 32;
 			item.useTime = 36;
 			item.useAnimation = 36;
-			item.useStyle = 1;
+			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.value = Item.sellPrice(gold: 50);
 			item.rare = 9;
 			item.UseSound = SoundID.Item44;

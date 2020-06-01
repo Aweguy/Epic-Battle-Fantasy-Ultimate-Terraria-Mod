@@ -21,10 +21,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.height = 54;
 			item.useTime = 25;
 			item.useAnimation = 25;
-			item.useStyle = 1;
+			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.knockBack = 15f;
 			item.value = Item.sellPrice(silver: 50);
-			item.rare = 5;
+			item.rare= ItemRarityID.Pink;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.scale += 0.1f;

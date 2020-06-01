@@ -24,8 +24,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.penetrate = 1;
             projectile.ranged = true;
             aiType = ProjectileID.Bullet;
-            projectile.scale = 0.7f;
             projectile.timeLeft = 120;
+            drawOffsetX = -5;
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;

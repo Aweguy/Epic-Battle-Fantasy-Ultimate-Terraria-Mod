@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.damage = 67;
             item.useTime = 20;
             item.useAnimation = 20;
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.mana = 10;
             item.noMelee = true;
             item.magic = true;
@@ -55,6 +55,18 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             return false;
 
         }
+
+
+       
+
+
+
+
+
+
+
+
+
 
     }
 }

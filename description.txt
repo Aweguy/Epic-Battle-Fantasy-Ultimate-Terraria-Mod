@@ -238,8 +238,35 @@ Thanks to the EBF discord community for giving some ideas and TML discord commun
 
 
 
-    v.0.8.3.3
+    v0.8.3.3
 
     Test Patch:
 
     -The mod changed somethings in the code and that's a test publish to see if it's working. 
+
+
+    
+    v0.8.4.1
+
+    Minor Update:
+
+    -Updated for v1.11.7.1
+    -Fixed the T2 and T3 ammunition not being consumable.
+    -New weapon Gash Club.
+    -Bug fixes.
+
+
+
+    v0.8.5.1
+
+    Minor Update
+
+    -Updated for v1.11.7.2
+    -New Enemy NPC, Leaf Wraith (with a special attack)
+    -Made Wraith projectiles bigger. It's actually easier to dodge them this way.
+    -Fixed many hitbox issues in old and new projectiles.
+    -Balanced the stats and prices of all the Launchers. (mainly reduced fire rates)
+
+
+
+    v0.8.6.1
