@@ -3,37 +3,37 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.Utilities;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.ClassTypes;
 
-namespace EpicBattleFantasyUltimate.Items.Accessories
+namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
-    public class AngryFaic : ModItem
+    public class TargetBadge : Flair
     {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Angry Faic");
-            Tooltip.SetDefault("An emblem so angry, you want something to be BLAMMED!\nIncreases critical chance by 8% for all types of damage.\nIncreases damage by 8%.\nIncreases enemy aggression.");
+            DisplayName.SetDefault("Target Badge");
+            Tooltip.SetDefault("Somehow a target on yourself makes you a better shot, who knew?\nIncreases critical chance by 10% for all types of damage.\nIncreases enemy aggression.");
         }
 
         public override void SetDefaults()
         {
             item.width = 32;
             item.height = 32;
-            item.defense = 2;
-            item.rare = ItemRarityID.LightPurple;
+            item.defense = 1;
             item.accessory = true;
+            item.rare = 4;
         }
 
 
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.magicCrit += 8;
-            player.meleeCrit += 8;
-            player.rangedCrit += 8;
-            player.thrownCrit += 8;
-            player.allDamage += 0.08f;
-            player.aggro += 450;
+            player.magicCrit += 10;
+            player.meleeCrit += 10;
+            player.rangedCrit += 10;
+            player.thrownCrit += 10;
+            player.aggro += 400;
         }
 
 
@@ -48,12 +48,13 @@ namespace EpicBattleFantasyUltimate.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddIngredient(mod.ItemType("TargetBadge"));
+            recipe.AddIngredient(mod.ItemType("AbyssalSapphire"));
+            recipe.AddIngredient(mod.ItemType("VolcanicRuby"));
+            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 10);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
 
         }
     }

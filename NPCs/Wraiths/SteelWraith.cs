@@ -18,6 +18,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+        bool speed = false; //Definition of the bool that makes the npc double its speed when it's spawned
 
 
 
@@ -67,8 +68,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 
 
-
-
+            if (!speed)
+            {
+                npc.velocity *= 2f;
+                speed = true;
+            }
+           
 
             #region Movement Direction
 
@@ -96,6 +101,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             }
 
             #endregion
+
+
+
+
 
 
             #region Shooting

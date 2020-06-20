@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.Utilities;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.ClassTypes;
 
-namespace EpicBattleFantasyUltimate.Items.Accessories
+namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
-    public class ShieldMedal : ModItem
+    public class ShieldMedal : Flair
     {
 
         public override void SetStaticDefaults()

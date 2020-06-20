@@ -1,13 +1,14 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
 
 
-namespace EpicBattleFantasyUltimate.Items.Accessories
+namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
-    public class IronCross : ModItem
+    public class IronCross : Flair
     {
 
         public override void SetStaticDefaults()

@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.Utilities;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.ClassTypes;
 
-namespace EpicBattleFantasyUltimate.Items.Accessories
+namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
-    public class GreenCross : ModItem
+    public class GreenCross : Flair
     {
         int timer = 60 * 10;
         public override void SetStaticDefaults()

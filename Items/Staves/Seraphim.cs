@@ -28,8 +28,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             //item.mana = 100;
             item.noMelee = true;
 
-            item.useTime = 100;
-            item.useAnimation = 100;
+            item.useTime = 1;
+            item.useAnimation = 1;
             item.useStyle = ItemUseStyleID.HoldingOut;
 
             //item.channel = true; //Channel so that you can held the weapon [Important]

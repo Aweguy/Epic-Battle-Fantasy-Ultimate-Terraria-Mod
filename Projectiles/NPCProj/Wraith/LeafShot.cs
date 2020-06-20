@@ -22,7 +22,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.width = 2;
             projectile.height = 2;
             projectile.aiStyle = -1;
-            projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.timeLeft = 1;

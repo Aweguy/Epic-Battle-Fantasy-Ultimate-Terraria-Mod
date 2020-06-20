@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
@@ -15,8 +16,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         int timer = 10;   //The timer that makes the first projectile be shot.
         int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+        int icetimer = (60 * 4) + 30; //The timer that makes the icicles spawn. (4.5 seconds)
+        int icetimer2 = 10; //The timer that defines the interval between each icicle.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
-        bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+        int fmis = 5; //Defines how many icicles will drop. (Falling Magical Ice Spikes)
+        float offsetx; //Definition of the number that will define where the icicle will spawn.
+        bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot.
+        
 
 
 
@@ -99,6 +105,52 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 
             #region Shooting
+
+            if(npc.life <= (int)(npc.lifeMax * 0.7f))
+            {
+
+                icetimer--;
+
+
+                if(icetimer <= 0)
+                {
+
+                    
+                    icetimer2--;
+
+                    if (icetimer2 <= 0)
+                    {
+                        
+
+                        
+                        offsetx = Main.rand.NextFloat(-100, 100);
+
+                        Vector2 spawnPosition = new Vector2(Main.player[npc.target].Center.X - offsetx, Main.player[npc.target].Center.Y - 500);
+                        Vector2 speed = new Vector2(0, 10);
+
+                        proj2 = Projectile.NewProjectile(spawnPosition, speed, ModContent.ProjectileType<Icicle>(), 20, 2, Main.myPlayer, 0, 1);
+
+                        icetimer2 = 10;
+                        fmis--;
+                    }
+
+                    
+
+                    else if(fmis <= 0)
+                    {
+                        fmis = 5;
+                        icetimer = (60 * 4) + 30;
+                    }
+
+
+                }
+
+               
+
+
+            }
+
+
 
             timer--;
 

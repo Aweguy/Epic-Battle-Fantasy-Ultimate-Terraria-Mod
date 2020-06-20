@@ -21,13 +21,17 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void SetDefaults()
         {
             item.damage = 5;
+            item.knockBack = 5f;
             item.melee = true;
+
             item.width = 64;
             item.height = 64;
+
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 40;
             item.useAnimation = 40;
-            item.knockBack = 5f;
+
+            
             item.value = Item.sellPrice(gold: 10);
             item.rare = 10;
             item.UseSound = SoundID.Item1;

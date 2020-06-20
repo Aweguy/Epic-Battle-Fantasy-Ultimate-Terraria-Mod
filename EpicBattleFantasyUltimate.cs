@@ -6,18 +6,35 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using EpicBattleFantasyUltimate;
 using Terraria.Localization;
+using Terraria.UI;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
+using EpicBattleFantasyUltimate.UI.FlairSlots;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 
 namespace EpicBattleFantasyUltimate
 {
 	public class EpicBattleFantasyUltimate : Mod
 	{
-		public static List<int> thrownProjectiles = new List<int>();
 
-        #region PostSetupContent
+		//private UserInterface _flairUserInterface;
+		//public FlairSlot SlotUI;
+		
 
-        public override void PostSetupContent()
+        public static List<int> thrownProjectiles = new List<int>();
+
+	
+
+
+		#region PostSetupContent
+
+		public override void PostSetupContent()
 		{
-			for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
+
+            #region Doodad of the Squire
+
+            for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
 			{
 				Projectile projectile = new Projectile();
 				projectile.SetDefaults(i);
@@ -29,7 +46,10 @@ namespace EpicBattleFantasyUltimate
 					}
 				}
 			}
-		}
+
+            #endregion
+
+        }
 
         #endregion
 
@@ -84,6 +104,85 @@ namespace EpicBattleFantasyUltimate
 		}
 
 		#endregion
+
+
+
+
+		#region UI
+
+		/*public override void Load()
+		{
+			// you can only display the ui to the local player -- prevent an error message!
+			if (!Main.dedServ)
+			{
+				_flairUserInterface = new UserInterface();
+				SlotUI = new FlairSlot();
+
+				SlotUI.Activate();
+				_flairUserInterface.SetState(SlotUI);
+			}
+		}
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+			if (SlotUI.Visible)
+			{
+				_flairUserInterface?.Update(gameTime);
+			}
+		}
+
+
+
+        // make sure the ui can draw
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		{
+			// this will draw on the same layer as the inventory
+			int inventoryLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+
+			if (inventoryLayer != -1)
+			{
+				layers.Insert(
+					inventoryLayer,
+					new LegacyGameInterfaceLayer("My Mod: My Slot UI", () => {
+						if (SlotUI.Visible)
+						{
+							_flairUserInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI));
+			}
+		}*/
+
+
+
+
+
+
+
+
+
+
+		#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		public EpicBattleFantasyUltimate()

@@ -15,18 +15,23 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
 		public override void SetDefaults()
 		{
-			item.damage = 100;
-			item.melee = true;
 			item.width = 64;
 			item.height = 64;
+
+			item.damage = 100;
+			item.knockBack = 8f;
+			item.melee = true;
+			
 			item.useTime = 20;
 			item.useAnimation = 20;
 			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 8f;
+			item.autoReuse = true;
+
+
 			item.value = Item.sellPrice(gold: 10);
 			item.rare = 10;
 			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
+			
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("LightBlade");
 
@@ -35,8 +40,18 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.Next(3) == 0)
+            {
 				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
+			}
+				
 		}
+
+
+
+		public override bool OnlyShootOnSwing => true;
+
+
+
 
 		public override void AddRecipes()
 		{

@@ -200,19 +200,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                         {
                             projectile.width += 80;
                             projectile.height += 80;
-                            projectile.damage = 80 + projectile.width * 3;
+                            projectile.damage = (80 + projectile.width) * 3;
                         }
                         else if (projectile.width <= 325 && projectile.width > 150)
                         {
                             projectile.width += 220;
                             projectile.height += 220;
-                            projectile.damage = 220 + projectile.width * 4;
+                            projectile.damage = (220 + projectile.width) * 4;
                         }
                         else
                         {
                             projectile.width += 500;
                             projectile.height += 500;
-                            projectile.damage = 700 + projectile.width * 5;
+                            projectile.damage = (700 + projectile.width) * 5;
                         }                      
                         projectile.Center = projectile.position;
                         //projectile.position.X = projectile.position.X - (float)(projectile.width / 2);

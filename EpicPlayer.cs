@@ -7,13 +7,26 @@ using EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers;
 using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
 using System.Data.OleDb;
+using EpicBattleFantasyUltimate.UI.FlairSlots;
+using Terraria.UI;
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameInput;
+using Terraria.Localization;
+using Terraria.ModLoader.IO;
+using CustomSlot;
 
 namespace EpicBattleFantasyUltimate
 {
     public class EpicPlayer : ModPlayer
     {
 
-        #region shadow
+
+
+        #region Shadow
 
         public bool shadow = false;
 
@@ -149,6 +162,7 @@ namespace EpicBattleFantasyUltimate
         int timer = 60;
         bool heal = true;
         int timer2 = 60;
+
 
         #endregion
 
@@ -358,9 +372,7 @@ namespace EpicBattleFantasyUltimate
                 timer2 = 60;
             }
 
-            #endregion
-
-
+            #endregion          
 
         }
 
@@ -539,6 +551,34 @@ namespace EpicBattleFantasyUltimate
         }
 
         #endregion
+
+        #region ModifyDrawLayers
+
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        {
+            if (player.HeldItem.modItem is Items.SignatureItems.PaintSplatteredBrush) PlayerLayer.HeldItem.visible = false;
+
+            Action<PlayerDrawInfo> layerTarget = DrawGlowmasks; //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
+            PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
+            layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
+
+            void DrawGlowmasks(PlayerDrawInfo info)
+            {
+                if (info.drawPlayer.HeldItem.modItem is Items.IPlayerLayerDrawable) (info.drawPlayer.HeldItem.modItem as Items.IPlayerLayerDrawable).DrawGlowmask(info);
+            }
+        }
+
+        #endregion
+
+
+
+
+
+   
+
+
+
+
 
     }
 }

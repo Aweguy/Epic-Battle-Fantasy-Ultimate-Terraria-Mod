@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Dusts;
 using Steamworks;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
+using Terraria.Graphics.Shaders;
 
 namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 {
@@ -38,22 +39,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-        float scaled = 0f;//Used for the animation illusion
+        float scaled = 5f;//Used for the animation illusion
         float increaseY = 0f; //It increases the Y axis of the dust spawning
         float increaseY2 = 0f;//Same as above
         float WaveFrequency = 70f;//Dust spawning wave frequency on both spawners
         float WaveLength = 100f;//Dust Spawning wave length on both spawners
-
-
+        float beamWidth = 100f;//Collision hitbox.
+        float offDistance = 0.6f;//Distance Reduction
 
         Vector2 position;//the initial position of the laser
-
         Vector2 spriterotation = new Vector2(0,-1);//rotation of the laser to look up
 
         int timer = 0;//So the ground detection AI runs only once so the laser is not moving.
         int timer2 = 0;//Dust spawning timer for the feathers
         int timer3 = 0;//Dust spawning for the bubbles
-        int beamWidth = 210;//Unused right now.
+        int animation = 0;//Sets 0 or 1 for a small animation.
+        
 
 
         public override void SetStaticDefaults()
@@ -78,15 +79,35 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if (IsAtMaxCharge)
-            {
-                scaled = 5f;
-                MOVE_DISTANCE = 20f;
-            }
-            else
+            if (!IsAtMaxCharge)
             {
                 scaled = 1f;
                 MOVE_DISTANCE = 4f;
+            }
+            else if(IsAtMaxCharge && projectile.timeLeft <= 80)
+            {
+                scaled -= 0.06f;
+                MOVE_DISTANCE -= 0.24f;
+            }
+            else
+            {
+                if(animation == 0)
+                {
+                    scaled = 5.5f;
+                    animation = 1;
+                    MOVE_DISTANCE = 20f;
+                }
+                else if (animation == 1)
+                {
+                    scaled = 5f;
+                    animation = 0;
+                    MOVE_DISTANCE = 20f;
+                }
+                
+            }
+            if(scaled <= 0f)
+            {
+                projectile.Kill();
             }
             DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], position,
                spriterotation, 10, projectile.damage, -1.57f, 1f * scaled, 1000f, Color.White, (int)MOVE_DISTANCE);
@@ -94,7 +115,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         }
 
         #endregion
-
 
         #region DrawLaser 
 
@@ -145,8 +165,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
 
-            if (!IsAtMaxCharge) return false;
-
+            if (!IsAtMaxCharge)
+            {
+                return false;
+            }
+            else if(IsAtMaxCharge && projectile.timeLeft <= 80)
+            {
+                beamWidth -= 0.90f;//reducing the hitbox by 20 times of the beam scaling (scaled) since it's the correct math.
+            }
+            else
+            {
+                beamWidth = 100f;
+            }
             // We can only collide if we are at max charge, which is when the laser is actually fired
             Player player = Main.player[projectile.owner];
             Vector2 unit = spriterotation;
@@ -158,7 +188,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             // Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
             // It will look for collisions on the given line using AABB
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), position,
-                position + unit * Distance, 100, ref point);
+                position + unit * Distance, beamWidth, ref point);
         }
 
         #endregion
@@ -235,15 +265,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
                     Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f); 
 
-                    Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10)];
+                    Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0 , Color.White)];
                     dust.noGravity = true;
                     dust.scale = 1.2f;
-                    dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31,
-                        -unit.X * Distance, -unit.Y * Distance);
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
+                    dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31, -unit.X * Distance, -unit.Y * Distance);
                     dust.fadeIn = 0f;
                     dust.noGravity = true;
                     dust.scale = 0.88f;
-                    dust.color = Color.Cyan;
+                    dust.color = Color.White;
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
                 }
 
             }
@@ -256,26 +287,28 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                     Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f); 
 
 
-                    Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10)];
+                    Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
                     dust.noGravity = true;
                     dust.scale = 1.2f;
-                    dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31,
-                        -unit.X * Distance, -unit.Y * Distance);
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
+                    dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31, -unit.X * Distance, -unit.Y * Distance);
                     dust.fadeIn = 0f;
                     dust.noGravity = true;
                     dust.scale = 0.88f;
-                    dust.color = Color.Cyan;
+                    dust.color = Color.White;
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
 
 
-                    Dust dust2 = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y - Distance - 65), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10)];
+                    Dust dust2 = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y - Distance + offDistance - 65), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];//it's offDistance - 65 since that's the number that fits here.
                     dust2.noGravity = true;
                     dust2.scale = 1.2f;
-                    dust2 = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31,
-                        -unit.X * Distance, -unit.Y * Distance);
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
+                    dust2 = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, 31, -unit.X * Distance, -unit.Y * Distance);
                     dust2.fadeIn = 0f;
                     dust2.noGravity = true;
                     dust2.scale = 0.88f;
-                    dust2.color = Color.Cyan;
+                    dust2.color = Color.White;
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
 
                 }
 
@@ -283,7 +316,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
             #endregion
 
-
+            #region Feathers
 
             if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
             {
@@ -323,6 +356,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
             }
 
+            #endregion
 
             #region SpiralDust
 
@@ -401,17 +435,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         }
 
         #endregion
@@ -432,14 +455,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                 var start = position + spriterotation * Distance;
                 if (!Collision.CanHit(position, 1, 1, start, 1, 1))
                 {
-                    if (IsAtMaxCharge)
+                    if (!IsAtMaxCharge)
                     {
-                        Distance -= 50f;
+                        Distance -= 0f;
+                        break;
+                    }
+                    else if (IsAtMaxCharge && projectile.timeLeft <= 80)
+                    {
+                        
+                        Distance -= 50f - offDistance;
+                        offDistance += 0.6f;
                         break;
                     }
                     else
                     {
-                        Distance -= 0f;
+                        Distance -= 50f;
                         break;
                     }
                    
@@ -485,9 +515,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                 projectile.netUpdate = true;
             }
             int dir = projectile.direction;
-            player.ChangeDir(dir); // Set player direction to where we are shooting
             player.heldProj = projectile.whoAmI; // Update player's held projectile
-            player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * dir, projectile.velocity.X * dir); // Set the item rotation to where we are shooting
         }
 
         #endregion

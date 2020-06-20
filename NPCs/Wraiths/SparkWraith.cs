@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
@@ -15,9 +16,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 
 
-
+        
         int timer = 10;   //The timer that makes the first projectile be shot.
         int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+        int timer3 = 120; //The timer that defines when the Sparkle will be shot.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
 
@@ -65,10 +67,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             Player player = Main.player[npc.target]; //Target
             int proj;
             int proj2;
+            int proj3;
 
             Dust.NewDustDirect(npc.position, npc.width, npc.height, 6, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
-
+            
 
 
             #region Movement Direction
@@ -161,6 +164,29 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
                 timer2 = 120;
             }
+
+
+
+            timer3--;
+
+
+            if(timer3 <= 0)
+            {
+                if(player.statLife > 0)
+                {
+                    proj3 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
+                }
+
+
+                timer3 = 360;
+            }
+
+
+
+
+
+
+
             #endregion
 
 

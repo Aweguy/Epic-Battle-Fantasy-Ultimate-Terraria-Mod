@@ -1,9 +1,11 @@
-A mod that introduces content inspired from the Epic Battle Fantasy universe developed by Kupo Games (Matt Roszek). Still very early progress.
+A mod that introduces content inspired from the Epic Battle Fantasy universe developed by Kupo Games (Matt Roszak). Still very early progress.
 Soon more will be added with frequent updates as long as i have time for that.
 Coding: Aweguy
 Literally the closest associate : AngryBiskoti
 Lead Spriting: Listochik (aka Leaf),Maskano , Renatm, The Purified, codingMadm, speedynamo, DigitalZero
-Concept art:Hamstermer (aka Squire of REL)
+Some Spriting: GDA-G
+Help with the Flair slots: abluescarab
+Writing: Hamstermer (aka Squire Doodad)
 
 
 Thanks to the EBF discord community for giving some ideas and TML discord community for helping me learn how to mod and the Example mod for helping me code. Enjoy.
@@ -269,4 +271,20 @@ Thanks to the EBF discord community for giving some ideas and TML discord commun
 
 
 
+    v0.8.5.2
+
+    Minor Balance patch
+
+    As you may have seen, the Steel Wraith shoots way to fast as it has kept the rate of fire of when i was testing it. I missed it some how. Now this is fixed. Sorry for the inconvenience.
+    Don't worry, i am still working on the new update.
+
+
+
     v0.8.6.1
+
+    -Updated for v.1.11.7.4
+    -Optimized some code
+    -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX.
+    -Fixed hitboxes.
+    -New Developer Weapon, Paint Splattered B(r)ush. The parenthesis is there on purpose.
+    -Added a Special Attack for Spark Wraith and the Frost Wraith.
