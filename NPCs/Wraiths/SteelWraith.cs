@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
@@ -16,6 +17,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         int timer = 10;   //The timer that makes the first projectile be shot.
         int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+        int spectimer = 60 * 5;//Defines when the spikes will start spawning
+        int spintimer = 25; //A timer that sets wthe interval between the orbiting spikes.
+        int spikes = 3;//The number of the spikes.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
         bool speed = false; //Definition of the bool that makes the npc double its speed when it's spawned
@@ -108,6 +112,37 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 
             #region Shooting
+
+
+            //proj2 = Projectile.NewProjectile(npc.Center, npc.DirectionTo(Main.player[npc.target].Center) * 10f  , ModContent.ProjectileType<WraithSawblade>(), 20, 2, Main.myPlayer, npc.whoAmI, 0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             timer--;
 

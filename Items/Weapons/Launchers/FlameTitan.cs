@@ -3,38 +3,39 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class CrystalWing : ModItem
+    public class FlameTitan : ModItem
     {
-
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crystal Wing");
-            Tooltip.SetDefault("A weapon crafted by futuristic Seraphim.\n Lower damage than the other launchers.\nSpecial Effect:\nHeals 25% of the damage done in one second. Can heal only once per second\nHeals 50% if Crystal Revolver is in inventory.");
+            DisplayName.SetDefault("Flame Titan");
+            Tooltip.SetDefault("A mythical flamethrower capable of scouring ravening hordes. Untold magical power lies within.");
         }
 
 
         public override void SetDefaults()
         {
-            item.width = 84;
-            item.height = 54;
+            item.width = 108;
+            item.height = 64;
 
             item.useTime = 35;
             item.useAnimation = 35;
 
 
-            item.damage = 70;
+            item.damage = 90;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.shoot = 10;
             item.useAmmo = ItemType<Shot>();
@@ -84,12 +85,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-            recipe.AddIngredient(mod.ItemType("PristineDiamond"), 5);
-            recipe.AddIngredient(ItemID.MarbleBlock, 100);
+            recipe.AddIngredient(ItemType<VolcanicRuby>(), 5);
+            recipe.AddIngredient(ItemType<SteelPlate>(), 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
 
 
 

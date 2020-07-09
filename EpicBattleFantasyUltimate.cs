@@ -12,6 +12,7 @@ using ReLogic.Graphics;
 using EpicBattleFantasyUltimate.UI.FlairSlots;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using EpicBattleFantasyUltimate.HelperClasses;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -103,14 +104,14 @@ namespace EpicBattleFantasyUltimate
 
 		}
 
-		#endregion
+        #endregion
 
 
 
 
-		#region UI
+        #region UI
 
-		/*public override void Load()
+        /*public override void Load()
 		{
 			// you can only display the ui to the local player -- prevent an error message!
 			if (!Main.dedServ)
@@ -164,29 +165,53 @@ namespace EpicBattleFantasyUltimate
 
 
 
-		#endregion
+        #endregion
+
+
+		public ProjHelperEngine ProjEngine
+        {
+			get;
+			private set;
+        }
 
 
 
 
+        public override void Load()
+        {
+			base.Load();
 
+			this.ProjEngine = new ProjHelperEngine(this);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
+		public static EpicBattleFantasyUltimate instance
+        {
+			get;
+			private set;
+        }
 
 
 		public EpicBattleFantasyUltimate()
-		{
-		}
+        {
+			if(EpicBattleFantasyUltimate.instance == null)
+            {
+				EpicBattleFantasyUltimate.instance = this;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
 	}
 }

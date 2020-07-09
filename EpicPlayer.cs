@@ -18,6 +18,7 @@ using Terraria.GameInput;
 using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using CustomSlot;
+using EpicBattleFantasyUltimate.NPCs.Ores;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -55,6 +56,23 @@ namespace EpicBattleFantasyUltimate
         double WeakenedMult;
 
         #endregion
+
+        #region OnHitByNPC
+
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        {
+
+            #region OreImmunity
+
+            if (npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<PeridotOre>())
+            {
+                player.immune = false;
+            }
+
+            #endregion
+        }
+
+        #endregion 
 
         #region ModifyHitNPC
 

@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
@@ -15,7 +15,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
     {
         int timer = 10;   //The timer that makes the first projectile be shot.
         int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+        int spectimer = 60 * 5;//Defines when the fireballs will start spawning
+        int spintimer = 25; //A timer that sets wthe interval between the orbiting fireballs.
+        int fireballs = 3;//The number of the fireballs.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
+        float FireVel = 3f;//The velocity of the fireballs when launched.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
         
 
@@ -98,7 +102,52 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
             #region Shooting
 
+            spectimer--;
+
+
+            if (spectimer <= 0)
+            {
+
+
+                spintimer--;
+
+                if (spintimer <= 0)
+                {
+
+
+
+
+                    proj2 = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI, FireVel);
+
+                    spintimer = 30;//Resets the interval
+                    fireballs--;
+                }
+
+
+
+                else if (fireballs <= 0)
+                {
+                    fireballs = 3;
+                    spectimer = 60 * 25; //Higher than the base value for balance purposes
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+
             timer--;  
+            
+
+
+
+
 
 
             if(timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots

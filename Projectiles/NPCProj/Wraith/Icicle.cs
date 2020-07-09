@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wraith Icicle");
-            Main.projFrames[projectile.type] = 5;
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()
@@ -42,7 +42,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         {
             if (!Frame)
             {
-                projectile.frame = Main.rand.Next(0, 4);
+                projectile.frame = Main.rand.Next(0, 3);
 
                 Frame = true;
             }
