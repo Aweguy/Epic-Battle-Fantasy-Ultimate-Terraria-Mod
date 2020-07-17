@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.consumable = true;
             item.width = 10;
             item.height = 10;
-            item.maxStack = 1;
+            item.maxStack = 999;
             item.knockBack = 0.5f;
             item.value = 1000;
             item.rare = 4;

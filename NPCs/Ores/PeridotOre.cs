@@ -21,10 +21,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.width = 40;
 			npc.height = 40;
 
-			npc.lifeMax = 185;
-			npc.damage = 25;
-			npc.defense = 40;
+			npc.lifeMax = 105;
+			npc.damage = 30;
+			npc.defense = 30;
 			npc.lifeRegen = 4;
+			npc.knockBackResist = -0.2f;
+
 
 
 			npc.noTileCollide = true;
@@ -34,7 +36,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+        #region OnHitPlayer
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			//npc.life = 0;
 
@@ -43,7 +47,54 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				if (Main.rand.NextFloat() < .1f)
 				{
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 50, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
+
+					Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel2 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel3 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel4 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel5 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel6 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel7 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel8 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+					Vector2 vel9 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+
+					int goreIndex = Gore.NewGore(npc.position, npc.velocity * vel1, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore1"), 1f);
+
+					int goreIndex2 = Gore.NewGore(npc.position, npc.velocity * vel2, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore2"), 1f);
+
+					int goreIndex3 = Gore.NewGore(npc.position, npc.velocity * vel3, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore3"), 1f);
+
+					int goreIndex4 = Gore.NewGore(npc.position, npc.velocity * vel4, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore4"), 1f);
+
+					int goreIndex5 = Gore.NewGore(npc.position, npc.velocity * vel5, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore5"), 1f);
+
+					int goreIndex6 = Gore.NewGore(npc.position, npc.velocity * vel6, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore6"), 1f);
+
+					int goreIndex7 = Gore.NewGore(npc.position, npc.velocity * vel7, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore7"), 1f);
+
+					int goreIndex8 = Gore.NewGore(npc.position, npc.velocity * vel8, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore8"), 1f);
+
+					int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
+
+
+
+
+
+
+
+
+
+
 					npc.life = 0;
 				}
 				else
@@ -73,26 +124,82 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 			else
 			{
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 50, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
+
+
+
+
+
+
+
+				Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel2 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel3 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel4 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel5 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel6 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel7 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel8 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+				Vector2 vel9 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+
+				int goreIndex = Gore.NewGore(npc.position, npc.velocity * vel1, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore1"), 1f);
+
+				int goreIndex2 = Gore.NewGore(npc.position, npc.velocity * vel2, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore2"), 1f);
+
+				int goreIndex3 = Gore.NewGore(npc.position, npc.velocity * vel3, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore3"), 1f);
+
+				int goreIndex4 = Gore.NewGore(npc.position, npc.velocity * vel4, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore4"), 1f);
+
+				int goreIndex5 = Gore.NewGore(npc.position, npc.velocity * vel5, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore5"), 1f);
+
+				int goreIndex6 = Gore.NewGore(npc.position, npc.velocity * vel6, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore6"), 1f);
+
+				int goreIndex7 = Gore.NewGore(npc.position, npc.velocity * vel7, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore7"), 1f);
+
+				int goreIndex8 = Gore.NewGore(npc.position, npc.velocity * vel8, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore8"), 1f);
+
+				int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
+
+
+
+
+
+
 				npc.life = 0;
 			}
 
 
 
+		}
+
+        #endregion
 
 
+        #region HitEffect
 
-
-
-
+        public override void HitEffect(int hitDirection, double damage)
+		{
+			for (int i = 0; i <= 3; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+			for (int j = 0; j <= 2; j++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, 3, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
 
 		}
 
-
-
-
-
-
+		#endregion
 
 
 
@@ -111,10 +218,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			Movement(npc);
 		}
 
-		#endregion
+        #endregion
 
+        #region Direction
 
-		private void Direction(NPC npc)
+        private void Direction(NPC npc)
 		{
 			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
@@ -141,34 +249,34 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
+        #endregion
 
-		private void Movement(NPC npc)
+        #region Movement 
+
+        private void Movement(NPC npc)
 		{
-			Vector2 value50 = Main.player[npc.target].Center - npc.Center;
-			float num1276 = value50.Length();
-			float num1277 = 2f;
-			num1277 += num1276 / 200f;
-			int num1278 = 50;
-			value50.Normalize();
-			value50 *= num1277;
-			npc.velocity = (npc.velocity * (float)(num1278 - 1) + value50) / (float)num1278;
+			Vector2 target = Main.player[npc.target].Center - npc.Center;
+			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
+			float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
+			MoveSpeedMult += num1276 / 200f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
+			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+			target *= MoveSpeedMult;
+			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
 
 
 			npc.noGravity = true;
 			npc.TargetClosest(true);
-			Vector2 value49 = Main.player[npc.target].Center - npc.Center;
-			value49.Y -= (float)(Main.player[npc.target].height / 4);
-			float num1275 = value49.Length();
 
 
 
 
 		}
 
+		#endregion
 
-
-
+		#region FindFrame
 
 		int Frame1 = 0;
 		int Frame2 = 1;
@@ -203,11 +311,73 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 		}
 
+		#endregion
+
+		#region CheckDead
+
+		public override bool CheckDead()
+		{
+
+			Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel2 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel3 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel4 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel5 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel6 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel7 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel8 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+			Vector2 vel9 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
+
+
+			int goreIndex = Gore.NewGore(npc.position, npc.velocity * vel1, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore1"), 1f);
+
+			int goreIndex2 = Gore.NewGore(npc.position, npc.velocity * vel2, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore2"), 1f);
+
+			int goreIndex3 = Gore.NewGore(npc.position, npc.velocity * vel3, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore3"), 1f);
+
+			int goreIndex4 = Gore.NewGore(npc.position, npc.velocity * vel4, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore4"), 1f);
+
+			int goreIndex5 = Gore.NewGore(npc.position, npc.velocity * vel5, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore5"), 1f);
+
+			int goreIndex6 = Gore.NewGore(npc.position, npc.velocity * vel6, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore6"), 1f);
+
+			int goreIndex7 = Gore.NewGore(npc.position, npc.velocity * vel7, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore7"), 1f);
+
+			int goreIndex8 = Gore.NewGore(npc.position, npc.velocity * vel8, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore8"), 1f);
+
+			int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
+
+
+
+			for (int i = 0; i <= 15; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+			for (int j = 0; j <= 5; j++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, 3, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+
+
+
+			return true;
+		}
+
+        #endregion
 
 
 
 
 
 
-	}
+
+    }
 }

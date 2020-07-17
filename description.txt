@@ -2,7 +2,7 @@ A mod that introduces content inspired from the Epic Battle Fantasy universe dev
 Soon more will be added with frequent updates as long as i have time for that.
 Coding: Aweguy
 Literally the closest associate : AngryBiskoti
-Lead Spriting: Listochik (aka Leaf),Maskano , Renatm, The Purified, codingMadm, speedynamo, DigitalZero
+Lead Spriting: Listochik (aka Leaf), Maskano , Renatm, The Purified, codingMadm, speedynamo, DigitalZero
 Some Spriting: GDA-G
 Help with the Flair slots: abluescarab
 Writing: Hamstermer (aka Squire Doodad)
@@ -285,8 +285,10 @@ Thanks to the EBF discord community for giving some ideas and TML discord commun
     -Updated for v.1.11.7.4
     -Optimized some code
     -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX, Super Revolver CA, Flame Titan, Flare Dwarf
-    -New NPCs Zircon Ore, Peridot Ore
+    -New NPCs Zircon Ore, Peridot Ore, Quartz Ore, Wooden Idols, Stone Idols
     -Fixed hitboxes.
+    -Fixed a bug where the ammunition didn't stack correctly.
     -New Developer Weapon, Paint Splattered B(r)ush. The parenthesis is there on purpose.
     -Added a Special Attack the rest of the Wraiths who hadn't got any special attacks.
     -Nerfed the damage of Crystal Wing
+    -Removed some useless assets.
