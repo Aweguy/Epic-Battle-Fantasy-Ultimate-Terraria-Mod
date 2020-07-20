@@ -12,7 +12,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stone Idol");
-
         }
 
         public override void SetDefaults()

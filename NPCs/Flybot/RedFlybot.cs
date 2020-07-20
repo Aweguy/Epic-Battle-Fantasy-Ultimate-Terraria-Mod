@@ -5,13 +5,19 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
 	public class RedFlybot : ModNPC
 	{
 
-		bool Cannon1 = false;
+		int ShootTimer = 60;//Determines when the cannon will shoot
+		int damage;
+		int ShotNum = 0;//Number of shots
+		int ShootInterv = 30;//The interval between shots
+		bool Shoot = false;//Determines if the cannon will shoot
+		Vector2 velocity;
 
 		public override void SetStaticDefaults()
 		{
@@ -45,20 +51,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 			npc.TargetClosest(true);
 
-            if (!Cannon1)
-            {
-				Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<RedCannon>(), 0, 0, Main.myPlayer, npc.whoAmI, npc.target);
-
-				Cannon1 = true;
-			}
+			
 
 
-
+			Shooting(npc);
 			movement(npc);
 		}
 
 
-		private void movement(NPC npc)
+        #region movement
+
+        private void movement(NPC npc)
         {
 			if (npc.collideX)
 			{
@@ -220,6 +223,62 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		}
 
+        #endregion
+
+        #region Shooting
+
+        private void Shooting(NPC npc)
+        {
+
+			Player target = Main.player[npc.target];
+
+			ShootTimer--;
+
+			if (ShootTimer <= 0 && ShotNum < 3)
+			{
+
+
+				if (ShotNum < 2)
+				{
+					velocity = npc.DirectionTo(target.Center) * 10f;//sets the velocity of the projectile.
+					damage = 30;
+
+				}
+				else if (ShotNum == 2)
+				{
+					velocity = npc.DirectionTo(target.Center) * 20f;//sets the velocity of the projectile.
+					damage = 60;
+				}
+
+
+
+
+
+
+				ShotNum++;
+
+				Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<LeafSplinter>(), damage, 10, Main.myPlayer, 0, 1);
+
+
+				if (ShotNum < 2)
+				{
+
+					ShootTimer = 30;
+				}
+				else if (ShotNum == 2)
+				{
+					ShootTimer = 60;
+				}
+				else
+				{
+					ShootTimer = 300;
+					ShotNum = 0;
+				}
+			}
+
+		}
+
+        #endregion
 
 
 
@@ -231,11 +290,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 
 
-
-
-
-
-		public override void FindFrame(int frameHeight)
+        public override void FindFrame(int frameHeight)
         {
 			if (npc.velocity.X > 0f)
 			{

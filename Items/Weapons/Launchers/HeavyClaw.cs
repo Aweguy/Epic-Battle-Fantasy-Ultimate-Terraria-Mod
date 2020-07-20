@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavy Claw");
-            Tooltip.SetDefault("An ergonomic, high crit-rate gun that, shockingly, is not a spear.\nHigh damage and velocity bullets. Slow fire rate.\nHaving Regnir in your inventory increases its critical rate by 30%");
+            Tooltip.SetDefault("Can hold three tons of metal, at least until your back gives out.\n Deals melee damage");
         }
 
 
@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
 
             item.damage = 150;
-            item.ranged = true;
+            item.melee = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 7);

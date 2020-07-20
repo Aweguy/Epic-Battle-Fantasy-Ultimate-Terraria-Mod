@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Visecracker");
-            Tooltip.SetDefault("You can hear eagles when you reload it");
+            Tooltip.SetDefault("Puts the bullet's weight into every shot\nDeals melee damage.");
         }
 
 
@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useAnimation = 20;
             item.useStyle = ItemUseStyleID.HoldingOut;
 
-            item.ranged = true;
+            item.melee = true;
             item.noMelee = true;
 
             item.rare = ItemRarityID.Pink;
