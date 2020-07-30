@@ -59,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
             int degrees = Main.rand.Next(10);
             float numberProjectiles = 5; // 5 shots
-            float rotation = MathHelper.ToRadians(30); //30 degrees spread
+            float rotation = MathHelper.ToRadians(45); //30 degrees spread
             position += Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
             for (int i = 0; i < numberProjectiles; i++)
             {

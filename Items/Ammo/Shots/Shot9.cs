@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.value = 10000;
             item.rare = ItemRarityID.LightPurple;
             item.shoot = mod.ProjectileType("AntimatterShot");
-            item.shootSpeed = 14f;
+            item.shootSpeed = 7f;
             item.ammo = mod.ItemType("Shot");
         }
 

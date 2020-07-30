@@ -16,7 +16,4 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sounds\NPC\" />
-  </ItemGroup>
 </Project>

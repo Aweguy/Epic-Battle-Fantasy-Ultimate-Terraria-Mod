@@ -6,34 +6,32 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
 
 namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
 	public class RedFlybot : ModNPC
 	{
 
-		int ShootTimer = 60;//Determines when the cannon will shoot
-		int damage;
-		int ShotNum = 0;//Number of shots
-		int ShootInterv = 30;//The interval between shots
-		bool Shoot = false;//Determines if the cannon will shoot
-		Vector2 velocity;
+		int BleepTimer = 20;//Determines when the check for the Bleep sound will happen
+		bool CannonSpawn2 = false;
+		bool CannonSpawn1 = false;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Red Flybot");
+			Main.npcFrameCount[npc.type] = 3;
+
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 40;
-			npc.height = 40;
+			npc.width = 68;
+			npc.height = 54;
 
-			npc.lifeMax = 125;
-			npc.damage = 22;
-			npc.defense = 35;
-			npc.lifeRegen = 4;
-			npc.knockBackResist = -0.2f;
+			npc.lifeMax = 120;
+			npc.damage = 25;
+			npc.defense = 30;
 
 			npc.noGravity = true;
 
@@ -51,11 +49,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 			npc.TargetClosest(true);
 
+			BleepTimer--;
+
 			
 
-
-			Shooting(npc);
+			CannonSpawning(npc);
 			movement(npc);
+			Bleep(npc);
 		}
 
 
@@ -225,73 +225,64 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
         #endregion
 
-        #region Shooting
+        #region Cannon Spawning
 
-        private void Shooting(NPC npc)
+        private void CannonSpawning(NPC npc)
         {
+            if (!CannonSpawn2)
+            {
+				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonBehind>(), 0, 0, Main.myPlayer, npc.whoAmI);
 
-			Player target = Main.player[npc.target];
+				CannonSpawn2 = true;
 
-			ShootTimer--;
-
-			if (ShootTimer <= 0 && ShotNum < 3)
-			{
-
-
-				if (ShotNum < 2)
-				{
-					velocity = npc.DirectionTo(target.Center) * 10f;//sets the velocity of the projectile.
-					damage = 30;
-
-				}
-				else if (ShotNum == 2)
-				{
-					velocity = npc.DirectionTo(target.Center) * 20f;//sets the velocity of the projectile.
-					damage = 60;
-				}
-
-
-
-
-
-
-				ShotNum++;
-
-				Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<LeafSplinter>(), damage, 10, Main.myPlayer, 0, 1);
-
-
-				if (ShotNum < 2)
-				{
-
-					ShootTimer = 30;
-				}
-				else if (ShotNum == 2)
-				{
-					ShootTimer = 60;
-				}
-				else
-				{
-					ShootTimer = 300;
-					ShotNum = 0;
-				}
 			}
+			if (!CannonSpawn1)
+			{
+				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonFront>(), 0, 0, Main.myPlayer, npc.whoAmI);
+
+				CannonSpawn1 = true;
+
+			}
+
+
+
+
 
 		}
 
-        #endregion
+		#endregion
 
 
 
+		#region FindFrame
+
+		int Frame1 = 0;
+		int Frame2 = 1;
+		int Frame3 = 2;
 
 
+		public override void FindFrame(int frameHeight)
+		{
 
+			npc.frameCounter++;
+			if (npc.frameCounter < 10)
+			{
+				npc.frame.Y = Frame1 * frameHeight;
+			}
+			else if (npc.frameCounter < 20)
+			{
+				npc.frame.Y = Frame2 * frameHeight;
+			}
+			else if(npc.frameCounter < 30)
+            {
+				npc.frame.Y = Frame3 * frameHeight;
 
+			}
+			else
+			{
+				npc.frameCounter = 0;
+			}
 
-
-
-
-        public override void FindFrame(int frameHeight)
-        {
 			if (npc.velocity.X > 0f)
 			{
 				npc.spriteDirection = 1;
@@ -302,10 +293,73 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			}
 			npc.rotation = npc.velocity.X * 0.1f;
 
+
+
+
+
+
+		}
+
+		#endregion
+
+
+		private void Bleep(NPC npc)
+        {
+			if(BleepTimer <= 0)
+            {
+				if (Main.rand.NextFloat() < .1f)
+				{
+					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
+				}
+
+				BleepTimer = 20;
+			}
+
+		}
+
+		public override bool CheckDead()
+		{
+			Vector2 gorevel;
+
+			if(npc.velocity.Y > 0f)
+            {
+				gorevel = new Vector2(npc.velocity.X / 3f, (npc.velocity.Y * 8f) * -1);
+            }
+			else
+            {
+				gorevel = new Vector2(npc.velocity.X / 3f, npc.velocity.Y * 8f);
+
+			}
+
+
+			int goreIndex = Gore.NewGore(npc.position, gorevel, mod.GetGoreSlot("Gores/Flybots/RedFlybot/RedHelix"), 1f);
+
+
+
+			for (int i = 0; i <= 20; i++)
+			{
+				Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+
+			int a = Projectile.NewProjectile(npc.Center, npc.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+
+			
+
+
+			return true;
 		}
 
 
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (Main.hardMode == true && spawnInfo.player.ZoneDesert)
+			{
+				return 0.03f;
+			}
 
+
+			return 0f;
+		}
 
 
 

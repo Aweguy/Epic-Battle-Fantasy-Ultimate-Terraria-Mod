@@ -43,7 +43,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.shoot = 10;
             item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item40;
-            item.shootSpeed = 32f;
+            item.shootSpeed = 24f;
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 

@@ -30,11 +30,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
-            projectile.timeLeft = 120;
+            
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;
 
+        }
+
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.Chilled, 60 * 3);
         }
 
 

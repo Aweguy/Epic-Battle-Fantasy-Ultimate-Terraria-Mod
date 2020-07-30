@@ -1,17 +1,27 @@
 ﻿A mod that introduces content inspired from the Epic Battle Fantasy universe developed by Kupo Games (Matt Roszak). Still very early progress.
 Soon more will be added with frequent updates as long as i have time for that.
+
 Coding: Aweguy
 Literally the closest associate : AngryBiskoti
 Lead Spriting: Listochik (aka Leaf), Maskano , Renatm, The Purified, codingMad, speedynamo, DigitalZero
-Some Spriting: GDA-G, Buff Froge, Bosh,
-Supporters: ust call me "Nab" (aka Troupe Master Grimm), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid
+Additional Spriting: GDA-G, Buff Froge, Bosh
+Supporters: Just call me "Nab" (aka Troupe Master Grimm), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid, Patholofical Lurker
 Help with the Flair slots: abluescarab
-Writing: Hamstermer (aka Squire Doodad)
+Elemental Damage types: CrimsonTek (developer of Terratyping)
+Writing and Editing: Hamstermer (aka Squire Doodad)
 
 
 Thanks to the EBF discord community for giving some ideas and TML discord community for helping me learn how to mod and the Example mod for helping me code. Enjoy.
 
+Special thanks to:
 
+Matt Roszak, Ronja and Phyrnna for creating all these great games
+
+Listochik for being the first who joined me in this journey
+
+The EBF5 Balancing team for creating the discord community
+
+All of our Family members for close support
 
 
 
@@ -285,11 +295,18 @@ Thanks to the EBF discord community for giving some ideas and TML discord commun
 
     -Updated for v.1.11.7.4
     -Optimized some code
-    -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX, Super Revolver CA, Flame Titan, Flare Dwarf
-    -New NPCs Zircon Ore, Peridot Ore, Quartz Ore, Wooden Idols, Stone Idols
+    -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX, Super Revolver CA, Flame Titan, Flare Dwarf, Heartstopper, Arrhythmia
+    -New NPCs Zircon Ore, Peridot Ore, Quartz Ore, Wooden Idols, Stone Idols, Ice Idols
     -Fixed hitboxes.
+
+    -Reworked Plasma Wave and Plasma Field so they are more descent ammunition to pick from. Specifically:
+        Removed Plasma Wave's (Wave Shells) cooldown on all weapons and increased damage
+        Increased damage and duration of Plasma Field (Plasmacross Clip) and added 3 waves of plasma bullets.
+
     -Fixed a bug where the ammunition didn't stack correctly.
     -New Developer Weapon, Paint Splattered B(r)ush. The parenthesis is there on purpose.
     -Added a Special Attack the rest of the Wraiths who hadn't got any special attacks.
     -Nerfed the damage of Crystal Wing
+    -Increased the spread of Hellfire Shotgun
     -Removed some useless assets.
+    -Partial implementation of Elelmental damage types thanks to CrimsonTek. Terratyping must be downloaded for the feature to work. It is NOT needed for the mod to run

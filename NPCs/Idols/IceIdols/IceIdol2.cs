@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
 
 namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 {
@@ -11,7 +12,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
     {
 
         int IceTimer = 30;
-        bool Rotate = false;
+        float IceRotation = 0;
         bool Left = false;
         bool Right = true;
         bool Ice = false;
@@ -44,18 +45,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
         public override void AI()
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -181,6 +170,37 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 {
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.5f), npc.position);
 
+                    if (Spin)
+                    {
+                        for (int i = 0; i <= 360 / 20; i++)
+                        {
+                            Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
+
+                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), 30, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+
+                            IceRotation += 20;
+
+                        }
+
+                    }
+                    else
+                    {
+                        for (int i = 0; i <= 360 / 40; i++)
+                        {
+                            Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
+
+                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), 30, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+
+                            IceRotation += 40;
+
+                        }
+
+                    }
+
+
+
+
+
                     IceTimer = 30;
                     Ice = false;
 
@@ -269,6 +289,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
 
 
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            if (Main.hardMode == true && spawnInfo.player.ZoneSnow)
+            {
+                return .2f;
+            }
+
+
+            return 0f;
+        }
 
 
 

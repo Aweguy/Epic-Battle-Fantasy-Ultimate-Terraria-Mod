@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.value = 1000;
             item.rare = 4;
             item.shoot = mod.ProjectileType("FlameShot");
-            item.shootSpeed = 16f;
+            item.shootSpeed = 8f;
             item.ammo = item.type;
         }
 

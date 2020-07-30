@@ -171,7 +171,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             }
             else if(IsAtMaxCharge && projectile.timeLeft <= 80)
             {
-                beamWidth -= 0.90f;//reducing the hitbox by 20 times of the beam scaling (scaled) since it's the correct math.
+                beamWidth -= 0.5f;//reducing the hitbox.
             }
             else
             {
@@ -331,6 +331,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
             if (timer2 == 40)
             {
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Spells/Judgement").WithPitchVariance(1f).WithVolume(.2f), projectile.position);
 
 
                 for (int i = 0; i < 85; ++i)
@@ -496,6 +497,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
                     }
 
+                }
+                if(Charge == MAX_CHARGE)
+                {
                 }
         }
 

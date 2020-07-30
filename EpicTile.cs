@@ -15,8 +15,9 @@ namespace EpicBattleFantasyUltimate
         {
             Player player = Main.LocalPlayer;
 
+            #region Zircon Spawn
 
-            if(Main.tile[i,j].type == TileID.IceBlock)
+            if (Main.tile[i,j].type == TileID.IceBlock)
             {
 
 
@@ -30,6 +31,50 @@ namespace EpicBattleFantasyUltimate
 
                 }
             }
+
+            #endregion
+
+            #region Emerald Spawn
+
+            if (Main.tile[i, j].type == TileID.Emerald)
+            {
+
+
+                if (Main.rand.NextFloat() < .1)
+                {
+                    int npcToSpawn = ModContent.NPCType<PeridotOre>();
+
+                    Vector2 spawnPos = new Vector2(i * 16, j * 16);
+
+                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+
+                }
+            }
+
+            #endregion
+
+            #region Quartz Spawn
+
+            if (Main.tile[i, j].type == TileID.Diamond)
+            {
+
+
+                if (Main.rand.NextFloat() < .1)
+                {
+                    int npcToSpawn = ModContent.NPCType<QuartzOre>();
+
+                    Vector2 spawnPos = new Vector2(i * 16, j * 16);
+
+                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+
+                }
+            }
+
+            #endregion
+
+
+
+
         }
 
 

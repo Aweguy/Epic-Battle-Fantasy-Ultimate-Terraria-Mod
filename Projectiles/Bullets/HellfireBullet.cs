@@ -22,7 +22,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             projectile.ranged = true;
             projectile.damage = 10;
             projectile.knockBack = 1f;
-            aiType = ProjectileID.Bullet;
             projectile.scale = 0.5f;
             projectile.timeLeft = 60;
             drawOffsetX = -6;

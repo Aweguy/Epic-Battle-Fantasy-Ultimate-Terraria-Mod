@@ -3,11 +3,16 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 {
     public class PlasmaField : ModProjectile
     {
+
+        float rotation = -45; //The rotation of the wave to the right
+        float rotation2 = -45 + 180; //The rotation of the wave to the left
+        int WaveTimer = 0; //The interval between the waves
 
 
         public override void SetStaticDefaults()
@@ -28,7 +33,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
             projectile.damage = 100;
             projectile.knockBack = 1f;
             projectile.tileCollide = false;
-            projectile.alpha = 1;
             projectile.scale = 5f;
         }
 
@@ -37,21 +41,88 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
         public override void AI()
         {
 
-            
+            Shooting(projectile);
 
+            #region Frame Changing
 
-
-
-            if (++projectile.frameCounter >= 2)
+            projectile.frameCounter += 1;
+            if (projectile.frameCounter > 2)
             {
+                projectile.frame++;
                 projectile.frameCounter = 0;
-                if (++projectile.frame >= 12)
+                if (projectile.frame >= 9 && projectile.ai[0] < 3)
+                {
+                    projectile.frame = 2;
+                    projectile.ai[0]++;
+                    if (projectile.ai[0] >= 3)
+                    {
+                        projectile.frame = 10;
+                    }
+                }
+                if (projectile.frame >= 12)
                 {
                     projectile.Kill();
                 }
+
             }
 
+            #endregion
+
+
+
         }
+
+
+
+        private void Shooting(Projectile projectile)
+        {
+            rotation = -45;
+            rotation2 = -45 + 180;
+            WaveTimer--;
+
+            if(WaveTimer <= 0)
+            {
+                for (int i = 0; i <= 17; i++)
+                {
+                    Vector2 velocity = new Vector2(6, 0).RotatedBy(MathHelper.ToRadians(rotation));
+
+                    Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+
+                    rotation += 5;
+                }
+
+
+
+                for (int j = 0; j <= 17; j++)
+                {
+                    Vector2 velocity2 = new Vector2(6, 0).RotatedBy(MathHelper.ToRadians(rotation2));
+
+                    Projectile.NewProjectile(projectile.Center, velocity2, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+
+                    rotation2 += 5;
+
+                }
+
+                WaveTimer = 30;
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
