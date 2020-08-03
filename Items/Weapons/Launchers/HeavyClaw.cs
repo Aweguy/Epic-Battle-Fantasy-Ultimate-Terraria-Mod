@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.reuseDelay = 20;
 
 
-            item.damage = 150;
+            item.damage = 102;
             item.melee = true;
             item.noMelee = true;
 

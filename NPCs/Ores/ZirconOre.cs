@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,9 +24,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             npc.width = 40;
             npc.height = 40;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 90;
+            npc.damage = 35;
+            npc.defense = 5;
             npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
@@ -272,6 +272,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		}
 
 
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
+			{
+				return 0.02f;
+			}
+
+
+			return 0f;
+		}
 
 
 
@@ -279,4 +289,4 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 
 	}
-}
+}*/

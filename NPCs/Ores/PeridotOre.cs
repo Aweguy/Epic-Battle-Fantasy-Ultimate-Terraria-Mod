@@ -21,9 +21,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.width = 40;
 			npc.height = 40;
 
-			npc.lifeMax = 105;
-			npc.damage = 30;
-			npc.defense = 30;
+			npc.lifeMax = 110;
+			npc.damage = 20;
+			npc.defense = 25;
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
@@ -371,13 +371,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			return true;
 		}
 
-        #endregion
+		#endregion
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
+			{
+				return 0.02f;
+			}
+
+
+			return 0f;
+		}
 
 
 
 
 
 
-
-    }
+	}
 }

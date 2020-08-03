@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using static Terraria.ModLoader.ModContent;
-
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -78,6 +78,16 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
 
 
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.IllegalGunParts);
+            recipe.AddIngredient(ModContent.ItemType<P2Processor>(), 4);
+            recipe.AddIngredient(ModContent.ItemType<GlassShard>(), 50);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 
 
 

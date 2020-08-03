@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -37,6 +38,16 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             
         }
 
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.IllegalGunParts);
+            recipe.AddIngredient(ModContent.ItemType<P2Processor>());
+            recipe.AddIngredient(ModContent.ItemType<GlassShard>(), 25);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
 
 
 

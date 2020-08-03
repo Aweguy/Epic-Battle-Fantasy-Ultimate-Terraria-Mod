@@ -5,16 +5,18 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using EpicBattleFantasyUltimate.Buffs.Buffs;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class Arrhythmia : ModItem
     {
+        int Random;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arrhythmia");
-            Tooltip.SetDefault("Echoes with an irregular beat when fired.");
+            Tooltip.SetDefault("Echoes with an irregular beat when fired.\nHas a slightly randomized rate of fire");
         }
 
 
@@ -23,7 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.width = 50;
             item.height = 30;
 
-            item.damage = 19;
+            item.damage = 14;
             item.useTime = 15;
             item.useAnimation = 15;
             item.reuseDelay = 2;
@@ -42,6 +44,19 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shootSpeed = 12f;
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+
+                int Random = Main.rand.Next(5, 25);
+                item.useTime = item.useAnimation = Random;
+            
+
+            
+
+            return true;
+        }
+
 
 
 

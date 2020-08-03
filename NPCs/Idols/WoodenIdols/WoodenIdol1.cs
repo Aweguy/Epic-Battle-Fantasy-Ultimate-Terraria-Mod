@@ -35,14 +35,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             npc.width = 36;
             npc.height = 48;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 95;
+            npc.damage = 14;
+            npc.defense = 5;
             npc.lifeRegen = 4;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            if (Main.hardMode)
+            {
+                npc.lifeMax *= 2;
+            }
 
 
 
@@ -222,7 +226,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             Player player = Main.player[Main.myPlayer];
             if (PlayerIsInForest(player))
             {
-                return 0.15f;
+                return 0.1f;
 
             }
 

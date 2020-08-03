@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate
         {
             Player player = Main.LocalPlayer;
 
-            #region Zircon Spawn
+            /*#region Zircon Spawn
 
             if (Main.tile[i,j].type == TileID.IceBlock)
             {
@@ -32,7 +32,7 @@ namespace EpicBattleFantasyUltimate
                 }
             }
 
-            #endregion
+            #endregion*/
 
             #region Emerald Spawn
 

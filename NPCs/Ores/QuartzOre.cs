@@ -22,9 +22,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.width = 40;
 			npc.height = 40;
 
-			npc.lifeMax = 125;
-			npc.damage = 22;
-			npc.defense = 35;
+			npc.lifeMax = 150;
+			npc.damage = 10;
+			npc.defense = 10;
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				if (Main.rand.NextFloat() < .1f)
 				{
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
 					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
 					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore2"), 1f);
@@ -83,61 +83,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 			else
 			{
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
-				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
-				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore2"), 1f);
-				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore3"), 1f);
-				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore4"), 1f);
+				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore1"), 1f);
+				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore2"), 1f);
+				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore3"), 1f);
+				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore4"), 1f);
 
 				npc.life = 0;
 			}
-
-
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoReservation);
-			target.ClearBuff(BuffID.Archery);
-			target.ClearBuff(BuffID.BeetleEndurance3);
-			target.ClearBuff(BuffID.BeetleEndurance2);
-			target.ClearBuff(BuffID.BeetleEndurance1);
-			target.ClearBuff(BuffID.BeetleMight1);
-			target.ClearBuff(BuffID.BeetleMight2);
-			target.ClearBuff(BuffID.BeetleMight3);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-			target.ClearBuff(BuffID.AmmoBox);
-
-
-
-
 
 
 
@@ -285,10 +239,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 		}
 
-		#endregion
+        #endregion
 
+        #region CheckDead
 
-		public override bool CheckDead()
+        public override bool CheckDead()
 		{
 
 			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore1"), 1f);
@@ -310,8 +265,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			return true;
 		}
 
+		#endregion
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
+			{
+				return 0.02f;
+			}
 
 
+			return 0f;
+		}
 
 
 

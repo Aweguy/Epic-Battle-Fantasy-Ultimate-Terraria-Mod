@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.width = 50;
             item.height = 28;
 
-            item.damage = 30;
+            item.damage = 25;
             item.useTime = 20;
             item.useAnimation = 20;
             item.useStyle = ItemUseStyleID.HoldingOut;
@@ -34,6 +34,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shoot = 10;
             item.shootSpeed = 10f;
             item.useAmmo = AmmoID.Bullet;
+            item.UseSound = SoundID.Item41;
+
 
         }
 

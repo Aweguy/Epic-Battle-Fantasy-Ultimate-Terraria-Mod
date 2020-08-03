@@ -1,44 +1,35 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using System;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
 
-
-namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
+namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
-    public class BoneShot : ModProjectile
+    public class RedLaser : ModProjectile
     {
-
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bone Shot");
+            DisplayName.SetDefault("Red Laser");
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
+            projectile.width = 16;
+            projectile.height = 16;
             projectile.aiStyle = -1;
             projectile.penetrate = 1;
             projectile.ranged = true;
-            aiType = ProjectileID.Bullet;
-            projectile.timeLeft = 120;
-            drawOffsetX = -2;
+            projectile.timeLeft = 240;
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;
-            projectile.alpha = 100;
-            
+
         }
 
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(BuffID.OnFire, 2 * 60);
-        }
-        
 
 
 
@@ -52,11 +43,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.spriteDirection = projectile.direction;
 
         }
-
-
-
-
-
 
 
 

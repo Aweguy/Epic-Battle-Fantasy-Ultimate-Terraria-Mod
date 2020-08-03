@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Aether's Blade");
-            Tooltip.SetDefault("The weaker predecessor of the Heaven's Gate Sword.\nEssential for crafting Heaven's Gate");
+            Tooltip.SetDefault("A noncanonical weapon hewn from the skies.\nEssential for crafting Heaven's Gate");
         }
 
 

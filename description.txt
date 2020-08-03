@@ -286,7 +286,7 @@ All of our Family members for close support
 
     Minor Balance patch
 
-    As you may have seen, the Steel Wraith shoots way to fast as it has kept the rate of fire of when i was testing it. I missed it some how. Now this is fixed. Sorry for the inconvenience.
+    As you may have seen, the Steel Wraith shoots way too fast as it has kept the rate of fire of when i was testing it. I missed it somehow. Now this is fixed. Sorry for the inconvenience.
     Don't worry, i am still working on the new update.
 
 
@@ -295,8 +295,8 @@ All of our Family members for close support
 
     -Updated for v.1.11.7.4
     -Optimized some code
-    -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX, Super Revolver CA, Flame Titan, Flare Dwarf, Heartstopper, Arrhythmia
-    -New NPCs Zircon Ore, Peridot Ore, Quartz Ore, Wooden Idols, Stone Idols, Ice Idols
+    -New Weapons, Seraphim, Gaia's Axe, Super Snipe ZX, Super Revolver CA, Flame Titan, Flare Dwarf, Heartstopper, Arrhythmia, Sub-Zero, Freezing Point
+    -New NPCs, Peridot Ore, Quartz Ore, Wooden Idols, Stone Idols, Ice Idols and the Red Flybot
     -Fixed hitboxes.
 
     -Reworked Plasma Wave and Plasma Field so they are more descent ammunition to pick from. Specifically:
@@ -305,8 +305,7 @@ All of our Family members for close support
 
     -Fixed a bug where the ammunition didn't stack correctly.
     -New Developer Weapon, Paint Splattered B(r)ush. The parenthesis is there on purpose.
-    -Added a Special Attack the rest of the Wraiths who hadn't got any special attacks.
+    -Added a Special Attack the rest of the Wraiths who hadn't got any special attacks except for the Steel Wraith
     -Nerfed the damage of Crystal Wing
     -Increased the spread of Hellfire Shotgun
     -Removed some useless assets.
-    -Partial implementation of Elelmental damage types thanks to CrimsonTek. Terratyping must be downloaded for the feature to work. It is NOT needed for the mod to run

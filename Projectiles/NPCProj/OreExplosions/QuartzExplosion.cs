@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 {
-    public class ZirconExplosion : ModProjectile
+    public class QuartzExplosion : ModProjectile
     {
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Explosion");
-            Main.projFrames[projectile.type] = 8;
+            Main.projFrames[projectile.type] = 13;
         }
 
         int timer2 = 1;
@@ -36,17 +36,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
             projectile.scale = 1.5f;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            if (Main.rand.NextFloat() < .1f)
-            {
-                target.AddBuff(BuffID.Frozen, 60 * 2);
-            }
-            else
-            {
-                target.AddBuff(BuffID.Chilled, 60 * 5);
-            }    
-        }
+
+
+
 
 
 
@@ -88,7 +80,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
             if (++projectile.frameCounter >= 3)
             {
                 projectile.frameCounter = 0;
-                if (++projectile.frame >= 7)
+                if (++projectile.frame >= 12)
                 {
                     projectile.Kill();
                 }
@@ -123,7 +115,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 
 
 
-
-
     }
-}*/
+}

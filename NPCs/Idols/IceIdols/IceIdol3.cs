@@ -29,14 +29,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             npc.width = 44;
             npc.height = 48;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 80;
+            npc.damage = 10;
+            npc.defense = 5;
             npc.lifeRegen = 4;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            if (Main.hardMode)
+            {
+                npc.lifeMax *= 2;
+            }
 
 
 
@@ -71,9 +75,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             if (Spin)
             {
                 float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 6f; //How fast it moves and turns. A multiplier maybe?
-                MoveSpeedMult += num1276 / 150f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 60; //This does the same as the above.... I do not understand.
+                float MoveSpeedMult = 5f; //How fast it moves and turns. A multiplier maybe?
+                MoveSpeedMult += num1276 / 125f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+                int MoveSpeedBal = 50; //This does the same as the above.... I do not understand.
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
@@ -83,9 +87,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             else
             {
                 float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 3f; //How fast it moves and turns. A multiplier maybe?
-                MoveSpeedMult += num1276 / 300f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 120; //This does the same as the above.... I do not understand.
+                float MoveSpeedMult = 10f; //How fast it moves and turns. A multiplier maybe?
+                MoveSpeedMult += num1276 / 250f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+                int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 

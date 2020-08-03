@@ -26,14 +26,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             npc.width = 44;
             npc.height = 48;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 90;
+            npc.damage = 10;
+            npc.defense = 20;
             npc.lifeRegen = 4;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            if (Main.hardMode)
+            {
+                npc.lifeMax *= 2;
+            }
 
 
 
@@ -62,9 +66,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             if (Spin)
             {
                 float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 6f; //How fast it moves and turns. A multiplier maybe?
+                float MoveSpeedMult = 8f; //How fast it moves and turns. A multiplier maybe?
                 MoveSpeedMult += num1276 / 150f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 60; //This does the same as the above.... I do not understand.
+                int MoveSpeedBal = 80; //This does the same as the above.... I do not understand.
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
@@ -74,9 +78,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             else
             {
                 float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 3f; //How fast it moves and turns. A multiplier maybe?
+                float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
                 MoveSpeedMult += num1276 / 300f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 120; //This does the same as the above.... I do not understand.
+                int MoveSpeedBal = 150; //This does the same as the above.... I do not understand.
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 

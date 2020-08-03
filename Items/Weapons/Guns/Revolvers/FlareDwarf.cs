@@ -26,8 +26,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.height = 30;
 
             item.damage = 33;
-            item.useTime = 60;
-            item.useAnimation = 60;
+            item.useTime = 40;
+            item.useAnimation = 40;
 
             item.knockBack = 5f;
             item.ranged = true;
@@ -52,7 +52,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts);
             recipe.AddIngredient(ItemType<VolcanicRuby>());
-            recipe.AddIngredient(ItemType<SteelPlate>(), 25);
+            recipe.AddIngredient(ItemType<SteelPlate>(), 10);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

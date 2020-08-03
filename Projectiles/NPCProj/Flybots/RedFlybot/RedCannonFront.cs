@@ -80,7 +80,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 				ShotNum++;
 
-				Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<LeafSplinter>(), damage, 10, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
 				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
 
 

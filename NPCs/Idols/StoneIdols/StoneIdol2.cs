@@ -31,14 +31,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             npc.width = 46;
             npc.height = 48;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 110;
+            npc.damage = 12;
+            npc.defense = 15;
             npc.lifeRegen = 4;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            if (Main.hardMode)
+            {
+                npc.lifeMax *= 2;
+            }
 
 
 

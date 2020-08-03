@@ -18,7 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sub-Zero");
-            Tooltip.SetDefault("They say your heartbeat is one of the last things you hear before you die.\nThis can fix that.");
+            Tooltip.SetDefault("It keeps fridges cool by day! It freezes foes by night! It’s Sub-Sub-Sub Sub Zero time!");
         }
 
 

@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Freezing Point");
-            Tooltip.SetDefault("Echoes with an irregular beat when fired.");
+            Tooltip.SetDefault("Also comes with a slot to keep your drinks cold!");
         }
 
 
@@ -24,13 +24,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.width = 48;
             item.height = 28;
 
-            item.damage = 19;
+            item.damage = 22;
             item.useTime = 15;
             item.useAnimation = 15;
-            item.reuseDelay = 2;
 
             item.crit = 1;
-            item.knockBack = 3f;
+            item.knockBack = 2f;
             item.ranged = true;
             item.noMelee = true;
 

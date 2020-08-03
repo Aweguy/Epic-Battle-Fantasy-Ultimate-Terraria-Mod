@@ -28,15 +28,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             npc.width = 36;
             npc.height = 48;
 
-            npc.lifeMax = 125;
-            npc.damage = 22;
-            npc.defense = 35;
+            npc.lifeMax = 100;
+            npc.damage = 10;
+            npc.defense = 15;
             npc.lifeRegen = 4;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
 
-            
+            if (Main.hardMode)
+            {
+                npc.lifeMax *= 2;
+            }
+
 
 
 
@@ -176,7 +180,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), 30, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
                             IceRotation += 20;
 
@@ -189,7 +193,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), 30, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+                            int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
                             IceRotation += 40;
 

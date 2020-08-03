@@ -25,7 +25,7 @@ namespace EpicBattleFantasyUltimate
     public class EpicPlayer : ModPlayer
     {
 
-
+        public bool MagicPuppyBuff;
 
         #region Shadow
 
@@ -64,10 +64,11 @@ namespace EpicBattleFantasyUltimate
 
             #region OreImmunity
 
-            if (npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<PeridotOre>())
+            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>())
             {
                 player.immune = false;
             }
+
 
             #endregion
         }
@@ -143,6 +144,8 @@ namespace EpicBattleFantasyUltimate
             Tired = false;
 
             #endregion
+
+            MagicPuppyBuff = false;
 
         }
 

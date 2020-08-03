@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.width = 64;
             item.height = 64;
 
-            item.damage = 100;
+            item.damage = 79;
             item.knockBack = 5f;
             item.melee = true;
 

@@ -24,11 +24,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.height = 30;
 
             item.damage = 22;
-            item.useTime = 10;
-            item.useAnimation = 10;
+            item.useTime = 20;
+            item.useAnimation = 20;
 
             item.crit = 8;
-            item.knockBack = 5f;
+            item.knockBack = 6f;
             item.melee = true;
             item.noMelee = true;
 

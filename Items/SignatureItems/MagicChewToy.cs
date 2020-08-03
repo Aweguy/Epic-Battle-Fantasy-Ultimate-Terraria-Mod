@@ -1,9 +1,11 @@
-﻿using System;
+﻿/*using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy;
+using EpicBattleFantasyUltimate.Buffs.Pets;
 
 namespace EpicBattleFantasyUltimate.Items.SignatureItems
 {
@@ -22,6 +24,9 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.height = 26;
             item.rare = ItemRarityID.Expert;
             item.value = Item.sellPrice(platinum: 1);
+
+            item.shoot = ModContent.ProjectileType<MagicPuppy>();
+            item.buffType = ModContent.BuffType<MagicPuppyBuff>();
         }
 
 
@@ -29,4 +34,4 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 
 
     }
-}
+}*/
