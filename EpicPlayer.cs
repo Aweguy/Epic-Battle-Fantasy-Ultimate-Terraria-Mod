@@ -19,13 +19,49 @@ using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using CustomSlot;
 using EpicBattleFantasyUltimate.NPCs.Ores;
+using System.IO;
+using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
 
 namespace EpicBattleFantasyUltimate
 {
     public class EpicPlayer : ModPlayer
     {
 
-        public bool MagicPuppyBuff;
+
+        #region Limit Break
+
+        public const int DefaultMaxLimit = 100;
+
+        public static readonly Color GetLimit = Color.OrangeRed;
+
+
+        public static EpicPlayer ModPlayer(Player player)
+        {
+            return player.GetModPlayer<EpicPlayer>();
+        }
+
+        //Limit
+
+        public int LimitCurrent;
+        public int MaxLimit;
+        public int MaxLimit2;
+        public int LimitGen;
+
+        public override void Initialize()
+        {
+            MaxLimit = DefaultMaxLimit;
+            MaxLimit2 = MaxLimit;
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
 
         #region Shadow
 
@@ -71,9 +107,87 @@ namespace EpicBattleFantasyUltimate
 
 
             #endregion
+
+            #region Limit Generation
+
+            LimitGenerationNPC(npc, damage, crit);
+
+            #endregion
+
+
         }
 
         #endregion 
+
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        {
+            LimitGenerationProj(proj, damage, crit);
+        }
+
+
+
+
+
+        private void LimitGenerationNPC(NPC npc, int damage, bool crit)
+        {
+            LimitCurrent += (int)damage / 4;
+
+            LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+        }
+
+        private void LimitGenerationProj(Projectile proj, int damage, bool crit)
+        {
+            LimitCurrent += (int)damage / 4;
+
+            LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+        }
+
+
+
+        public void LimitEffect(int healAmount, bool broadcast = true)
+        {
+            CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.OrangeRed, healAmount);
+            if (broadcast && Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
+            {
+                NetMessage.SendData(MessageID.HealEffect, -1, -1, null, player.whoAmI, healAmount);
+            }
+        }
+
+
+
+
+
+        public override TagCompound Save()
+        {
+            return new TagCompound
+            {
+                {"LimitPoints", LimitCurrent }
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            LimitCurrent = tag.GetInt("LimitPoints");
+        }
+
+        public override void LoadLegacy(BinaryReader reader)
+        {
+            int _ = reader.ReadInt32();
+            LimitCurrent = reader.ReadInt32();
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = mod.GetPacket();
+            packet.Write((byte)EpicMessageType.EpicPlayerSyncPlayer);
+            packet.Write((byte)player.whoAmI);
+            packet.Write(LimitCurrent);
+            packet.Send(toWho, fromWho);
+        }
+
+
+
+
 
         #region ModifyHitNPC
 
@@ -145,7 +259,6 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
-            MagicPuppyBuff = false;
 
         }
 

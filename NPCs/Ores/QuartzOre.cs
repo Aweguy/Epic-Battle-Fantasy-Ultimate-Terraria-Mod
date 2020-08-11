@@ -279,6 +279,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		}
 
 
+		#region NPCLoot
+
+		public override void NPCLoot()
+		{
+
+			Item.NewItem(npc.getRect(), ItemID.Diamond, 2);
+
+
+		}
+
+		#endregion
 
 
 

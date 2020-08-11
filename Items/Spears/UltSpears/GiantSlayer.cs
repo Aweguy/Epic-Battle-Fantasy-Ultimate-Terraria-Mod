@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Giant Slayer");
-            Tooltip.SetDefault("A sizable spear that cannot be consistently wielded.\nIgnores the enemies' defense stat.\nHas big reach.");
+            Tooltip.SetDefault("A sizable spear that bests foes through sheer weight and power.\nIgnores the enemies' defense stat.\nHas big reach.");
         }
 
 

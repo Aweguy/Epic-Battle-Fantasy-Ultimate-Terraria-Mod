@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Holy Grail");
-            Tooltip.SetDefault("A unique and mythical artifact sought by many. Now available in packs of 5!");
+            Tooltip.SetDefault("A unique and mythical artifact sought by many. Now available in 5 packs!");
         }
 
         public override void SetDefaults()

@@ -309,3 +309,39 @@ All of our Family members for close support
     -Nerfed the damage of Crystal Wing
     -Increased the spread of Hellfire Shotgun
     -Removed some useless assets.
+
+
+
+    v0.8.6.2 
+
+    Hotfixes
+
+    -Fixed a naming error with the ores' explosions.
+    -Fixed Matt's name.
+    -Fixed a naming error with the Leaf Wraith.
+
+
+    v0.8.6.3
+
+    Hotfixes
+
+    -Many many many tooltip changes
+    -Fixed a bug where the Gungnir Rifle didn't have the critical rate increase.
+
+
+    v0.8.6.4
+
+    Hotfixes
+
+    -Added particle effecs to the Wraith's orbiting fireballs.
+    -Made the Flybot's projectiles not pass through blocks.
+    -Slightly increased their damage to compensate this change.
+
+
+    v0.8.6.5
+
+    More Hotfixes and Changes
+
+    -Introduced the drops that the NPCs should have had when the update was released. Sorry for the inconvenience, it was a tough week.
+    -Some balance changes to the Flybot buffing its HP
+    -Fixed a serious bug that some NPCs spawned with the flybot's cannons if the flybot despawned and not killed. It's hard to explain.

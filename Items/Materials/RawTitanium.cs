@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Raw Titanium");
-            Tooltip.SetDefault("A shiny metal unavailable in bar or ore forms.");
+            Tooltip.SetDefault("A shiny metal pure beyond the normal bar or ore forms.");
         }
 
         public override void SetDefaults()

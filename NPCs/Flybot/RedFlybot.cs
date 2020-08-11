@@ -29,9 +29,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			npc.width = 68;
 			npc.height = 54;
 
-			npc.lifeMax = 120;
+			npc.lifeMax = 140;
 			npc.damage = 25;
 			npc.defense = 30;
+			npc.value = 100;
 
 			npc.noGravity = true;
 
@@ -361,6 +362,33 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			return 0f;
 		}
 
+
+		#region NPCLoot
+
+		public override void NPCLoot()
+		{
+
+			if (Main.rand.NextFloat() < .33f)
+            {
+				Item.NewItem(npc.getRect(), mod.ItemType("P2Processor"), 1);
+			}
+
+
+			if (Main.rand.NextFloat() < .01f)
+			{
+				Item.NewItem(npc.getRect(), mod.ItemType("DarkMatter"), 1);
+			}
+
+			if (Main.rand.NextFloat() < .10f)
+			{
+				Item.NewItem(npc.getRect(), mod.ItemType("SteelPlate"), 1);
+			}
+
+
+
+		}
+
+		#endregion
 
 
 

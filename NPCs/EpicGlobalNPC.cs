@@ -47,7 +47,6 @@ namespace EpicBattleFantasyUltimate.NPCs
         #endregion
 
 
-
         #region Electrified Variables
 
         public bool Electrified = false;

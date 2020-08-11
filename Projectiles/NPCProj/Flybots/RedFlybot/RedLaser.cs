@@ -25,7 +25,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
             projectile.timeLeft = 240;
             projectile.hostile = true;
             projectile.friendly = false;
-            projectile.tileCollide = false;
 
         }
 

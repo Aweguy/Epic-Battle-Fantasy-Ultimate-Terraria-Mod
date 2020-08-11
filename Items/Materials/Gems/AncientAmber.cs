@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Amber");
-            Tooltip.SetDefault("Perfectly preserves mosquitoes, but the DNA is ruined.");
+            Tooltip.SetDefault("A chunk of sap that perfectly preserves mosquitoes, but does nothing for DNA degradation.");
         }
 
         public override void SetDefaults()

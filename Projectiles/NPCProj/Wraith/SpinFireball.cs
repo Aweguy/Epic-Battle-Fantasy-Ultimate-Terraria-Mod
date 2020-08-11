@@ -51,6 +51,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         public override void AI()
         {
 
+
+            Color drawColor = Color.Orange;
+            if (Main.rand.Next(2) == 0)
+            {
+                drawColor = Color.Red;
+            }
+
+
+            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 0, drawColor, 0.8f) ;
+
+
+
             NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
             if(Orbit == false)

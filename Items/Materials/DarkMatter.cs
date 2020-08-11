@@ -12,7 +12,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Matter");
-            Tooltip.SetDefault("Remarkably hard to turn into sentient, sociopathic metastable life hellbent on eradicating all baryonic organisms.\nUsed for crafting Dark equipment.");
+            Tooltip.SetDefault("About one squirrel's worth of non-baryonic matter. Sets off bird feeders.\nUsed for crafting Dark equipment.");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 5));
             ItemID.Sets.ItemIconPulse[item.type] = true;
             ItemID.Sets.ItemNoGravity[item.type] = true;

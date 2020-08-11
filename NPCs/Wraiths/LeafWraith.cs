@@ -29,7 +29,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         #endregion
 
-
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Leaf Wraith");
+        }
 
 
         public override void SetDefaults()

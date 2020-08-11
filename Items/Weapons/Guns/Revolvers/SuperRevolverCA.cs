@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Revolver CA");
-            Tooltip.SetDefault("You can hear eagles when you reload it");
+            Tooltip.SetDefault("Any time of year, you can snipe from here…");
         }
 
 

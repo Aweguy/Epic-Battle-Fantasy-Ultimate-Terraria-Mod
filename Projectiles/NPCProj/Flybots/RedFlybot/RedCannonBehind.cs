@@ -52,6 +52,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			projectile.timeLeft = 1000;
 
+            if (!npc.active)
+            {
+				projectile.Kill();
+            }
 
 
 			if (npc.life <= 0)
@@ -92,11 +96,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 				if (ShotNum < 2)
 				{
 
-					ShootTimer = 30;
+					ShootTimer = 35;
 				}
 				else if (ShotNum == 2)
 				{
-					ShootTimer = 60;
+					ShootTimer = 70;
 					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeTarget").WithPitchVariance(.2f).WithVolume(.7f), projectile.position);
 
 				}

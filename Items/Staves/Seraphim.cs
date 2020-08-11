@@ -5,10 +5,12 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Staves
 {
-    public class Seraphim : ModItem
+    public class Seraphim : LimitItem
     {
 
         public override void SetStaticDefaults()
@@ -18,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
         }
 
 
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 100;
@@ -27,6 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.magic = true;
             //item.mana = 100;
             item.noMelee = true;
+            LimitCost = 100;
 
             item.useTime = 1;
             item.useAnimation = 1;
@@ -64,7 +67,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<Judgement>()] < 1;
+            return player.ownedProjectileCounts[ModContent.ProjectileType<Judgement>()] < 1 && base.CanUseItem(player);
         }
 
 

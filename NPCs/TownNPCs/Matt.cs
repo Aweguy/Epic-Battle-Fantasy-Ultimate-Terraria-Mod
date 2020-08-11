@@ -25,7 +25,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
         public override bool Autoload(ref string name)
         {
-            name = "Lazy Swordsman";
+            name = "LazySwordsman";
             return mod.Properties.Autoload;
         }
 

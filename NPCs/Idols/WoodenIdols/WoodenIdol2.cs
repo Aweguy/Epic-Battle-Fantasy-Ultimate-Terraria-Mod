@@ -33,6 +33,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             npc.damage = 8;
             npc.defense = 10;
             npc.lifeRegen = 4;
+            npc.value = 50;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
@@ -242,6 +243,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 
 
 
+        #region NPCLoot
+
+        public override void NPCLoot()
+        {
+
+            Item.NewItem(npc.getRect(), ItemID.Wood, 5);
+
+
+        }
+
+        #endregion
 
 
 

@@ -32,6 +32,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             npc.damage = 10;
             npc.defense = 15;
             npc.lifeRegen = 4;
+            npc.value = 50;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
@@ -176,26 +177,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
                     if (Spin)
                     {
-                        for (int i = 0; i <= 360 / 20; i++)
+                        for (int i = 0; i <= 360 / 40; i++)
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
                             int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
-                            IceRotation += 20;
+                            IceRotation += 40;
 
                         }
 
                     }
                     else
                     {
-                        for (int i = 0; i <= 360 / 40; i++)
+                        for (int i = 0; i <= 360 / 120; i++)
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
                             int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
-                            IceRotation += 40;
+                            IceRotation += 120;
 
                         }
 
@@ -293,9 +294,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode == true && spawnInfo.player.ZoneSnow)
+            if (spawnInfo.player.ZoneSnow)
             {
-                return .2f;
+                return .02f;
             }
 
 
@@ -303,6 +304,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
         }
 
 
+        #region NPCLoot
+
+        public override void NPCLoot()
+        {
+
+
+            if (Main.rand.NextFloat() < .33f)
+            {
+                Item.NewItem(npc.getRect(), mod.ItemType("SolidWater"), 1);
+            }
+
+
+        }
+
+        #endregion
 
 
 

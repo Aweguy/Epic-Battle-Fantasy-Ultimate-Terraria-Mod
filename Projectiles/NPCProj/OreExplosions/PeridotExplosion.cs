@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dark Explosion");
+            DisplayName.SetDefault("Peridot Explosion");
             Main.projFrames[projectile.type] = 8;
         }
 

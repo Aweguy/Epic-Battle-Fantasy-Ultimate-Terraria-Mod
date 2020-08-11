@@ -30,6 +30,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             npc.damage = 10;
             npc.defense = 20;
             npc.lifeRegen = 4;
+            npc.value = 50;
 
             npc.aiStyle = -1;
             npc.noGravity = false;
@@ -208,6 +209,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
         }
 
 
+        #region NPCLoot
+
+        public override void NPCLoot()
+        {
+
+            Item.NewItem(npc.getRect(), ItemID.StoneBlock, 3);
+
+
+        }
+
+        #endregion
 
 
 

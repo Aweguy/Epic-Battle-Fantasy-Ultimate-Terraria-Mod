@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Sapphire Saint"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("An intricately crafted blade enchanted with the element of water.");
+			Tooltip.SetDefault("Let the wise teachings of the prophet into your hearts, and Godcat's angels shall bring you eternal good fortune.");
 		}
 
 		public override void SetDefaults()

@@ -65,8 +65,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         {
 
             
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            Vector2 position = Main.LocalPlayer.Center;
 
             Color drawColor = Color.Black;
             if (Main.rand.Next(2) == 0)

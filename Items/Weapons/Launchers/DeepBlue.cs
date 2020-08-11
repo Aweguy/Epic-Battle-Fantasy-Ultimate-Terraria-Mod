@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deep Blue");
-            Tooltip.SetDefault("A gun sharp enough to use as a halberd, but why don’t you just shoot the darn thing.");
+            Tooltip.SetDefault("While it’s sharp enough to use as a halberd, you should just shoot the darn thing.");
         }
 
 

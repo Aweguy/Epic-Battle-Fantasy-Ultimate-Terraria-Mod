@@ -16,7 +16,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Snipe ZX ");
-            Tooltip.SetDefault("The most ridiculous idea until the invention of Train Guns.\nDeals melee damage.");
+            Tooltip.SetDefault("A 3rd-generation sniper rifle, complete with isopod and scope.");
         }
 
 

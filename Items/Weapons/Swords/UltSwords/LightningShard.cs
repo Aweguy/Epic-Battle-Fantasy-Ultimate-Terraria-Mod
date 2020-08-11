@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lightning Shard");
-            Tooltip.SetDefault("When you hold it, you are at 'Shock and Awe'.\nRight-click to launch a spinning sword boomerang.\nThe item cannot be used while the boomerang is out.");
+            Tooltip.SetDefault("You feel shock and awe when you hold this.\nRight-click to launch a spinning sword boomerang.\nThe item cannot be used while the boomerang is out.");
         }
 
 

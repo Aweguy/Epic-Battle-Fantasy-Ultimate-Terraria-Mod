@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hellfire Shotgun");
-            Tooltip.SetDefault("A hunting weapon capable of firing in bursts, but has finicky compatibility with some...proprietary ammunition.\nFires 5 shots simutenuously but very slow fire rate.\nSets enemies on fire\nFire lasts longer when you have the Hellfire Revolver in the inventory.");
+            Tooltip.SetDefault("A hunting weapon capable of firing in bursts. Has compatibility issues with specialized ammunition.\nFires 5 shots simutenuously but very slow fire rate.\nSets enemies on fire\nFire lasts longer when you have the Hellfire Revolver in the inventory.");
         }
 
 

@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
             public override bool Autoload(ref string name)
             {
-                name = "Archeologist";
+                name = "Archaeologist";
                 return mod.Properties.Autoload;
             }
 

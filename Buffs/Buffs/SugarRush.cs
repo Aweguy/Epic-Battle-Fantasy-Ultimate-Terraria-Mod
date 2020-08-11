@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Sugar Rush");
-            Description.SetDefault("The sugar in this delicious piece of cake made you want more. This is not the only side effect though.\nBecause of this, you move and attack faster, resist attacks and have increased life and mana regeneration.\nBecause of the sweet taste of sugar you can also endure more damage increasing you maximum health by 50.");
+            Description.SetDefault("You want more cake!\n You move and attack faster, resist attacks and have increased life and mana regeneration.\nAlso it increases you maximum health by 50.");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             canBeCleared = false;

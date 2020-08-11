@@ -13,6 +13,7 @@ using EpicBattleFantasyUltimate.UI.FlairSlots;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using EpicBattleFantasyUltimate.HelperClasses;
+using EpicBattleFantasyUltimate.UI;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -21,9 +22,13 @@ namespace EpicBattleFantasyUltimate
 
 		//private UserInterface _flairUserInterface;
 		//public FlairSlot SlotUI;
-		
 
-        public static List<int> thrownProjectiles = new List<int>();
+		private UserInterface _LimitBreakBarUI;
+		internal LimitBreakBar LimitBreakBar;
+
+
+
+		public static List<int> thrownProjectiles = new List<int>();
 
 	
 
@@ -181,6 +186,16 @@ namespace EpicBattleFantasyUltimate
         {
 			base.Load();
 
+			if (!Main.dedServ)
+			{
+				
+				LimitBreakBar = new LimitBreakBar();
+				_LimitBreakBarUI = new UserInterface();
+				_LimitBreakBarUI.SetState(LimitBreakBar);
+			}
+
+
+
 			this.ProjEngine = new ProjHelperEngine(this);
         }
 
@@ -200,6 +215,24 @@ namespace EpicBattleFantasyUltimate
         }
 
 
+		public override void UpdateUI(GameTime gameTime)
+		{
+			_LimitBreakBarUI?.Update(gameTime);
+		}
+
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		{
+			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+			if (resourceBarIndex != -1)
+			{
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Limit Break: Limit Break Bar", delegate { _LimitBreakBarUI.Draw(Main.spriteBatch, new GameTime()); return true; }, InterfaceScaleType.UI));
+			}
+		}
+
+		internal enum EpicMessageType : byte
+		{
+			EpicPlayerSyncPlayer
+		}
 
 
 
@@ -208,10 +241,5 @@ namespace EpicBattleFantasyUltimate
 
 
 
-
-
-
-
-       
 	}
 }

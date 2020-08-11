@@ -34,6 +34,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
 
             item.damage = 135;
+            item.crit = 25;
             item.ranged = true;
             item.noMelee = true;
 

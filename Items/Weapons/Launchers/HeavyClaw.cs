@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heavy Claw");
-            Tooltip.SetDefault("Can hold three tons of metal, at least until your back gives out.\n Deals melee damage");
+            Tooltip.SetDefault("Can hold three tons of metal in its grip, at least until your back gives out.\n Deals melee damage");
         }
 
 
