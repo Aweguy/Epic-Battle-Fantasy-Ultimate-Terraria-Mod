@@ -13,7 +13,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
         public override bool CloneNewInstances => true;
 
 
-        public int LimitCost = 100;
+        public int LimitCost = 0;
+        public int LimitGain = 0;
 
         public virtual void SetSafeDefaults() { }
 
@@ -29,6 +30,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
             var epicPlayer = EpicPlayer.ModPlayer(player);
             if (epicPlayer.LimitCurrent >= LimitCost)
             {
+                epicPlayer.LimitCurrent += LimitGain;
                 epicPlayer.LimitCurrent -= LimitCost;
                 return true;
             }

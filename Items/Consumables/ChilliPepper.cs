@@ -1,10 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Consumables
 {
-    public class ChilliPepper : ModItem
+    public class ChilliPepper : LimitItem
     {
 
         public override void SetStaticDefaults()
@@ -13,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             Tooltip.SetDefault("An organic alternative to sauce used by Limit Break aficionados.");
         }
 
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 24;
             item.height = 24;
@@ -21,6 +23,9 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.useTime = 10;
             item.useAnimation = 10;
             item.useTurn = true;
+
+            LimitGain = lli100;
+
             item.maxStack = 30;
             item.consumable = true;
             item.UseSound = SoundID.Item2;
@@ -46,7 +51,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
         public override bool CanUseItem(Player player)
         {
             int buff = mod.BuffType("BurntMouth");
-            return !player.HasBuff(buff);
+            return !player.HasBuff(buff) && base.CanUseItem(player);
         }
 
 
