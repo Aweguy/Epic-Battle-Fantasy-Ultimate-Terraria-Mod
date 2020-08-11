@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.useAnimation = 10;
             item.useTurn = true;
 
-            LimitGain = lli100;
+            LimitGain = 100;
 
             item.maxStack = 30;
             item.consumable = true;
