@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
             item.useTime = 10;
             item.useAnimation = 10;
             item.mana = 10;
-            item.rare = 8;
+            item.rare = ItemRarityID.Yellow;
             item.useTurn = true;
             item.shoot = mod.ProjectileType("Bomb");
             item.shootSpeed = 8f;
@@ -57,7 +57,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 					item.useTime = 20;
 					item.useAnimation = 20;
 					item.mana = 100;
-					item.rare = 8;
+					item.rare = ItemRarityID.Yellow;
 					item.useTurn = true;
 					item.shoot = mod.ProjectileType("Bomb");
 					item.shootSpeed = 8f;
@@ -75,7 +75,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 					item.useTime = 30;
 					item.useAnimation = 30;
 					item.mana = 10;
-					item.rare = 8;
+					item.rare = ItemRarityID.Yellow;
 					item.useTurn = true;
 					item.shoot = mod.ProjectileType("Bomb");
 					item.shootSpeed = 8f;

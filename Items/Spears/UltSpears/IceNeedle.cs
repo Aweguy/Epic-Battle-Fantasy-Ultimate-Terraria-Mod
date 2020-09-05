@@ -99,7 +99,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.melee = true;
                 item.noMelee = false; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
                 item.noUseGraphic = false; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-                item.shoot = 0;
+                item.shoot = ProjectileID.None;
                 item.autoReuse = true;
             }
             return player.ownedProjectileCounts[mod.ProjectileType("IceNeedleProj")] < 1;

@@ -32,7 +32,7 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
 			item.useAnimation = 36;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.value = Item.sellPrice(gold: 50);
-			item.rare = 9;
+			item.rare = ItemRarityID.Cyan;
 			item.UseSound = SoundID.Item44;
 
 			// These below are needed for a minion weapon

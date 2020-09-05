@@ -36,7 +36,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = 10;
+            item.shoot = ProjectileID.PurificationPowder;
             item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 11f;

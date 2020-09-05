@@ -16,6 +16,7 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
 
         public CustomItemSlot MyNormalSlot;
         public CustomItemSlot FlairSlot1 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f);
+         
 
         public bool Visible
         {
@@ -34,21 +35,26 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
 
             MyNormalSlot = new CustomItemSlot(); // leave blank for a plain inventory space
 
+            
+
             FlairSlot1 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f)
             {
 
-                IsValidItem = item => (ModContent.GetModItem(item.type) as Flair) != null, //ModContent.GetModItem(item.type) is  Flair, // what do you want in the slot?
+                IsValidItem =  item => (ModContent.GetModItem(item.type) as Flair) != null, //ModContent.GetModItem(item.type) is  Flair, // what do you want in the slot?
 
+                
 
                 HoverText = "Flair" // try to describe what will go into the slot
             };
+
+
 
             // you can set these once or change them in DrawSelf()
             MyNormalSlot.Left.Set(85, 0);
             MyNormalSlot.Top.Set(645, 0);
 
-           FlairSlot1.Left.Set(144, 0);
-           FlairSlot1.Top.Set(645, 0);
+            FlairSlot1.Left.Set(144, 0);
+            FlairSlot1.Top.Set(645, 0);
 
 
             // don't forget to add them to the UIState!
@@ -60,6 +66,11 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
 
         #endregion
 
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
 
 
 

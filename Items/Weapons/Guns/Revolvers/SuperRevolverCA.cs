@@ -32,11 +32,17 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.noMelee = true;
 
             item.rare = ItemRarityID.Pink;
-            item.shoot = 10;
+            item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 10f;
             item.useAmmo = AmmoID.Bullet;
             
         }
+
+
+
+
+
+
 
         public override void AddRecipes()
         {

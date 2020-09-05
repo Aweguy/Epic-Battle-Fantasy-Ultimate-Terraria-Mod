@@ -21,6 +21,7 @@ using CustomSlot;
 using EpicBattleFantasyUltimate.NPCs.Ores;
 using System.IO;
 using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
+using Terraria.DataStructures;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -93,6 +94,19 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+        #region Cursed Variables
+
+        public bool Cursed = false;
+        public bool CursedAlphaCheck = true;
+        public int CursedStacks = 1;
+        public float CursedAlpha = 0;
+        double CursedDefense;
+        double CursedMult;
+
+        #endregion
+
+
+
         #region OnHitByNPC
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -117,7 +131,9 @@ namespace EpicBattleFantasyUltimate
 
         }
 
-        #endregion 
+        #endregion
+
+        #region Limit Hooks
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
@@ -185,7 +201,7 @@ namespace EpicBattleFantasyUltimate
             packet.Send(toWho, fromWho);
         }
 
-
+        #endregion
 
 
 
@@ -223,7 +239,7 @@ namespace EpicBattleFantasyUltimate
             {
                 RBleedStacks = 0;
             }
-            
+
             RBleed = false;
 
             #endregion
@@ -258,6 +274,19 @@ namespace EpicBattleFantasyUltimate
             Tired = false;
 
             #endregion
+
+            #region Cursed Reset
+
+            if (Cursed == false)
+            {
+                CursedStacks = 0;
+            }
+
+            Cursed = false;
+
+            #endregion
+
+
 
 
         }
@@ -315,6 +344,67 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
+            #region Cursed Effects
+
+            if (Cursed)
+            {
+                if (CursedStacks <= 5)
+                {
+                    CursedMult = 0.1 * CursedStacks;
+                    CursedDefense = 1 - CursedMult;
+                    player.statDefense = (int)(player.statDefense * CursedDefense);
+                }
+                else
+                {
+                    player.statDefense = (int)(player.statDefense * 0.5);
+                }
+
+            }
+            else
+            {
+                player.statDefense = player.statDefense;
+            }
+
+            if (CursedStacks == 1)
+            {
+                CursedAlpha = .25f;
+            }
+            else if (CursedStacks == 2)
+            {
+                CursedAlpha = .50f;
+            }
+            else if (CursedStacks == 3)
+            {
+                CursedAlpha = .75f;
+            }
+            else if (CursedStacks == 4)
+            {
+                CursedAlpha = 1;
+            }
+            else if (CursedStacks >= 5)
+            {
+                if (CursedAlphaCheck == true)
+                {
+                    CursedAlpha -= .05f;
+                }
+                else if (CursedAlphaCheck == false)
+                {
+                    CursedAlpha += .05f;
+                }
+
+                if (CursedAlpha >= 1f)
+                {
+                    CursedAlphaCheck = true;
+                }
+                else if (CursedAlpha <= 0)
+                {
+                    CursedAlphaCheck = false;
+                }
+            }
+
+            #endregion
+
+
         }
 
         #endregion
@@ -333,15 +423,15 @@ namespace EpicBattleFantasyUltimate
             }
             if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("HasteBuff")))
             {
-                
+
                 return 2f;
-                
+
             }
             if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Infuriated")))
             {
-                
+
                 return 2f;
-                
+
             }
 
             #endregion
@@ -365,7 +455,7 @@ namespace EpicBattleFantasyUltimate
 
 
 
-            
+
         }
 
         #endregion
@@ -604,7 +694,7 @@ namespace EpicBattleFantasyUltimate
 
             if (Tired && TiredStacks <= 0.5f)
             {
-                
+
                 TiredPower = 1f - TiredStacks;
                 player.maxRunSpeed *= TiredPower;
                 player.accRunSpeed *= TiredPower;
@@ -676,7 +766,7 @@ namespace EpicBattleFantasyUltimate
                     Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 }
 
-               
+
 
 
 
@@ -686,7 +776,44 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+
+
+
+
         #region ModifyDrawLayers
+
+
+        public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo) {
+            if (drawInfo.shadow != 0f)
+            {
+                return;
+            }
+            Player drawPlayer = drawInfo.drawPlayer;
+            Mod mod = ModLoader.GetMod("EpicBattleFantasyUltimate");
+            EpicPlayer modPlayer = drawPlayer.GetModPlayer<EpicPlayer>();
+
+
+            if (modPlayer.Cursed)
+            {
+                Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect");
+                int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+                int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
+
+                Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
+                DrawData data = new DrawData(texture, new Vector2(drawX, drawY), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2f, texture.Height), 1f, SpriteEffects.None, 0);
+                Main.playerDrawData.Add(data);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
@@ -695,6 +822,10 @@ namespace EpicBattleFantasyUltimate
             Action<PlayerDrawInfo> layerTarget = DrawGlowmasks; //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
             PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
             layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
+            
+            
+            MiscEffects.visible = true;
+            layers.Add(MiscEffects);
 
             void DrawGlowmasks(PlayerDrawInfo info)
             {
@@ -705,8 +836,7 @@ namespace EpicBattleFantasyUltimate
         #endregion
 
 
-
-
+        
 
    
 

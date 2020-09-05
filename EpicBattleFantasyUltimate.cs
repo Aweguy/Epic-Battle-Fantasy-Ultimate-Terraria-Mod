@@ -14,14 +14,15 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using EpicBattleFantasyUltimate.HelperClasses;
 using EpicBattleFantasyUltimate.UI;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate
 {
 	public class EpicBattleFantasyUltimate : Mod
 	{
 
-		//private UserInterface _flairUserInterface;
-		//public FlairSlot SlotUI;
+		private UserInterface _flairUserInterface;
+		public FlairSlot SlotUI;
 
 		private UserInterface _LimitBreakBarUI;
 		internal LimitBreakBar LimitBreakBar;
@@ -29,6 +30,8 @@ namespace EpicBattleFantasyUltimate
 
 
 		public static List<int> thrownProjectiles = new List<int>();
+
+		public static List<int> MasterWraithBasic => new List<int> {ModContent.ProjectileType<FrostBoneShot>(), ModContent.ProjectileType<BoneShot>(), ModContent.ProjectileType<MetalShot>(), ModContent.ProjectileType<ThornSpike>()};
 
 	
 
@@ -116,33 +119,52 @@ namespace EpicBattleFantasyUltimate
 
         #region UI
 
-        /*public override void Load()
+        public override void Load()
 		{
 			// you can only display the ui to the local player -- prevent an error message!
-			if (!Main.dedServ)
+			/*if (!Main.dedServ)
 			{
 				_flairUserInterface = new UserInterface();
 				SlotUI = new FlairSlot();
 
 				SlotUI.Activate();
 				_flairUserInterface.SetState(SlotUI);
+			}*/
+
+			if (!Main.dedServ)
+			{
+
+				LimitBreakBar = new LimitBreakBar();
+				_LimitBreakBarUI = new UserInterface();
+				_LimitBreakBarUI.SetState(LimitBreakBar);
 			}
+
+
+
+			this.ProjEngine = new ProjHelperEngine(this);
+
+
+
+
 		}
 
-        public override void UpdateUI(GameTime gameTime)
+		public override void UpdateUI(GameTime gameTime)
         {
-			if (SlotUI.Visible)
+			/*if (SlotUI.Visible)
 			{
 				_flairUserInterface?.Update(gameTime);
-			}
+			}*/
+
+			_LimitBreakBarUI?.Update(gameTime);
+
 		}
 
 
 
-        // make sure the ui can draw
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		// make sure the ui can draw
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			// this will draw on the same layer as the inventory
+			/*// this will draw on the same layer as the inventory
 			int inventoryLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 
 			if (inventoryLayer != -1)
@@ -158,8 +180,21 @@ namespace EpicBattleFantasyUltimate
 						return true;
 					},
 					InterfaceScaleType.UI));
+			}*/
+
+			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+			if (resourceBarIndex != -1)
+			{
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Limit Break: Limit Break Bar", delegate { _LimitBreakBarUI.Draw(Main.spriteBatch, new GameTime()); return true; }, InterfaceScaleType.UI));
 			}
-		}*/
+
+
+
+
+
+
+
+		}
 
 
 
@@ -170,7 +205,7 @@ namespace EpicBattleFantasyUltimate
 
 
 
-        #endregion
+		#endregion
 
 
 		public ProjHelperEngine ProjEngine
@@ -182,22 +217,6 @@ namespace EpicBattleFantasyUltimate
 
 
 
-        public override void Load()
-        {
-			base.Load();
-
-			if (!Main.dedServ)
-			{
-				
-				LimitBreakBar = new LimitBreakBar();
-				_LimitBreakBarUI = new UserInterface();
-				_LimitBreakBarUI.SetState(LimitBreakBar);
-			}
-
-
-
-			this.ProjEngine = new ProjHelperEngine(this);
-        }
 
 		public static EpicBattleFantasyUltimate instance
         {
@@ -215,19 +234,6 @@ namespace EpicBattleFantasyUltimate
         }
 
 
-		public override void UpdateUI(GameTime gameTime)
-		{
-			_LimitBreakBarUI?.Update(gameTime);
-		}
-
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
-			if (resourceBarIndex != -1)
-			{
-				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Limit Break: Limit Break Bar", delegate { _LimitBreakBarUI.Draw(Main.spriteBatch, new GameTime()); return true; }, InterfaceScaleType.UI));
-			}
-		}
 
 		internal enum EpicMessageType : byte
 		{

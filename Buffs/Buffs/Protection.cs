@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Protection");
-            Description.SetDefault("The damage you take is quartered, no Defend needed!");
+            Description.SetDefault("Blocks a quarter of damage taken, no Defend needed!");
         }
 
         public override void Update(Player player, ref int buffIndex)

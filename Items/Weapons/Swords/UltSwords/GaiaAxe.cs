@@ -33,7 +33,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.autoReuse = true;
         }
 
@@ -66,7 +66,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
 
                 item.value = Item.sellPrice(gold: 10);
-                item.rare = 10;
+                item.rare = ItemRarityID.Red;
                 item.autoReuse = true;
 
             }
@@ -88,7 +88,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
 
                 item.value = Item.sellPrice(gold: 10);
-                item.rare = 9;
+                item.rare = ItemRarityID.Cyan;
                 item.autoReuse = true;
             }
 

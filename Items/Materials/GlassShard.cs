@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.width = 10;
             item.height = 10;
 
-            item.rare = 2;
+            item.rare = ItemRarityID.Green;
             item.maxStack = 9999;
 
             

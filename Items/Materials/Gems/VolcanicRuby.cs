@@ -20,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             item.height = 48;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare = 8;
+            item.rare = ItemRarityID.Yellow;
             item.maxStack = 999;
             item.scale = 0.8f;
         }

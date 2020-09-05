@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
             item.useTime = 100;
             item.useAnimation = 10;
             item.mana = 5;
-            item.rare = 8;
+            item.rare = ItemRarityID.Yellow;
             item.value = Item.sellPrice(silver: 50);
             item.useTurn = true;
             item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);

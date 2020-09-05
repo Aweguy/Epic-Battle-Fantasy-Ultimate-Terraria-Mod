@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.ranged = true;
             item.autoReuse = true;
             item.useStyle = ItemUseStyleID.EatingUsing;
-            item.shoot = 1;
+            item.shoot = ProjectileID.WoodenArrowFriendly;
             item.shootSpeed = 17f;
             item.rare = -12;
             item.value = Item.sellPrice(platinum: 1);

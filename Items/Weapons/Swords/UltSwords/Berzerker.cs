@@ -26,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useAnimation = 50;
             item.knockBack = 10f;
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
             item.autoReuse = false;
             item.scale = 2f;
@@ -43,7 +43,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         {
             if (player.altFunctionUse == 2)
             {
-                item.useStyle = 3;
+                item.useStyle = ItemUseStyleID.Stabbing;
                 item.useTime = 50;
                 item.useAnimation = 50;
                 item.damage = 250;
@@ -67,7 +67,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.useStyle = ItemUseStyleID.SwingThrow;
                 item.knockBack = 10f;
                 item.value = Item.sellPrice(gold: 10);
-                item.rare = 10;
+                item.rare = ItemRarityID.Red;
                 item.UseSound = SoundID.Item1;
                 item.buffType = mod.BuffType("Tired");
                 item.buffTime = 300;

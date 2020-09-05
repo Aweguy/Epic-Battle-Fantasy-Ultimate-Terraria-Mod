@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.maxStack = 1;
             item.knockBack = 0.5f;
             item.value = 1000;
-            item.rare = 4;
+            item.rare = ItemRarityID.LightRed;
             item.shoot = mod.ProjectileType("PlasmaShot");
             item.shootSpeed = 7f;
             item.ammo = mod.ItemType("Shot");

@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             item.height = 19;
             item.defense = 40;
             item.accessory = true;
-            item.rare = 7;
+            item.rare = ItemRarityID.Lime;
         }
 
 

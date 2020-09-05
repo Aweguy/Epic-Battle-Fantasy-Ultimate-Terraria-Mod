@@ -4,7 +4,7 @@ Soon more will be added with frequent updates as long as i have time for that.
 Coding: Aweguy
 Literally the closest associate : AngryBiskoti
 Lead Spriting: Listochik (aka Leaf), Maskano , Renatm, The Purified, codingMad, speedynamo, DigitalZero
-Additional Spriting: GDA-G, Buff Froge, Bosh
+Additional Spriting: GDA-G, Buff Froge, Bosh, Myntz
 Supporters: Just call me "Nab" (aka Troupe Master Grimm), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid, Patholofical Lurker
 Help with the Flair slots: abluescarab
 Elemental Damage types: CrimsonTek (developer of Terratyping)
@@ -345,3 +345,12 @@ All of our Family members for close support
     -Introduced the drops that the NPCs should have had when the update was released. Sorry for the inconvenience, it was a tough week.
     -Some balance changes to the Flybot buffing its HP
     -Fixed a serious bug that some NPCs spawned with the flybot's cannons if the flybot despawned and not killed. It's hard to explain.
+
+
+    v0.9.1
+
+    Limit Break and Master Wraith miniboss
+
+    -Introduced the new Miniboss the Master Wraith
+    -Introduced Limit Breaks (at least some of them), and the resource needed to use them
+    -Buffed the Leaf Wraith by increasing the lifetime of it's Leaves.

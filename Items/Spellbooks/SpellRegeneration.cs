@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
             item.useTime = 100;
             item.useAnimation = 10;
             item.mana = 25;
-            item.rare = 8;
+            item.rare = ItemRarityID.Yellow;
             item.value = Item.sellPrice(silver: 50);
             item.useTurn = true;
             item.value = Item.sellPrice(gold: 10);

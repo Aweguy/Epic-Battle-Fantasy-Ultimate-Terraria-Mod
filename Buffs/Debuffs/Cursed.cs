@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
         {
             DisplayName.SetDefault("Cursed");
             Description.SetDefault("What a horrible night to have a defense penalty!");
-            Main.debuff[Type] = true;
+            //Main.debuff[Type] = true;
             canBeCleared = false;
         }
 
@@ -32,7 +32,18 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
         }
 
 
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetModPlayer<EpicPlayer>().Cursed = true;
+        }
 
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+
+            player.GetModPlayer<EpicPlayer>().CursedStacks++;
+
+            return false;
+        }
 
 
 

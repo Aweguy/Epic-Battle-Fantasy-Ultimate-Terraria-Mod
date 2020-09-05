@@ -45,6 +45,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
                 leftRightCollision = true;
             }
 
+
             if (leftRightCollision)
             {
                 projectile.velocity.X *= -1;
@@ -53,8 +54,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             else
             {
                 projectile.velocity.Y *= -1;
+
             }
-                
+
 
         }
 
@@ -79,13 +81,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             {
                 Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
                 Main.PlaySound(SoundID.Item10, projectile.position);
+
+
                 if (projectile.velocity.X != oldVelocity.X)
                 {
                     projectile.velocity.X = -oldVelocity.X;
+
+
                 }
                 if (projectile.velocity.Y != oldVelocity.Y)
                 {
                     projectile.velocity.Y = -oldVelocity.Y;
+
+
                 }
             }
             return false;

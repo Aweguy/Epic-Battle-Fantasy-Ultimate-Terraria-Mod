@@ -35,7 +35,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = 10;
+            item.shoot = ProjectileID.PurificationPowder;
             item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item36;
             item.shootSpeed = 7f;
@@ -57,7 +57,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             }
 
 
-            int degrees = Main.rand.Next(10);
             float numberProjectiles = 5; // 5 shots
             float rotation = MathHelper.ToRadians(45); //30 degrees spread
             position += Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;

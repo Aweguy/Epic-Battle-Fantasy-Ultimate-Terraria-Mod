@@ -404,5 +404,14 @@ namespace CustomSlot {
                    context == ItemSlot.Context.EquipLight ||
                    context == ItemSlot.Context.EquipPet;
         }
+
+
+
+
+
+
+
+
+
     }
 }

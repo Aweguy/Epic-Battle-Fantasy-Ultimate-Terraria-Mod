@@ -37,8 +37,8 @@ namespace EpicBattleFantasyUltimate.UI
             text.Height.Set(34, 0f);
             text.Top.Set(40, 0f);
             text.Left.Set(0, 0f);
-            gradientA = Color.Purple;
-            gradientB = Color.MediumPurple;
+            gradientA = Color.DarkRed;
+            gradientB = Color.Red;
 
             area.Append(text);
             area.Append(barFrame);

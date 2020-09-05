@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate
 					{
 						for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 						{
-							if (chest.item[inventoryIndex].type == 0)
+							if (chest.item[inventoryIndex].type == ItemID.None)
 							{
 								chest.item[inventoryIndex].SetDefaults(itemsToPlaceInSkyChests[itemsToPlaceInSkyChestsChoice]);
 								itemsToPlaceInSkyChestsChoice = (itemsToPlaceInSkyChestsChoice + 1) % itemsToPlaceInSkyChests.Length;
@@ -65,7 +65,7 @@ namespace EpicBattleFantasyUltimate
 					{
 						for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 						{
-							if (chest.item[inventoryIndex].type == 0)
+							if (chest.item[inventoryIndex].type == ItemID.None)
 							{
 								chest.item[inventoryIndex].SetDefaults(itemsToPlaceInIceChests[itemsToPlaceInIceChestsChoice]);
 								itemsToPlaceInIceChestsChoice = (itemsToPlaceInIceChestsChoice + 1) % itemsToPlaceInIceChests.Length;
@@ -91,7 +91,7 @@ namespace EpicBattleFantasyUltimate
 				{
 					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 					{
-						if (chest.item[inventoryIndex].type == 0)
+						if (chest.item[inventoryIndex].type == ItemID.None)
 						{
 							chest.item[inventoryIndex].SetDefaults(itemsToPlaceInGoldChests[itemsToPlaceInGoldChestsChoice]);
 							itemsToPlaceInGoldChestsChoice = (itemsToPlaceInGoldChestsChoice + 1) % itemsToPlaceInGoldChests.Length;
@@ -117,7 +117,7 @@ namespace EpicBattleFantasyUltimate
 				{
 					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 					{
-						if (chest.item[inventoryIndex].type == 0)
+						if (chest.item[inventoryIndex].type == ItemID.None)
 						{
 							chest.item[inventoryIndex].SetDefaults(itemsToPlaceInLockedGoldChests[itemsToPlaceInLockedGoldChestsChoice]);
 							itemsToPlaceInLockedGoldChestsChoice = (itemsToPlaceInLockedGoldChestsChoice + 1) % itemsToPlaceInLockedGoldChests.Length;
@@ -143,7 +143,7 @@ namespace EpicBattleFantasyUltimate
 				{
 					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 					{
-						if (chest.item[inventoryIndex].type == 0)
+						if (chest.item[inventoryIndex].type == ItemID.None)
 						{
 							chest.item[inventoryIndex].SetDefaults(itemsToPlaceInMarbleChests[itemsToPlaceInMarbleChestsChoice]);
 							itemsToPlaceInMarbleChestsChoice = (itemsToPlaceInMarbleChestsChoice + 1) % itemsToPlaceInMarbleChests.Length;

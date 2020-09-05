@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item36;
-            item.shoot = 10;
+            item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 9f;
             item.useStyle = ItemUseStyleID.HoldingOut;
 

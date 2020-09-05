@@ -26,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useAnimation = 10;
             item.knockBack = 5f;
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;
@@ -59,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.useAnimation = 10;
                 item.knockBack = 5f;
                 item.value = Item.sellPrice(gold: 10);
-                item.rare = 10;
+                item.rare = ItemRarityID.Red;
                 item.shoot = mod.ProjectileType("LightningShardCyclone");
                 item.shootSpeed = 20f;
                 item.autoReuse = false;
@@ -82,9 +82,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.useAnimation = 10;
                 item.knockBack = 5f;
                 item.value = Item.sellPrice(gold: 10);
-                item.rare = 10;
+                item.rare = ItemRarityID.Red;
                 item.UseSound = SoundID.Item1;
-                item.shoot = 0;
+                item.shoot = ProjectileID.None;
                 item.noMelee = false;
                 item.autoReuse = true;
                 item.useTurn = true;

@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useAnimation = 45;
             item.knockBack = 2f;
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;

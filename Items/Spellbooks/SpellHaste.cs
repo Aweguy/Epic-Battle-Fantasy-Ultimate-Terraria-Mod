@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
             item.useAnimation = 10;
             item.mana = 5;
             item.value = Item.sellPrice(silver: 60);
-            item.rare = 8;
+            item.rare = ItemRarityID.Yellow;
             item.useTurn = true;
             item.UseSound = SoundID.Item29;
         }

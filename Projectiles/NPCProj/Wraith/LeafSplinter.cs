@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
-            projectile.timeLeft = 120;
+            projectile.timeLeft = 600;
             drawOffsetX = -2;
             projectile.hostile = true;
             projectile.friendly = false;

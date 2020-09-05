@@ -33,7 +33,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
             
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             
