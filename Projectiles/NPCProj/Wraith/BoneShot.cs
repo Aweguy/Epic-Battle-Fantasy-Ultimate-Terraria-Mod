@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bone Shot");
+            DisplayName.SetDefault("Bone Spike");
         }
 
         public override void SetDefaults()

@@ -15,6 +15,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
         public int LimitCost = 0;
         public int LimitGain = 0;
+        public int LimitDrain = 0;
+        
 
         public virtual void SetSafeDefaults() { }
 
@@ -37,12 +39,19 @@ namespace EpicBattleFantasyUltimate.ClassTypes
             return false;
         }
 
+
         public override bool CanUseItem(Player player)
         {
             return CanUseSpecial(player) && base.CanUseItem(player);
         }
 
+        public override void HoldItem(Player player)
+        {
+            var epicPlayer = EpicPlayer.ModPlayer(player);
 
+
+            epicPlayer.LimitCurrent -= LimitDrain;
+        }
 
 
 

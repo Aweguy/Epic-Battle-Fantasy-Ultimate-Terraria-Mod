@@ -274,13 +274,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
+
+
+			if (EpicWorld.OreEvent)
+			{
+				return 35f;
+			}
+			else if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
 			{
 				return 0.02f;
 			}
+			else
+			{
+				return 0f;
+			}
 
-
-			return 0f;
 		}
 
 

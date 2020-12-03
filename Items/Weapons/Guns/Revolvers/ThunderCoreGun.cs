@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.width = 50;
             item.height = 30;
 
-            item.damage = 19;
+            item.damage = 15;
             item.useTime = 4;
             item.useAnimation = 9;
             item.reuseDelay = 2;

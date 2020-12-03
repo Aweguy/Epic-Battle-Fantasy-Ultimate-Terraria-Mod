@@ -2,31 +2,36 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-
+using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Staves
 {
-    public class DarkTooth : ModItem
+    public class DarkTooth : LimitItem
     {
+
+
+
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Tooth");
             Tooltip.SetDefault("Ancient black magic staff used for Dark elemental magic. Creates a slowly growing black hole that explodes afterwards.");
         }
 
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
-            item.damage = 1;
+            item.damage = 0;
             item.width = 40;
             item.height = 40;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 50;
             item.useAnimation = 50;
-            item.mana = 10;
+            LimitCost = 1;
             item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(platinum: 1);
             item.useTurn = true;
-            item.shoot = mod.ProjectileType("Pulsar");
+            item.shoot = ModContent.ProjectileType<Pulsar>();
             item.shootSpeed = 0f;
 			item.noMelee = true;
 			item.magic = true;
@@ -59,6 +64,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
                 
                 Dust.NewDustDirect(player.position, player.width, player.height, 302, 0f, 0f, 0, drawColor, 1f);
             }
+
+
         }
 
 

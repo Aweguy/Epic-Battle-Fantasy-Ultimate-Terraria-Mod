@@ -23,6 +23,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.height = 10;
 
             projectile.timeLeft = 1;
+            projectile.alpha = 255;
 
             projectile.hostile = true;
             projectile.friendly = false;

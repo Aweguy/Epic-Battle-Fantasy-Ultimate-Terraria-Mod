@@ -52,48 +52,9 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
 
-                int ball = Main.rand.Next(10);
+                int ball = Main.rand.Next(EpicBattleFantasyUltimate.BrushProj.ToArray());
 
-                if (ball == 0)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<RedBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 1)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<OrangeBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 2)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<YellowBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 3)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<GreenBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 4)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<BlueBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 5)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<IndigoBall>(), item.damage, 3f, player.whoAmI);
-                }
-                else if (ball == 6)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<VioletBall>(), item.damage, 10f, player.whoAmI);
-                }
-                else if (ball == 7)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<GreyBall>(), item.damage, 5f, player.whoAmI);
-                }
-                else if (ball == 8)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<BlackBall>(), item.damage, 1f, player.whoAmI);
-                }
-                else if (ball == 9)
-                {
-                    Projectile.NewProjectile(player.Center, perturbedSpeed, ModContent.ProjectileType<WhiteBall>(), item.damage, 1f, player.whoAmI);
-                }
+                Projectile.NewProjectile(player.Center, perturbedSpeed, ball, item.damage, 3f, player.whoAmI);
             
             
 

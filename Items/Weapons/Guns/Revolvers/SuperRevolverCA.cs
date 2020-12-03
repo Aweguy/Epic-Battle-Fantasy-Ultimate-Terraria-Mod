@@ -24,8 +24,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.height = 28;
 
             item.damage = 30;
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 30;
+            item.useAnimation = 30;
             item.useStyle = ItemUseStyleID.HoldingOut;
 
             item.ranged = true;

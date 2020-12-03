@@ -375,19 +375,36 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
+
+
+            if (EpicWorld.OreEvent)
+            {
+				return 35f;
+            }
+			else if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
 			{
 				return 0.02f;
 			}
+            else
+            {
+				return 0f;
+			}
 
-
-			return 0f;
 		}
 
 		#region NPCLoot
 
 		public override void NPCLoot()
 		{
+
+			EpicWorld.OreKills += 1;
+			if (Main.netMode == NetmodeID.Server)
+            {
+				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+
+			}
+
+
 
 			Item.NewItem(npc.getRect(), ItemID.Emerald, 2);
 

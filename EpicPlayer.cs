@@ -22,6 +22,8 @@ using EpicBattleFantasyUltimate.NPCs.Ores;
 using System.IO;
 using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
 using Terraria.DataStructures;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+using EpicBattleFantasyUltimate.Buffs.Buffs;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -102,6 +104,7 @@ namespace EpicBattleFantasyUltimate
         public float CursedAlpha = 0;
         double CursedDefense;
         double CursedMult;
+        public float CurseRotation;
 
         #endregion
 
@@ -132,6 +135,23 @@ namespace EpicBattleFantasyUltimate
         }
 
         #endregion
+
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if(damageSource.SourceProjectileIndex > -1)
+            {
+                if (damageSource.SourceProjectileType == ModContent.ProjectileType<CursingRune>())
+                {
+                    player.immune = false;
+
+                    return true;
+                }
+            }
+
+
+
+            return true;
+        }
 
         #region Limit Hooks
 
@@ -279,7 +299,7 @@ namespace EpicBattleFantasyUltimate
 
             if (Cursed == false)
             {
-                CursedStacks = 0;
+                CursedStacks = 1;
             }
 
             Cursed = false;
@@ -400,6 +420,8 @@ namespace EpicBattleFantasyUltimate
                 {
                     CursedAlphaCheck = false;
                 }
+
+
             }
 
             #endregion
@@ -597,6 +619,12 @@ namespace EpicBattleFantasyUltimate
             }
 
             #endregion          
+            
+
+            if(LimitCurrent < 0)
+            {
+                LimitCurrent = 0;
+            }
 
         }
 
@@ -710,6 +738,18 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
+            #region Heaven's speed
+
+            if (player.HasBuff(ModContent.BuffType<Kyun>()))
+            {
+                player.maxRunSpeed += 1.5f;
+                player.accRunSpeed += 1.5f;
+                player.moveSpeed += 1.5f;
+
+            }
+
+            #endregion
+
         }
 
         #endregion
@@ -795,12 +835,12 @@ namespace EpicBattleFantasyUltimate
 
             if (modPlayer.Cursed)
             {
-                Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect");
+                Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect2");
                 int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
                 int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
 
                 Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2f, texture.Height), 1f, SpriteEffects.None, 0);
+                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f , new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
                 Main.playerDrawData.Add(data);
             }
         });
@@ -823,9 +863,13 @@ namespace EpicBattleFantasyUltimate
             PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
             layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
             
-            
-            MiscEffects.visible = true;
-            layers.Add(MiscEffects);
+            if(player.statLife > 0)
+            {
+                MiscEffects.visible = true;
+                layers.Add(MiscEffects);
+
+            }
+
 
             void DrawGlowmasks(PlayerDrawInfo info)
             {
@@ -846,6 +890,4 @@ namespace EpicBattleFantasyUltimate
 
     }
 }
-
-
 

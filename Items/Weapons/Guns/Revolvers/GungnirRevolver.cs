@@ -27,6 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.damage = 46;
             item.useTime = 30;
             item.useAnimation = 30;
+            item.reuseDelay = 10;
 
             item.knockBack = 3f;
             item.ranged = true;

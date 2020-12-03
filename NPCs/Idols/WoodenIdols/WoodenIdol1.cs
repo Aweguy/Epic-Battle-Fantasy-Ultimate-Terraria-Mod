@@ -16,14 +16,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
         bool Spin = false;
 
 
-
-
-
-
-
-
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wooden Idol");
@@ -36,7 +28,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             npc.height = 48;
 
             npc.lifeMax = 95;
-            npc.damage = 14;
+            npc.damage = 16;
             npc.defense = 5;
             npc.lifeRegen = 4;
             npc.value = 50;
@@ -47,6 +39,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             if (Main.hardMode)
             {
                 npc.lifeMax *= 2;
+                npc.damage *= 2;
+                npc.defense *= 2;
+
             }
 
 

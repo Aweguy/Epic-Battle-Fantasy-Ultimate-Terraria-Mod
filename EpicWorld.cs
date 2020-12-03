@@ -24,6 +24,93 @@ namespace EpicBattleFantasyUltimate
     public class EpicWorld : ModWorld
     {
 
+		public static bool OreEvent = false;
+
+		public static int OreKills = 0;
+
+		public static int MaxOreKills = 100;
+
+		public static bool downedOres;
+
+		public static bool downedOresHard;
+
+
+
+
+        public override void Initialize()
+        {
+			downedOres = false;
+
+			downedOresHard = false;
+        }
+
+		public override TagCompound Save()
+		{
+			return new TagCompound
+			{
+				{"downedOres", downedOres},
+				{"downedOresHard", downedOresHard},
+			};
+		}
+
+        public override void Load(TagCompound tag)
+        {
+			downedOres = tag.GetBool("downedOres");
+			downedOresHard = tag.GetBool("downedOresHard");
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			BitsByte flags = new BitsByte();
+			flags[5] = downedOres;
+			flags[6] = downedOresHard;
+			writer.Write(flags);
+			flags = new BitsByte();
+			flags[4] = OreEvent;
+			writer.Write(flags);
+			writer.Write(OreKills);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			BitsByte flags = reader.ReadByte();
+			downedOres= flags[5];
+			downedOresHard = flags[6];
+			downedOresHard = flags[7];
+			flags = reader.ReadByte();
+			OreEvent = flags[4];
+			OreKills = reader.ReadInt32();
+		}
+
+
+		public override void PreUpdate()
+		{
+			MaxOreKills = 100;
+
+			if (OreKills >= MaxOreKills)
+			{
+				OreEvent = false;
+				downedOres = true;
+				if (Main.netMode == NetmodeID.Server)
+					NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+				string key = "Mods.EpicBattleFantasyUltimate.OreDefeat";
+				Color messageColor = Color.Orange;
+				if (Main.netMode == 2) // Server
+				{
+					NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+				}
+				else if (Main.netMode == 0) // Single Player
+				{
+					Main.NewText(Language.GetTextValue(key), messageColor);
+				}
+				OreKills = 0;
+
+
+			}
+		}
+
+
+
         #region PostWorldGen
 
         public override void PostWorldGen()
@@ -161,6 +248,18 @@ namespace EpicBattleFantasyUltimate
         }
 
         #endregion
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

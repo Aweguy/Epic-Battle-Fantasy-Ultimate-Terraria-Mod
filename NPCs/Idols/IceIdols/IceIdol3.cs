@@ -30,8 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             npc.height = 48;
 
             npc.lifeMax = 80;
-            npc.damage = 10;
-            npc.defense = 5;
+            npc.damage = 20;
+            npc.defense = 0;
             npc.lifeRegen = 4;
             npc.value = 50;
 
@@ -40,7 +40,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
             if (Main.hardMode)
             {
-                npc.lifeMax *= 2;
+                npc.lifeMax *= 3;
+                npc.damage = (int)(npc.damage * 1.5f);
             }
 
 
@@ -121,7 +122,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
-                    Ice = true;
+                    if (Main.rand.NextFloat() < .1f)
+                    {
+                        Ice = true;
+                    }
 
                     if (!Left && Right && !Spin)
                     {
@@ -174,7 +178,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
                 if (IceTimer <= 0)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.5f), npc.position);
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.3f), npc.position);
 
                     if (Spin)
                     {

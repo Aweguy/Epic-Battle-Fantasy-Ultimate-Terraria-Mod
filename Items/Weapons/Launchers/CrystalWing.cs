@@ -25,8 +25,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.width = 84;
             item.height = 54;
 
-            item.useTime = 35;
-            item.useAnimation = 35;
+            item.useTime = 45;
+            item.useAnimation = 45;
+            item.reuseDelay = 10;
 
 
             item.damage = 70;

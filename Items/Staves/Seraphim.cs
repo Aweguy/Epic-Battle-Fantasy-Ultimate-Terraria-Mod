@@ -56,12 +56,12 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             {
             }            
             Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>() , item.damage, 0f, player.whoAmI, 0f, 0f);
-            
 
 
 
 
-            return false;
+
+            return true;
         }
 
 

@@ -16,6 +16,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         int timer2 = 0;
         int timer = 1;
         int timer3 = 5;
+        int DrainTimer = 60;
 
 
 
@@ -50,21 +51,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-        #region OnHitNPC
+        /*#region OnHitNPC
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.velocity = target.DirectionTo(projectile.Center) * 20;
 
             target.immune[projectile.owner] = 0;
         }
-        #endregion
+        #endregion*/
 
         #region AI
 
         public override void AI()
         {
 
-            
+
 
             Color drawColor = Color.Black;
             if (Main.rand.Next(2) == 0)
@@ -83,8 +84,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             {
 
                 Player player = Main.player[projectile.owner];
+
+
+                var epicPlayer = EpicPlayer.ModPlayer(player);
+
                 // If the player channels the weapon, do something. This check only works if item.channel is true for the weapon.
-                if (player.channel)
+                if (player.channel && epicPlayer.LimitCurrent > 0)
                 {
                     float maxDistance = 2.3f; // This also sets the maximun speed the projectile can reach while following the cursor.
                     Vector2 vectorToCursor = Main.MouseWorld - projectile.Center;
@@ -111,32 +116,42 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
                     projectile.velocity = vectorToCursor;
 
-                    timer--;
-                    timer3--;
 
-                    if(timer3 == 0)
+
+                    for (int i = 0; i < Main.maxNPCs; i++)
                     {
-                        player.manaRegen = 0;
-                        player.statMana -= 2;
+                        NPC npc = Main.npc[i];
 
-                        timer3 = 5;
-                    }
-                       
+                        if (!npc.boss)
+                        {
+                            npc.velocity = npc.DirectionTo(projectile.Center) * 10f;
+                        }
 
 
-                    if(player.statMana <= 0)
-                    {
-                        projectile.timeLeft = 0;
                     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        timer--;
 
 
 
 
                     if (player.HasBuff(mod.BuffType("HasteBuff")))
                     {
-                        if (timer == 0)
-                        {
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.2f;
@@ -153,12 +168,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             projectile.width = (int)(baseWidth * projectile.scale);
                             projectile.height = (int)(baseHeight * projectile.scale);
                             projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
-                        }
+                        
                     }
                     else
                     {
-                        if (timer == 0)
-                        {
+                        
+                        
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.1f;
@@ -175,15 +190,32 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             projectile.width = (int)(baseWidth * projectile.scale);
                             projectile.height = (int)(baseHeight * projectile.scale);
                             projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
-                        }
+                        
                     }
 
 
+                    if (epicPlayer.LimitCurrent > 0)
+                    {
+                        DrainTimer--;
+
+                        if(DrainTimer <= 0)
+                        {
+                            epicPlayer.LimitCurrent -= 1;
+
+                            DrainTimer = 20;
+                        }
+
+                    }
 
                 }
                 // If the player stops channeling, do something else.
-                else if (projectile.ai[0] == 0f)
+                else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)
                 {
+
+
+
+
+
                     projectile.timeLeft = 1;   
                     
                     if(timer2 == 0)

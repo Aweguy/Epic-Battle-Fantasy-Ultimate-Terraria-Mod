@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 40;
 
 
-            item.damage = 87;
+            item.damage = 77;
             item.crit = 3;
             item.melee = true;
             item.noMelee = true;

@@ -30,7 +30,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useTime = 25;
             item.useAnimation = 25;
 
-            item.damage = 10;
+            item.damage = 8;
             item.ranged = true;
             item.noMelee = true;
 

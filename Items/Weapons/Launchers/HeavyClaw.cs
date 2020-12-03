@@ -25,6 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
             item.useTime = 65;
             item.useAnimation = 65;
+            item.useTime = 65;
             item.reuseDelay = 20;
 
 

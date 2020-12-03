@@ -30,8 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             npc.height = 48;
 
             npc.lifeMax = 105;
-            npc.damage = 8;
-            npc.defense = 10;
+            npc.damage = 10;
+            npc.defense = 6;
             npc.lifeRegen = 4;
             npc.value = 50;
 
@@ -41,6 +41,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             if (Main.hardMode)
             {
                 npc.lifeMax *= 2;
+                npc.damage *= 2;
+                npc.defense *= 2;
+
             }
 
 
