@@ -51,15 +51,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-        /*#region OnHitNPC
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.velocity = target.DirectionTo(projectile.Center) * 20;
-
-            target.immune[projectile.owner] = 0;
-        }
-        #endregion*/
-
         #region AI
 
         public override void AI()
@@ -118,17 +109,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-                    for (int i = 0; i < Main.maxNPCs; i++)
-                    {
-                        NPC npc = Main.npc[i];
-
-                        if (!npc.boss)
-                        {
-                            npc.velocity = npc.DirectionTo(projectile.Center) * 10f;
-                        }
 
 
-                    }
+                    #region Sucking Target
+
+                    float SuckRange = 160f;
+                    Vector2 targetCenter = projectile.position;
+
+
+                    #endregion
 
 
 
@@ -140,12 +129,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-
-
-
-
-
-                        timer--;
+                    timer--;
 
 
 
@@ -155,14 +139,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.2f;
+                                SuckRange = SuckRange + (2f * 16f);
                             }
                             else if (projectile.width <= 325 && projectile.width > 150)
                             {
                                 projectile.scale = projectile.scale + 0.1f;
-                            }
+                                SuckRange = SuckRange + (1f * 16f);
+                        }
                             else
                             {
                                 projectile.scale = projectile.scale + 0.05f;
+                                SuckRange = SuckRange + (0.5f * 16f);
                             }
                             timer = 1;
                             projectile.width = (int)(baseWidth * projectile.scale);
@@ -177,14 +164,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.1f;
+                                SuckRange = SuckRange + (1f * 16f);
                             }
                             else if (projectile.width <= 325 && projectile.width > 150)
                             {
                                 projectile.scale = projectile.scale + 0.05f;
+                                SuckRange = SuckRange + (0.5f * 16f);
                             }
                             else
                             {
                                 projectile.scale = projectile.scale + 0.025f;
+                                SuckRange = SuckRange + (0.25f * 16f);
                             }
                             timer = 1;
                             projectile.width = (int)(baseWidth * projectile.scale);
@@ -192,6 +182,51 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
                         
                     }
+
+
+
+                    #region Sucking
+
+                    
+
+
+
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        NPC npc = Main.npc[i];
+
+
+                        float between = Vector2.Distance(npc.Center, projectile.Center);
+
+                        bool inRange = between < SuckRange;
+
+
+                        if (!(npc.boss || npc.friendly || npc.townNPC) && inRange)
+                        {
+                            npc.velocity = npc.DirectionTo(projectile.Center) * 10f;
+                        }
+
+
+                    }
+
+                    #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                     if (epicPlayer.LimitCurrent > 0)
