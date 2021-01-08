@@ -36,7 +36,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
             projectile.scale = 1.5f;
         }
 
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            float chance = Main.rand.NextFloat(1f);
 
+            if(chance <= 0.3f)
+            {
+                for (int i = 0; i < Player.MaxBuffs; ++i)
+                {
+                    if (target.buffType[i] != 0 && !Main.debuff[target.buffType[i]])
+                    {
+                        target.DelBuff(i);
+                        i--;
+                    }
+                }
+            }
+        }
 
 
 

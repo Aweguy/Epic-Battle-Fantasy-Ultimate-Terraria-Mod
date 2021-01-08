@@ -1,10 +1,11 @@
-﻿/*using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
@@ -291,10 +292,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
+		public override void NPCLoot()
+		{
+
+			EpicWorld.OreKills += 1;
+			if (Main.netMode == NetmodeID.Server)
+			{
+				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+
+			}
+
+
+
+			Item.NewItem(npc.getRect(), mod.ItemType("SolidWater"), 2);
+
+
+		}
+
+
 
 
 
 
 
 	}
-}*/
+}

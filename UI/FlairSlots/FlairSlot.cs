@@ -33,7 +33,7 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
                 ModContent.GetInstance<EpicBattleFantasyUltimate>().GetTexture("UI/FlairSlots/FlairSlot"),
                 CustomItemSlot.DefaultColors.EmptyTexture);
 
-            MyNormalSlot = new CustomItemSlot(); // leave blank for a plain inventory space
+            //MyNormalSlot = new CustomItemSlot(); // leave blank for a plain inventory space
 
             
 
@@ -50,15 +50,15 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
 
 
             // you can set these once or change them in DrawSelf()
-            MyNormalSlot.Left.Set(85, 0);
-            MyNormalSlot.Top.Set(645, 0);
+            //MyNormalSlot.Left.Set(85, 0);
+            //MyNormalSlot.Top.Set(645, 0);
 
-            FlairSlot1.Left.Set(144, 0);
+            FlairSlot1.Left.Set(85, 0);
             FlairSlot1.Top.Set(645, 0);
 
 
             // don't forget to add them to the UIState!
-            Append(MyNormalSlot);
+            //Append(MyNormalSlot);
             Append(FlairSlot1);
 
 

@@ -13,14 +13,13 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Balance Badge");
-            Tooltip.SetDefault("Represents pure equilibrium and bestows a wealth of boosts.\n5% increase to all damage types\nIncreases maximum health and mana by 10\nIncreases movement and attack speed by 5%\nIncreases max minion slots by 1\nIncreases critical rates by 5%");
+            Tooltip.SetDefault("Represents pure equilibrium and bestows a wealth of boosts.\n5 defense\n5% increase to all damage types\nIncreases maximum health and mana by 10\nIncreases movement and attack speed by 5%\nIncreases max minion slots by 1\nIncreases critical rates by 5%");
         }
 
         public override void SetDefaults()
         {
             item.width = 20;
             item.height = 19;
-            item.defense = 5;
             item.accessory = true;
             item.rare = ItemRarityID.LightPurple;
         }
@@ -29,6 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.statDefense += 5;
             player.allDamage += 0.05f;
             player.moveSpeed += 0.05f;
             player.statLifeMax2 += 10;

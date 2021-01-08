@@ -358,3 +358,7 @@ All of our Family members for close support
     -Buffed the Leaf Wraith by increasing the lifetime of it's Leaves.
     -Balanced the idols because of being unkillable. Made them spawn only at day and reduced their spawn rates.
     -Heavy reduction at the Wraiths' Spawn rates.
+    -Reworked how Lightning Shard Cyclone works
+    -Improved Pulsar's sucking ability removing the damage each tick but improving the range it starts pulling enemies in
+    -New Idols the Marble Idols
+    -

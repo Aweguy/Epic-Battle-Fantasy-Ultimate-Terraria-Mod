@@ -41,7 +41,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
 
 
+        public override bool UseItem(Player player)
+        {
+            
 
+
+            return true;
+        }
 
 
 
@@ -50,6 +56,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override void HoldItem(Player player)
         {
+
+
+
+
 
             missHP = player.statLifeMax - player.statLife;
 

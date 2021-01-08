@@ -24,6 +24,9 @@ using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
 using Terraria.DataStructures;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.Buffs.Debuffs;
+
+
 
 namespace EpicBattleFantasyUltimate
 {
@@ -62,7 +65,8 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
-
+        public int numberOfDrawableBuffs;
+        private const int drawableBuffOffset = 42;
 
 
 
@@ -108,7 +112,12 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+        #region Blessed Variables
 
+        public bool Blessed = false;
+
+
+        #endregion
 
         #region OnHitByNPC
 
@@ -306,9 +315,12 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
+            #region Number Of Drawable Buffs
 
+            numberOfDrawableBuffs = -1;
 
-
+            Blessed = false;
+            #endregion
         }
 
         #endregion
@@ -425,6 +437,18 @@ namespace EpicBattleFantasyUltimate
             }
 
             #endregion
+
+
+
+
+            Item i = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot1.Item; // Caching the Item for easier access.
+
+            // Check to see if the item EXISTS.
+            if (i != null && ! i.IsAir)
+            {
+                i.modItem.UpdateAccessory(player, false);
+            }
+
 
 
         }
@@ -812,6 +836,20 @@ namespace EpicBattleFantasyUltimate
 
             }
             #endregion
+
+
+            #region Blessed Dust
+
+            if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
+            {
+                Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+            }
+
+            #endregion
+
+
+
+
         }
 
         #endregion
@@ -823,25 +861,54 @@ namespace EpicBattleFantasyUltimate
         #region ModifyDrawLayers
 
 
-        public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo) {
+
+        public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+        {
             if (drawInfo.shadow != 0f)
             {
                 return;
             }
+
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("EpicBattleFantasyUltimate");
             EpicPlayer modPlayer = drawPlayer.GetModPlayer<EpicPlayer>();
 
+            int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X) - (drawableBuffOffset / 2) * modPlayer.numberOfDrawableBuffs;
+            int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
 
             if (modPlayer.Cursed)
             {
+                // Do drawing.
                 Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect2");
-                int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
-                int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
+
+
+                
+
 
                 Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f , new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
+                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
                 Main.playerDrawData.Add(data);
+
+
+                drawX += drawableBuffOffset;
+
+            }
+
+            if (modPlayer.Blessed)
+            {
+                // Do drawing.
+                Texture2D texture = mod.GetTexture("Buffs/Buffs/BlessedEffect");
+
+
+                
+
+                Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
+                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
+                Main.playerDrawData.Add(data);
+
+
+                drawX += drawableBuffOffset;
+
             }
         });
 

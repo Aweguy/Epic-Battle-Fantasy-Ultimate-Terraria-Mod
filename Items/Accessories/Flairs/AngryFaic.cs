@@ -13,14 +13,13 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angry Faic");
-            Tooltip.SetDefault("An emblem so angry, you want something to be BLAMMED!\nIncreases critical chance by 8% for all types of damage.\nIncreases damage by 8%.\nIncreases enemy aggression.");
+            Tooltip.SetDefault("An emblem so angry, you want something to be BLAMMED!\n2 defense\nIncreases critical chance by 8% for all types of damage.\nIncreases damage by 8%.\nIncreases enemy aggression.");
         }
 
         public override void SetDefaults()
         {
             item.width = 32;
             item.height = 32;
-            item.defense = 2;
             item.rare = ItemRarityID.LightPurple;
             item.accessory = true;
         }
@@ -29,6 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.statDefense += 2;
             player.magicCrit += 8;
             player.meleeCrit += 8;
             player.rangedCrit += 8;

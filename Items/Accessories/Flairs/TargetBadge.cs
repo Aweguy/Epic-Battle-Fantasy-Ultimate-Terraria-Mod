@@ -13,14 +13,13 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Target Badge");
-            Tooltip.SetDefault("Somehow a target on yourself makes you a better shot, who knew?\nIncreases critical chance by 10% for all types of damage.\nIncreases enemy aggression.");
+            Tooltip.SetDefault("Somehow a target on yourself makes you a better shot, who knew?\n1 defense\nIncreases critical chance by 10% for all types of damage.\nIncreases enemy aggression.");
         }
 
         public override void SetDefaults()
         {
             item.width = 32;
             item.height = 32;
-            item.defense = 1;
             item.accessory = true;
             item.rare = ItemRarityID.LightRed;
         }
@@ -29,6 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.statDefense += 1;
             player.magicCrit += 10;
             player.meleeCrit += 10;
             player.rangedCrit += 10;

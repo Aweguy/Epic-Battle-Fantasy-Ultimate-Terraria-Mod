@@ -34,6 +34,10 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 
         public override void Update(Player player, ref int buffIndex)
         {
+
+            player.GetModPlayer<EpicPlayer>().numberOfDrawableBuffs++;
+
+
             player.GetModPlayer<EpicPlayer>().Cursed = true;
         }
 

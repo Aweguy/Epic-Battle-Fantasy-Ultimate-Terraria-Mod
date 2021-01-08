@@ -13,17 +13,25 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shield Medal");
-            Tooltip.SetDefault("Aid others where you can. Let all be aided and loved in all lands.");
+            Tooltip.SetDefault("Aid others where you can. Let all be aided and loved in all lands.\n40 defense");
         }
 
         public override void SetDefaults()
         {
             item.width = 20;
             item.height = 19;
-            item.defense = 40;
             item.accessory = true;
             item.rare = ItemRarityID.Lime;
         }
+
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.statDefense += 40;
+            
+        }
+
+
 
 
         public override int ChoosePrefix(UnifiedRandom rand)

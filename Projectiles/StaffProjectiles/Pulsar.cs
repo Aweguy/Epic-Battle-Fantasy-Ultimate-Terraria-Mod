@@ -17,6 +17,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         int timer = 1;
         int timer3 = 5;
         int DrainTimer = 60;
+        float SuckRange = 160f;
+
 
 
 
@@ -113,7 +115,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
                     #region Sucking Target
 
-                    float SuckRange = 160f;
                     Vector2 targetCenter = projectile.position;
 
 
@@ -139,17 +140,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.2f;
-                                SuckRange = SuckRange + (2f * 16f);
+                                SuckRange = SuckRange + (0.5f * 16f);
                             }
                             else if (projectile.width <= 325 && projectile.width > 150)
                             {
                                 projectile.scale = projectile.scale + 0.1f;
-                                SuckRange = SuckRange + (1f * 16f);
+                                SuckRange = SuckRange + (0.25f * 16f);
                         }
                             else
                             {
                                 projectile.scale = projectile.scale + 0.05f;
-                                SuckRange = SuckRange + (0.5f * 16f);
+                                SuckRange = SuckRange + (0.125f * 16f);
                             }
                             timer = 1;
                             projectile.width = (int)(baseWidth * projectile.scale);
@@ -164,17 +165,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             if (projectile.width <= 150)
                             {
                                 projectile.scale = projectile.scale + 0.1f;
-                                SuckRange = SuckRange + (1f * 16f);
+                                SuckRange = SuckRange + (0.25f * 16f);
                             }
                             else if (projectile.width <= 325 && projectile.width > 150)
                             {
                                 projectile.scale = projectile.scale + 0.05f;
-                                SuckRange = SuckRange + (0.5f * 16f);
+                                SuckRange = SuckRange + (0.125f * 16f);
                             }
                             else
                             {
                                 projectile.scale = projectile.scale + 0.025f;
-                                SuckRange = SuckRange + (0.25f * 16f);
+                                SuckRange = SuckRange + (0.0625f * 16f);
                             }
                             timer = 1;
                             projectile.width = (int)(baseWidth * projectile.scale);
@@ -214,33 +215,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    if (epicPlayer.LimitCurrent > 0)
-                    {
-                        DrainTimer--;
-
-                        if(DrainTimer <= 0)
-                        {
-                            epicPlayer.LimitCurrent -= 1;
-
-                            DrainTimer = 20;
-                        }
-
-                    }
 
                 }
                 // If the player stops channeling, do something else.

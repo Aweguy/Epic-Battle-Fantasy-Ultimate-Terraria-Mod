@@ -7,7 +7,7 @@ using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Staves
 {
-    public class DarkTooth : LimitItem
+    public class DarkTooth : ModItem
     {
 
 
@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             Tooltip.SetDefault("Ancient black magic staff used for Dark elemental magic. Creates a slowly growing black hole that explodes afterwards.");
         }
 
-        public override void SetSafeDefaults()
+        public override void SetDefaults()
         {
             item.damage = 0;
             item.width = 40;
@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 50;
             item.useAnimation = 50;
-            LimitCost = 1;
+            item.mana = 10;
             item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(platinum: 1);
             item.useTurn = true;
@@ -72,9 +72,9 @@ namespace EpicBattleFantasyUltimate.Items.Staves
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Wood, 10);
-            recipe.AddIngredient(ItemID.DarkShard, 2);
-            recipe.AddIngredient(mod.ItemType("DarkMatter"), 10);
+            recipe.AddIngredient(ItemID.Wood, 20);
+            recipe.AddIngredient(ItemID.DarkShard, 10);
+            recipe.AddIngredient(mod.ItemType("DarkMatter"), 20);
             recipe.AddIngredient(ItemID.FragmentNebula);
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);

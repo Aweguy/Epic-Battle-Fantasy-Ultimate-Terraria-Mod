@@ -10,9 +10,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
     public class LightningShardCyclone : ModProjectile
     {
 		bool stay = false;
+		bool check = false;
 		int timer = 60;
 		float num601 = 0f;
 		float returnVel = 0f;
+		float returnDistance = 500f;
+
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lightning Shard");
@@ -29,7 +32,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			projectile.penetrate = -1;
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
+		/*public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			// RETURN UPON HITTING TILE
 			if (projectile.ai[0] == 0f)
@@ -40,7 +43,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			projectile.ai[0] = 1f;
 			// DON'T DESTROY
 			return false;
-		}
+		}*/
 
 
 
@@ -59,7 +62,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
         public override void AI()
 		{
-			if (stay == true && timer > 0)
+
+			float between = Vector2.Distance(Main.player[projectile.owner].Center, projectile.Center);
+
+			bool Return = between > returnDistance;
+
+			if (Return)
+            {
+				check = true;
+            }
+
+			if (stay == true && timer > 0 && !Return)
 			{
 				projectile.velocity = Vector2.Zero;
 				timer--;
@@ -88,8 +101,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 					projectile.netUpdate = true;
 				}
 			}
-			
-			else // RETURNING CODE
+
+			else if (check) // RETURNING CODE
 			{
 				
 				

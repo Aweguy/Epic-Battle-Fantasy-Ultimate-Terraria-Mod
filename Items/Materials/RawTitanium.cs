@@ -31,36 +31,8 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.maxStack = 99;
 
 
+
         }
-
-
-        public override bool CanUseItem(Player player)
-        {
-            return true;
-        }
-
-        public override bool UseItem(Player player)
-        {
-            string key = "Mods.EpicBattleFantasyUltimate.OreEventStart";
-            Color messageColor = Color.Orange;
-            if (Main.netMode == 2) // Server
-            {
-                NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-            }
-            else if (Main.netMode == 0) // Single Player
-            {
-                Main.NewText(Language.GetTextValue(key), messageColor);
-            }
-
-            if (Main.netMode == 0)
-            {
-                Main.PlaySound(SoundID.Roar, player.position, 0);
-                EpicWorld.OreEvent = true;
-            }
-
-            return true;
-        }
-
 
 
 

@@ -30,6 +30,8 @@ namespace EpicBattleFantasyUltimate
 
 		public static int MaxOreKills = 100;
 
+		public static int MaxOreKillsHard = 150;
+
 		public static bool downedOres;
 
 		public static bool downedOresHard;
@@ -86,25 +88,54 @@ namespace EpicBattleFantasyUltimate
 		public override void PreUpdate()
 		{
 			MaxOreKills = 100;
+			MaxOreKillsHard = 150;
 
-			if (OreKills >= MaxOreKills)
-			{
-				OreEvent = false;
-				downedOres = true;
-				if (Main.netMode == NetmodeID.Server)
-					NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-				string key = "Mods.EpicBattleFantasyUltimate.OreDefeat";
-				Color messageColor = Color.Orange;
-				if (Main.netMode == 2) // Server
+            if (!Main.hardMode)
+            {
+				if (OreKills >= MaxOreKills)
 				{
-					NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-				}
-				else if (Main.netMode == 0) // Single Player
-				{
-					Main.NewText(Language.GetTextValue(key), messageColor);
-				}
-				OreKills = 0;
+					OreEvent = false;
+					downedOres = true;
+					if (Main.netMode == NetmodeID.Server)
+						NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+					string key = "The ores have been defeated";
+					Color messageColor = Color.Orange;
+					if (Main.netMode == 2) // Server
+					{
+						NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+					}
+					else if (Main.netMode == 0) // Single Player
+					{
+						Main.NewText(Language.GetTextValue(key), messageColor);
+					}
+					OreKills = 0;
 
+
+				}
+
+			}
+            else
+            {
+				if (OreKills >= MaxOreKillsHard)
+				{
+					OreEvent = false;
+					downedOresHard = true;
+					if (Main.netMode == NetmodeID.Server)
+						NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+					string key = "The ores have been defeated";
+					Color messageColor = Color.Orange;
+					if (Main.netMode == 2) // Server
+					{
+						NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+					}
+					else if (Main.netMode == 0) // Single Player
+					{
+						Main.NewText(Language.GetTextValue(key), messageColor);
+					}
+					OreKills = 0;
+
+
+				}
 
 			}
 		}
