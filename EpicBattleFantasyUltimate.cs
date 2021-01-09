@@ -24,6 +24,11 @@ namespace EpicBattleFantasyUltimate
 	public class EpicBattleFantasyUltimate : Mod
 	{
 
+		private UserInterface _LimitBreakBarUI;
+		internal LimitBreakBar LimitBreakBar;
+
+
+
 		private UserInterface _flairUserInterface;
 		public FlairSlot SlotUI;
 
@@ -137,7 +142,17 @@ namespace EpicBattleFantasyUltimate
 
 				SlotUI.Activate();
 				_flairUserInterface.SetState(SlotUI);
+
+				LimitBreakBar = new LimitBreakBar();
+				_LimitBreakBarUI = new UserInterface();
+				_LimitBreakBarUI.SetState(LimitBreakBar);
+
+
 			}
+
+
+
+
 
 
 
@@ -171,8 +186,23 @@ namespace EpicBattleFantasyUltimate
 		{
 			if (SlotUI.Visible)
 			{
+				//If the Equipment page is active
+				if(Main.EquipPage == 2)
+                {
+
+                }
+
 				_flairUserInterface?.Update(gameTime);
+
+				
+
+
+
 			}
+
+			_LimitBreakBarUI?.Update(gameTime);
+
+
 
 		}
 
@@ -181,6 +211,24 @@ namespace EpicBattleFantasyUltimate
 		// make sure the ui can draw
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
+			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+
+
+
+			if (SlotUI.Visible)
+            {
+				if (resourceBarIndex != -1)
+				{
+					layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Limit Break", delegate { _LimitBreakBarUI.Draw(Main.spriteBatch, new GameTime()); return true; }, InterfaceScaleType.UI));
+				}
+
+			}
+
+
+
+
+
+
 			// this will draw on the same layer as the inventory
 			int inventoryLayer = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 

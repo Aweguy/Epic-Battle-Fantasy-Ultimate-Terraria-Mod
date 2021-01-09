@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,7 +21,9 @@ namespace EpicBattleFantasyUltimate.UI
         public override void OnInitialize()
         {
             area = new UIElement();
-            area.Left.Set(-area.Width.Pixels - 520, 1f);
+            //Position x
+            area.Left.Set(-area.Width.Pixels - 720, 1f);
+            //position y
             area.Top.Set(26, 0f);
             area.Width.Set(182, 0f);
             area.Height.Set(60, 0f);
@@ -92,4 +94,4 @@ namespace EpicBattleFantasyUltimate.UI
 
 
     }
-}*/
+}
