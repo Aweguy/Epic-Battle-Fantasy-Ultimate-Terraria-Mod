@@ -14,9 +14,11 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
     public class FlairSlot : UIState
     {
 
-        public CustomItemSlot MyNormalSlot;
         public CustomItemSlot FlairSlot1 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f);
-         
+        public CustomItemSlot FlairSlot2 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f);
+        public CustomItemSlot FlairSlot3 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f);
+
+
 
         public bool Visible
         {
@@ -47,6 +49,24 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
                 HoverText = "Flair" // try to describe what will go into the slot
             };
 
+            FlairSlot2 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f)
+            {
+
+                IsValidItem = item => (ModContent.GetModItem(item.type) as Flair) != null, //ModContent.GetModItem(item.type) is  Flair, // what do you want in the slot?
+
+
+
+                HoverText = "Flair" // try to describe what will go into the slot
+            };
+            FlairSlot3 = new CustomItemSlot(ItemSlot.Context.EquipAccessory, 0.85f)
+            {
+
+                IsValidItem = item => (ModContent.GetModItem(item.type) as Flair) != null, //ModContent.GetModItem(item.type) is  Flair, // what do you want in the slot?
+
+
+
+                HoverText = "Flair" // try to describe what will go into the slot
+            };
 
 
             // you can set these once or change them in DrawSelf()
@@ -56,10 +76,21 @@ namespace EpicBattleFantasyUltimate.UI.FlairSlots
             FlairSlot1.Left.Set(85, 0);
             FlairSlot1.Top.Set(645, 0);
 
+            FlairSlot2.Left.Set(135, 0);
+            FlairSlot2.Top.Set(645, 0);
+
+
+            FlairSlot3.Left.Set(185, 0);
+            FlairSlot3.Top.Set(645, 0);
+
+
 
             // don't forget to add them to the UIState!
             //Append(MyNormalSlot);
             Append(FlairSlot1);
+            Append(FlairSlot2);
+            Append(FlairSlot3);
+
 
 
         }

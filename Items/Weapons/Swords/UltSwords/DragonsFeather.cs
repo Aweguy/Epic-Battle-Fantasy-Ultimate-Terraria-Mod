@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dragon's Feather"); 
-			Tooltip.SetDefault("A blade that grants swiftness to its wielder.\nInfused with the power of the wind, it can send enemies flying far away\nWhen upgraded it will summon turbulant wind knocking back\nand damaging your enemies.");
+			Tooltip.SetDefault("A blade that grants swiftness to its wielder.\nIt can send enemies flying far away.");
 		}
 
 		public override void SetDefaults()

@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -50,7 +51,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddIngredient(mod.ItemType("DarkMatter"), 3);
+            recipe.AddIngredient(ModContent.ItemType<DarkMatter>(), 3);
             recipe.AddIngredient(ItemID.Obsidian, 5);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);

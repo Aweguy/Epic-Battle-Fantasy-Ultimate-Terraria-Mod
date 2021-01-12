@@ -124,10 +124,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 
 
+                    DrainTimer--;
 
+                    if(DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent > 0)
+                    {
+                        player.GetModPlayer<EpicPlayer>().LimitCurrent--;
 
+                        DrainTimer = 60;
 
+                    }
+                    else if(DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
+                    {
+                        projectile.Kill();
 
+                        DrainTimer = 60;
+                    }
 
 
                     timer--;

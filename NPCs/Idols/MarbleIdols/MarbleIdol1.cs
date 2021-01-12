@@ -30,7 +30,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             npc.height = 48;
 
             npc.lifeMax = 220;
-            npc.damage = 8;
+            npc.damage = 10;
             npc.defense = 6;
             npc.lifeRegen = 4;
             npc.value = 50;

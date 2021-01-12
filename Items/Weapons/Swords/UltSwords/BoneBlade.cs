@@ -18,7 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override void SetDefaults()
         {
-            item.damage = 40;
+            item.damage = 45;
             item.melee = true;
             item.width = 64;
             item.height = 64;

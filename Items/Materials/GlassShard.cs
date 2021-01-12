@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass Shard");
-            Tooltip.SetDefault("The result of a glass breaking rampage.");
+            Tooltip.SetDefault("Crafted by artisan window smashers.");
         }
 
         public override void SetDefaults()

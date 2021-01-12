@@ -2,11 +2,12 @@
 Soon more will be added with frequent updates as long as i have time for that.
 
 Coding: Aweguy
+Situational help with Coding: Eldrazi, the whole TML community
 Literally the closest associate : AngryBiskoti
 Lead Spriting: Listochik (aka Leaf), Maskano , Renatm, The Purified, codingMad, speedynamo, DigitalZero
 Additional Spriting: GDA-G, Buff Froge, Bosh, Myntz
 Supporters: Just call me "Nab" (aka Troupe Master Grimm), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid, Patholofical Lurker
-Help with the Flair slots: abluescarab
+Help with the Flair slots: abluescarab, Eldrazi
 Elemental Damage types: CrimsonTek (developer of Terratyping)
 Writing and Editing: Hamstermer (aka Squire Doodad)
 
@@ -349,16 +350,17 @@ All of our Family members for close support
 
     v0.9.1
 
-    Limit Break and Master Wraith miniboss
+    Limit Break, Master Wraith miniboss, Flair Slots and Ore Ascension
 
     -Introduced the new Miniboss the Master Wraith
     -Introduced Limit Breaks (at least some of them), and the resource needed to use them
     -Changed the way Pulsar behaves. Now while it's alive it'll drain 1 LB(limit break) every 0.33 seconds. Also you won't be able to use Dark Tooth if you have less than one LB
     -Pulsar now moves a bit on its own when you stop channeling and explodes a bit later.
     -Buffed the Leaf Wraith by increasing the lifetime of it's Leaves.
-    -Balanced the idols because of being unkillable. Made them spawn only at day and reduced their spawn rates.
+    -Balanced the idols because of them being unkillable. Made them spawn only at day and reduced their spawn rates.
     -Heavy reduction at the Wraiths' Spawn rates.
     -Reworked how Lightning Shard Cyclone works
     -Improved Pulsar's sucking ability removing the damage each tick but improving the range it starts pulling enemies in
     -New Idols the Marble Idols
-    -
+    -Flair Slots. (thanks Eldrazi)
+    -New Flair, Threeforce. Gives LB regeneration and increases LB generation when hit.

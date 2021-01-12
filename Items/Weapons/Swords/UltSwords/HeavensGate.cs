@@ -2,6 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -59,10 +63,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			recipe.AddIngredient(ItemID.HallowedBar, 10);
 			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 20);
 			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 20);
-			recipe.AddIngredient(mod.ItemType("HolyGrail"));
+			recipe.AddIngredient(ModContent.ItemType<HolyGrail>());
 			recipe.AddIngredient(ItemID.SoulofLight, 45);
-			recipe.AddIngredient(mod.ItemType("VolcanicRuby"), 3);
-			recipe.AddIngredient(mod.ItemType("AethersBlade"));
+			recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 3);
+			recipe.AddIngredient(ModContent.ItemType<AethersBlade>());
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

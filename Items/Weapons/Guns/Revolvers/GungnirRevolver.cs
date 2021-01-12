@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -51,8 +52,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddIngredient(mod.ItemType("PlutoniumCore"));
-            recipe.AddIngredient(mod.ItemType("LeckoBrick"));
+            recipe.AddIngredient(ModContent.ItemType<P2Processor>());
+            recipe.AddIngredient(ModContent.ItemType<LeckoBrick>());
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -52,6 +52,11 @@ namespace EpicBattleFantasyUltimate
         public int MaxLimit;
         public int MaxLimit2;
         public int LimitGen;
+        public bool Tryforce;
+        public int TimeDiff;
+        public int TimePassed;
+        public float HpLost;
+        public float HpModifier;
 
         public override void Initialize()
         {
@@ -126,7 +131,7 @@ namespace EpicBattleFantasyUltimate
 
             #region OreImmunity
 
-            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>())
+            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>())
             {
                 player.immune = false;
             }
@@ -137,6 +142,8 @@ namespace EpicBattleFantasyUltimate
             #region Limit Generation
 
             LimitGenerationNPC(npc, damage, crit);
+
+            TimeDiff = 0;
 
             #endregion
 
@@ -167,6 +174,8 @@ namespace EpicBattleFantasyUltimate
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             LimitGenerationProj(proj, damage, crit);
+
+            TimeDiff = 0;
         }
 
 
@@ -175,14 +184,54 @@ namespace EpicBattleFantasyUltimate
 
         private void LimitGenerationNPC(NPC npc, int damage, bool crit)
         {
-            LimitCurrent += (int)damage / 4;
+            HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+
+            HpModifier = 1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+
+            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240)));
+
+
+            LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed; 
+
+
+            if (Tryforce)
+            {
+                LimitCurrent += (int)(LimitGen * 1.20f);
+            }
+            else
+            {
+                LimitCurrent += LimitGen;
+
+            }
+
+
 
             LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
         }
 
         private void LimitGenerationProj(Projectile proj, int damage, bool crit)
         {
-            LimitCurrent += (int)damage / 4;
+
+            HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+
+            HpModifier = 1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+
+            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240)));
+
+
+            LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed;
+
+
+            if (Tryforce)
+            {
+                LimitCurrent += (int)(LimitGen * 1.20f);
+            }
+            else
+            {
+                LimitCurrent += LimitGen;
+
+            }
+
 
             LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
         }
@@ -321,6 +370,12 @@ namespace EpicBattleFantasyUltimate
 
             Blessed = false;
             #endregion
+
+            #region Tryforce
+
+            Tryforce = false;
+            
+            #endregion
         }
 
         #endregion
@@ -438,8 +493,7 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
-
-
+            #region Flair Slots
 
             Item i = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot1.Item; // Caching the Item for easier access.
 
@@ -449,7 +503,23 @@ namespace EpicBattleFantasyUltimate
                 i.modItem.UpdateAccessory(player, false);
             }
 
+            Item j = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot2.Item; // Caching the Item for easier access.
 
+            // Check to see if the item EXISTS.
+            if (j != null && !j.IsAir)
+            {
+                j.modItem.UpdateAccessory(player, false);
+            }
+
+            Item h = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot3.Item; // Caching the Item for easier access.
+
+            // Check to see if the item EXISTS.
+            if (h != null && !h.IsAir)
+            {
+                h.modItem.UpdateAccessory(player, false);
+            }
+
+            #endregion
 
         }
 
@@ -673,6 +743,13 @@ namespace EpicBattleFantasyUltimate
             {
                 shadow = true;
             }
+
+            #endregion
+
+            #region Limit Stuff
+
+            TimeDiff++;
+
 
             #endregion
 

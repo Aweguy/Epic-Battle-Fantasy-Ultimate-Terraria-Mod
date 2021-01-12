@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -15,7 +16,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
 		public override void SetDefaults()
 		{
-			item.damage = 77;
+			item.damage = 67;
 			item.melee = true;
 			item.width = 48;
 			item.height = 48;
@@ -47,7 +48,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("VolcanicRuby"), 13);
+			recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 13);
 			recipe.AddIngredient(ItemID.LivingFireBlock, 10);
 			recipe.AddIngredient(ItemID.FireFeather);
 			recipe.AddTile(TileID.Anvils);

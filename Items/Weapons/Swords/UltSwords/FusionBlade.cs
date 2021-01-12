@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fusion Blade"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("Modeled after the weapons used by the MILITIA branch.");
+			Tooltip.SetDefault("Modeled after the weapons used by the MILITIA branch.\nShoots a big bullet.");
 		}
 
 		public override void SetDefaults()

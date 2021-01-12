@@ -57,7 +57,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void HoldItem(Player player)
         {
 
-
+            
 
 
 

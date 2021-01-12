@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -17,7 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override void SetDefaults()
         {
-            item.damage = 50;
+            item.damage = 40;
             item.melee = true;
             item.width = 104;
             item.height = 116;
@@ -100,7 +101,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.HallowedBar, 10);
             recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 10);
-            recipe.AddIngredient(mod.ItemType("VoltaicTopaz"), 4);
+            recipe.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 4);
             recipe.AddIngredient(ItemID.SoulofLight, 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);

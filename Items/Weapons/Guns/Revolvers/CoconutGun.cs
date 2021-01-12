@@ -32,7 +32,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useAnimation = 8;
             item.reuseDelay = 60;
 
-            item.damage = 6;
+            item.damage = 7;
             item.ranged = true;
             item.noMelee = true;
 

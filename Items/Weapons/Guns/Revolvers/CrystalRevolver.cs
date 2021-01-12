@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -51,7 +52,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddIngredient(mod.ItemType("PristineDiamond"));
+            recipe.AddIngredient(ItemType<PristineDiamond>());
             recipe.AddIngredient(ItemID.MarbleBlock, 25);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);

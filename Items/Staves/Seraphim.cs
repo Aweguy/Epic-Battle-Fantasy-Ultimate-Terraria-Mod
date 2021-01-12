@@ -16,7 +16,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Seraphim");
-            Tooltip.SetDefault("A glorious staff used by gorgeous angels.");
+            Tooltip.SetDefault("A glorious staff used by gorgeous angels.\nConsume Limit Break.");
         }
 
 
@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.magic = true;
             //item.mana = 100;
             item.noMelee = true;
-            LimitCost = 100;
+            LimitCost = 25;
 
             item.useTime = 1;
             item.useAnimation = 1;

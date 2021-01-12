@@ -1,18 +1,26 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Utilities;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
-    public class SwordMedal : Flair
+    public class Threeforce : Flair
     {
+
+
+        int regentimer = 60 * 5;
+
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sword Medal");
-            Tooltip.SetDefault("True might is the mark of discipline, honor and courage.");
+            DisplayName.SetDefault("Threeforce");
+            Tooltip.SetDefault("This amulet is fueled by...uh...'Strength', 'Fearlessness' and...uhhhh 'smartness'.");
         }
 
         public override void SetDefaults()
@@ -28,8 +36,21 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rangedDamage += 0.4f;
-            player.meleeDamage += 0.4f;
+            var epicPlayer = EpicPlayer.ModPlayer(player);
+
+            regentimer--;
+
+            epicPlayer.Tryforce = true;
+
+
+            if(regentimer <= 0 && epicPlayer.LimitCurrent < 100)
+            {
+                epicPlayer.LimitCurrent++;
+
+                regentimer = 60 * 5;
+            }
+
+
         }
 
 
@@ -42,7 +63,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
 
 
-        public override void AddRecipes()
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.HallowedBar, 10);
@@ -53,8 +74,16 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             recipe.AddRecipe();
 
 
-            
-        }
+
+        }*/
+
+
+
+
+
+
+
+
 
     }
 }

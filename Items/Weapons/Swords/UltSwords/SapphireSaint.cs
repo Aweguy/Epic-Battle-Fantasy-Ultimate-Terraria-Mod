@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -22,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.useTime = 25;
 			item.useAnimation = 25;
 			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 15f;
+			item.knockBack = 10f;
 			item.value = Item.sellPrice(silver: 50);
 			item.rare= ItemRarityID.Pink;
 			item.UseSound = SoundID.Item1;
@@ -33,7 +34,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("AbyssalSapphire"), 20);
+			recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 20);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

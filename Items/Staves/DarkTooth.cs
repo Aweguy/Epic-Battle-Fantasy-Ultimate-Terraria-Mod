@@ -16,7 +16,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Tooth");
-            Tooltip.SetDefault("Ancient black magic staff used for Dark elemental magic. Creates a slowly growing black hole that explodes afterwards.");
+            Tooltip.SetDefault("Ancient black magic staff used for Dark elemental magic. Creates a slowly growing black hole that explodes afterwards.\nConsumes Limit Break while active");
         }
 
         public override void SetDefaults()
