@@ -38,7 +38,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             player.AddBuff(mod.BuffType("BurntMouth"), 60 * 600);
             player.AddBuff(mod.BuffType("Infuriated"), 60 * 10);
 
-            return base.UseItem(player);
+            return true;
         }
 
 

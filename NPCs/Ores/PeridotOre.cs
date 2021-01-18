@@ -21,8 +21,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.width = 40;
 			npc.height = 40;
 
-			npc.lifeMax = 110;
-			npc.damage = 20;
+			npc.lifeMax = 190;
+			npc.damage = 23;
 			npc.defense = 25;
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				if (Main.rand.NextFloat() < .1f)
 				{
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 35, 5f, Main.myPlayer, 0, 1);
 
 					Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
 
@@ -257,7 +257,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		{
 			Vector2 target = Main.player[npc.target].Center - npc.Center;
 			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-			float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
+			float MoveSpeedMult = 2f; //How fast it moves and turns. A multiplier maybe?
 			MoveSpeedMult += num1276 / 200f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
 			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
 			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation

@@ -26,7 +26,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             npc.height = 40;
 
             npc.lifeMax = 90;
-            npc.damage = 35;
+            npc.damage = 40;
             npc.defense = 5;
             npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
@@ -50,7 +50,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				if(Main.rand.NextFloat() < .1f)
                 {
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 10, 5f, Main.myPlayer, 0, 1);
 
 					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
 					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore2"), 1f);
@@ -86,7 +86,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 			else
 			{
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 10, 5f, Main.myPlayer, 0, 1);
 
 				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
 				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore2"), 1f);

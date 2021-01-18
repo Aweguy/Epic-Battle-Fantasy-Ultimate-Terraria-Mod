@@ -22,8 +22,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.width = 40;
 			npc.height = 40;
 
-			npc.lifeMax = 150;
-			npc.damage = 10;
+			npc.lifeMax = 160;
+			npc.damage = 20;
 			npc.defense = 10;
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
@@ -47,12 +47,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				if (Main.rand.NextFloat() < .1f)
 				{
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
 
-					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
-					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore2"), 1f);
-					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore3"), 1f);
-					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore4"), 1f);
+					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore1"), 1f);
+					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore2"), 1f);
+					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore3"), 1f);
+					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore4"), 1f);
 
 					npc.life = 0;
 				}
@@ -83,7 +83,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 			else
 			{
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<QuartzExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
 
 				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore1"), 1f);
 				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore2"), 1f);
@@ -173,7 +173,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		{
 			Vector2 target = Main.player[npc.target].Center - npc.Center;
 			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-			float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
+			float MoveSpeedMult = 4.5f; //How fast it moves and turns. A multiplier maybe?
 			MoveSpeedMult += num1276 / 200f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
 			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
 			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation

@@ -6,6 +6,7 @@ using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Config;
 
 namespace EpicBattleFantasyUltimate.UI
 {
@@ -77,7 +78,17 @@ namespace EpicBattleFantasyUltimate.UI
 
         public override void Update(GameTime gameTime)
         {
-           
+            var config = ModContent.GetInstance<ClientSideConfig>();
+
+         
+            Vector2 drawStart = config.LimitBarPosition;
+
+            area.Left.Set(drawStart.X , 0f);
+            area.Top.Set(drawStart.Y , 0f);
+
+
+
+
             var epicPlayer = EpicPlayer.ModPlayer(Main.LocalPlayer);
             text.SetText($"Limit Break: { epicPlayer.LimitCurrent} / { epicPlayer.MaxLimit2}");
             base.Update(gameTime);

@@ -6,13 +6,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Authentication.ExtendedProtection;
 using Steamworks;
+using EpicBattleFantasyUltimate.HelperClasses;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class SpinFireball : ModProjectile
     {
         int OrbitTimer;//How many ticks it will orbit the npc
-        double distance = 90;//The distance of the projectile from the npc that is spawned
+        float distance = 90;//The distance of the projectile from the npc that is spawned
         bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
         bool Orbit = false;//Decides how many ticks each fireball will orbit the wraith.
 
@@ -77,7 +78,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
             if(OrbitTimer >= 0)
             {
-                EpicBattleFantasyUltimate.instance.ProjEngine.DoProjectile_OrbitPosition(this, npc.Center, distance, 4);//Makes it orbit.
+                projectile.DoProjectile_OrbitPosition(npc.Center, distance, 4f);//Makes it orbit.
             }
             else
             {

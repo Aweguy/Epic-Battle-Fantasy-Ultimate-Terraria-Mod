@@ -36,7 +36,7 @@ namespace EpicBattleFantasyUltimate
 
 		public static bool downedOresHard;
 
-
+        public static int bossesDefeated = 0;
 
 
         public override void Initialize()
@@ -44,6 +44,8 @@ namespace EpicBattleFantasyUltimate
 			downedOres = false;
 
 			downedOresHard = false;
+
+			bossesDefeated = 0;
         }
 
 		public override TagCompound Save()
@@ -52,13 +54,18 @@ namespace EpicBattleFantasyUltimate
 			{
 				{"downedOres", downedOres},
 				{"downedOresHard", downedOresHard},
+				{"bossesDefeated", bossesDefeated },
 			};
 		}
+
+
+		
 
         public override void Load(TagCompound tag)
         {
 			downedOres = tag.GetBool("downedOres");
 			downedOresHard = tag.GetBool("downedOresHard");
+			bossesDefeated = tag.Get<int>("bossesDefeated");
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -87,7 +94,10 @@ namespace EpicBattleFantasyUltimate
 
 		public override void PreUpdate()
 		{
-			MaxOreKills = 100;
+
+            #region Ore Event
+
+            MaxOreKills = 100;
 			MaxOreKillsHard = 150;
 
             if (!Main.hardMode)
@@ -138,7 +148,14 @@ namespace EpicBattleFantasyUltimate
 				}
 
 			}
-		}
+
+
+            #endregion
+
+
+
+
+        }
 
 
 

@@ -46,6 +46,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 
         #endregion
 
+        public int bossesDefeated = 0;
 
         #region Electrified Variables
 
@@ -271,12 +272,36 @@ namespace EpicBattleFantasyUltimate.NPCs
 
         public override void NPCLoot(NPC npc)
         {
-            if(npc.boss)
+
+            #region if boss
+            if (npc.boss)
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("DarkMatter"), Main.rand.Next(2) + 1);
+
+                #region unique boss count
+                //unique boss count
+
+                if (NPC.killCount[npc.type] <= 0)
+                {
+                    EpicWorld.bossesDefeated++;
+                }
+
+
+                /*for (int i = 0; i < NPCLoader.NPCCount; ++i)
+                {
+                    npc.SetDefaults(i);
+
+                    if (npc.boss && NPC.killCount[i] > 0)
+                    {
+                        EpicWorld.bossesDefeated++;
+                    }
+                }*/
+
+                #endregion
+
             }
 
-
+            #endregion
         }
 
         #endregion

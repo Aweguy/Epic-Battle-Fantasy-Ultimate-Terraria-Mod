@@ -15,13 +15,13 @@ namespace EpicBattleFantasyUltimate
         {
             Player player = Main.LocalPlayer;
 
-            /*#region Zircon Spawn
+            #region Zircon Spawn
 
             if (Main.tile[i,j].type == TileID.IceBlock)
             {
 
 
-                if(Main.rand.NextFloat() < .01)
+                if(Main.rand.NextFloat() < .001)
                 {
                     int npcToSpawn = ModContent.NPCType<ZirconOre>();
 
@@ -32,15 +32,15 @@ namespace EpicBattleFantasyUltimate
                 }
             }
 
-            #endregion*/
+            #endregion
 
-            #region Emerald Spawn
+            #region Peridot Spawn
 
             if (Main.tile[i, j].type == TileID.Emerald)
             {
 
 
-                if (Main.rand.NextFloat() < .1)
+                if (Main.rand.NextFloat() < .01)
                 {
                     int npcToSpawn = ModContent.NPCType<PeridotOre>();
 
@@ -59,7 +59,7 @@ namespace EpicBattleFantasyUltimate
             {
 
 
-                if (Main.rand.NextFloat() < .1)
+                if (Main.rand.NextFloat() < .01)
                 {
                     int npcToSpawn = ModContent.NPCType<QuartzOre>();
 
@@ -72,6 +72,43 @@ namespace EpicBattleFantasyUltimate
 
             #endregion
 
+            #region Ruby Spawn
+
+            if (Main.tile[i, j].type == TileID.Ruby)
+            {
+
+
+                if (Main.rand.NextFloat() < .01)
+                {
+                    int npcToSpawn = ModContent.NPCType<RubyOre>();
+
+                    Vector2 spawnPos = new Vector2(i * 16, j * 16);
+
+                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+
+                }
+            }
+
+            #endregion
+
+            #region Amethyst Spawn
+
+            if (Main.tile[i, j].type == TileID.Amethyst)
+            {
+
+
+                if (Main.rand.NextFloat() < .01)
+                {
+                    int npcToSpawn = ModContent.NPCType<QuartzOre>();
+
+                    Vector2 spawnPos = new Vector2(i * 16, j * 16);
+
+                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+
+                }
+            }
+
+            #endregion
 
 
 

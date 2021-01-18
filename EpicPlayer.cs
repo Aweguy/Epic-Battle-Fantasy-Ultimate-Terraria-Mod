@@ -25,13 +25,21 @@ using Terraria.DataStructures;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
 using EpicBattleFantasyUltimate.Buffs.Debuffs;
-
-
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 
 namespace EpicBattleFantasyUltimate
 {
     public class EpicPlayer : ModPlayer
     {
+
+        #region Flair Slot Items
+
+        Item item1 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[0].Item;
+        Item item2 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[1].Item;
+        Item item3 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[2].Item;
+
+        #endregion
+
 
 
         #region Limit Break
@@ -62,7 +70,19 @@ namespace EpicBattleFantasyUltimate
         {
             MaxLimit = DefaultMaxLimit;
             MaxLimit2 = MaxLimit;
+
+
+
+
         }
+
+
+        public override void OnEnterWorld(Player player)
+        {
+
+        }
+
+
 
 
 
@@ -70,10 +90,67 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+        #region Save/Load
+
+        public override TagCompound Save()
+        {
+
+            TagCompound tc = new TagCompound()
+            {
+            {"LimitPoints", LimitCurrent },
+            };
+
+            for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
+            {
+                if (EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item == null)
+                {
+                    tc.Add("flairSlot_" + i, string.Empty);
+                }
+                else
+                {
+                    tc.Add("flairSlot_" + i, ItemIO.ToBase64(EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item));
+                }
+            }
+
+            return (tc);
+        }
+
+        public override void Load(TagCompound tc)
+        {
+            LimitCurrent = tc.GetInt("LimitPoints");
+
+            if (EpicBattleFantasyUltimate.instance == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
+            {
+                string flairSlotData = tc.GetString("flairSlot_" + i);
+
+                if (!string.IsNullOrWhiteSpace(flairSlotData))
+                {
+                    EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = ItemIO.FromBase64(flairSlotData);
+                }
+                else
+                {
+                    EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = new Item();
+                }
+            }
+        }
+
+        #endregion
+
+
+
+
+
+        #region Overhead Buff Drawing
+
         public int numberOfDrawableBuffs;
         private const int drawableBuffOffset = 42;
 
-
+        #endregion
 
         #region Shadow
 
@@ -117,12 +194,33 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+        #region Crystal Wing Healing variables
+
+        int dps = 0;
+        int timer = 60;
+        bool heal = true;
+        int timer2 = 60;
+
+
+        #endregion
+
+
         #region Blessed Variables
 
         public bool Blessed = false;
 
 
         #endregion
+
+
+        
+
+       
+
+
+
+
+
 
         #region OnHitByNPC
 
@@ -131,7 +229,7 @@ namespace EpicBattleFantasyUltimate
 
             #region OreImmunity
 
-            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>())
+            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
             {
                 player.immune = false;
             }
@@ -152,6 +250,13 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
+
+
+
+
+
+
+
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if(damageSource.SourceProjectileIndex > -1)
@@ -162,6 +267,21 @@ namespace EpicBattleFantasyUltimate
 
                     return true;
                 }
+
+                #region Sapphire Explosion Knockback
+
+                if (damageSource.SourceProjectileType == ModContent.ProjectileType<SapphireExplosion>())
+                {
+
+                    Vector2 hitDir = Vector2.Normalize(player.position - Main.projectile[damageSource.SourceProjectileIndex].Center);
+
+                    player.velocity = hitDir * 16f; // Strong knockback.
+
+
+                }
+
+                #endregion
+
             }
 
 
@@ -196,17 +316,20 @@ namespace EpicBattleFantasyUltimate
 
             if (Tryforce)
             {
+
                 LimitCurrent += (int)(LimitGen * 1.20f);
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
             }
             else
             {
                 LimitCurrent += LimitGen;
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
             }
 
 
 
-            LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+            
         }
 
         private void LimitGenerationProj(Projectile proj, int damage, bool crit)
@@ -225,15 +348,17 @@ namespace EpicBattleFantasyUltimate
             if (Tryforce)
             {
                 LimitCurrent += (int)(LimitGen * 1.20f);
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
             }
             else
             {
                 LimitCurrent += LimitGen;
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
             }
 
 
-            LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+            
         }
 
 
@@ -251,18 +376,6 @@ namespace EpicBattleFantasyUltimate
 
 
 
-        public override TagCompound Save()
-        {
-            return new TagCompound
-            {
-                {"LimitPoints", LimitCurrent }
-            };
-        }
-
-        public override void Load(TagCompound tag)
-        {
-            LimitCurrent = tag.GetInt("LimitPoints");
-        }
 
         public override void LoadLegacy(BinaryReader reader)
         {
@@ -406,15 +519,6 @@ namespace EpicBattleFantasyUltimate
 
         #endregion
 
-        #region Crystal Wing Healing variables
-
-        int dps = 0;
-        int timer = 60;
-        bool heal = true;
-        int timer2 = 60;
-
-
-        #endregion
 
         #region PostUpdateBuffs
 
@@ -495,28 +599,25 @@ namespace EpicBattleFantasyUltimate
 
             #region Flair Slots
 
-            Item i = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot1.Item; // Caching the Item for easier access.
 
             // Check to see if the item EXISTS.
-            if (i != null && ! i.IsAir)
+            if (item1 != null && ! item1.IsAir)
             {
-                i.modItem.UpdateAccessory(player, false);
+                item1.modItem.UpdateAccessory(player, false);
             }
 
-            Item j = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot2.Item; // Caching the Item for easier access.
 
             // Check to see if the item EXISTS.
-            if (j != null && !j.IsAir)
+            if (item2 != null && !item2.IsAir)
             {
-                j.modItem.UpdateAccessory(player, false);
+                item2.modItem.UpdateAccessory(player, false);
             }
 
-            Item h = EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlot3.Item; // Caching the Item for easier access.
 
             // Check to see if the item EXISTS.
-            if (h != null && !h.IsAir)
+            if (item3 != null && !item3.IsAir)
             {
-                h.modItem.UpdateAccessory(player, false);
+                item3.modItem.UpdateAccessory(player, false);
             }
 
             #endregion

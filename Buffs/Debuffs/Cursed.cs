@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
         {
             DisplayName.SetDefault("Cursed");
             Description.SetDefault("What a horrible night to have a defense penalty!");
-            //Main.debuff[Type] = true;
+            Main.debuff[Type] = true;
             canBeCleared = false;
         }
 

@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Buffs.Buffs;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 {
@@ -44,7 +45,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
             {
                 for (int i = 0; i < Player.MaxBuffs; ++i)
                 {
-                    if (target.buffType[i] != 0 && !Main.debuff[target.buffType[i]])
+                    if (target.buffType[i] != 0 && !Main.debuff[target.buffType[i]] && !target.HasBuff(ModContent.BuffType<BlessedBuff>()))
                     {
                         target.DelBuff(i);
                         i--;
