@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using EpicBattleFantasyUltimate.Projectiles.SpellProjectiles;
 
 
 namespace EpicBattleFantasyUltimate.Items.Spells
@@ -25,18 +26,33 @@ namespace EpicBattleFantasyUltimate.Items.Spells
             item.mana = 30;
             item.rare = ItemRarityID.LightPurple;
             item.useTurn = true;
-            item.shoot = mod.ProjectileType("Fireball");
+            item.shoot = ModContent.ProjectileType<FireballBig>();
             item.shootSpeed = 4f;
 			item.noMelee = true;
             item.magic = true;
             item.scale = 1.2f;
-            item.value = 30322;
+            item.value = Item.sellPrice(silver: 10);
             
         }
 
 
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            position = Main.MouseWorld;
 
-        
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
         public override void AddRecipes()

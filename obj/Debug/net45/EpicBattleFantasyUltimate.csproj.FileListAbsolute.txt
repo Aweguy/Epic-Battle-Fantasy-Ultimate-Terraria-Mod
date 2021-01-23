@@ -23,10 +23,5 @@ C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBa
 C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.dll
 C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.pdb
 C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\Newtonsoft.Json.dll
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\Microsoft.Xna.Framework.dll
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\Microsoft.Xna.Framework.Game.dll
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\Microsoft.Xna.Framework.Graphics.dll
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\Microsoft.Xna.Framework.Xact.dll
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.exe
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.pdb
-C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.xml
+C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\FNA.dll
+C:\Users\irene\OneDrive\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader64bit.exe
