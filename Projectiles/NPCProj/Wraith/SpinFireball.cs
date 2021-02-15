@@ -7,17 +7,23 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Security.Authentication.ExtendedProtection;
 using Steamworks;
 using EpicBattleFantasyUltimate.HelperClasses;
+using System.IO;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class SpinFireball : ModProjectile
     {
-        int OrbitTimer;//How many ticks it will orbit the npc
-        float distance = 90;//The distance of the projectile from the npc that is spawned
-        bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
-        bool Orbit = false;//Decides how many ticks each fireball will orbit the wraith.
+        // How many ticks it will orbit the npc.
+        private int OrbitTimer;
 
+        // The distance of the projectile from the npc that is spawned.
+        private float Distance = 90;
 
+        // The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
+        private bool shoot = false;
+
+        // Decides how many ticks each fireball will orbit the wraith.
+        private bool Orbit = false;
 
         public override void SetStaticDefaults()
         {
@@ -27,30 +33,29 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void SetDefaults()
         {
-            projectile.width = 48;
-            projectile.height = 48;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
+            projectile.width = projectile.height = 48;
+
             projectile.penetrate = 1;
-            projectile.ranged = true;
             projectile.timeLeft = 60 * 25;
+
+            projectile.ranged = true;
+            projectile.friendly = true;
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;
 
+            Orbit = false;
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 2 * 60);
         }
 
-
-
-
-        public override void AI()
+        public override bool PreAI()
         {
+
+
 
 
             Color drawColor = Color.Orange;
@@ -58,34 +63,44 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             {
                 drawColor = Color.Red;
             }
-
-
-            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 0, drawColor, 0.8f) ;
-
-
+            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 0, drawColor, 0.8f);
 
             NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
-            if(Orbit == false)
+
+            if(!npc.active)
             {
-                OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
+                projectile.Kill();
+            }
+
+            if(npc.life <= 0)
+            {
+                projectile.Kill();
+            }
+
+
+            if (Orbit == false)
+            {
+                // Again, networking compatibility.
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    projectile.netUpdate = true;
+                    OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
+                }
 
                 Orbit = true;
             }
 
-
-            OrbitTimer--;
-
-            if(OrbitTimer >= 0)
+            if (--OrbitTimer >= 0)
             {
-                projectile.DoProjectile_OrbitPosition(npc.Center, distance, 4f);//Makes it orbit.
+                projectile.DoProjectile_OrbitPosition(npc.Center, Distance, MathHelper.PiOver2);
             }
             else
             {
                 if (!shoot)
                 {
                     projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the projectile.
-
+                    projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
                     shoot = true;
                 }
             }
@@ -99,14 +114,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
                 }
             }
 
-
-
-
+            return (false);
         }
 
-
-
-        #region PreDraw
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -115,9 +125,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
             return false;
         }
+
+        #region Networking
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(OrbitTimer);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            OrbitTimer = reader.ReadInt32();
+        }
+
         #endregion
-
-
 
 
 

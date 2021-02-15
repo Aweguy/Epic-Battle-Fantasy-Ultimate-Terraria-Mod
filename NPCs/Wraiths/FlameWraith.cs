@@ -21,7 +21,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
         float FireVel = 3f;//The velocity of the fireballs when launched.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
-        
+        private int currentFireballs = 0;
+        private readonly int maxFireballs = 3;
+
 
 
         public override void SetStaticDefaults()
@@ -103,36 +105,34 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             #region Shooting
 
             spectimer--;
-
-
-            if (spectimer <= 0)
+            if(spectimer<= 0)
             {
 
+                // Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
+                // You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
 
-                spintimer--;
+                float fullRotationInFrames = 240;
 
-                if (spintimer <= 0)
+                if (++spintimer >= fullRotationInFrames / maxFireballs)
                 {
+                    // Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI);
+                    }
 
-
-
-
-                    proj2 = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI, FireVel);
-
-                    spintimer = 30;//Resets the interval
-                    fireballs--;
+                    spintimer = 0;
+                    currentFireballs++;
                 }
 
-
-
-                else if (fireballs <= 0)
+                if (currentFireballs >= maxFireballs)
                 {
-                    fireballs = 3;
+                    currentFireballs = 0;
                     spectimer = 60 * 25; //Higher than the base value for balance purposes
                 }
 
-
             }
+
 
 
 

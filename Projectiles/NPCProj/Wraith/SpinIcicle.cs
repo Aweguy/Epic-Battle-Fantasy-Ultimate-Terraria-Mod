@@ -4,6 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.HelperClasses;
+using System.IO;
+
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
@@ -11,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
     {
 
         int OrbitTimer;//How many ticks it will orbit the player
-        double distance = 240;//The distance of the projectile from the player target.
+        float Distance = 240;//The distance of the projectile from the player target.
         bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
         bool Orbit = false;//Decides how many ticks each icicle will orbit the player.
         bool Frame = false;//The bool that determines the texture of the icicle
@@ -46,75 +49,68 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             target.AddBuff(BuffID.Chilled, 2 * 60);
         }
 
-
-
-
-        public override void AI()
-        {
-            NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
-
-            Orbiting();
-            FrameCheck();
-
-
-
-        }
-
-        private void Orbiting()
+        public override bool PreAI()
         {
 
-            Color drawColor = Color.White;
+
+
+
+            Color drawColor = Color.Orange;
             if (Main.rand.Next(2) == 0)
             {
-                drawColor = Color.Cyan;
+                drawColor = Color.Red;
             }
-
-            if(Main.rand.Next(10) == 0)
-            {
-                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Ice, 0f, 0f, 0, drawColor, 0.8f);
-
-            }
-
-
 
             NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
-            if (!Orbit)
+
+            if (!npc.active)
             {
-                OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
+                projectile.Kill();
+            }
+
+            if (npc.life <= 0)
+            {
+                projectile.Kill();
+            }
+
+
+            if (Orbit == false)
+            {
+                // Again, networking compatibility.
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    projectile.netUpdate = true;
+                    OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
+                }
 
                 Orbit = true;
             }
 
-
-            OrbitTimer--;
-
-            if (OrbitTimer >= 0)
+            if (--OrbitTimer >= 0)
             {
-                EpicBattleFantasyUltimate.instance.ProjEngine.DoProjectile_OrbitPosition(this, Main.player[npc.target].Center, distance, 5);//Makes it orbit.
-
-                projectile.rotation = (projectile.Center - Main.player[npc.target].Center).ToRotation();
-
+                projectile.DoProjectile_OrbitPosition(Main.player[npc.target].Center, Distance, MathHelper.PiOver2);
             }
             else
             {
                 if (!shoot)
                 {
-                    projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * 7f;//sets the velocity of the projectile.
-
-                    projectile.rotation = (projectile.Center - Main.player[npc.target].Center).ToRotation();
-
+                    projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the projectile.
+                    projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
                     shoot = true;
                 }
             }
 
 
-            
+            if(Frame == false)
+            {
+                FrameCheck();
+                Frame = true;
+            }
 
 
 
-
-
+            return (false);
         }
 
 
@@ -128,6 +124,27 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             }
         }
 
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Texture2D texture = Main.projectileTexture[projectile.type];
+
+            spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 48, 48, 48), Color.White, projectile.rotation, new Vector2(24, 24), projectile.scale, SpriteEffects.None, 0);
+
+            return false;
+        }
+
+        #region Networking
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(OrbitTimer);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            OrbitTimer = reader.ReadInt32();
+        }
+
+        #endregion
 
 
 

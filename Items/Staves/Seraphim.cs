@@ -22,8 +22,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 
         public override void SetSafeDefaults()
         {
-            item.width = 100;
-            item.height = 100;
+            item.width = 45;
+            item.height = 45;
 
             item.damage = 100;
             item.magic = true;

@@ -26,7 +26,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         int spintimer = 8; //A timer that sets wthe interval between the orbiting fireballs.
         int fireballs = 11;//The number of the fireballs.
         float FireVel = 3f;//The velocity of the fireballs when launched.
-
+        private int currentFireballs = 0;
+        private readonly int maxFireballs = 5;
 
 
         int LeafStartTimer = 240;//The timer that determines when the Leaves will be shot
@@ -39,10 +40,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 
 
-        int icetimer = 60 * 4; //The timer that makes the icicles spawn. (4.5 seconds)
         int icetimer2 = 4; //The timer that defines the interval between each icicle.
-        int fmis = 20; //Defines how many icicles will drop. (Falling Magical Ice Spikes)
-        float IceOffsetx; //Definition of the number that will define where the icicle will spawn.
+        private int currentIcicles = 0;
+        private readonly int maxIcicles = 20;
 
         int BlinkTimer = 60 * 20;//Determines when the wraith will blink
         bool Blinking = false;//Determines when the Wraith will not attack and blink in a random location around the player
@@ -105,6 +105,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         public override void AI()
         {
+            #region Attack AI
+
             Player player = Main.player[npc.target]; //Target
 
             if(npc.life <= (int)(npc.lifeMax * 0.25f))
@@ -183,11 +185,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 SparkBall(npc);
             }
 
-
-
+            #endregion
 
         }
         #endregion
+
+
+
+
+
+
 
         #region Blink
 
@@ -380,64 +387,29 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         private void Fireballs(NPC npc)
         {
 
-            Player player = Main.player[npc.target]; //Target
+            // Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
+            // You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
 
-            if (Enraged)
+            float fullRotationInFrames = 240;
+
+            if (++spintimer >= fullRotationInFrames / maxFireballs)
             {
-                Firetimer--;
+                // Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI);
+                }
+
+                spintimer = 0;
+                currentFireballs++;
             }
 
-            if (!Enraged)
+            if (currentFireballs >= maxFireballs)
             {
-                spintimer--;
-
-                if (spintimer <= 0)
-                {
-
-
-
-
-                    int proj2 = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI, FireVel);
-
-                    spintimer = 8;//resets the interval
-                    fireballs--;
-                }
-
-
-
-                else if (fireballs <= 0)
-                {
-                    fireballs = 11;
-                    SpecChoice = 0;
-                    SpecChoiceTimer = 60 * 25;
-                }
+                currentFireballs = 0;
+                SpecChoice = 0;
+                SpecChoiceTimer = 60 * 25; //Higher than the base value for balance purposes
             }
-            else if (Enraged && Firetimer <= 0)
-            {
-                spintimer--;
-
-                if (spintimer <= 0)
-                {
-
-
-
-
-                    int proj2 = Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI, FireVel);
-
-                    spintimer = 8;//resets the interval
-                    fireballs--;
-                }
-
-
-
-                else if (fireballs <= 0)
-                {
-                    fireballs = 11;
-
-                    Firetimer = 60 * 25;
-                }
-            }
-            
 
 
 
@@ -567,70 +539,30 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         private void Icicles (NPC npc)
         {
 
-            if (Enraged)
+            // Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
+            // You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
+
+            float fullRotationInFrames = 240;
+
+            if (++icetimer2 >= fullRotationInFrames / maxIcicles)
             {
-                icetimer--;
+                // Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, npc.whoAmI);
+                }
+
+                icetimer2 = 0;
+                currentIcicles++;
             }
 
-            if (!Enraged)
+            if (currentIcicles >= maxIcicles)
             {
-                icetimer2--;
-
-                if (icetimer2 <= 0)
-                {
-
-
-
-                    IceOffsetx = Main.rand.NextFloat(-100, 100);
-
-                    Vector2 spawnPosition = new Vector2(Main.player[npc.target].Center.X - IceOffsetx, Main.player[npc.target].Center.Y - 500);
-                    Vector2 speed = new Vector2(0, 10);
-
-                    int proj5 = Projectile.NewProjectile(spawnPosition, speed, ModContent.ProjectileType<SpinIcicle>(), 30, 2, Main.myPlayer, npc.whoAmI, 1);
-
-                    icetimer2 = 4;
-                    fmis--;
-                }
-
-
-
-                else if (fmis <= 0)
-                {
-                    fmis = 20;
-                    SpecChoice = 0;
-                    SpecChoiceTimer = 60 * 25;
-                }
-
+                currentIcicles = 0;
+                SpecChoice = 0;
+                SpecChoiceTimer = 60 * 25; //Higher than the base value for balance purposes
             }
-            else if (Enraged && icetimer <= 0)
-            {
-                icetimer2--;
-
-                if (icetimer2 <= 0)
-                {
-
-
-
-                    IceOffsetx = Main.rand.NextFloat(-100, 100);
-
-                    Vector2 spawnPosition = new Vector2(Main.player[npc.target].Center.X - IceOffsetx, Main.player[npc.target].Center.Y - 500);
-                    Vector2 speed = new Vector2(0, 10);
-
-                    int proj5 = Projectile.NewProjectile(spawnPosition, speed, ModContent.ProjectileType<SpinIcicle>(), 30, 2, Main.myPlayer, npc.whoAmI, 1);
-
-                    icetimer2 = 4;
-                    fmis--;
-                }
-
-
-
-                else if (fmis <= 0)
-                {
-                    fmis = 20;
-                    icetimer = 60 * 25;
-                }
-
-            }
+        
 
 
 
