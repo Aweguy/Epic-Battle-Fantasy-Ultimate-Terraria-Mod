@@ -19,9 +19,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         int icetimer = 60 * 4; //The timer that makes the icicles spawn. (4.5 seconds)
         int icetimer2 = 7; //The timer that defines the interval between each icicle.
         int shootTimer = 60; //The timer that sets the shoot bool to false again.
-        int fmis = 10; //Defines how many icicles will drop. (Falling Magical Ice Spikes)
-        float offsetx; //Definition of the number that will define where the icicle will spawn.
         bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+        private int currentIcicles = 0; //How many icicles are currently alive
+        private readonly int maxIcicles = 10; //The maximum amount of icicles that will be spawned
 
 
 
@@ -103,43 +103,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             #endregion
 
 
+
             #region Shooting
 
             icetimer--;
 
-
             if (icetimer <= 0)
             {
-
-
-                icetimer2--;
-
-                if (icetimer2 <= 0)
-                {
-
-
-
-                    offsetx = Main.rand.NextFloat(-100, 100);
-
-                    Vector2 spawnPosition = new Vector2(Main.player[npc.target].Center.X - offsetx, Main.player[npc.target].Center.Y - 500);
-                    Vector2 speed = new Vector2(0, 10);
-
-                    proj2 = Projectile.NewProjectile(spawnPosition, speed, ModContent.ProjectileType<Icicle>(), 20, 2, Main.myPlayer, 0, 1);
-
-                    icetimer2 = 7;
-                    fmis--;
-                }
-
-
-
-                else if (fmis <= 0)
-                {
-                    fmis = 10;
-                    icetimer = 60 * 4;
-                }
-
-
+                Icicles(npc);
             }
+
+
+
 
 
             timer--;
@@ -233,7 +208,32 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         #endregion
 
 
+        private void Icicles(NPC npc)
+        {
 
+
+            float fullRotationInFrames = 240;
+
+            if (++icetimer2 >= fullRotationInFrames / maxIcicles)
+            {
+                // Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, npc.whoAmI);
+                }
+
+                icetimer2 = 0;
+                currentIcicles++;
+            }
+
+            if (currentIcicles >= maxIcicles)
+            {
+                currentIcicles = 0;
+               
+                icetimer = 60 * 25; //Higher than the base value for balance purposes
+            }
+
+        }
 
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

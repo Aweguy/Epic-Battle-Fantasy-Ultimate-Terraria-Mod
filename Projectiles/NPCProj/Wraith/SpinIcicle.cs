@@ -53,7 +53,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         {
 
 
-
+           
 
             Color drawColor = Color.Orange;
             if (Main.rand.Next(2) == 0)
@@ -90,6 +90,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             if (--OrbitTimer >= 0)
             {
                 projectile.DoProjectile_OrbitPosition(Main.player[npc.target].Center, Distance, MathHelper.PiOver2);
+                projectile.rotation = (projectile.Center - Main.player[npc.target].Center).ToRotation();
             }
             else
             {
@@ -124,14 +125,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             }
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
 
             spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 48, 48, 48), Color.White, projectile.rotation, new Vector2(24, 24), projectile.scale, SpriteEffects.None, 0);
 
             return false;
-        }
+        }*/
 
         #region Networking
 

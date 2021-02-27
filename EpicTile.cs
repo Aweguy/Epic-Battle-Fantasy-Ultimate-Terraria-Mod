@@ -46,7 +46,6 @@ namespace EpicBattleFantasyUltimate
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
 
-                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
 
                 }
             }

@@ -24,7 +24,6 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.useAnimation = 10;
             item.useTurn = true;
 
-            LimitGain = 100;
 
             item.maxStack = 30;
             item.consumable = true;
@@ -34,6 +33,9 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
 
         public override bool UseItem(Player player)
         {
+            var epicPlayer = EpicPlayer.ModPlayer(player);
+
+            epicPlayer.LimitCurrent = epicPlayer.MaxLimit;
 
             player.AddBuff(mod.BuffType("BurntMouth"), 60 * 600);
             player.AddBuff(mod.BuffType("Infuriated"), 60 * 10);

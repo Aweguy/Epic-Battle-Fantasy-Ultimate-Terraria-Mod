@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using EpicBattleFantasyUltimate.ClassTypes;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
 using System.Collections.Generic;
+using EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth;
 
 namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 {
@@ -32,6 +33,9 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
             LimitCost = 100;
             item.buffType = ModContent.BuffType<BlessedBuff>();
             item.buffTime = 60 * 60;
+
+            item.shoot = ModContent.ProjectileType<MotherEarth>();
+            item.shootSpeed = 0f;
 
             item.useTime = 60;
             item.useAnimation = 60;
@@ -116,7 +120,10 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
         }
 
 
-
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[ModContent.ProjectileType<MotherEarth>()] < 1 && base.CanUseItem(player);
+        }
 
 
         /*public override void HoldItem(Player player)

@@ -157,7 +157,7 @@ namespace EpicBattleFantasyUltimate
 
 
 
-			this.ProjEngine = new ProjHelperEngine(this);
+			
 
 			#region OreEvent
 
@@ -261,11 +261,6 @@ namespace EpicBattleFantasyUltimate
 
 
 
-        public ProjHelperEngine ProjEngine
-		{
-			get;
-			private set;
-		}
 
 
 

@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
@@ -137,10 +139,31 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             Texture2D texture = Main.npcTexture[npc.type];
             Vector2 origin = npc.frame.Size() / 2;
 
+            SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+            DrawData data = new DrawData(texture, npc.Center - Main.screenPosition, null, drawColor * npc.Opacity, npc.rotation, origin, npc.scale, effects, 0);
+            GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.SilverDye), npc, data);
+
+            data.Draw(spriteBatch);
+
             spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0f);
 
             return (false);
         }
+
+                public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+
+
+
+
 
         private void SlopeCollision()
         {

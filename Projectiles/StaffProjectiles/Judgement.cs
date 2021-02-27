@@ -169,16 +169,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             {
                 return false;
             }
-            else if(IsAtMaxCharge && projectile.timeLeft <= 80)
-            {
-                beamWidth -= 0.5f;//reducing the hitbox.
-            }
-            else
-            {
-                beamWidth = 100f;
-            }
             // We can only collide if we are at max charge, which is when the laser is actually fired
-            Player player = Main.player[projectile.owner];
             Vector2 unit = spriterotation;
             float point = 0f;
 
@@ -228,6 +219,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                  projectile.position = new Vector2((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16));
                  position = projectile.position;
                  timer--;
+            }
+
+            #endregion
+
+            #region Beam Shrinking
+
+            if (IsAtMaxCharge && projectile.timeLeft <= 80)
+            {
+                beamWidth -= 0.5f;//reducing the hitbox.
+            }
+            else
+            {
+                beamWidth = 100f;
             }
 
             #endregion

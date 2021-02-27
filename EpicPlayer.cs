@@ -304,19 +304,24 @@ namespace EpicBattleFantasyUltimate
 
         private void LimitGenerationNPC(NPC npc, int damage, bool crit)
         {
-            HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+            float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            HpModifier = 1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+            // Generates a value between 0.75-1.25 based on current life.
+            // Lower value if more life left.
+            float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
 
-            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240)));
+            // Generates:
+            // 0.0:1.0 + 0.0:0.25
+            // Result: 0.0:1.25
+            float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
 
-
-            LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed; 
-
+            // Generates:
+            // 0:50 * 0.75:1.25 * 0.0:1.25
+            // Result: 0:78
+            int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
 
             if (Tryforce)
             {
-
                 LimitCurrent += (int)(LimitGen * 1.20f);
                 LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
             }
@@ -329,17 +334,61 @@ namespace EpicBattleFantasyUltimate
 
 
 
-            
+
         }
 
         private void LimitGenerationProj(Projectile proj, int damage, bool crit)
         {
 
-            HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            HpModifier = 1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+            float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240)));
+            // Generates a value between 0.75-1.25 based on current life.
+            // Lower value if more life left.
+            float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
+
+            // Generates:
+            // 0.0:1.0 + 0.0:0.25
+            // Result: 0.0:1.25
+            float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
+
+            // Generates:
+            // 0:50 * 0.75:1.25 * 0.0:1.25
+            // Result: 0:78
+            int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
+
+            if (Tryforce)
+            {
+                LimitCurrent += (int)(LimitGen * 1.20f);
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+            }
+            else
+            {
+                LimitCurrent += LimitGen;
+                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+
+            HpModifier = 1.25f - player.statLife / player.statLifeMax / 2; //1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+            //1.25f - player.statLife / player.statLifeMax / 2
+
+            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240f)));
 
 
             LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed;
@@ -355,10 +404,10 @@ namespace EpicBattleFantasyUltimate
                 LimitCurrent += LimitGen;
                 LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
-            }
+            }*/
 
 
-            
+
         }
 
 
@@ -1016,14 +1065,14 @@ namespace EpicBattleFantasyUltimate
             #endregion
 
 
-            #region Blessed Dust
+            /*#region Blessed Dust
 
             if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
             {
                 Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
             }
 
-            #endregion
+            #endregion*/
 
 
 

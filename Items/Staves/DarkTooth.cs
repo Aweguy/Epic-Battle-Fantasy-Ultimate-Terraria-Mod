@@ -31,7 +31,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(platinum: 1);
             item.useTurn = true;
-            item.shoot = ModContent.ProjectileType<Pulsar>();
+            item.shoot = ModContent.ProjectileType<BlackHole>();
             item.shootSpeed = 0f;
 			item.noMelee = true;
 			item.magic = true;
