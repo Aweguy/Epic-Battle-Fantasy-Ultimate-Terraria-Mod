@@ -33,6 +33,29 @@ namespace EpicBattleFantasyUltimate.HelperClasses
             return (false);
         }
 
+        #region After Effects
+
+        public static void DrawProjectileTrailCentered(this ModProjectile p, SpriteBatch spriteBatch, Color drawColor, float initialOpacity = 0.8f, float opacityDegrade = 0.2f, int stepSize = 1)
+        {
+            Texture2D texture = Main.projectileTexture[p.projectile.type];
+
+            p.DrawProjectileTrailCenteredWithTexture(texture, spriteBatch, drawColor, initialOpacity, opacityDegrade, stepSize);
+        }
+
+        public static void DrawProjectileTrailCenteredWithTexture(this ModProjectile p, Texture2D texture, SpriteBatch spriteBatch, Color drawColor, float initialOpacity = 0.8f, float opacityDegrade = 0.2f, int stepSize = 1)
+        {
+            Rectangle frame = texture.Frame(1, Main.projFrames[p.projectile.type], 0, p.projectile.frame);
+            Vector2 origin = frame.Size() / 2;
+            SpriteEffects effects = p.projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[p.projectile.type]; i += stepSize)
+            {
+                float opacity = initialOpacity - opacityDegrade * i;
+                spriteBatch.Draw(texture, p.projectile.oldPos[i] + p.projectile.Hitbox.Size() / 2 - Main.screenPosition, frame, drawColor * opacity, p.projectile.oldRot[i], origin, p.projectile.scale, effects, 0f);
+            }
+        }
+
+        #endregion
 
 
 

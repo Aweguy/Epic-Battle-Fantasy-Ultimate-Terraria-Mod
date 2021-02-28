@@ -15,6 +15,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         int StartDamage = 60 * 1; //When it will start damaging enemies.
         int DamageTimer = 30; //The interval between each damage tick
 
+        #region End Animation Variables
+
+        int EndDamage = 60 * 7;//When the end animation will start.
+        bool EndParticles = false;//When the leaves will be launched.
+        float[] scaleCache = new float[7]; //After effect based on scale.
+
+        #endregion
+
         #region Nature Blast Variables
 
         int BlastTimer = 0;
@@ -47,6 +55,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mother Earth");
+
+            ProjectileID.Sets.TrailingMode[projectile.type] = 2;
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 7;
+
         }
 
 
@@ -59,7 +71,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.timeLeft = 60 * 7;
             projectile.magic = true;
             projectile.tileCollide = false;
             projectile.scale = 1.6f;
@@ -87,12 +98,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             StartDamage--;
 
+            if (EndDamage > 0)
+            {
+                
+
+
+                    for (int i = scaleCache.Length - 1; i > 0; --i)
+                    {
+                        scaleCache[i] = scaleCache[i - 1];
+                    }
+                    scaleCache[0] = projectile.scale;
+
+                
+            }
 
 
 
 
 
-            if(StartDamage <= 0)
+            if (StartDamage <= 0)
             {
 
                 Particles();
@@ -100,9 +124,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                 NatureBlasts(player);
 
 
+                EndDamage--;
+
                 DamageTimer--;
 
-                if (DamageTimer <= 0)
+                if (DamageTimer <= 0 && EndDamage > 0)
                 {
 
 
@@ -123,6 +149,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
                     }
 
+                }
+                else if (EndDamage <= 0)
+                {
+                    EndAnimation();
                 }
 
 
@@ -167,7 +197,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                 player.ApplyDamageToNPC(npc, projectile.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
 
 
-                DamageTimer = 30;
+                DamageTimer = 60;
             }
 
         }
@@ -227,23 +257,43 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         }
 
-
-
-        public override void Kill(int timeLeft)
+        private void EndAnimation()
         {
 
-            Vector2 origin = new Vector2(projectile.Center.X, projectile.Center.Y);
-
-
-            for (int i = 0; i < dustSpawnRate2; i++)
+            if (EndParticles == false)
             {
-                float rot = Main.rand.NextFloat() * (float)Math.PI * 2; //random angle
+                Vector2 origin = new Vector2(projectile.Center.X, projectile.Center.Y);
 
-                dustSpeed2 = Main.rand.NextFloat(3f, 10f);
 
-                effectDusts2.Add(Dust.NewDustPerfect(origin + (new Vector2((float)Math.Cos(rot), (float)Math.Sin(rot)) * dustBoost2) * 20f, ModContent.DustType<NatureLeaves>(), new Vector2((float)Math.Cos(rot), (float)Math.Sin(rot)) * dustSpeed2, 0, new Color(255, 255, 255), 2.5f)); //add new dust to list
-                effectDusts2[effectDusts2.Count - 1].noGravity = true;  //modify the newly created dust
-                effectDusts2[effectDusts2.Count - 1].scale = 1f;
+                for (int i = 0; i < dustSpawnRate2; i++)
+                {
+                    float rot = Main.rand.NextFloat() * (float)Math.PI * 2; //random angle
+
+                    dustSpeed2 = Main.rand.NextFloat(3f, 10f);
+
+                    effectDusts2.Add(Dust.NewDustPerfect(origin + (new Vector2((float)Math.Cos(rot), (float)Math.Sin(rot)) * dustBoost2) * 20f, ModContent.DustType<NatureLeaves>(), new Vector2((float)Math.Cos(rot), (float)Math.Sin(rot)) * dustSpeed2, 0, new Color(255, 255, 255), 2.5f)); //add new dust to list
+                    effectDusts2[effectDusts2.Count - 1].noGravity = true;  //modify the newly created dust
+                    effectDusts2[effectDusts2.Count - 1].scale = 1f;
+                }
+
+
+
+
+                EndParticles = true;
+
+            }
+
+            if (++projectile.localAI[0] >= 2)
+            {
+
+                projectile.localAI[0] = 0;
+
+                for (int i = scaleCache.Length - 1; i > 0; --i)
+                {
+                    scaleCache[i] = scaleCache[i - 1];
+                }
+                scaleCache[0] = projectile.scale;
+
             }
 
 
@@ -251,6 +301,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 
 
+            projectile.scale += 0.005f;
+            projectile.alpha += 204 / 60;
+
+
+            if(projectile.alpha >= 255)
+            {
+                projectile.Kill();
+            }
 
 
 
@@ -263,9 +321,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 
 
-
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            float initialOpacity = 0.8f;
+            float opacityDegrade = 0.2f;
+            Texture2D texture = Main.projectileTexture[projectile.type];
+            Rectangle frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+            Vector2 origin = frame.Size() / 2;
+            SpriteEffects effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i ++)
+            {
+                float opacity = initialOpacity - opacityDegrade * i;
+                spriteBatch.Draw(texture, projectile.position + projectile.Hitbox.Size() / 2 - Main.screenPosition, frame, lightColor * projectile.Opacity, projectile.rotation, origin, scaleCache[i], effects, 0f);
+            }
+
+
             return this.DrawProjectileCentered(spriteBatch, lightColor * projectile.Opacity);
         }
 
