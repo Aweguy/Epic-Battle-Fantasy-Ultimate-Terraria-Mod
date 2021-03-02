@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Dusts;
+using EpicBattleFantasyUltimate.HelperClasses;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EpicBattleFantasyUltimate.HelperClasses;
-using System.Collections.Generic;
-using EpicBattleFantasyUltimate.Dusts;
 
 namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 {
@@ -14,6 +14,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
     {
         int StartDamage = 60 * 1; //When it will start damaging enemies.
         int DamageTimer = 30; //The interval between each damage tick
+
+        #region Breathing Variables
+
+        int BreatheInTimer = 30;//How much it will breathe in.
+        int BreatheOutTimer = 30;//How much it will breathe out.
+        bool BreatheIn = false;//When it will scale down a bit.
+        bool BreatheOut = true;//When it will scale up a bit .
+
+        #endregion
 
         #region End Animation Variables
 
@@ -25,7 +34,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         #region Nature Blast Variables
 
-        int BlastTimer = 0;
+        int BlastTimer = 0;// The timer that summons the projectiles around the symbol
 
         #endregion
 
@@ -42,7 +51,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         #endregion
 
-        #region Kill Dust variables
+        #region Leaf Dust variables
 
         List<Dust> effectDusts2 = new List<Dust>(); // create a list of dust object
         float dustSpeed2 = 5f; //how fast the dust moves
@@ -89,7 +98,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
             projectile.position = Main.screenPosition + new Vector2(Main.screenWidth / 2, (Main.screenHeight / 2) - 256);
 
 
-            if(StartDamage > 0)
+            if (StartDamage > 0)
             {
                 projectile.scale -= 0.01f;
                 projectile.alpha -= 204 / 60;
@@ -100,16 +109,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             if (EndDamage > 0)
             {
-                
 
 
-                    for (int i = scaleCache.Length - 1; i > 0; --i)
-                    {
-                        scaleCache[i] = scaleCache[i - 1];
-                    }
-                    scaleCache[0] = projectile.scale;
 
-                
+                for (int i = scaleCache.Length - 1; i > 0; --i)
+                {
+                    scaleCache[i] = scaleCache[i - 1];
+                }
+                scaleCache[0] = projectile.scale;
+
+
             }
 
 
@@ -123,6 +132,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
                 NatureBlasts(player);
 
+                Breathing();
 
                 EndDamage--;
 
@@ -163,13 +173,44 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         }
 
+        private void Breathing()
+        {
+
+            if (BreatheIn)
+            {
+                projectile.scale -= 0.0005f;
+                BreatheOutTimer--;
+            }
+            else if (BreatheOut)
+            {
+                projectile.scale += 0.0005f;
+                BreatheInTimer--;
+            }
+
+            if (BreatheInTimer <= 0)
+            {
+                BreatheIn = true;
+                BreatheOut = false;
+                BreatheInTimer = 30;
+            }
+
+            if (BreatheOutTimer <= 0)
+            {
+                BreatheOut = true;
+                BreatheIn = false;
+                BreatheOutTimer = 30;
+            }
+
+
+
+        }
 
         private void NatureBlasts(Player player)
         {
             BlastTimer--;
 
 
-            if(BlastTimer <= 0)
+            if (BlastTimer <= 0)
             {
                 Vector2 origin = new Vector2(projectile.Center.X, projectile.Center.Y);
 
@@ -184,7 +225,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         }
 
-        private void Damage (NPC npc, Player player)
+        private void Damage(NPC npc, Player player)
         {
 
 
@@ -283,7 +324,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             }
 
-            if (++projectile.localAI[0] >= 2)
+            if (++projectile.localAI[0] >= 3)// Trailing in the end animation
             {
 
                 projectile.localAI[0] = 0;
@@ -305,7 +346,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
             projectile.alpha += 204 / 60;
 
 
-            if(projectile.alpha >= 255)
+            if (projectile.alpha >= 255)
             {
                 projectile.Kill();
             }
@@ -323,25 +364,50 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            float initialOpacity = 0.8f;
-            float opacityDegrade = 0.2f;
             Texture2D texture = Main.projectileTexture[projectile.type];
             Rectangle frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
             Vector2 origin = frame.Size() / 2;
             SpriteEffects effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i ++)
+
+
+            #region Shading
+
+            /*Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+            DrawData data = new DrawData(texture, projectile.Center - Main.screenPosition, null, lightColor * projectile.Opacity, projectile.rotation, origin, projectile.scale, effects, 0);
+            GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye), projectile, data);
+
+            data.Draw(spriteBatch);*/
+
+            #endregion
+
+
+
+
+
+            #region Trailing
+
+            float initialOpacity = 0.8f;
+            float opacityDegrade = 0.2f;
+
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
                 float opacity = initialOpacity - opacityDegrade * i;
                 spriteBatch.Draw(texture, projectile.position + projectile.Hitbox.Size() / 2 - Main.screenPosition, frame, lightColor * projectile.Opacity, projectile.rotation, origin, scaleCache[i], effects, 0f);
             }
 
+            #endregion
 
             return this.DrawProjectileCentered(spriteBatch, lightColor * projectile.Opacity);
         }
 
-
-
+        public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+        }
 
 
 

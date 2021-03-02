@@ -16,4 +16,7 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Shading\" />
+  </ItemGroup>
 </Project>
