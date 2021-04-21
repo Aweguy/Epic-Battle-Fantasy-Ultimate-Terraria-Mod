@@ -1,24 +1,29 @@
+#region
+using System;
+using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
+
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using EpicBattleFantasyUltimate;
 using Terraria.Localization;
 using Terraria.UI;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using EpicBattleFantasyUltimate.UI.FlairSlots;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using ReLogic.Graphics;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using EpicBattleFantasyUltimate;
+using EpicBattleFantasyUltimate.UI.FlairSlots;
 using EpicBattleFantasyUltimate.HelperClasses;
 using EpicBattleFantasyUltimate.UI;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush;
-using System;
-
+using EpicBattleFantasyUltimate.NPCs.Wraiths;
+#endregion
 namespace EpicBattleFantasyUltimate
 {
 	public class EpicBattleFantasyUltimate : Mod
@@ -35,12 +40,12 @@ namespace EpicBattleFantasyUltimate
 
 
 		public static List<int> thrownProjectiles = new List<int>();
+
 		public static List<int> BrushProj = new List<int> { ModContent.ProjectileType<RedBall>(), ModContent.ProjectileType<GreyBall>(), ModContent.ProjectileType<YellowBall>(), ModContent.ProjectileType<GreenBall>(), ModContent.ProjectileType<BlackBall>(), ModContent.ProjectileType<WhiteBall>(), ModContent.ProjectileType<BlueBall>(), ModContent.ProjectileType<IndigoBall>(), ModContent.ProjectileType<VioletBall>(), ModContent.ProjectileType<OrangeBall>(), };
 
 		public static List<int> MasterWraithBasic => new List<int> { ModContent.ProjectileType<FrostBoneShot>(), ModContent.ProjectileType<BoneShot>(), ModContent.ProjectileType<MetalShot>(), ModContent.ProjectileType<ThornSpike>(), ModContent.ProjectileType<CursedSpike>() };
 		public static List<int> MasterWraithTouchDebuffs => new List<int> { ModContent.BuffType<RampantBleed>(), BuffID.OnFire, BuffID.Poisoned, BuffID.Chilled, ModContent.BuffType<Cursed>() };
-
-
+		public static List<int> MasterWraithSummoning => new List<int> { ModContent.NPCType<FlameWraith>(), ModContent.NPCType<FlameWraith2>(), ModContent.NPCType<FrostWraith>(), ModContent.NPCType<FrostWraith2>(), ModContent.NPCType<SteelWraith>(), ModContent.NPCType<LeafWraith>(), ModContent.NPCType<SparkWraith>()};
 
 		#region PostSetupContent
 
@@ -63,13 +68,6 @@ namespace EpicBattleFantasyUltimate
 			}
 
 			#endregion
-
-
-
-
-
-
-
 
 		}
 
@@ -127,9 +125,6 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion
 
-
-
-
 		#region UI
 
 		public override void Load()
@@ -149,15 +144,6 @@ namespace EpicBattleFantasyUltimate
 
 
 			}
-
-
-
-
-
-
-
-
-			
 
 			#region OreEvent
 
@@ -188,9 +174,9 @@ namespace EpicBattleFantasyUltimate
 			{
 				//If the Equipment page is active
 				if(Main.EquipPage == 2)
-                {
+				{
 
-                }
+				}
 
 				_flairUserInterface?.Update(gameTime);
 
@@ -216,7 +202,7 @@ namespace EpicBattleFantasyUltimate
 
 
 			if (SlotUI.Visible)
-            {
+			{
 				if (resourceBarIndex != -1)
 				{
 					layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("Limit Break", delegate { _LimitBreakBarUI.Draw(Main.spriteBatch, new GameTime()); return true; }, InterfaceScaleType.UI));
@@ -250,10 +236,10 @@ namespace EpicBattleFantasyUltimate
 			EpicWorld modWorld = (EpicWorld)GetModWorld("EpicWorld");
 		}
 
-        
+		
 
 
-        #endregion
+		#endregion
 
 
 

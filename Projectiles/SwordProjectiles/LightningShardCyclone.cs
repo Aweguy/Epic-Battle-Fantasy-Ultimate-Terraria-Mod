@@ -1,66 +1,47 @@
-﻿using Terraria;
+﻿#region Using
+using System;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using log4net.Util;
-using System;
-
+#endregion
 namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 {
-    public class LightningShardCyclone : ModProjectile
-    {
-		bool stay = false;
-		bool check = false;
+	public class LightningShardCyclone : ModProjectile
+	{
+		#region Variables
+		bool stay;
+		bool check;
 		int timer = 60;
-		float num601 = 0f;
-		float returnVel = 0f;
+		float num601;
+		float returnVel;
 		float returnDistance = 500f;
+		#endregion
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Shard");
-        }
-
+		{
+			DisplayName.SetDefault("Lightning Shard");
+		}
 
 		public override void SetDefaults()
 		{
 			projectile.Size = new Vector2(104, 116);
 			projectile.friendly = true;
+
 			projectile.melee = true;
 			projectile.maxPenetrate = -1;
+
 			projectile.tileCollide = false;
 			projectile.penetrate = -1;
 		}
-
-		/*public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			// RETURN UPON HITTING TILE
-			if (projectile.ai[0] == 0f)
-			{
-				projectile.velocity.X = -projectile.velocity.X;
-				projectile.velocity.Y = -projectile.velocity.Y;
-			}
-			projectile.ai[0] = 1f;
-			// DON'T DESTROY
-			return false;
-		}*/
-
-
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			stay = true;
 		}
 
-		
-
-
-
-
-
-        #region AI
-
-        public override void AI()
+		public override void AI()
 		{
 
 			float between = Vector2.Distance(Main.player[projectile.owner].Center, projectile.Center);
@@ -68,9 +49,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			bool Return = between > returnDistance;
 
 			if (Return)
-            {
+			{
 				check = true;
-            }
+			}
 
 			if (stay == true && timer > 0 && !Return)
 			{
@@ -104,10 +85,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 			else if (check) // RETURNING CODE
 			{
-				
-				
+
 				// SOMETHING TO DO WITH SPEED?
-				
+
 				// POSITION STUFF
 				Vector2 vector63 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
 				float ownerX = Main.player[projectile.owner].position.X + (float)(Main.player[projectile.owner].width / 2) - vector63.X;
@@ -123,7 +103,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 				ownerRoot = num601 / ownerRoot;
 				ownerX *= ownerRoot;
 				ownerY *= ownerRoot;
-				
+
 				// HANDLE RETURN VELOCITY
 				// X
 				if (projectile.velocity.X < ownerX)
@@ -173,13 +153,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			// ROTATION CODE
 			projectile.rotation += 0.4f;
 		}
-
-        #endregion
-
-
-
-
-
-
-    }
+	}
 }

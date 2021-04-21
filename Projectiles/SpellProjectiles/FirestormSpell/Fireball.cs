@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -14,7 +14,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Fireball");
             Main.projFrames[projectile.type] = 13;
         }
 
@@ -23,10 +22,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
             projectile.width = 64;
             projectile.height = 64;
             projectile.aiStyle = -1;
+
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.knockBack = 1f;
+
             projectile.timeLeft = 100;
             projectile.tileCollide = false;
         }
@@ -52,8 +53,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
             }
 
-
-
             if (++projectile.frameCounter > 3)
             {
                 projectile.frameCounter = 0;
@@ -65,7 +64,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
         }
 
-        #region PreDraw
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Main.spriteBatch.End();
@@ -73,6 +71,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
             return true;
         }
-        #endregion
     }
 }

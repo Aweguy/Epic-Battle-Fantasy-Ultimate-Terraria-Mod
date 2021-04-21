@@ -9,8 +9,8 @@ using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
-    public class AmethystOre : ModNPC
-    {
+	public class AmethystOre : ModNPC
+	{
 
 		Vector2 center;
 
@@ -95,22 +95,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				npc.life = 0;
 			}
-
-
-
-
-
-
-
-
-
 		}
 
 		#endregion
-
-
-
-
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			for (int i = 0; i <= 3; i++)
@@ -123,14 +110,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 
 		}
-
-
-
-
-
-
-
-
 
 		#region AI
 
@@ -230,7 +209,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			else if (npc.frameCounter < 40)
 			{
 				npc.frame.Y = Frame4 * frameHeight;
-
 			}
 			else if (npc.frameCounter < 50)
 			{

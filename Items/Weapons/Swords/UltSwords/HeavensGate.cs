@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
-
+using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -30,6 +30,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.useAnimation = 20;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.autoReuse = true;
+			item.channel = true;
 
 
 			item.value = Item.sellPrice(gold: 10);
@@ -37,25 +38,20 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.UseSound = SoundID.Item1;
 			
 			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("LightBlade");
+			item.shoot = ModContent.ProjectileType<LightBlade>();
 
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.Next(3) == 0)
-            {
+			{
 				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
 			}
 				
 		}
 
-
-
 		public override bool OnlyShootOnSwing => true;
-
-
-
 
 		public override void AddRecipes()
 		{

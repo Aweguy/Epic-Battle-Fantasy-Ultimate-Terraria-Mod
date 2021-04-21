@@ -11,8 +11,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class Arrhythmia : ModItem
     {
-        int Random;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Arrhythmia");

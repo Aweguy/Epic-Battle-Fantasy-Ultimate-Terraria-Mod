@@ -1,10 +1,11 @@
-﻿using System;
+﻿#region Using
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+#endregion
 namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 {
     public class GaiaAxeProj : ModProjectile
@@ -22,9 +23,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
         {
             projectile.width = 23;
             projectile.height = 23;
+
             projectile.friendly = true;
             projectile.melee = true;
             projectile.aiStyle = -1;
+
             projectile.penetrate = -1;
             drawOffsetX = -5;
         }
@@ -39,18 +42,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
                 directionB = true;
             }
 
-
-
-
-
-
-
-
-
             projectile.rotation -= 2 * direction;
 
             timer++;
-
 
             if(timer >= 20)
             {
@@ -64,13 +58,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 
         }
-
-
-
-
-
-
-
-
     }
 }
