@@ -29,1152 +29,1119 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 
 namespace EpicBattleFantasyUltimate
 {
-    public class EpicPlayer : ModPlayer
-    {
+	public class EpicPlayer : ModPlayer
+	{
 
-        #region Flair Slot Items
+		#region Flair Slot Items
 
-        Item item1 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[0].Item;
-        Item item2 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[1].Item;
-        Item item3 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[2].Item;
+		Item item1 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[0].Item;
+		Item item2 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[1].Item;
+		Item item3 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[2].Item;
 
-        #endregion
+		#endregion
 
 
 
-        #region Limit Break
+		#region Limit Break
 
-        public const int DefaultMaxLimit = 100;
+		public const int DefaultMaxLimit = 100;
 
-        public static readonly Color GetLimit = Color.OrangeRed;
+		public static readonly Color GetLimit = Color.OrangeRed;
 
 
-        public static EpicPlayer ModPlayer(Player player)
-        {
-            return player.GetModPlayer<EpicPlayer>();
-        }
+		public static EpicPlayer ModPlayer(Player player)
+		{
+			return player.GetModPlayer<EpicPlayer>();
+		}
 
-        //Limit
+		//Limit
 
-        public int LimitCurrent;
-        public int MaxLimit;
-        public int MaxLimit2;
-        public int LimitGen;
-        public bool Tryforce;
-        public int TimeDiff;
-        public int TimePassed;
-        public float HpLost;
-        public float HpModifier;
+		public int LimitCurrent;
+		public int MaxLimit;
+		public int MaxLimit2;
+		public int LimitGen;
+		public bool Tryforce;
+		public int TimeDiff;
+		public int TimePassed;
+		public float HpLost;
+		public float HpModifier;
 
-        public override void Initialize()
-        {
-            MaxLimit = DefaultMaxLimit;
-            MaxLimit2 = MaxLimit;
+		public override void Initialize()
+		{
+			MaxLimit = DefaultMaxLimit;
+			MaxLimit2 = MaxLimit;
+		}
 
 
+		public override void OnEnterWorld(Player player)
+		{
 
+		}
 
-        }
+		#endregion
 
+		#region Save/Load
 
-        public override void OnEnterWorld(Player player)
-        {
+		public override TagCompound Save()
+		{
 
-        }
+			TagCompound tc = new TagCompound()
+			{
+			{"LimitPoints", LimitCurrent },
+			};
 
+			for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
+			{
+				if (EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item == null)
+				{
+					tc.Add("flairSlot_" + i, string.Empty);
+				}
+				else
+				{
+					tc.Add("flairSlot_" + i, ItemIO.ToBase64(EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item));
+				}
+			}
 
+			return (tc);
+		}
 
+		public override void Load(TagCompound tc)
+		{
+			LimitCurrent = tc.GetInt("LimitPoints");
 
+			if (EpicBattleFantasyUltimate.instance == null)
+			{
+				return;
+			}
 
+			for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
+			{
+				string flairSlotData = tc.GetString("flairSlot_" + i);
 
+				if (!string.IsNullOrWhiteSpace(flairSlotData))
+				{
+					EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = ItemIO.FromBase64(flairSlotData);
+				}
+				else
+				{
+					EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = new Item();
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Save/Load
+		#region Overhead Buff Drawing
 
-        public override TagCompound Save()
-        {
+		public int numberOfDrawableBuffs;
+		private const int drawableBuffOffset = 42;
 
-            TagCompound tc = new TagCompound()
-            {
-            {"LimitPoints", LimitCurrent },
-            };
+		#endregion
 
-            for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
-            {
-                if (EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item == null)
-                {
-                    tc.Add("flairSlot_" + i, string.Empty);
-                }
-                else
-                {
-                    tc.Add("flairSlot_" + i, ItemIO.ToBase64(EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item));
-                }
-            }
+		#region Shadow
 
-            return (tc);
-        }
+		public bool shadow = false;
 
-        public override void Load(TagCompound tc)
-        {
-            LimitCurrent = tc.GetInt("LimitPoints");
+		#endregion
 
-            if (EpicBattleFantasyUltimate.instance == null)
-            {
-                return;
-            }
+		#region Tired Variables
 
-            for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
-            {
-                string flairSlotData = tc.GetString("flairSlot_" + i);
+		public bool Tired = true;
+		public float TiredStacks;
+		float TiredPower;
 
-                if (!string.IsNullOrWhiteSpace(flairSlotData))
-                {
-                    EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = ItemIO.FromBase64(flairSlotData);
-                }
-                else
-                {
-                    EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = new Item();
-                }
-            }
-        }
+		#endregion
 
-        #endregion
+		#region Rampant Bleed Variables
 
+		public bool RBleed;
+		public int RBleedStacks;
 
+		#endregion
 
+		#region Weakened Variables
 
+		public bool Weakened = true;
+		public int WeakenedStacks;
+		double WeakenedPower;
+		double WeakenedMult;
 
-        #region Overhead Buff Drawing
+		#endregion
 
-        public int numberOfDrawableBuffs;
-        private const int drawableBuffOffset = 42;
+		#region Cursed Variables
 
-        #endregion
+		public bool Cursed = false;
+		public bool CursedAlphaCheck = true;
+		public int CursedStacks = 1;
+		public float CursedAlpha = 0;
+		double CursedDefense;
+		double CursedMult;
+		public float CurseRotation;
 
-        #region Shadow
+		#endregion
 
-        public bool shadow = false;
+		#region Crystal Wing Healing variables
 
-        #endregion
+		int dps = 0;
+		int timer = 60;
+		bool heal = true;
+		int timer2 = 60;
 
-        #region Tired Variables
 
-        public bool Tired = true;
-        public float TiredStacks;
-        float TiredPower;
+		#endregion
 
-        #endregion
 
-        #region Rampant Bleed Variables
+		#region Blessed Variables
 
-        public bool RBleed;
-        public int RBleedStacks;
+		public bool Blessed = false;
 
-        #endregion
 
-        #region Weakened Variables
+		#endregion
 
-        public bool Weakened = true;
-        public int WeakenedStacks;
-        double WeakenedPower;
-        double WeakenedMult;
+		#region OnHitByNPC
 
-        #endregion
+		public override void OnHitByNPC(NPC npc, int damage, bool crit)
+		{
 
-        #region Cursed Variables
+			#region OreImmunity
 
-        public bool Cursed = false;
-        public bool CursedAlphaCheck = true;
-        public int CursedStacks = 1;
-        public float CursedAlpha = 0;
-        double CursedDefense;
-        double CursedMult;
-        public float CurseRotation;
+			if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
+			{
+				player.immune = false;
+			}
 
-        #endregion
 
-        #region Crystal Wing Healing variables
+			#endregion
 
-        int dps = 0;
-        int timer = 60;
-        bool heal = true;
-        int timer2 = 60;
+			#region Limit Generation
 
+			LimitGenerationNPC(npc, damage, crit);
 
-        #endregion
+			TimeDiff = 0;
 
+			#endregion
 
-        #region Blessed Variables
 
-        public bool Blessed = false;
+		}
 
+		#endregion
 
-        #endregion
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		{
+			if(damageSource.SourceProjectileIndex > -1)
+			{
+				if (damageSource.SourceProjectileType == ModContent.ProjectileType<CursingRune>())
+				{
+					player.immune = false;
 
+					return true;
+				}
 
-        
+				#region Sapphire Explosion Knockback
 
-       
+				if (damageSource.SourceProjectileType == ModContent.ProjectileType<SapphireExplosion>())
+				{
 
+					Vector2 hitDir = Vector2.Normalize(player.position - Main.projectile[damageSource.SourceProjectileIndex].Center);
 
+					player.velocity = hitDir * 16f; // Strong knockback.
 
 
+				}
 
+				#endregion
 
-        #region OnHitByNPC
+			}
 
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
-        {
 
-            #region OreImmunity
 
-            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
-            {
-                player.immune = false;
-            }
+			return true;
+		}
 
+		#region Limit Hooks
 
-            #endregion
+		public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+		{
+			LimitGenerationProj(proj, damage, crit);
 
-            #region Limit Generation
+			TimeDiff = 0;
+		}
 
-            LimitGenerationNPC(npc, damage, crit);
 
-            TimeDiff = 0;
 
-            #endregion
 
 
-        }
+		private void LimitGenerationNPC(NPC npc, int damage, bool crit)
+		{
+			float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-        #endregion
+			// Generates a value between 0.75-1.25 based on current life.
+			// Lower value if more life left.
+			float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
 
+			// Generates:
+			// 0.0:1.0 + 0.0:0.25
+			// Result: 0.0:1.25
+			float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
 
+			// Generates:
+			// 0:50 * 0.75:1.25 * 0.0:1.25
+			// Result: 0:78
+			int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
 
+			if (Tryforce)
+			{
+				LimitCurrent += (int)(LimitGen * 1.20f);
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+			}
+			else
+			{
+				LimitCurrent += LimitGen;
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
+			}
 
 
 
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
-        {
-            if(damageSource.SourceProjectileIndex > -1)
-            {
-                if (damageSource.SourceProjectileType == ModContent.ProjectileType<CursingRune>())
-                {
-                    player.immune = false;
+		}
 
-                    return true;
-                }
+		private void LimitGenerationProj(Projectile proj, int damage, bool crit)
+		{
 
-                #region Sapphire Explosion Knockback
 
-                if (damageSource.SourceProjectileType == ModContent.ProjectileType<SapphireExplosion>())
-                {
+			float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-                    Vector2 hitDir = Vector2.Normalize(player.position - Main.projectile[damageSource.SourceProjectileIndex].Center);
+			// Generates a value between 0.75-1.25 based on current life.
+			// Lower value if more life left.
+			float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
 
-                    player.velocity = hitDir * 16f; // Strong knockback.
+			// Generates:
+			// 0.0:1.0 + 0.0:0.25
+			// Result: 0.0:1.25
+			float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
 
+			// Generates:
+			// 0:50 * 0.75:1.25 * 0.0:1.25
+			// Result: 0:78
+			int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
 
-                }
+			if (Tryforce)
+			{
+				LimitCurrent += (int)(LimitGen * 1.20f);
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+			}
+			else
+			{
+				LimitCurrent += LimitGen;
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
-                #endregion
+			}
 
-            }
 
 
 
-            return true;
-        }
 
-        #region Limit Hooks
 
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
-        {
-            LimitGenerationProj(proj, damage, crit);
 
-            TimeDiff = 0;
-        }
 
 
 
 
 
-        private void LimitGenerationNPC(NPC npc, int damage, bool crit)
-        {
-            float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            // Generates a value between 0.75-1.25 based on current life.
-            // Lower value if more life left.
-            float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
 
-            // Generates:
-            // 0.0:1.0 + 0.0:0.25
-            // Result: 0.0:1.25
-            float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
 
-            // Generates:
-            // 0:50 * 0.75:1.25 * 0.0:1.25
-            // Result: 0:78
-            int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
+			/*HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            if (Tryforce)
-            {
-                LimitCurrent += (int)(LimitGen * 1.20f);
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
-            }
-            else
-            {
-                LimitCurrent += LimitGen;
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+			HpModifier = 1.25f - player.statLife / player.statLifeMax / 2; //1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
+			//1.25f - player.statLife / player.statLifeMax / 2
 
-            }
+			TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240f)));
 
 
+			LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed;
 
 
-        }
+			if (Tryforce)
+			{
+				LimitCurrent += (int)(LimitGen * 1.20f);
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+			}
+			else
+			{
+				LimitCurrent += LimitGen;
+				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
-        private void LimitGenerationProj(Projectile proj, int damage, bool crit)
-        {
+			}*/
 
 
-            float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
 
-            // Generates a value between 0.75-1.25 based on current life.
-            // Lower value if more life left.
-            float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
+		}
 
-            // Generates:
-            // 0.0:1.0 + 0.0:0.25
-            // Result: 0.0:1.25
-            float TimePassed = ((float)MathHelper.Clamp(TimeDiff, 0, 2) / 2f + (float)MathHelper.Clamp(TimeDiff, 0, 60) / 240f);
 
-            // Generates:
-            // 0:50 * 0.75:1.25 * 0.0:1.25
-            // Result: 0:78
-            int LimitGen = (int)(HpLost * 0.5f * HpModifier * TimePassed);
 
-            if (Tryforce)
-            {
-                LimitCurrent += (int)(LimitGen * 1.20f);
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
-            }
-            else
-            {
-                LimitCurrent += LimitGen;
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+		public void LimitEffect(int healAmount, bool broadcast = true)
+		{
+			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.OrangeRed, healAmount);
+			if (broadcast && Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
+			{
+				NetMessage.SendData(MessageID.HealEffect, -1, -1, null, player.whoAmI, healAmount);
+			}
+		}
 
-            }
 
 
 
 
 
+		public override void LoadLegacy(BinaryReader reader)
+		{
+			int _ = reader.ReadInt32();
+			LimitCurrent = reader.ReadInt32();
+		}
 
+		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+		{
+			ModPacket packet = mod.GetPacket();
+			packet.Write((byte)EpicMessageType.EpicPlayerSyncPlayer);
+			packet.Write((byte)player.whoAmI);
+			packet.Write(LimitCurrent);
+			packet.Send(toWho, fromWho);
+		}
 
+		#endregion
 
+		#region ModifyHitNPC
 
+		public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+		{
+			#region Weakened Weakening
 
+			if (Weakened && WeakenedStacks <= 5)
+			{
+				WeakenedMult = 0.1 * WeakenedStacks;
+				WeakenedPower = 1 - WeakenedMult;
+				damage = (int)(damage * WeakenedPower);
+			}
+			else if (Weakened && WeakenedStacks > 5)
+			{
+				damage = (int)(damage * 0.75f);
+			}
 
+			#endregion
 
+		}
 
+		#endregion
 
+		#region ResetEffects
 
-            /*HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+		public override void ResetEffects()
+		{
 
-            HpModifier = 1.25f - player.statLife / player.statLifeMax / 2; //1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
-            //1.25f - player.statLife / player.statLifeMax / 2
+			#region Rampant Bleed Reset
 
-            TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240f)));
+			if (RBleed == false)
+			{
+				RBleedStacks = 0;
+			}
 
+			RBleed = false;
 
-            LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed;
+			#endregion
 
+			#region Shadow Blaster Effect
 
-            if (Tryforce)
-            {
-                LimitCurrent += (int)(LimitGen * 1.20f);
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
-            }
-            else
-            {
-                LimitCurrent += LimitGen;
-                LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
+			if (player.HeldItem.type != mod.ItemType("ShadowBlasterGun"))
+			{
+				shadow = false;
+			}
 
-            }*/
+			#endregion
 
+			#region Weakened Reset
 
+			if (Weakened == false)
+			{
+				WeakenedStacks = 0;
+			}
 
-        }
+			Weakened = false;
 
+			#endregion
 
+			#region Tired Reset
 
-        public void LimitEffect(int healAmount, bool broadcast = true)
-        {
-            CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.OrangeRed, healAmount);
-            if (broadcast && Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
-            {
-                NetMessage.SendData(MessageID.HealEffect, -1, -1, null, player.whoAmI, healAmount);
-            }
-        }
+			if (Tired == false)
+			{
+				TiredStacks = 0;
+			}
 
+			Tired = false;
 
+			#endregion
 
+			#region Cursed Reset
 
+			if (Cursed == false)
+			{
+				CursedStacks = 1;
+			}
 
+			Cursed = false;
 
-        public override void LoadLegacy(BinaryReader reader)
-        {
-            int _ = reader.ReadInt32();
-            LimitCurrent = reader.ReadInt32();
-        }
+			#endregion
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-        {
-            ModPacket packet = mod.GetPacket();
-            packet.Write((byte)EpicMessageType.EpicPlayerSyncPlayer);
-            packet.Write((byte)player.whoAmI);
-            packet.Write(LimitCurrent);
-            packet.Send(toWho, fromWho);
-        }
+			#region Number Of Drawable Buffs
 
-        #endregion
+			numberOfDrawableBuffs = -1;
 
+			Blessed = false;
+			#endregion
 
+			#region Tryforce
 
-        #region ModifyHitNPC
+			Tryforce = false;
+			
+			#endregion
+		}
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
-        {
-            #region Weakened Weakening
+		#endregion
 
-            if (Weakened && WeakenedStacks <= 5)
-            {
-                WeakenedMult = 0.1 * WeakenedStacks;
-                WeakenedPower = 1 - WeakenedMult;
-                damage = (int)(damage * WeakenedPower);
-            }
-            else if (Weakened && WeakenedStacks > 5)
-            {
-                damage = (int)(damage * 0.75f);
-            }
+		#region UpdateBadLifeRegen
 
-            #endregion
+		public override void UpdateBadLifeRegen()
+		{
 
-        }
+			#region Rampant Bleed Effects
 
-        #endregion
+			if (RBleed)
+			{
+				if (player.lifeRegen > 0)
+				{
+					player.lifeRegen = 0;
+				}
 
-        #region ResetEffects
+				player.lifeRegenTime = 0;
+				// lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+				player.lifeRegen -= RBleedStacks;
 
-        public override void ResetEffects()
-        {
+			}
 
-            #region Rampant Bleed Reset
+			#endregion
 
-            if (RBleed == false)
-            {
-                RBleedStacks = 0;
-            }
+		}
 
-            RBleed = false;
+		#endregion
 
-            #endregion
 
-            #region Shadow Blaster Effect
+		#region PostUpdateBuffs
 
-            if (player.HeldItem.type != mod.ItemType("ShadowBlasterGun"))
-            {
-                shadow = false;
-            }
+		public override void PostUpdateBuffs()
+		{
 
-            #endregion
+			#region Sugar Rush Jump Height
 
-            #region Weakened Reset
+			if (player.HasBuff(mod.BuffType("SugarRush")))
+			{
+				Player.jumpHeight += 7;
+				Player.jumpSpeed += 0.3f;
+			}
 
-            if (Weakened == false)
-            {
-                WeakenedStacks = 0;
-            }
+			#endregion
 
-            Weakened = false;
+			#region Cursed Effects
 
-            #endregion
+			if (Cursed)
+			{
+				if (CursedStacks <= 5)
+				{
+					CursedMult = 0.1 * CursedStacks;
+					CursedDefense = 1 - CursedMult;
+					player.statDefense = (int)(player.statDefense * CursedDefense);
+				}
+				else
+				{
+					player.statDefense = (int)(player.statDefense * 0.5);
+				}
 
-            #region Tired Reset
+			}
+			else
+			{
+				player.statDefense = player.statDefense;
+			}
 
-            if (Tired == false)
-            {
-                TiredStacks = 0;
-            }
+			if (CursedStacks == 1)
+			{
+				CursedAlpha = .25f;
+			}
+			else if (CursedStacks == 2)
+			{
+				CursedAlpha = .50f;
+			}
+			else if (CursedStacks == 3)
+			{
+				CursedAlpha = .75f;
+			}
+			else if (CursedStacks == 4)
+			{
+				CursedAlpha = 1;
+			}
+			else if (CursedStacks >= 5)
+			{
+				if (CursedAlphaCheck == true)
+				{
+					CursedAlpha -= .05f;
+				}
+				else if (CursedAlphaCheck == false)
+				{
+					CursedAlpha += .05f;
+				}
 
-            Tired = false;
+				if (CursedAlpha >= 1f)
+				{
+					CursedAlphaCheck = true;
+				}
+				else if (CursedAlpha <= 0)
+				{
+					CursedAlphaCheck = false;
+				}
 
-            #endregion
 
-            #region Cursed Reset
+			}
 
-            if (Cursed == false)
-            {
-                CursedStacks = 1;
-            }
+			#endregion
 
-            Cursed = false;
+			#region Flair Slots
 
-            #endregion
 
-            #region Number Of Drawable Buffs
+			// Check to see if the item EXISTS.
+			if (item1 != null && ! item1.IsAir)
+			{
+				item1.modItem.UpdateAccessory(player, false);
+			}
 
-            numberOfDrawableBuffs = -1;
 
-            Blessed = false;
-            #endregion
+			// Check to see if the item EXISTS.
+			if (item2 != null && !item2.IsAir)
+			{
+				item2.modItem.UpdateAccessory(player, false);
+			}
 
-            #region Tryforce
 
-            Tryforce = false;
-            
-            #endregion
-        }
+			// Check to see if the item EXISTS.
+			if (item3 != null && !item3.IsAir)
+			{
+				item3.modItem.UpdateAccessory(player, false);
+			}
 
-        #endregion
+			#endregion
 
-        #region UpdateBadLifeRegen
+		}
 
-        public override void UpdateBadLifeRegen()
-        {
+		#endregion
 
-            #region Rampant Bleed Effects
+		#region UseTimeMultiplier
 
-            if (RBleed)
-            {
-                if (player.lifeRegen > 0)
-                {
-                    player.lifeRegen = 0;
-                }
+		public override float UseTimeMultiplier(Item item)
+		{
 
-                player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-                player.lifeRegen -= RBleedStacks;
 
-            }
+			#region Haste and Infuriated speed effects
 
-            #endregion
+			if (player.HasBuff(mod.BuffType("HasteBuff")) && player.HasBuff(mod.BuffType("Infuriated")))
+			{
+				return 4f;
+			}
+			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("HasteBuff")))
+			{
 
-        }
+				return 2f;
 
-        #endregion
+			}
+			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Infuriated")))
+			{
 
+				return 2f;
 
-        #region PostUpdateBuffs
+			}
 
-        public override void PostUpdateBuffs()
-        {
+			#endregion
 
-            #region Sugar Rush Jump Height
+			#region Tired
 
-            if (player.HasBuff(mod.BuffType("SugarRush")))
-            {
-                Player.jumpHeight += 7;
-                Player.jumpSpeed += 0.3f;
-            }
+			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks <= 0.5f)
+			{
 
-            #endregion
+				return 1f - TiredStacks;
 
-            #region Cursed Effects
+			}
+			else if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks > 0.5f)
+			{
+				return 0.5f;
+			}
 
-            if (Cursed)
-            {
-                if (CursedStacks <= 5)
-                {
-                    CursedMult = 0.1 * CursedStacks;
-                    CursedDefense = 1 - CursedMult;
-                    player.statDefense = (int)(player.statDefense * CursedDefense);
-                }
-                else
-                {
-                    player.statDefense = (int)(player.statDefense * 0.5);
-                }
+			#endregion
 
-            }
-            else
-            {
-                player.statDefense = player.statDefense;
-            }
+			return 1f;
 
-            if (CursedStacks == 1)
-            {
-                CursedAlpha = .25f;
-            }
-            else if (CursedStacks == 2)
-            {
-                CursedAlpha = .50f;
-            }
-            else if (CursedStacks == 3)
-            {
-                CursedAlpha = .75f;
-            }
-            else if (CursedStacks == 4)
-            {
-                CursedAlpha = 1;
-            }
-            else if (CursedStacks >= 5)
-            {
-                if (CursedAlphaCheck == true)
-                {
-                    CursedAlpha -= .05f;
-                }
-                else if (CursedAlphaCheck == false)
-                {
-                    CursedAlpha += .05f;
-                }
 
-                if (CursedAlpha >= 1f)
-                {
-                    CursedAlphaCheck = true;
-                }
-                else if (CursedAlpha <= 0)
-                {
-                    CursedAlphaCheck = false;
-                }
 
 
-            }
+		}
 
-            #endregion
+		#endregion
 
-            #region Flair Slots
+		#region OnHitNPCWithProj
 
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+		{
 
-            // Check to see if the item EXISTS.
-            if (item1 != null && ! item1.IsAir)
-            {
-                item1.modItem.UpdateAccessory(player, false);
-            }
+			#region Crystal Healing
 
+			#region Crystal Revolver Healing
 
-            // Check to see if the item EXISTS.
-            if (item2 != null && !item2.IsAir)
-            {
-                item2.modItem.UpdateAccessory(player, false);
-            }
+			if (player.HeldItem.type == mod.ItemType("CrystalRevolver") && player.statLife < player.statLifeMax)
+			{
+				if (player.HasItem(mod.ItemType("CrystalRevolver")) && player.HasItem(mod.ItemType("CrystalWing")))
+				{
+					player.statLife += 6;
+					player.HealEffect(6);
+				}
+				else
+				{
+					player.statLife += 3;
+					player.HealEffect(3);
+				}
 
+			}
 
-            // Check to see if the item EXISTS.
-            if (item3 != null && !item3.IsAir)
-            {
-                item3.modItem.UpdateAccessory(player, false);
-            }
+			#endregion
 
-            #endregion
+			#region Crystal Wing Healing
 
-        }
+			dps += damage;
 
-        #endregion
 
-        #region UseTimeMultiplier
+			if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true && player.HasItem(mod.ItemType("CrystalRevolver")))
+			{
+				player.statLife += dps / 2;
+				player.HealEffect(dps / 2);
 
-        public override float UseTimeMultiplier(Item item)
-        {
+				heal = false;
+			}
+			else if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true)
+			{
+				player.statLife += dps / 4;
+				player.HealEffect(dps / 4);
 
+				heal = false;
+			}
 
-            #region Haste and Infuriated speed effects
+			#endregion
 
-            if (player.HasBuff(mod.BuffType("HasteBuff")) && player.HasBuff(mod.BuffType("Infuriated")))
-            {
-                return 4f;
-            }
-            if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("HasteBuff")))
-            {
+			#endregion
 
-                return 2f;
+			#region Vortex Implosion
 
-            }
-            if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Infuriated")))
-            {
+			#region Vortex Cannon implosion mechanic
 
-                return 2f;
+			if (player.HeldItem.type == mod.ItemType("VortexCannon"))
+			{
+				if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
+				{
+					target.velocity = target.DirectionTo(proj.Center) * 40;
+				}
+				else
+				{
+					target.velocity = target.DirectionTo(proj.Center) * 20;
+				}
 
-            }
+			}
 
-            #endregion
+			#endregion
 
-            #region Tired
+			#region Vortex Revolver Inverted Knockback
 
-            if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks <= 0.5f)
-            {
+			if (player.HeldItem.type == mod.ItemType("VortexRevolver"))
+			{
+				if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
+				{
+					target.velocity = target.DirectionTo(proj.Center) * 10;
+				}
+				else
+				{
+					target.velocity = target.DirectionTo(proj.Center) * 5;
+				}
+			}
 
-                return 1f - TiredStacks;
+			#endregion
 
-            }
-            else if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks > 0.5f)
-            {
-                return 0.5f;
-            }
+			#endregion
 
-            #endregion
+			#region Hellfire AddBuff
 
-            return 1f;
+			if (player.HeldItem.type == mod.ItemType("HellfireRevolver") || player.HeldItem.type == mod.ItemType("HellfireShotgun"))
+			{
+				if (player.HasItem(mod.ItemType("HellfireRevolver")) && player.HasItem(mod.ItemType("HellfireShotgun")))
+				{
+					target.AddBuff(BuffID.OnFire, 300);
+				}
+				else
+				{
+					target.AddBuff(BuffID.OnFire, 60);
+				}
 
+			}
 
+			#endregion
 
+		}
 
-        }
+		#endregion
 
-        #endregion
+		#region PostUpdate
 
-        #region OnHitNPCWithProj
+		public override void PostUpdate()
+		{
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        {
+			#region Crystal Wing Healing Logic
 
-            #region Crystal Healing
+			if (heal == false)
+			{
+				timer--;
+			}
 
-            #region Crystal Revolver Healing
+			timer2--;
 
-            if (player.HeldItem.type == mod.ItemType("CrystalRevolver") && player.statLife < player.statLifeMax)
-            {
-                if (player.HasItem(mod.ItemType("CrystalRevolver")) && player.HasItem(mod.ItemType("CrystalWing")))
-                {
-                    player.statLife += 6;
-                    player.HealEffect(6);
-                }
-                else
-                {
-                    player.statLife += 3;
-                    player.HealEffect(3);
-                }
+			if (timer <= 0)
+			{
+				dps = 0;
+				heal = true;
+				timer = 60;
+			}
 
-            }
+			if (timer2 <= 0 && dps > 0)
+			{
+				dps = 0;
 
-            #endregion
+				timer2 = 60;
+			}
 
-            #region Crystal Wing Healing
+			#endregion          
+			
 
-            dps += damage;
+			if(LimitCurrent < 0)
+			{
+				LimitCurrent = 0;
+			}
 
+		}
 
-            if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true && player.HasItem(mod.ItemType("CrystalRevolver")))
-            {
-                player.statLife += dps / 2;
-                player.HealEffect(dps / 2);
+		#endregion
 
-                heal = false;
-            }
-            else if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true)
-            {
-                player.statLife += dps / 4;
-                player.HealEffect(dps / 4);
+		#region PreUpdate
+		public override void PreUpdate()
+		{
+			#region Coconut Health
 
-                heal = false;
-            }
+			if (player.HasItem(mod.ItemType("CoconutGun")) && player.HasItem(mod.ItemType("CoconutShooter")) && player.statLife > 0)
+			{
+				player.statLifeMax2 += 50;
 
-            #endregion
+			}
 
-            #endregion
+			#endregion
 
-            #region Vortex Implosion
+			#region Shadow Blaster Effect
 
-            #region Vortex Cannon implosion mechanic
+			if (player.HasItem(mod.ItemType("ShadowBlaster")) && player.HeldItem.type == mod.ItemType("ShadowBlasterGun"))
+			{
+				shadow = true;
+			}
 
-            if (player.HeldItem.type == mod.ItemType("VortexCannon"))
-            {
-                if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
-                {
-                    target.velocity = target.DirectionTo(proj.Center) * 40;
-                }
-                else
-                {
-                    target.velocity = target.DirectionTo(proj.Center) * 20;
-                }
+			#endregion
 
-            }
+			#region Limit Stuff
 
-            #endregion
+			TimeDiff++;
 
-            #region Vortex Revolver Inverted Knockback
 
-            if (player.HeldItem.type == mod.ItemType("VortexRevolver"))
-            {
-                if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
-                {
-                    target.velocity = target.DirectionTo(proj.Center) * 10;
-                }
-                else
-                {
-                    target.velocity = target.DirectionTo(proj.Center) * 5;
-                }
-            }
+			#endregion
 
-            #endregion
+		}
 
-            #endregion
+		#endregion
 
-            #region Hellfire AddBuff
+		#region PostUpdateRunSpeeds
 
-            if (player.HeldItem.type == mod.ItemType("HellfireRevolver") || player.HeldItem.type == mod.ItemType("HellfireShotgun"))
-            {
-                if (player.HasItem(mod.ItemType("HellfireRevolver")) && player.HasItem(mod.ItemType("HellfireShotgun")))
-                {
-                    target.AddBuff(BuffID.OnFire, 300);
-                }
-                else
-                {
-                    target.AddBuff(BuffID.OnFire, 60);
-                }
+		public override void PostUpdateRunSpeeds()
+		{
 
-            }
+			#region Thunder Core Speed
 
-            #endregion
+			if (player.HeldItem.type == mod.ItemType("ThunderCore") && player.HasItem(mod.ItemType("ThunderCoreGun")))
+			{
+				player.maxRunSpeed += 1.2f;
+				player.moveSpeed += 1.2f;
+				player.accRunSpeed += 1.2f;
+			}
 
-        }
+			#endregion
 
-        #endregion
+			#region Dragon's Feather Speed
 
-        #region PostUpdate
+			if (player.HeldItem.type == mod.ItemType("DragonsFeather"))
+			{
+				player.maxRunSpeed += 1.5f;
+				player.moveSpeed += 1.5f;
+				player.accRunSpeed += 1.5f;
+			}
 
-        public override void PostUpdate()
-        {
+			#endregion
 
-            #region Crystal Wing Healing Logic
+			#region Haste Speed
 
-            if (heal == false)
-            {
-                timer--;
-            }
+			if (player.HasBuff(mod.BuffType("HasteBuff")))
+			{
+				player.maxRunSpeed += 2f;
+				player.accRunSpeed += 2f;
+				player.moveSpeed += 2f;
+			}
 
-            timer2--;
+			#endregion
 
-            if (timer <= 0)
-            {
-                dps = 0;
-                heal = true;
-                timer = 60;
-            }
+			#region Sugar Rush Speed
 
-            if (timer2 <= 0 && dps > 0)
-            {
-                dps = 0;
+			if (player.HasBuff(mod.BuffType("SugarRush")))
+			{
+				player.maxRunSpeed += 2f;
+				player.moveSpeed += 1f;
 
-                timer2 = 60;
-            }
+			}
 
-            #endregion          
-            
+			#endregion
 
-            if(LimitCurrent < 0)
-            {
-                LimitCurrent = 0;
-            }
+			#region King's Guard Shield Speed
 
-        }
+			for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+			{
+				if (player.armor[i].type == mod.ItemType("KingsGuardShield"))
+				{
+					player.maxRunSpeed *= 0.70f;
+					player.accRunSpeed *= 0.70f;
+				}
+			}
 
-        #endregion
+			#endregion
 
-        #region PreUpdate
-        public override void PreUpdate()
-        {
-            #region Coconut Health
+			#region Tired Speed
 
-            if (player.HasItem(mod.ItemType("CoconutGun")) && player.HasItem(mod.ItemType("CoconutShooter")) && player.statLife > 0)
-            {
-                player.statLifeMax2 += 50;
+			if (Tired && TiredStacks <= 0.5f)
+			{
 
-            }
+				TiredPower = 1f - TiredStacks;
+				player.maxRunSpeed *= TiredPower;
+				player.accRunSpeed *= TiredPower;
+				player.moveSpeed *= TiredPower;
 
-            #endregion
+			}
+			else if (Tired && TiredStacks > 0.5f)
+			{
+				player.maxRunSpeed *= 0.5f;
+				player.accRunSpeed *= 0.5f;
+				player.moveSpeed *= 0.5f;
+			}
 
-            #region Shadow Blaster Effect
+			#endregion
 
-            if (player.HasItem(mod.ItemType("ShadowBlaster")) && player.HeldItem.type == mod.ItemType("ShadowBlasterGun"))
-            {
-                shadow = true;
-            }
+			#region Heaven's speed
 
-            #endregion
+			if (player.HasBuff(ModContent.BuffType<Kyun>()))
+			{
+				player.maxRunSpeed += 1.5f;
+				player.accRunSpeed += 1.5f;
+				player.moveSpeed += 1.5f;
 
-            #region Limit Stuff
+			}
 
-            TimeDiff++;
+			#endregion
 
+		}
 
-            #endregion
+		#endregion
 
-        }
+		#region GetWeaponCrit
 
-        #endregion
+		public override void GetWeaponCrit(Item item, ref int crit)
+		{
 
-        #region PostUpdateRunSpeeds
+			#region Gungnir Crit
 
-        public override void PostUpdateRunSpeeds()
-        {
+			if (player.HasItem(mod.ItemType("GungnirRifle")) && player.HasItem(mod.ItemType("GungnirRevolver")) && (player.HeldItem.type == mod.ItemType("GungnirRifle") || player.HeldItem.type == mod.ItemType("GungnirRevolver")))
+			{
+				crit += 15;
+			}
 
-            #region Thunder Core Speed
+			#endregion
 
-            if (player.HeldItem.type == mod.ItemType("ThunderCore") && player.HasItem(mod.ItemType("ThunderCoreGun")))
-            {
-                player.maxRunSpeed += 1.2f;
-                player.moveSpeed += 1.2f;
-                player.accRunSpeed += 1.2f;
-            }
+		}
 
-            #endregion
+		#endregion
 
-            #region Dragon's Feather Speed
+		#region DrawEffects
 
-            if (player.HeldItem.type == mod.ItemType("DragonsFeather"))
-            {
-                player.maxRunSpeed += 1.5f;
-                player.moveSpeed += 1.5f;
-                player.accRunSpeed += 1.5f;
-            }
+		public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+		{
+			#region Rampant Bleeding Dust
 
-            #endregion
+			if (RBleed)
+			{
+				if (RBleedStacks <= 5)
+				{
+					if (Main.rand.NextFloat() <= .1f)
+					{
+						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+					}
+				}
+				else if (RBleedStacks > 5 && RBleedStacks <= 10)
+				{
+					if (Main.rand.NextFloat() <= .2f)
+					{
+						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+					}
+				}
+				else if (RBleedStacks > 10 && RBleedStacks <= 20)
+				{
+					if (Main.rand.NextFloat() <= .4f)
+					{
+						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+					}
+				}
+				else if (RBleedStacks > 20)
+				{
+					Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+				}
 
-            #region Haste Speed
 
-            if (player.HasBuff(mod.BuffType("HasteBuff")))
-            {
-                player.maxRunSpeed += 2f;
-                player.accRunSpeed += 2f;
-                player.moveSpeed += 2f;
-            }
 
-            #endregion
 
-            #region Sugar Rush Speed
 
-            if (player.HasBuff(mod.BuffType("SugarRush")))
-            {
-                player.maxRunSpeed += 2f;
-                player.moveSpeed += 1f;
+			}
+			#endregion
 
-            }
 
-            #endregion
+			/*#region Blessed Dust
 
-            #region King's Guard Shield Speed
+			if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
+			{
+				Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+			}
 
-            for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
-            {
-                if (player.armor[i].type == mod.ItemType("KingsGuardShield"))
-                {
-                    player.maxRunSpeed *= 0.70f;
-                    player.accRunSpeed *= 0.70f;
-                }
-            }
+			#endregion*/
 
-            #endregion
 
-            #region Tired Speed
 
-            if (Tired && TiredStacks <= 0.5f)
-            {
 
-                TiredPower = 1f - TiredStacks;
-                player.maxRunSpeed *= TiredPower;
-                player.accRunSpeed *= TiredPower;
-                player.moveSpeed *= TiredPower;
+		}
 
-            }
-            else if (Tired && TiredStacks > 0.5f)
-            {
-                player.maxRunSpeed *= 0.5f;
-                player.accRunSpeed *= 0.5f;
-                player.moveSpeed *= 0.5f;
-            }
+		#endregion
 
-            #endregion
 
-            #region Heaven's speed
 
-            if (player.HasBuff(ModContent.BuffType<Kyun>()))
-            {
-                player.maxRunSpeed += 1.5f;
-                player.accRunSpeed += 1.5f;
-                player.moveSpeed += 1.5f;
 
-            }
 
-            #endregion
+		#region ModifyDrawLayers
 
-        }
 
-        #endregion
 
-        #region GetWeaponCrit
+		public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+		{
+			if (drawInfo.shadow != 0f)
+			{
+				return;
+			}
 
-        public override void GetWeaponCrit(Item item, ref int crit)
-        {
+			Player drawPlayer = drawInfo.drawPlayer;
+			Mod mod = ModLoader.GetMod("EpicBattleFantasyUltimate");
+			EpicPlayer modPlayer = drawPlayer.GetModPlayer<EpicPlayer>();
 
-            #region Gungnir Crit
+			int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X) - (drawableBuffOffset / 2) * modPlayer.numberOfDrawableBuffs;
+			int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
 
-            if (player.HasItem(mod.ItemType("GungnirRifle")) && player.HasItem(mod.ItemType("GungnirRevolver")) && (player.HeldItem.type == mod.ItemType("GungnirRifle") || player.HeldItem.type == mod.ItemType("GungnirRevolver")))
-            {
-                crit += 15;
-            }
+			if (modPlayer.Cursed)
+			{
+				// Do drawing.
+				Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect2");
 
-            #endregion
 
-        }
+				
 
-        #endregion
 
-        #region DrawEffects
+				Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
+				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
+				Main.playerDrawData.Add(data);
 
-        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-        {
-            #region Rampant Bleeding Dust
 
-            if (RBleed)
-            {
-                if (RBleedStacks <= 5)
-                {
-                    if (Main.rand.NextFloat() <= .1f)
-                    {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-                    }
-                }
-                else if (RBleedStacks > 5 && RBleedStacks <= 10)
-                {
-                    if (Main.rand.NextFloat() <= .2f)
-                    {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-                    }
-                }
-                else if (RBleedStacks > 10 && RBleedStacks <= 20)
-                {
-                    if (Main.rand.NextFloat() <= .4f)
-                    {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-                    }
-                }
-                else if (RBleedStacks > 20)
-                {
-                    Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-                }
+				drawX += drawableBuffOffset;
 
+			}
 
+			if (modPlayer.Blessed)
+			{
+				// Do drawing.
+				Texture2D texture = mod.GetTexture("Buffs/Buffs/BlessedEffect");
 
 
+				
 
-            }
-            #endregion
+				Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
+				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
+				Main.playerDrawData.Add(data);
 
 
-            /*#region Blessed Dust
+				drawX += drawableBuffOffset;
 
-            if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
-            {
-                Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-            }
+			}
+		});
 
-            #endregion*/
 
 
 
 
-        }
 
-        #endregion
 
 
 
 
 
-        #region ModifyDrawLayers
+		public override void ModifyDrawLayers(List<PlayerLayer> layers)
+		{
+			if (player.HeldItem.modItem is Items.SignatureItems.PaintSplatteredBrush) PlayerLayer.HeldItem.visible = false;
 
+			Action<PlayerDrawInfo> layerTarget = DrawGlowmasks; //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
+			PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
+			layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
+			
+			if(player.statLife > 0)
+			{
+				MiscEffects.visible = true;
+				layers.Add(MiscEffects);
 
+			}
 
-        public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
 
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("EpicBattleFantasyUltimate");
-            EpicPlayer modPlayer = drawPlayer.GetModPlayer<EpicPlayer>();
+			void DrawGlowmasks(PlayerDrawInfo info)
+			{
+				if (info.drawPlayer.HeldItem.modItem is Items.IPlayerLayerDrawable) (info.drawPlayer.HeldItem.modItem as Items.IPlayerLayerDrawable).DrawGlowmask(info);
+			}
+		}
 
-            int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X) - (drawableBuffOffset / 2) * modPlayer.numberOfDrawableBuffs;
-            int drawY = (int)(drawInfo.position.Y - 4f - Main.screenPosition.Y);
+		#endregion
 
-            if (modPlayer.Cursed)
-            {
-                // Do drawing.
-                Texture2D texture = mod.GetTexture("Buffs/Debuffs/CursedEffect2");
 
-
-                
-
-
-                Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
-                Main.playerDrawData.Add(data);
-
-
-                drawX += drawableBuffOffset;
-
-            }
-
-            if (modPlayer.Blessed)
-            {
-                // Do drawing.
-                Texture2D texture = mod.GetTexture("Buffs/Buffs/BlessedEffect");
-
-
-                
-
-                Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
-                DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
-                Main.playerDrawData.Add(data);
-
-
-                drawX += drawableBuffOffset;
-
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-        public override void ModifyDrawLayers(List<PlayerLayer> layers)
-        {
-            if (player.HeldItem.modItem is Items.SignatureItems.PaintSplatteredBrush) PlayerLayer.HeldItem.visible = false;
-
-            Action<PlayerDrawInfo> layerTarget = DrawGlowmasks; //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
-            PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
-            layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
-            
-            if(player.statLife > 0)
-            {
-                MiscEffects.visible = true;
-                layers.Add(MiscEffects);
-
-            }
-
-
-            void DrawGlowmasks(PlayerDrawInfo info)
-            {
-                if (info.drawPlayer.HeldItem.modItem is Items.IPlayerLayerDrawable) (info.drawPlayer.HeldItem.modItem as Items.IPlayerLayerDrawable).DrawGlowmask(info);
-            }
-        }
-
-        #endregion
-
-
-        
+		
 
    
 
@@ -1182,6 +1149,6 @@ namespace EpicBattleFantasyUltimate
 
 
 
-    }
+	}
 }
 
