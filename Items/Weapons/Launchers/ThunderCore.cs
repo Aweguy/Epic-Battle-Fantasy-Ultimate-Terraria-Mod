@@ -6,10 +6,12 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class ThunderCore : ModItem
+    public class ThunderCore : EpicLauncher
     {
 
         public override void SetStaticDefaults()
@@ -18,8 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A portable powerhouse that is yellow despite all color schemes. Runs on clean Plutonium just below critical mass.\nShoots in 2 shot bursts.\nIncreases your speed by 20% when having Thunder Revolver in your inventory.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 52;
@@ -37,16 +38,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 14f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -60,28 +54,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-30, -9);
         }
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -94,14 +70,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
     }
 }

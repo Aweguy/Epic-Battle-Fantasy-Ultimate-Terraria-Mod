@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -15,7 +16,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vortex Revolver");
-            Tooltip.SetDefault("Propels bullets with the force of a cyclone.\nShots have inverted knockback.");
+            Tooltip.SetDefault("Propels bullets with the force of a cyclone.\nShots have inverted knockback.\nShots from this weapon home to enemies.");
         }
 
 
@@ -45,6 +46,16 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 
         }
 
+        public Projectile shot;
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            Vector2 trueSpeed = new Vector2(speedX, speedY);
+            shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+            shot.GetGlobalProjectile<LauncherProjectile>().B4Homingshot = true;
+
+            return false;
+        }
 
         public override void AddRecipes()
         {

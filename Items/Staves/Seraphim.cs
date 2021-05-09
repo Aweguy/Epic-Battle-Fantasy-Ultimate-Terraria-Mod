@@ -1,11 +1,9 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
-using EpicBattleFantasyUltimate.ClassTypes;
 
 
 namespace EpicBattleFantasyUltimate.Items.Staves
@@ -54,8 +52,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             }
             for (; num234 < Main.maxTilesY && Main.tile[num233, num234] != null && !WorldGen.SolidTile2(num233, num234) && Main.tile[num233 - 1, num234] != null && !WorldGen.SolidTile2(num233 - 1, num234) && Main.tile[num233 + 1, num234] != null && !WorldGen.SolidTile2(num233 + 1, num234); num234++)
             {
-            }            
-            Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>() , item.damage, 0f, player.whoAmI, 0f, 0f);
+            }
+            Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>(), item.damage, 0f, player.whoAmI, 0f, 0f);
 
 
 

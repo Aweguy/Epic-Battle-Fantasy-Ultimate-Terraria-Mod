@@ -5,11 +5,12 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class SpineSnapper : ModItem
+    public class SpineSnapper : EpicLauncher
     {
 
 		public override void SetStaticDefaults()
@@ -18,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			Tooltip.SetDefault("Said to have been forged by a cabal of Cat Ninjas. Brings death and woe to those in its sights.");
 		}
 
-		public override void SetDefaults()
+		public override void SetSafeDefaults()
 		{
 			item.width = 112;
 			item.height = 56;
@@ -35,11 +36,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			item.value = Item.sellPrice(gold: 2);
 			item.rare = ItemRarityID.Purple;
 
-			item.shoot = ProjectileID.PurificationPowder;
-			item.useAmmo = ModContent.ItemType<Shot>();
 			item.UseSound = SoundID.Item38;
 			item.shootSpeed = 12f;
-			item.useStyle = ItemUseStyleID.HoldingOut;
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -57,12 +55,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-25, -10);
-		}
-
-		public override bool CanUseItem(Player player)
-		{
-			int buff = mod.BuffType("Overheat");
-			return !player.HasBuff(buff);
 		}
 	}
 }

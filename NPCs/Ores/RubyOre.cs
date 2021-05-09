@@ -8,8 +8,8 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
-    public class RubyOre : ModNPC
-    {
+	public class RubyOre : ModNPC
+	{
 
 
 		Vector2 center;
@@ -31,21 +31,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
-
 			npc.noTileCollide = true;
 			npc.aiStyle = -1;
-
-
-
 		}
 
 		#region OnHitPlayer
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
-			//npc.life = 0;
-
-			if (npc.life >= npc.lifeMax * 0.40)
+            //npc.life = 0;
+            #region Death Check
+            if (npc.life >= npc.lifeMax * 0.40)
 			{
 
 				if (Main.rand.NextFloat() < .1f)
@@ -96,14 +92,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				npc.life = 0;
 			}
-
-
-
-
-
-
-
-
+			#endregion
+			for (int i = 0; i <= 5; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
 
 		}
 
@@ -124,14 +117,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 
 		}
-
-
-
-
-
-
-
-
 
 		#region AI
 
@@ -190,66 +175,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			target *= MoveSpeedMult;
 			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
-
-
 			npc.noGravity = true;
 			npc.TargetClosest(true);
-
-
-
 
 		}
 
 		#endregion
 
 		#region FindFrame
-
-		int Frame1 = 0;
-		int Frame2 = 1;
-		int Frame3 = 2;
-		int Frame4 = 3;
-		int Frame5 = 4;
-		int Frame6 = 5;
-
-
 		public override void FindFrame(int frameHeight)
 		{
-
-			npc.frameCounter++;
-			if (npc.frameCounter < 10)
-			{
-				npc.frame.Y = Frame1 * frameHeight;
-			}
-			else if (npc.frameCounter < 20)
-			{
-				npc.frame.Y = Frame2 * frameHeight;
-			}
-			else if (npc.frameCounter < 30)
-			{
-				npc.frame.Y = Frame3 * frameHeight;
-			}
-			else if (npc.frameCounter < 40)
-			{
-				npc.frame.Y = Frame4 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 50)
-			{
-				npc.frame.Y = Frame5 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 60)
-			{
-				npc.frame.Y = Frame6 * frameHeight;
-			}
-			else
+			if (++npc.frameCounter >= 7)
 			{
 				npc.frameCounter = 0;
+				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
 			}
 		}
-
 		#endregion
-
 
 		public override bool CheckDead()
 		{
@@ -310,24 +252,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	}
 }

@@ -6,11 +6,12 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class NitroBomberXL : ModItem
+    public class NitroBomberXL : EpicLauncher
     {
 
         public override void SetStaticDefaults()
@@ -19,8 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("Not to be confused with any white-hooded individuals with an affinity for explosives.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 52;
@@ -37,27 +37,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 5);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 11f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            
-
-
-
-
-
-
-
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 34f;
             //Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
             muzzleOffset += new Vector2(0, -8f * player.direction).RotatedBy(muzzleOffset.ToRotation());
@@ -68,30 +53,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
 
             return new Vector2(-50, -10);
 
         }
-
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -103,24 +70,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

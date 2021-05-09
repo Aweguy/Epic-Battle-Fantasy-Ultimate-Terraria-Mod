@@ -1,55 +1,50 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
-    public class ZirconOre : ModNPC
-    {
+	public class ZirconOre : ModNPC
+	{
 
 		Vector2 center;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Zircon Ore");
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Zircon Ore");
 			Main.npcFrameCount[npc.type] = 6;
 		}
 
-        public override void SetDefaults()
-        {
-            npc.width = 40;
-            npc.height = 40;
+		public override void SetDefaults()
+		{
+			npc.width = 40;
+			npc.height = 40;
 
-            npc.lifeMax = 90;
-            npc.damage = 40;
-            npc.defense = 5;
-            npc.lifeRegen = 4;
+			npc.lifeMax = 90;
+			npc.damage = 40;
+			npc.defense = 5;
+			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
 
-            npc.noTileCollide = true;
+			npc.noTileCollide = true;
 			npc.aiStyle = -1;
+		}
 
+		#region OnHitPlayer
 
-
-        }
-
-        #region OnHitPlayer
-
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+		{
 			//npc.life = 0;
+			#region Death Check
+			if (npc.life >= npc.lifeMax * 0.40)
+			{
 
-			if(npc.life >= npc.lifeMax * 0.40)
-            {
-
-				if(Main.rand.NextFloat() < .1f)
-                {
+				if (Main.rand.NextFloat() < .1f)
+				{
 					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<ZirconExplosion>(), 10, 5f, Main.myPlayer, 0, 1);
 
 					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore1"), 1f);
@@ -58,9 +53,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/ZirconOre_Gore4"), 1f);
 
 					npc.life = 0;
-                }
-                else
-                {
+				}
+				else
+				{
 					Vector2 relativePosition = npc.Center - target.Center;
 					float absRelativeRotation = Math.Abs(relativePosition.ToRotation());
 
@@ -95,21 +90,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				npc.life = 0;
 			}
+			#endregion
+			for (int i = 0; i <= 5; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
 
-
-
-
-
-
-
-
-
-        }
+		}
 
 		#endregion
-
-
-
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
@@ -118,24 +107,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 			for (int j = 0; j <= 2; j++)
-            {
+			{
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
 		}
 
-
-
-
-
-
-
-
-
 		#region AI
 
 		public override void AI()
-        {
+		{
 
 			Direction(npc);
 			Movement(npc);
@@ -143,12 +124,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-        #endregion
+		#endregion
 
-        #region Direction
+		#region Direction
 
-        private void Direction(NPC npc)
-        {
+		private void Direction(NPC npc)
+		{
 			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
 				npc.direction = 1;
@@ -174,12 +155,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-        #endregion
+		#endregion
 
-        #region Movement
+		#region Movement
 
-        private void Movement(NPC npc)
-        {
+		private void Movement(NPC npc)
+		{
 			Vector2 target = Main.player[npc.target].Center - npc.Center;
 			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
 			float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
@@ -189,64 +170,22 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			target *= MoveSpeedMult;
 			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
-
-
 			npc.noGravity = true;
 			npc.TargetClosest(true);
 
-				
-			
-
 		}
 
-        #endregion
+		#endregion
 
-        #region FindFrame
-
-        int Frame1 = 0;
-		int Frame2 = 1;
-		int Frame3 = 2;
-		int Frame4 = 3;
-		int Frame5 = 4;
-		int Frame6 = 5;
-
-
-        public override void FindFrame(int frameHeight)
-        {
-
-			npc.frameCounter++;
-			if (npc.frameCounter < 10)
-			{
-				npc.frame.Y = Frame1 * frameHeight;
-			}
-			else if (npc.frameCounter < 20)
-			{
-				npc.frame.Y = Frame2 * frameHeight;
-			}
-			else if (npc.frameCounter < 30)
-			{
-				npc.frame.Y = Frame3 * frameHeight;
-			}
-			else if(npc.frameCounter < 40)
-            {
-				npc.frame.Y = Frame4 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 50)
-			{
-				npc.frame.Y = Frame5 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 60)
-			{
-				npc.frame.Y = Frame6 * frameHeight;
-			}
-			else
+		#region FindFrame
+		public override void FindFrame(int frameHeight)
+		{
+			if (++npc.frameCounter >= 7)
 			{
 				npc.frameCounter = 0;
+				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
 			}
 		}
-
 		#endregion
 
 
@@ -308,12 +247,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 
 		}
-
-
-
-
-
-
 
 	}
 }

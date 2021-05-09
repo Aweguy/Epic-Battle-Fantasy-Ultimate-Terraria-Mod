@@ -3,15 +3,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class CoconutShooter : ModItem
+    public class CoconutShooter : EpicLauncher
     {
-
 
         public override void SetStaticDefaults()
         {
@@ -19,8 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A gorilla's bazooka. Beat your chest with open palms before use.\nHigh damage with huge knockback, but slow fire rate and velocity.\nPassively boosts your max health by 50 if coconut gun us in your inventory.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 94;
             item.height = 70;
@@ -38,16 +36,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 3);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 5f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -61,26 +52,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-38, -5);
         }
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -92,10 +67,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
 }

@@ -6,10 +6,12 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class DeepBlue : ModItem
+    public class DeepBlue : EpicLauncher
     {
 
         public override void SetStaticDefaults()
@@ -18,8 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("While it’s sharp enough to use as a halberd, you should just shoot the darn thing.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 110;
             item.height = 56;
@@ -36,16 +37,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 5);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 11f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -59,26 +53,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-50, -10);
         }
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -90,10 +68,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
 }

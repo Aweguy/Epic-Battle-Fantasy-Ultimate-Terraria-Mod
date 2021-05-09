@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
@@ -40,6 +41,21 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 			item.shootSpeed = 12f;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 		}
+
+		public Projectile shot;
+
+
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+
+			Vector2 trueSpeed = new Vector2(speedX, speedY);
+			shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+			shot.GetGlobalProjectile<LauncherProjectile>().LifeSteal = true;
+
+
+			return false;
+		}
+
 
 		/*public override void AddRecipes()
 		{

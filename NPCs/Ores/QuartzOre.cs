@@ -8,8 +8,8 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
-    public class QuartzOre : ModNPC
-    {
+	public class QuartzOre : ModNPC
+	{
 
 		public override void SetStaticDefaults()
 		{
@@ -40,9 +40,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
-			//npc.life = 0;
-
-			if (npc.life >= npc.lifeMax * 0.40)
+            //npc.life = 0;
+            #region Death Check
+            if (npc.life >= npc.lifeMax * 0.40)
 			{
 
 				if (Main.rand.NextFloat() < .1f)
@@ -92,9 +92,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				npc.life = 0;
 			}
-
-
-
+			#endregion
+			for (int i = 0; i <= 5; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
 		}
 
 		#endregion
@@ -114,14 +116,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 
 		}
-
-
-
-
-
-
-
-
 
 		#region AI
 
@@ -193,57 +187,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		#endregion
 
 		#region FindFrame
-
-		int Frame1 = 0;
-		int Frame2 = 1;
-		int Frame3 = 2;
-		int Frame4 = 3;
-		int Frame5 = 4;
-		int Frame6 = 5;
-		
-
-
 		public override void FindFrame(int frameHeight)
 		{
-
-			npc.frameCounter++;
-			if (npc.frameCounter < 10)
-			{
-				npc.frame.Y = Frame1 * frameHeight;
-			}
-			else if (npc.frameCounter < 20)
-			{
-				npc.frame.Y = Frame2 * frameHeight;
-			}
-			else if (npc.frameCounter < 30)
-			{
-				npc.frame.Y = Frame3 * frameHeight;
-			}
-			else if (npc.frameCounter < 40)
-			{
-				npc.frame.Y = Frame4 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 50)
-			{
-				npc.frame.Y = Frame5 * frameHeight;
-
-			}
-			else if (npc.frameCounter < 60)
-			{
-				npc.frame.Y = Frame6 * frameHeight;
-			}
-			else
+			if (++npc.frameCounter >= 7)
 			{
 				npc.frameCounter = 0;
+				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
 			}
 		}
+		#endregion
 
-        #endregion
+		#region CheckDead
 
-        #region CheckDead
-
-        public override bool CheckDead()
+		public override bool CheckDead()
 		{
 
 			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/QuartzOre/QuartzOre_Gore1"), 1f);

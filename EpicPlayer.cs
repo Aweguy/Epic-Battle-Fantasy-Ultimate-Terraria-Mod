@@ -40,7 +40,13 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion
 
+		#region Attack Speed Multiplier Vars
 
+		float multiplier = 0f;
+		float Haste = 0f;
+		float Infuriated = 0f;
+
+		#endregion
 
 		#region Limit Break
 
@@ -147,8 +153,9 @@ namespace EpicBattleFantasyUltimate
 		#region Tired Variables
 
 		public bool Tired = true;
-		public float TiredStacks;
-		float TiredPower;
+		public int TiredStacks = 0;
+		float TiredPower = 1f;
+		float TiredMult = 1f;
 
 		#endregion
 
@@ -267,10 +274,6 @@ namespace EpicBattleFantasyUltimate
 			TimeDiff = 0;
 		}
 
-
-
-
-
 		private void LimitGenerationNPC(NPC npc, int damage, bool crit)
 		{
 			float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
@@ -337,49 +340,7 @@ namespace EpicBattleFantasyUltimate
 				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
 
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			/*HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
-
-			HpModifier = 1.25f - player.statLife / player.statLifeMax / 2; //1.25f - (((player.statLife / player.statLifeMax) * 100) / 2) / 100;
-			//1.25f - player.statLife / player.statLifeMax / 2
-
-			TimePassed = ((int)((MathHelper.Clamp(TimeDiff, 0, 2) / 2) + (MathHelper.Clamp(TimeDiff, 0, 60) / 240f)));
-
-
-			LimitGen = (int)(HpLost / 2) * (int)(HpModifier) * TimePassed;
-
-
-			if (Tryforce)
-			{
-				LimitCurrent += (int)(LimitGen * 1.20f);
-				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
-			}
-			else
-			{
-				LimitCurrent += LimitGen;
-				LimitCurrent = (int)MathHelper.Clamp(LimitCurrent, 0, MaxLimit2);
-
-			}*/
-
-
-
 		}
-
-
 
 		public void LimitEffect(int healAmount, bool broadcast = true)
 		{
@@ -389,11 +350,6 @@ namespace EpicBattleFantasyUltimate
 				NetMessage.SendData(MessageID.HealEffect, -1, -1, null, player.whoAmI, healAmount);
 			}
 		}
-
-
-
-
-
 
 		public override void LoadLegacy(BinaryReader reader)
 		{
@@ -476,6 +432,8 @@ namespace EpicBattleFantasyUltimate
 			if (Tired == false)
 			{
 				TiredStacks = 0;
+				TiredPower = 1f;
+				TiredMult = 1f;
 			}
 
 			Tired = false;
@@ -503,8 +461,9 @@ namespace EpicBattleFantasyUltimate
 			#region Tryforce
 
 			Tryforce = false;
-			
+
 			#endregion
+
 		}
 
 		#endregion
@@ -647,47 +606,40 @@ namespace EpicBattleFantasyUltimate
 		public override float UseTimeMultiplier(Item item)
 		{
 
-
 			#region Haste and Infuriated speed effects
 
-			if (player.HasBuff(mod.BuffType("HasteBuff")) && player.HasBuff(mod.BuffType("Infuriated")))
+			if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
 			{
-				return 4f;
+				Haste = 1f;
 			}
-			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("HasteBuff")))
+			else
 			{
-
-				return 2f;
-
+				Haste = 0f;
 			}
-			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Infuriated")))
+			if (player.HasBuff(ModContent.BuffType<Infuriated>()))
 			{
 
-				return 2f;
-
+				Infuriated = 2f;
 			}
-
-			#endregion
-
-			#region Tired
-
-			if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks <= 0.5f)
+			else
 			{
-
-				return 1f - TiredStacks;
-
-			}
-			else if (!item.IsAir && (item.ranged || item.magic || item.thrown || item.melee) && player.HasBuff(mod.BuffType("Tired")) && TiredStacks > 0.5f)
-			{
-				return 0.5f;
+				Infuriated = 0f;
 			}
 
 			#endregion
 
-			return 1f;
+			if(TiredStacks < 5)
+			{
+				TiredMult = 1f - TiredStacks * 0.1f;
+			}
+			else
+			{
+				TiredMult = 0.5f;
+			}
 
+			multiplier = (1f + (Haste + Infuriated)) * TiredMult;
 
-
+			return multiplier;
 
 		}
 
@@ -937,23 +889,23 @@ namespace EpicBattleFantasyUltimate
 			#endregion
 
 			#region Tired Speed
-
-			if (Tired && TiredStacks <= 0.5f)
+			if (Tired)
 			{
+				TiredPower = TiredStacks * 0.1f;
 
-				TiredPower = 1f - TiredStacks;
-				player.maxRunSpeed *= TiredPower;
-				player.accRunSpeed *= TiredPower;
-				player.moveSpeed *= TiredPower;
-
+				if(TiredStacks < 5)
+				{
+					player.maxRunSpeed *= (1f - TiredPower);
+					player.accRunSpeed *= (1f - TiredPower);
+					player.moveSpeed *= (1f - TiredPower);
+				}
+				else if(TiredStacks >= 5)
+				{
+					player.maxRunSpeed *= 0.5f;
+					player.accRunSpeed *= 0.5f;
+					player.moveSpeed *= 0.5f;
+				}
 			}
-			else if (Tired && TiredStacks > 0.5f)
-			{
-				player.maxRunSpeed *= 0.5f;
-				player.accRunSpeed *= 0.5f;
-				player.moveSpeed *= 0.5f;
-			}
-
 			#endregion
 
 			#region Heaven's speed
@@ -1032,14 +984,14 @@ namespace EpicBattleFantasyUltimate
 			#endregion
 
 
-			/*#region Blessed Dust
+			#region Blessed Dust
 
 			if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
 			{
-				Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+				Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 100, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 			}
 
-			#endregion*/
+			#endregion
 
 
 
@@ -1047,10 +999,6 @@ namespace EpicBattleFantasyUltimate
 		}
 
 		#endregion
-
-
-
-
 
 		#region ModifyDrawLayers
 
@@ -1139,16 +1087,6 @@ namespace EpicBattleFantasyUltimate
 		}
 
 		#endregion
-
-
-		
-
-   
-
-
-
-
-
 	}
 }
 

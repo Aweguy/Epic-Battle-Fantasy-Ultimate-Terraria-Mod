@@ -60,10 +60,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		}
 
 
-        #region movement
+		#region movement
 
-        private void movement(NPC npc)
-        {
+		private void movement(NPC npc)
+		{
 			if (npc.collideX)
 			{
 				npc.velocity.X = npc.oldVelocity.X * -0.5f;
@@ -224,14 +224,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		}
 
-        #endregion
+		#endregion
 
-        #region Cannon Spawning
+		#region Cannon Spawning
 
-        private void CannonSpawning(NPC npc)
-        {
-            if (!CannonSpawn2)
-            {
+		private void CannonSpawning(NPC npc)
+		{
+			if (!CannonSpawn2)
+			{
 				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonBehind>(), 0, 0, Main.myPlayer, npc.whoAmI);
 
 				CannonSpawn2 = true;
@@ -275,7 +275,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 				npc.frame.Y = Frame2 * frameHeight;
 			}
 			else if(npc.frameCounter < 30)
-            {
+			{
 				npc.frame.Y = Frame3 * frameHeight;
 
 			}
@@ -305,9 +305,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 
 		private void Bleep(NPC npc)
-        {
+		{
 			if(BleepTimer <= 0)
-            {
+			{
 				if (Main.rand.NextFloat() < .1f)
 				{
 					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
@@ -323,11 +323,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			Vector2 gorevel;
 
 			if(npc.velocity.Y > 0f)
-            {
+			{
 				gorevel = new Vector2(npc.velocity.X / 3f, (npc.velocity.Y * 8f) * -1);
-            }
+			}
 			else
-            {
+			{
 				gorevel = new Vector2(npc.velocity.X / 3f, npc.velocity.Y * 8f);
 
 			}
@@ -369,7 +369,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 
 			if (Main.rand.NextFloat() < .33f)
-            {
+			{
 				Item.NewItem(npc.getRect(), mod.ItemType("P2Processor"), 1);
 			}
 

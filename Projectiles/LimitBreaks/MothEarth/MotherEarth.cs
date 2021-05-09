@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 
 using EpicBattleFantasyUltimate.Dusts;
 using EpicBattleFantasyUltimate.HelperClasses;
+using EpicBattleFantasyUltimate.Buffs.Buffs;
 #endregion
 
 namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
@@ -95,6 +96,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 			if (StartDamage-- > 0)
 			{
+				for (int i = 0; i < Player.MaxBuffs; ++i)
+				{
+					if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
+					{
+						player.DelBuff(i);
+						i--;
+					}
+				}
+
+				player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 10);
+
 				projectile.scale -= 0.01f;
 				projectile.alpha -= 204 / 60;
 			}
@@ -110,7 +122,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 			if (StartDamage <= 0)//Runs when it starts damaging
 			{
-
+				
 				Particles();//Dust while it's alive.
 
 				NatureBlasts(player);//Projectile Spawning
@@ -132,7 +144,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 						}
 
 						Damage(npc, player); //The constant damage causing
-
 					}
 				}
 				else if (EndDamage <= 0)

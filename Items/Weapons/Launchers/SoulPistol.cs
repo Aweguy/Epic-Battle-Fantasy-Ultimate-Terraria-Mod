@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using EpicBattleFantasyUltimate.Projectiles;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-	public class SoulPistol : ModItem
+	public class SoulPistol : EpicLauncher
 	{
 
 		public override void SetStaticDefaults()
@@ -18,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			Tooltip.SetDefault("'I could have sworn...you said...eleven steps'- Duelist Larson\nHeals user when damaging foes.");
 		}
 
-		public override void SetDefaults()
+		public override void SetSafeDefaults()
 		{
 			item.width = 84;
 			item.height = 62;
@@ -34,12 +36,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			item.value = Item.sellPrice(gold: 2);
 			item.rare = ItemRarityID.Purple;
 
-			item.shoot = ProjectileID.PurificationPowder;
-			item.useAmmo = ModContent.ItemType<Shot>();
 			item.UseSound = SoundID.Item38;
 			item.shootSpeed = 12f;
-			item.useStyle = ItemUseStyleID.HoldingOut;
 		}
+
+		public Projectile shot;
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
@@ -50,18 +51,52 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			{
 				position += muzzleOffset;
 			}
-			return true;
+			
+
+			Vector2 trueSpeed = new Vector2(speedX, speedY);
+			shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+			shot.GetGlobalProjectile<LauncherProjectile>().LifeSteal = true;
+
+			return false;
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-15, -10);
 		}
+	}
 
-		public override bool CanUseItem(Player player)
+
+	public partial class LauncherProjectile: GlobalProjectile
+	{
+
+
+		public bool LifeSteal;
+		public int HealDamage = 0;
+
+		public void OnHitNPC_LifeSteal(Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			int buff = mod.BuffType("Overheat");
-			return !player.HasBuff(buff);
+			if (LifeSteal)
+			{
+				Player player = Main.player[projectile.owner];
+
+				if(player.statLife < player.statLifeMax2)
+				{
+					player.statLife += damage/5;
+					player.HealEffect(damage/5);
+				}
+			}
 		}
 	}
+
+
+
 }
+
+
+
+
+
+
+
+

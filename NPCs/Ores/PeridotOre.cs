@@ -8,8 +8,8 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
-    public class PeridotOre : ModNPC
-    {
+	public class PeridotOre : ModNPC
+	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Peridot Ore");
@@ -36,13 +36,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-        #region OnHitPlayer
+		#region OnHitPlayer
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
-			//npc.life = 0;
-
-			if (npc.life >= npc.lifeMax * 0.40)
+            //npc.life = 0;
+            #region Death Check
+            if (npc.life >= npc.lifeMax * 0.40)
 			{
 
 				if (Main.rand.NextFloat() < .1f)
@@ -86,15 +86,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 					int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
 
-
-
-
-
-
-
-
-
-
 					npc.life = 0;
 				}
 				else
@@ -125,12 +116,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			else
 			{
 				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<PeridotExplosion>(), 30, 5f, Main.myPlayer, 0, 1);
-
-
-
-
-
-
 
 				Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
 
@@ -169,24 +154,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
 
-
-
-
-
-
 				npc.life = 0;
 			}
+			#endregion
 
-
+			for (int i = 0; i <= 5; i++)
+			{
+				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
 
 		}
 
-        #endregion
+#endregion
 
 
-        #region HitEffect
+		#region HitEffect
 
-        public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(int hitDirection, double damage)
 		{
 			for (int i = 0; i <= 3; i++)
 			{
@@ -218,11 +202,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			Movement(npc);
 		}
 
-        #endregion
+		#endregion
 
-        #region Direction
+		#region Direction
 
-        private void Direction(NPC npc)
+		private void Direction(NPC npc)
 		{
 			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
@@ -249,11 +233,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-        #endregion
+		#endregion
 
-        #region Movement 
+		#region Movement 
 
-        private void Movement(NPC npc)
+		private void Movement(NPC npc)
 		{
 			Vector2 target = Main.player[npc.target].Center - npc.Center;
 			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
@@ -277,40 +261,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		#endregion
 
 		#region FindFrame
-
-		int Frame1 = 0;
-		int Frame2 = 1;
-		int Frame3 = 2;
-		int Frame4 = 3;
-
-
 		public override void FindFrame(int frameHeight)
 		{
-
-			npc.frameCounter++;
-			if (npc.frameCounter < 10)
-			{
-				npc.frame.Y = Frame1 * frameHeight;
-			}
-			else if (npc.frameCounter < 20)
-			{
-				npc.frame.Y = Frame2 * frameHeight;
-			}
-			else if (npc.frameCounter < 30)
-			{
-				npc.frame.Y = Frame3 * frameHeight;
-			}
-			else if (npc.frameCounter < 40)
-			{
-				npc.frame.Y = Frame4 * frameHeight;
-
-			}
-			else
+			if (++npc.frameCounter >= 7)
 			{
 				npc.frameCounter = 0;
+				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
 			}
 		}
-
 		#endregion
 
 		#region CheckDead
@@ -377,16 +335,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		{
 
 
-            if (EpicWorld.OreEvent)
-            {
+			if (EpicWorld.OreEvent)
+			{
 				return 35f;
-            }
+			}
 			else if (Main.hardMode == true && spawnInfo.player.ZoneRockLayerHeight)
 			{
 				return 0.02f;
 			}
-            else
-            {
+			else
+			{
 				return 0f;
 			}
 
@@ -399,7 +357,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			EpicWorld.OreKills += 1;
 			if (Main.netMode == NetmodeID.Server)
-            {
+			{
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
 
 			}

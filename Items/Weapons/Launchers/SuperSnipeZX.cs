@@ -7,10 +7,12 @@ using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using static Terraria.ModLoader.ModContent;
 using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class SuperSnipeZX : ModItem
+    public class SuperSnipeZX : EpicLauncher
     {
 
         public override void SetStaticDefaults()
@@ -19,8 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A 3rd-generation sniper rifle, complete with isopod and scope.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 134;
             item.height = 56;
@@ -36,11 +37,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 2);
             item.rare = ItemRarityID.Yellow;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item40;
             item.shootSpeed = 12f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -55,28 +53,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
-
-
-
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-50, -10);
         }
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
 
         public override void AddRecipes()
         {
@@ -88,12 +68,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
     }
 }

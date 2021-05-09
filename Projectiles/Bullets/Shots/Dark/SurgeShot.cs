@@ -27,14 +27,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
             //drawOffsetX = -9;
         }
 
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.OnFire, 9 * 60);
-        }
-
-
-
         public override void AI()
         {
             if (++projectile.frameCounter >= 7)

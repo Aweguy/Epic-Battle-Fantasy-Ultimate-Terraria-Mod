@@ -8,11 +8,12 @@ using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class SubZero : ModItem
+    public class SubZero : EpicLauncher
     {
 
         public override void SetStaticDefaults()
@@ -21,8 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("It keeps fridges cool by day! It freezes foes by night! It’s Sub-Sub-Sub Sub Zero time!");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 56;
@@ -39,16 +39,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare = ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 14f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -62,28 +55,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-32, -9);
         }
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -96,25 +71,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

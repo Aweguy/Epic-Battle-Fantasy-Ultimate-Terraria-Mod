@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class HeavyClaw : ModItem
+    public class HeavyClaw : EpicLauncher
     {
         public override void SetStaticDefaults()
         {
@@ -17,8 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("Can hold three tons of metal in its grip, at least until your back gives out.\n Deals melee damage");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 52;
@@ -36,16 +36,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 7);
             item.rare = ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ModContent.ItemType<Shot>();
             item.UseSound = SoundID.Item40;
             item.shootSpeed = 15f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -59,26 +52,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-38, -5);
         }
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -90,12 +67,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
     }
 }

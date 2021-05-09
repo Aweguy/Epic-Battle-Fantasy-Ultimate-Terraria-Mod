@@ -6,10 +6,12 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class ShadowBlaster : ModItem
+    public class ShadowBlaster : EpicLauncher
     {
         public override void SetStaticDefaults()
         {
@@ -17,15 +19,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A gun developed by fascists after studying Cosmic Monoliths.\nHigh critical chance.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 52;
 
             item.useTime = 45;
             item.useAnimation = 45;
-
 
             item.damage = 100;
             item.crit = 8;
@@ -35,31 +35,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 19f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if(type == mod.ProjectileType("AntimatterShot") && player.HasBuff(mod.ProjectileType("Overheat")))
-            {
-                return false;
-            }
-
-
-
-
-
-
-
-
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 34f;
             //Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
             muzzleOffset += new Vector2(0, -8f * player.direction).RotatedBy(muzzleOffset.ToRotation());
@@ -79,22 +60,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
         }
 
-
-
-
-        
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-    
-
-
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -105,16 +70,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

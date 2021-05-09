@@ -16,6 +16,7 @@ using EpicBattleFantasyUltimate.Buffs.Debuffs;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Items.Materials;
 #endregion
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
@@ -263,7 +264,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		}
 
 		#endregion
-
 
 		private void Shooting(NPC npc)
 		{
@@ -684,8 +684,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		#endregion
 
-
-
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 
@@ -702,10 +700,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		}
 
+		public override void NPCLoot()
+		{
+			Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), 10);
+			Item.NewItem(npc.getRect(), ItemID.Bone, 10);
+		}
 
-
-
-
-
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (NPC.downedPlantBoss && spawnInfo.player.ZoneRockLayerHeight && !Main.dayTime)
+			{
+				return 0.001f;
+			}
+			return 0f;
+		}
 	}
 }

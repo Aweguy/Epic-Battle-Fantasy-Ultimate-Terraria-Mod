@@ -1,30 +1,30 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using EpicBattleFantasyUltimate.Projectiles.Bullets;
+using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-	public class BiohazardBlaster : ModItem
+	public class BiohazardBlaster : EpicLauncher
 	{
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Biohazard Blaster");
 			Tooltip.SetDefault("The person who approved this project assumed it was for eliminating potential biohazards. They were sorely mistaken.\nPoisons targets hit.");
 		}
 
-		public override void SetDefaults()
+		public override void SetSafeDefaults()
 		{
 			item.width = 112;
 			item.height = 56;
 
 			item.useTime = 40;
 			item.useAnimation = 40;
-
 
 			item.damage = 50;
 			item.crit = 3;
@@ -34,12 +34,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			item.value = Item.sellPrice(gold: 2);
 			item.rare = ItemRarityID.Purple;
 
-			item.shoot = ProjectileID.PurificationPowder;
-			item.useAmmo = ModContent.ItemType<Shot>();
 			item.UseSound = SoundID.Item38;
 			item.shootSpeed = 12f;
-			item.useStyle = ItemUseStyleID.HoldingOut;
 		}
+
+		public Projectile shot;
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
@@ -50,18 +49,30 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			{
 				position += muzzleOffset;
 			}
-			return true;
+
+			Vector2 trueSpeed = new Vector2(speedX, speedY);
+			shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+			shot.GetGlobalProjectile<LauncherProjectile>().PoisonedRounds = true;
+
+			return false;
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-33, -14);
 		}
+	}
 
-		public override bool CanUseItem(Player player)
+	public partial class LauncherProjectile : GlobalProjectile
+	{
+		public bool PoisonedRounds;
+
+		public void OnHitNPC_PoisonedRounds(Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			int buff = mod.BuffType("Overheat");
-			return !player.HasBuff(buff);
+			if (PoisonedRounds)
+			{
+				target.AddBuff(BuffID.Poisoned, 60 * 3);
+			}
 		}
 	}
 }

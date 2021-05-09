@@ -28,6 +28,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 			projectile.ranged = true;
 			projectile.aiStyle = 2;
 			aiType = ProjectileID.ThrowingKnife;
+			projectile.penetrate = 1;
 
 			projectile.friendly = true;
 			projectile.scale = 0.5f;

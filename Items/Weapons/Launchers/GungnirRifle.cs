@@ -6,24 +6,21 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class GungnirRifle : ModItem
+    public class GungnirRifle : EpicLauncher
     {
-
-
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gungnir Rifle");
             Tooltip.SetDefault("An ergonomic, high crit-rate gun that, shockingly, is not a spear.\nHigh damage and velocity bullets. Slow fire rate.\nHaving Regnir in your inventory increases its critical rate by 30%");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 100;
             item.height = 52;
@@ -41,16 +38,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item40;
             item.shootSpeed = 24f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -64,26 +54,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-38, -5);
         }
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -95,13 +69,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
     }
 }

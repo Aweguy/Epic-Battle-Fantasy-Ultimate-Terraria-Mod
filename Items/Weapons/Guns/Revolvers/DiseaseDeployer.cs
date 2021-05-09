@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -13,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Disease Deployer");
-			Tooltip.SetDefault("pending");
+			Tooltip.SetDefault("Don’t worry, the lead tubing is only on the inside of the gun.\n Poisons all projectiles.");
 		}
 
 
@@ -41,5 +42,16 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 			item.shootSpeed = 12f;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 		}
+		public Projectile shot;
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+
+			Vector2 trueSpeed = new Vector2(speedX, speedY);
+			shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+			shot.GetGlobalProjectile<LauncherProjectile>().PoisonedRounds = true;
+
+			return false;
+		}
+
 	}
 }

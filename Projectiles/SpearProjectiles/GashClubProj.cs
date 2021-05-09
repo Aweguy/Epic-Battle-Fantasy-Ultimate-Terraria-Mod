@@ -12,15 +12,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 {
     public class GashClubProj : ModProjectile
     {
-
-
-
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gash Club");
 		}
-
 
 		public override void SetDefaults()
 		{
@@ -102,10 +97,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 		}
 
         #endregion
-
-
-
-
 
         public override void AI()
 		{
@@ -227,18 +218,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 				player.itemRotation = MathHelper.WrapAngle(projectile.rotation);
 			}
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }

@@ -6,10 +6,12 @@ using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
+using EpicBattleFantasyUltimate.ClassTypes;
+
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
-    public class HellfireShotgun : ModItem
+    public class HellfireShotgun : EpicLauncher
     {
         public override void SetStaticDefaults()
         {
@@ -17,8 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A hunting weapon capable of firing in bursts. Has compatibility issues with specialized ammunition.\nFires 5 shots simutenuously but very slow fire rate.\nSets enemies on fire\nFire lasts longer when you have the Hellfire Revolver in the inventory.");
         }
 
-
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
             item.width = 110;
             item.height = 56;
@@ -35,16 +36,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.value = Item.sellPrice(gold: 10);
             item.rare= ItemRarityID.Purple;
 
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
             item.UseSound = SoundID.Item36;
             item.shootSpeed = 7f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -56,7 +50,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
                 position += muzzleOffset;
             }
 
-
             float numberProjectiles = 5; // 5 shots
             float rotation = MathHelper.ToRadians(45); //30 degrees spread
             position += Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
@@ -65,10 +58,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .75f; // Watch out for dividing by 0 if there is only 1 projectile.
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
-
-
-
-
 
             return false;
         }
@@ -79,19 +68,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         {
             return new Vector2(-30, 0);
         }
-
-
-
-
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-
-
-
 
         public override void AddRecipes()
         {
@@ -104,17 +80,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }
 
