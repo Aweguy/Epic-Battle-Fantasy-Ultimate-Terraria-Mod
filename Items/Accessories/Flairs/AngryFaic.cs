@@ -20,7 +20,6 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         {
             item.width = 32;
             item.height = 32;
-            item.defense = 2;
             item.rare = ItemRarityID.LightPurple;
             item.accessory = true;
         }

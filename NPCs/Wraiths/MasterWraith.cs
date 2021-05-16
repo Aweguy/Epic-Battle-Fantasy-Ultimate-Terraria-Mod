@@ -79,7 +79,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			npc.lifeMax = 6000;
 			npc.damage = 150;
-			npc.defense = 100;
+			npc.defense = 90;
 			npc.lifeRegen = 4;
 			npc.alpha = 100;
 			npc.knockBackResist = 1;
@@ -93,9 +93,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			target.AddBuff(Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithTouchDebuffs.ToArray()), 60 * 20);
 		}
-
-		
-
 
 		public override void AI()
 		{
@@ -235,8 +232,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		private void MovementDirection(NPC npc)
 		{
-
-
 			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
 				npc.direction = 1;
@@ -250,7 +245,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				npc.direction = npc.oldDirection;
 			}
 
-
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
@@ -259,8 +253,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				npc.spriteDirection = -1;
 			}
-
-
 		}
 
 		#endregion
@@ -470,8 +462,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255); ;
+					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
+				int npcIndex2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				SpecChoice = 0;
 				SpecChoiceTimer = 60 * 25;
@@ -485,22 +478,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
+					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
+				int npcIndex2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				Sawtimer = 60 * 5;
 			}
-
 		}
-
-
 		#endregion
 
 		#region Basic Attacks
-
 		private void Leaves(NPC npc)
 		{
-
 			if (Enraged)
 			{
 				LeafStartTimer--;
@@ -530,10 +519,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 						Choice = 0;
 						ChoiceTimer = 150;
 					}
-
-
 				}
-
 			}
 			else if (Enraged && LeafStartTimer <= 0)
 			{
@@ -545,33 +531,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					{
 						float mult = Main.rand.NextFloat(5f, 10f); //velocity randomization
 
-
-
 						velocity = npc.DirectionTo(new Vector2(Main.player[npc.target].Center.X, Main.player[npc.target].Center.Y + 18)) * mult; //Leaf velocity
 
 						Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 18f), velocity, mod.ProjectileType("LeafShot"), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
-
-
 						LeafTimer = 40;
 						LeafEndStacks++;
-
 					}
-
 					if (LeafEndStacks == 3)
 					{
 						LeafEndStacks = 0;
 						LeafStartTimer = 60 * 5;
 					}
-
-
 				}
-
 			}
-
-
 		}
-
 
 		private void SparkBall(NPC npc)
 		{
@@ -588,7 +562,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				Choice = 0;
 				ChoiceTimer = 100;
-
 			}
 			else if (Enraged && SparkTimer <= 0)
 			{
@@ -596,16 +569,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				SparkTimer = 60 * 2;
 			}
-
 		}
-
 		#endregion
-
-
 
 		private int Choosing(NPC npc)
 		{
-
 			Choice = Main.rand.Next(1, 3);
 
 			if (Choice == PrevChoice)
@@ -621,8 +589,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			}
 
 			PrevChoice = Choice;
-
-
 
 			return Choice;
 		}//Choosing the basic attacks
@@ -644,7 +610,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				}
 				else if(SpecChoice == 3)
 				{
-					SpecChoice = (Main.rand.NextFloat() > .5f) ? SpecChoice + 1 : SpecChoice - 1;
+					SpecChoice = (Main.rand.NextFloat() > .5f) ? SpecChoice + 1 : SpecChoice - 1; 
 				}
 				else if(SpecChoice == 4)
 				{
@@ -656,7 +622,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			return SpecChoice;
 		}//Choosing the Special attacks
-
 
 		#region Shading
 
@@ -672,7 +637,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			DrawData data = new DrawData(texture, npc.Center - Main.screenPosition, null, drawColor * npc.Opacity, npc.rotation, origin, npc.scale, effects, 0);
 			GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye), npc, data);
 
-			data.Draw(spriteBatch);*/
+			data.Draw(spriteBatch);*/ //shading
 
 			return (true);
 		}

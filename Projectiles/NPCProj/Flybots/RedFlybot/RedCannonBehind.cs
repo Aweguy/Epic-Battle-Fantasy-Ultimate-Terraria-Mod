@@ -9,39 +9,41 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
-    public class RedCannonBehind : ModProjectile
-    {
+	public class RedCannonBehind : ModProjectile
+	{
 
 		int ShootTimer = 60;//Determines when the cannon will shoot
 		int damage;//The damage of the projectiles
 		int ShotNum = 0;//Number of shots
 		int ShootInterv = 30;//The interval between shots
 		bool Shoot = false;//Determines if the cannon will shoot
-		Vector2 velocity;
+		Vector2 distance;
+		Vector2 projectileVelocity;
+		Vector2 modifiedTargetPosition;
 
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Red Cannon");
-        }
+		{
+			DisplayName.SetDefault("Red Cannon");
+		}
 
-        public override void SetDefaults()
-        {
-            projectile.width = 40;
-            projectile.height = 25;
-            projectile.aiStyle = -1;
-            projectile.friendly = false;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.ranged = true;
-            projectile.knockBack = 1f;
+		public override void SetDefaults()
+		{
+			projectile.width = 40;
+			projectile.height = 25;
+			projectile.aiStyle = -1;
+			projectile.friendly = false;
+			projectile.hostile = true;
+			projectile.penetrate = -1;
+			projectile.ranged = true;
+			projectile.knockBack = 1f;
 			projectile.hide = true;
 			projectile.tileCollide = false;
-        }
+		}
 
 
-        public override void AI()
-        {
+		public override void AI()
+		{
 			NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
 			Player target = Main.player[npc.target];
@@ -52,10 +54,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			projectile.timeLeft = 1000;
 
-            if (!npc.active)
-            {
+			if (!npc.active)
+			{
 				projectile.Kill();
-            }
+			}
 
 
 			if (npc.life <= 0)
@@ -67,31 +69,34 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			if (ShootTimer <= 0 && ShotNum < 3)
 			{
-
-
 				if (ShotNum < 2)
 				{
-					velocity = projectile.DirectionTo(target.Center) * 10f;//sets the velocity of the projectile.
+					float projectileSpeed = 10f;
+					distance = target.Center - npc.Center;
+
+					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+
 					damage = 30;
 
 				}
 				else if (ShotNum == 2)
 				{
-					velocity = projectile.DirectionTo(target.Center) * 20f;//sets the velocity of the projectile.
+					float projectileSpeed = 20f;
+					distance = target.Center - npc.Center;
+
+					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+
 					damage = 60;
 				}
 
-
-
-
-
+				
 
 				ShotNum++;
 
-				Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
 				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
-
-
 
 				if (ShotNum < 2)
 				{
@@ -120,9 +125,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 
 		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
-        {
-            drawCacheProjsBehindNPCs.Add(index);
-        }
+		{
+			drawCacheProjsBehindNPCs.Add(index);
+		}
 
 
 
@@ -130,5 +135,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 
 
-    }
+	}
 }

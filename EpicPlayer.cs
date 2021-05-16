@@ -993,9 +993,6 @@ namespace EpicBattleFantasyUltimate
 
 			#endregion
 
-
-
-
 		}
 
 		#endregion
@@ -1053,16 +1050,6 @@ namespace EpicBattleFantasyUltimate
 
 			}
 		});
-
-
-
-
-
-
-
-
-
-
 
 		public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
