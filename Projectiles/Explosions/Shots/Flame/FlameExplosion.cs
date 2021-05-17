@@ -23,14 +23,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
         {
             projectile.width = 64;
             projectile.height = 64;
+
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.ranged = true;
+
             projectile.tileCollide = false;
             projectile.alpha = 1;
             baseWidth = projectile.width;
             baseHeight = projectile.height;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
 

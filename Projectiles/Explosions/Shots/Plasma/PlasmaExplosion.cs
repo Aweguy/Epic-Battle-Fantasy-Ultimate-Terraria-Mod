@@ -24,14 +24,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
             projectile.width = 64;
             projectile.height = 64;
             projectile.aiStyle = -1;
+
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.ranged = true;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
+
             projectile.tileCollide = false;
             baseWidth = projectile.width;
             baseHeight = projectile.height;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
 
