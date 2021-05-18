@@ -13,13 +13,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 	public class RedCannonFront : ModProjectile
 	{
 
+
 		int ShootTimer = 60;//Determines when the cannon will shoot
 		int damage;//The damage of the projectiles
 		int ShotNum = 0;//Number of shots
-		Vector2 distance;
+		int ShootInterv = 30;//The interval between shots
+		bool Shoot = false;//Determines if the cannon will shoot
+		float distance;// the distance of the player and the npc.
+		float rotDistance;//The distance between the player and the npc for the rotation of the cannon 
+		float projectileSpeed = 10f;
 		Vector2 projectileVelocity;
 		Vector2 modifiedTargetPosition;
-
+		Vector2 modifiedRotTargetPosition;
 
 		public override void SetStaticDefaults()
 		{
@@ -39,7 +44,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			projectile.tileCollide = false;
 		}
 
-
 		public override void AI()
 		{
 			NPC npc = Main.npc[(int)projectile.ai[0]];
@@ -48,7 +52,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			projectile.Center = new Vector2(npc.Center.X - 13 * npc.spriteDirection, npc.Center.Y + 10);
 
-			projectile.rotation = (projectile.Center - target.Center).ToRotation();
+			rotDistance = (target.position - npc.position).Length();// Calculating the distance
+
+			modifiedRotTargetPosition = target.Center + target.velocity * (rotDistance / projectileSpeed);// Calculating where the target will be
+
+			projectile.rotation = (Vector2.Normalize(modifiedRotTargetPosition - npc.Center) * projectileSpeed).ToRotation();// Finalizing the rotation calculation
 
 			projectile.timeLeft = 1000;
 
@@ -56,10 +64,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			{
 				projectile.Kill();
 			}
-
-
-
-
 
 			if (npc.life <= 0)
 			{
@@ -70,12 +74,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			if (ShootTimer <= 0 && ShotNum < 3)
 			{
-
-
 				if (ShotNum < 2)
 				{
-					float projectileSpeed = 10f;
-					distance = target.Center - npc.Center;
+					projectileSpeed = 10f;
+					distance = (target.position - npc.position).Length();
 
 					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
 					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
@@ -85,8 +87,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 				}
 				else if (ShotNum == 2)
 				{
-					float projectileSpeed = 20f;
-					distance = target.Center - npc.Center;
+					projectileSpeed = 20f;
+					distance = (target.position - npc.position).Length();
 
 					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
 					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
@@ -94,16 +96,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 					damage = 60;
 				}
 
-
-
-
-
 				ShotNum++;
 
 				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
 				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
-
-
 
 				if (ShotNum < 2)
 				{
@@ -124,27 +120,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			}
 
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }

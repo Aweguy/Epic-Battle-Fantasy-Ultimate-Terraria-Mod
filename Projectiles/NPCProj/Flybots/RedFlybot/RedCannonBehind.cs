@@ -17,9 +17,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 		int ShotNum = 0;//Number of shots
 		int ShootInterv = 30;//The interval between shots
 		bool Shoot = false;//Determines if the cannon will shoot
-		Vector2 distance;
+		float distance;// the distance of the player and the npc.
+		float rotDistance;//The distance between the player and the npc for the rotation of the cannon 
+		float projectileSpeed = 10f;
 		Vector2 projectileVelocity;
 		Vector2 modifiedTargetPosition;
+		Vector2 modifiedRotTargetPosition;
 
 
 		public override void SetStaticDefaults()
@@ -50,7 +53,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 			projectile.Center = new Vector2(npc.Center.X + 9 * npc.spriteDirection , npc.Center.Y + 22);
 
-			projectile.rotation = (projectile.Center - target.Center).ToRotation();
+			rotDistance = (target.position - npc.position).Length();// Calculating the distance
+
+			modifiedRotTargetPosition = target.Center + target.velocity * (rotDistance / projectileSpeed);// Calculating where the target will be
+
+			projectile.rotation = (Vector2.Normalize(modifiedRotTargetPosition - npc.Center) * projectileSpeed).ToRotation();// Finalizing the rotation calculation
 
 			projectile.timeLeft = 1000;
 
@@ -71,8 +78,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			{
 				if (ShotNum < 2)
 				{
-					float projectileSpeed = 10f;
-					distance = target.Center - npc.Center;
+					projectileSpeed = 10f;
+					distance = (target.position - npc.position).Length();
 
 					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
 					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
@@ -82,16 +89,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 				}
 				else if (ShotNum == 2)
 				{
-					float projectileSpeed = 20f;
-					distance = target.Center - npc.Center;
+					projectileSpeed = 20f;
+					distance = (target.position - npc.position).Length();
 
 					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
 					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
 
 					damage = 60;
 				}
-
-				
 
 				ShotNum++;
 
@@ -115,25 +120,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 					ShotNum = 0;
 				}
 			}
-
 		}
-
-
-
-
-
-
 
 		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
 		{
 			drawCacheProjsBehindNPCs.Add(index);
 		}
-
-
-
-
-
-
-
 	}
 }
