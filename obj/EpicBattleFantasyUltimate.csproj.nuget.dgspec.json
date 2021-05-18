@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj": {}
+    "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj": {}
   },
   "projects": {
-    "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj": {
+    "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+        "projectUniqueName": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
         "projectName": "EpicBattleFantasyUltimate",
-        "projectPath": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+        "projectPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
         "packagesPath": "C:\\Users\\irene\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\obj\\",
+        "outputPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\irene\\AppData\\Roaming\\NuGet\\NuGet.Config",

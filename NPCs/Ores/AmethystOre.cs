@@ -41,9 +41,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
-            //npc.life = 0;
-            #region Death Check
-            if (npc.life >= npc.lifeMax * 0.40)
+			//npc.life = 0;
+			#region Death Check
+			if (npc.life >= npc.lifeMax * 0.40)
 			{
 
 				if (Main.rand.NextFloat() < .1f)
@@ -101,9 +101,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		}
 
-        #endregion
+		#endregion
 
-        public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(int hitDirection, double damage)
 		{
 			for (int i = 0; i <= 3; i++)
 			{
@@ -208,12 +208,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			{
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
-			for (int j = 0; j <= 5; j++)
-			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.AmethystBolt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
-			}
-
-
 
 			return true;
 		}
@@ -247,12 +241,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
 
 			}
-
-
-
 			Item.NewItem(npc.getRect(), ItemID.Amethyst, 1);
-
 		}
-
 	}
 }

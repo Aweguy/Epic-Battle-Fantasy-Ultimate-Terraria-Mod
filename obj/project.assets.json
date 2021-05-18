@@ -2,23 +2,23 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.5": {
-      "tModLoader.CodeAssist/0.1.1": {
+      "tModLoader.CodeAssist/0.1.2": {
         "type": "package"
       }
     }
   },
   "libraries": {
-    "tModLoader.CodeAssist/0.1.1": {
-      "sha512": "bUQ4HAiRYq8Zisms7FI9ffSf4nZHwFFZU5j8Hpc/9rFB16GOGJg2ulHV0ZDErzoAAbXBeRdO8/VbSltBwmDcpA==",
+    "tModLoader.CodeAssist/0.1.2": {
+      "sha512": "o43lkrLmnOojQxVgmhmyAhCZV7DxL3gvcCaZvL7GcG7NH6hcyzSHFTM7tntoGthmx2OmOH8BUx1hZDhNhADV8Q==",
       "type": "package",
-      "path": "tmodloader.codeassist/0.1.1",
+      "path": "tmodloader.codeassist/0.1.2",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "NugetIcon.png",
         "analyzers/dotnet/cs/tModLoader.CodeAssist.dll",
-        "tmodloader.codeassist.0.1.1.nupkg.sha512",
+        "tmodloader.codeassist.0.1.2.nupkg.sha512",
         "tmodloader.codeassist.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+      "projectUniqueName": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
       "projectName": "EpicBattleFantasyUltimate",
-      "projectPath": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+      "projectPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
       "packagesPath": "C:\\Users\\irene\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\obj\\",
+      "outputPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EpicBattleFantasyUltimate\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\irene\\AppData\\Roaming\\NuGet\\NuGet.Config",
