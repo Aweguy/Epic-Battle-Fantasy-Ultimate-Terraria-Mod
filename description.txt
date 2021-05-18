@@ -367,3 +367,4 @@ All of our Family members for close support
 	-Made Vortex Revolver's bullet's homing.
 	-3 New Launchers and their sidearms.
 	-Reworked Tired debuff and Berzerker. Berzerker now has a chance to apply a stack of tired on usage. It no lenger has a right click use. Creates a quake when slamming the ground.
+	-Halved the defense shield medal gives. It was too high.

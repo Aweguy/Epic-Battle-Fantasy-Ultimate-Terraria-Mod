@@ -19,22 +19,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
         {
             projectile.width = 32;
             projectile.height = 32;
+
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.ranged = true;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
+
             projectile.tileCollide = false;
             projectile.alpha = 1;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
-
-
-
 
         public override void AI()
         {
-
 
             if (++projectile.frameCounter >= 2)
             {
@@ -44,14 +44,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
                     projectile.Kill();
                 }
             }
-
         }
-
-
-
-
-
-
-
     }
 }

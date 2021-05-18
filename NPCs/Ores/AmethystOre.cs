@@ -1,9 +1,11 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
+using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
@@ -94,6 +96,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				npc.life = 0;
 			}
 			#endregion
+
+			//Stone particles when the player is hit
 			for (int i = 0; i <= 5; i++)
 			{
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
@@ -173,14 +177,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			target *= MoveSpeedMult;
 			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
-
-
 			npc.noGravity = true;
 			npc.TargetClosest(true);
-
-
-
-
 		}
 
 		#endregion
@@ -209,9 +207,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
+
+
+
+
+
+
 			return true;
 		}
-
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{

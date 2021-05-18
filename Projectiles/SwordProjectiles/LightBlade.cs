@@ -23,6 +23,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			projectile.light = 1f;
 			drawOffsetX = -7;
 			projectile.tileCollide = false;
+
+			projectile.localNPCHitCooldown = -1;
+			projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void Kill(int timeLeft)

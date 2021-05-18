@@ -23,21 +23,26 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
         {
             projectile.width = 64;
             projectile.height = 64;
+
             projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.penetrate = -1;
+
             projectile.ranged = true;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
             projectile.timeLeft = 20;
             projectile.tileCollide = false;
+
             projectile.alpha = 1;
             baseWidth = projectile.width;
             baseHeight = projectile.height;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
 
-        
+
 
         public override void AI()
         {

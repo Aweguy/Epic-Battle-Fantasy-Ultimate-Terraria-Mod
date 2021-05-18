@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shield Medal");
-            Tooltip.SetDefault("Aid others where you can. Let all be aided and loved in all lands.\n40 defense");
+            Tooltip.SetDefault("Aid others where you can. Let all be aided and loved in all lands.\n20 defense");
         }
 
         public override void SetDefaults()
@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statDefense += 40;
+            player.statDefense += 20;
             
         }
 

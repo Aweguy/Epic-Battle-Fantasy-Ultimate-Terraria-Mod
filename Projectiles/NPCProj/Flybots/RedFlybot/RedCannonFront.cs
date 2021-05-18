@@ -10,13 +10,15 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
-    public class RedCannonFront : ModProjectile
-    {
+	public class RedCannonFront : ModProjectile
+	{
 
 		int ShootTimer = 60;//Determines when the cannon will shoot
 		int damage;//The damage of the projectiles
 		int ShotNum = 0;//Number of shots
-		Vector2 velocity;
+		Vector2 distance;
+		Vector2 projectileVelocity;
+		Vector2 modifiedTargetPosition;
 
 
 		public override void SetStaticDefaults()
@@ -72,13 +74,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 				if (ShotNum < 2)
 				{
-					velocity = projectile.DirectionTo(target.Center) * 10f;//sets the velocity of the projectile.
+					float projectileSpeed = 10f;
+					distance = target.Center - npc.Center;
+
+					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+
 					damage = 30;
 
 				}
 				else if (ShotNum == 2)
 				{
-					velocity = projectile.DirectionTo(target.Center) * 20f;//sets the velocity of the projectile.
+					float projectileSpeed = 20f;
+					distance = target.Center - npc.Center;
+
+					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+
 					damage = 60;
 				}
 
@@ -86,10 +98,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 
 
-
 				ShotNum++;
 
-				Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
 				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
 
 

@@ -41,6 +41,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             projectile.alpha = 1;
             baseWidth = projectile.width;
             baseHeight = projectile.height;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
 

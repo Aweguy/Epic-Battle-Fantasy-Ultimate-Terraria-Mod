@@ -255,15 +255,5 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 
 		}
-
-
-
-
-
-
-
-
-
-
 	}
 }

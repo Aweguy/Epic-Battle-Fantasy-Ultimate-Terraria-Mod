@@ -23,11 +23,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             projectile.height = 32;
             projectile.aiStyle = -1;
             projectile.friendly = true;
+
             projectile.penetrate = -1;
             projectile.knockBack = 1f;
             projectile.tileCollide = false;
             projectile.alpha = 1;
-            
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
         public override void AI()
