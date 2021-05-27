@@ -1,26 +1,19 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.HelperClasses;
+using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.HelperClasses;
-using System.IO;
-
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class SpinIcicle : ModProjectile
     {
-
-        int OrbitTimer;//How many ticks it will orbit the player
-        float Distance = 240;//The distance of the projectile from the player target.
-        bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
-        bool Orbit = false;//Decides how many ticks each icicle will orbit the player.
-        bool Frame = false;//The bool that determines the texture of the icicle
-
-
-
+        private int OrbitTimer;//How many ticks it will orbit the player
+        private float Distance = 240;//The distance of the projectile from the player target.
+        private bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
+        private bool Orbit = false;//Decides how many ticks each icicle will orbit the player.
+        private bool Frame = false;//The bool that determines the texture of the icicle
 
         public override void SetStaticDefaults()
         {
@@ -40,9 +33,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;
-
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
@@ -51,10 +42,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override bool PreAI()
         {
-
-
-           
-
             Color drawColor = Color.Orange;
             if (Main.rand.Next(2) == 0)
             {
@@ -62,7 +49,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             }
 
             NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
-
 
             if (!npc.active)
             {
@@ -73,7 +59,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             {
                 projectile.Kill();
             }
-
 
             if (Orbit == false)
             {
@@ -102,18 +87,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
                 }
             }
 
-
-            if(Frame == false)
+            if (Frame == false)
             {
                 FrameCheck();
                 Frame = true;
             }
 
-
-
             return (false);
         }
-
 
         private void FrameCheck()
         {
@@ -140,15 +121,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         {
             writer.Write(OrbitTimer);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             OrbitTimer = reader.ReadInt32();
         }
 
-        #endregion
-
-
-
-
+        #endregion Networking
     }
 }

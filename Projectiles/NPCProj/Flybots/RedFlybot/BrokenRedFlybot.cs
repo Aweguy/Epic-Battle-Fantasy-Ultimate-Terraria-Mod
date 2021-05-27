@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
     public class BrokenRedFlybot : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Broken Red Flybot");
@@ -24,7 +21,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
             projectile.hostile = true;
             projectile.penetrate = -1;
         }
-
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -43,15 +39,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
             {
                 Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Fire, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
-
-
-
-
             return false;
         }
-
-
-
 
         public override void AI()
         {
@@ -59,31 +48,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
             projectile.rotation += MathHelper.ToRadians(10) * NpcSpriteDirection;
 
-
-
             if (projectile.velocity.Y < 10f)
             {
                 projectile.velocity.Y += 0.15f;
                 projectile.velocity.X *= 0.95f;
-
             }
             else
             {
                 projectile.velocity.Y = 9f;
                 projectile.velocity.X *= 0.95f;
-
             }
-
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

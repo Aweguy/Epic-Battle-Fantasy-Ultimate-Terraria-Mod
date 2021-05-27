@@ -1,23 +1,18 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class FreezingPoint : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Freezing Point");
             Tooltip.SetDefault("Also comes with a slot to keep your drinks cold!");
         }
-
 
         public override void SetDefaults()
         {
@@ -43,10 +38,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,23 +49,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

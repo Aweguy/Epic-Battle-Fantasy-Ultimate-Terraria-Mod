@@ -1,124 +1,112 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Security.Cryptography.X509Certificates;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
-	public class RedCannonFront : ModProjectile
-	{
+    public class RedCannonFront : ModProjectile
+    {
+        private int ShootTimer = 60;//Determines when the cannon will shoot
+        private int damage;//The damage of the projectiles
+        private int ShotNum = 0;//Number of shots
+        private int ShootInterv = 30;//The interval between shots
+        private bool Shoot = false;//Determines if the cannon will shoot
+        private float distance;// the distance of the player and the npc.
+        private float rotDistance;//The distance between the player and the npc for the rotation of the cannon
+        private float projectileSpeed = 10f;
+        private Vector2 projectileVelocity;
+        private Vector2 modifiedTargetPosition;
+        private Vector2 modifiedRotTargetPosition;
 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Red Cannon");
+        }
 
-		int ShootTimer = 60;//Determines when the cannon will shoot
-		int damage;//The damage of the projectiles
-		int ShotNum = 0;//Number of shots
-		int ShootInterv = 30;//The interval between shots
-		bool Shoot = false;//Determines if the cannon will shoot
-		float distance;// the distance of the player and the npc.
-		float rotDistance;//The distance between the player and the npc for the rotation of the cannon 
-		float projectileSpeed = 10f;
-		Vector2 projectileVelocity;
-		Vector2 modifiedTargetPosition;
-		Vector2 modifiedRotTargetPosition;
+        public override void SetDefaults()
+        {
+            projectile.width = 40;
+            projectile.height = 25;
+            projectile.aiStyle = -1;
+            projectile.friendly = false;
+            projectile.hostile = true;
+            projectile.penetrate = -1;
+            projectile.ranged = true;
+            projectile.knockBack = 1f;
+            projectile.tileCollide = false;
+        }
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Red Cannon");
-		}
+        public override void AI()
+        {
+            NPC npc = Main.npc[(int)projectile.ai[0]];
 
-		public override void SetDefaults()
-		{
-			projectile.width = 40;
-			projectile.height = 25;
-			projectile.aiStyle = -1;
-			projectile.friendly = false;
-			projectile.hostile = true;
-			projectile.penetrate = -1;
-			projectile.ranged = true;
-			projectile.knockBack = 1f;
-			projectile.tileCollide = false;
-		}
+            Player target = Main.player[npc.target];
 
-		public override void AI()
-		{
-			NPC npc = Main.npc[(int)projectile.ai[0]];
+            projectile.Center = new Vector2(npc.Center.X - 13 * npc.spriteDirection, npc.Center.Y + 10);
 
-			Player target = Main.player[npc.target];
+            rotDistance = (target.position - npc.position).Length();// Calculating the distance
 
-			projectile.Center = new Vector2(npc.Center.X - 13 * npc.spriteDirection, npc.Center.Y + 10);
+            modifiedRotTargetPosition = target.Center + target.velocity * (rotDistance / projectileSpeed);// Calculating where the target will be
 
-			rotDistance = (target.position - npc.position).Length();// Calculating the distance
+            projectile.rotation = (Vector2.Normalize(modifiedRotTargetPosition - npc.Center) * projectileSpeed).ToRotation();// Finalizing the rotation calculation
 
-			modifiedRotTargetPosition = target.Center + target.velocity * (rotDistance / projectileSpeed);// Calculating where the target will be
+            projectile.timeLeft = 1000;
 
-			projectile.rotation = (Vector2.Normalize(modifiedRotTargetPosition - npc.Center) * projectileSpeed).ToRotation();// Finalizing the rotation calculation
+            if (!npc.active)
+            {
+                projectile.Kill();
+            }
 
-			projectile.timeLeft = 1000;
+            if (npc.life <= 0)
+            {
+                projectile.Kill();
+            }
 
-			if (!npc.active)
-			{
-				projectile.Kill();
-			}
+            ShootTimer--;
 
-			if (npc.life <= 0)
-			{
-				projectile.Kill();
-			}
+            if (ShootTimer <= 0 && ShotNum < 3)
+            {
+                if (ShotNum < 2)
+                {
+                    projectileSpeed = 10f;
+                    distance = (target.position - npc.position).Length();
 
-			ShootTimer--;
+                    modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+                    projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
 
-			if (ShootTimer <= 0 && ShotNum < 3)
-			{
-				if (ShotNum < 2)
-				{
-					projectileSpeed = 10f;
-					distance = (target.position - npc.position).Length();
+                    damage = 30;
+                }
+                else if (ShotNum == 2)
+                {
+                    projectileSpeed = 20f;
+                    distance = (target.position - npc.position).Length();
 
-					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
-					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+                    modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+                    projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
 
-					damage = 30;
+                    damage = 60;
+                }
 
-				}
-				else if (ShotNum == 2)
-				{
-					projectileSpeed = 20f;
-					distance = (target.position - npc.position).Length();
+                ShotNum++;
 
-					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
-					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+                Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
 
-					damage = 60;
-				}
-
-				ShotNum++;
-
-				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
-				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
-
-				if (ShotNum < 2)
-				{
-
-					ShootTimer = 35;
-				}
-				else if (ShotNum == 2)
-				{
-					ShootTimer = 70;
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeTarget").WithPitchVariance(.2f).WithVolume(.7f), projectile.position);
-
-				}
-				else
-				{
-					ShootTimer = 300;
-					ShotNum = 0;
-				}
-			}
-
-		}
-	}
+                if (ShotNum < 2)
+                {
+                    ShootTimer = 35;
+                }
+                else if (ShotNum == 2)
+                {
+                    ShootTimer = 70;
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeTarget").WithPitchVariance(.2f).WithVolume(.7f), projectile.position);
+                }
+                else
+                {
+                    ShootTimer = 300;
+                    ShotNum = 0;
+                }
+            }
+        }
+    }
 }

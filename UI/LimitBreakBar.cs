@@ -1,18 +1,15 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
+﻿using EpicBattleFantasyUltimate.Config;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Config;
+using Terraria;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace EpicBattleFantasyUltimate.UI
 {
     public class LimitBreakBar : UIState
     {
-
         private UIText text;
         private UIElement area;
         private UIImage barFrame;
@@ -80,29 +77,14 @@ namespace EpicBattleFantasyUltimate.UI
         {
             var config = ModContent.GetInstance<ClientSideConfig>();
 
-         
             Vector2 drawStart = config.LimitBarPosition;
 
-            area.Left.Set(drawStart.X , 0f);
-            area.Top.Set(drawStart.Y , 0f);
-
-
-
+            area.Left.Set(drawStart.X, 0f);
+            area.Top.Set(drawStart.Y, 0f);
 
             var epicPlayer = EpicPlayer.ModPlayer(Main.LocalPlayer);
             text.SetText($"Limit Break: { epicPlayer.LimitCurrent} / { epicPlayer.MaxLimit2}");
             base.Update(gameTime);
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

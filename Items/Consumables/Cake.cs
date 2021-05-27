@@ -1,6 +1,6 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Consumables
 {
@@ -27,18 +27,10 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.buffTime = 6000;
         }
 
-        
-
         public override bool CanUseItem(Player player)
         {
             int buff = mod.BuffType("SugarRush");
             return !player.HasBuff(buff);
         }
-
-
-
-
-
-
     }
 }

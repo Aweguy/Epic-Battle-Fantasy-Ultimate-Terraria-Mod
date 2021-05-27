@@ -1,16 +1,12 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Buffs.Debuffs;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class CursedSpike : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cursed Spike");
@@ -29,38 +25,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = false;
             projectile.tileCollide = false;
             projectile.alpha = 100;
-
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<Cursed>(), 10 * 60);
         }
 
-
-
-
         public override void AI()
         {
-
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

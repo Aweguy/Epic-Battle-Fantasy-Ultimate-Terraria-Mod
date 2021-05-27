@@ -1,13 +1,10 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.HelperClasses;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Security.Authentication.ExtendedProtection;
-using Steamworks;
-using EpicBattleFantasyUltimate.HelperClasses;
-using System.IO;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
@@ -54,10 +51,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override bool PreAI()
         {
-
-
-
-
             Color drawColor = Color.Orange;
             if (Main.rand.Next(2) == 0)
             {
@@ -67,17 +60,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
             NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
-
-            if(!npc.active)
+            if (!npc.active)
             {
                 projectile.Kill();
             }
 
-            if(npc.life <= 0)
+            if (npc.life <= 0)
             {
                 projectile.Kill();
             }
-
 
             if (Orbit == false)
             {
@@ -132,17 +123,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
         {
             writer.Write(OrbitTimer);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             OrbitTimer = reader.ReadInt32();
         }
 
-        #endregion
-
-
-
-
-
-
+        #endregion Networking
     }
 }

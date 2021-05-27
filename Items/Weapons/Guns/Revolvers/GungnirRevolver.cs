@@ -1,24 +1,17 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class GungnirRevolver : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Regnir");
             Tooltip.SetDefault("You thought this gun would have a special power too.\nNo, its special power is being normal\nVery High Velocity shots.\nBoosts critical rate by 30% if Gungnir Rifle is in the inventory.");
         }
-
 
         public override void SetDefaults()
         {
@@ -44,10 +37,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,22 +47,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -1,19 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol
 {
     public class IceSpike : ModProjectile
     {
-
-        bool Frame = false;
-
-
-
+        private bool Frame = false;
 
         public override void SetStaticDefaults()
         {
@@ -33,9 +26,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = true;
-
         }
-
 
         public override void AI()
         {
@@ -49,20 +40,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

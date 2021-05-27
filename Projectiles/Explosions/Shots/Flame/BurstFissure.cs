@@ -1,19 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-
-
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 {
     public class BurstFissure : ModProjectile
     {
-        int timer = 0;
-
+        private int timer = 0;
 
         public override void SetStaticDefaults()
         {
@@ -36,7 +31,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             projectile.alpha = 255;
         }
 
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.NextFloat() < 0.4f)
@@ -47,13 +41,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 
         public override void AI()
         {
-
             if (Main.rand.Next(3) == 0)
             {
-
-
-
-
             }
 
             timer--;
@@ -66,9 +55,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                 timer = 14;
             }
 
-
-
-
             if (++projectile.frameCounter >= 5)
             {
                 projectile.frameCounter = 0;
@@ -77,16 +63,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                     projectile.frame = 0;
                 }
             }
-
         }
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-
-
 
             return true;
         }

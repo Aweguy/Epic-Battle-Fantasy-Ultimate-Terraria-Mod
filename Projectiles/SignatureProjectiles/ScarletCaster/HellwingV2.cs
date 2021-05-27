@@ -1,24 +1,18 @@
-﻿using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using EpicBattleFantasyUltimate;
+﻿using Microsoft.Xna.Framework;
 using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster
 {
     public class HellwingV2 : ModProjectile
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hellwing");
             Main.projFrames[projectile.type] = 5;
         }
-
-
 
         public override void SetDefaults()
         {
@@ -28,14 +22,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             drawOffsetX = -5;
         }
 
-
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 240);
         }
-
-
 
         public override void AI()
         {
@@ -56,9 +46,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
 
             dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 0.5f);
         }
-
-
-
-
     }
 }

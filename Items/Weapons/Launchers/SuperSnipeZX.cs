@@ -1,20 +1,14 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
     public class SuperSnipeZX : EpicLauncher
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Snipe ZX ");
@@ -28,7 +22,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
             item.useTime = 50;
             item.useAnimation = 50;
-
 
             item.damage = 97;
             item.crit = 10;

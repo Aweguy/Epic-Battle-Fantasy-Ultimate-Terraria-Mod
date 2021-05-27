@@ -1,22 +1,21 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 {
     public class AntimatterFissure : ModProjectile
     {
-        float rotation = 0;
-        float rotation2 = 180;
+        private float rotation = 0;
+        private float rotation2 = 180;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Explosion");
             Main.projFrames[projectile.type] = 13;
         }
-        int timer = 20;
+
+        private int timer = 20;
 
         public override void SetDefaults()
         {
@@ -31,7 +30,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
             projectile.timeLeft = 65;
             projectile.tileCollide = false;
             projectile.alpha = 1;
-            
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -39,17 +37,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
             target.immune[projectile.owner] = 7;
         }
 
-
         public override void AI()
         {
-
             timer--;
-
 
             if (timer <= 0)
             {
                 Vector2 velocity = new Vector2(3, 0).RotatedBy(MathHelper.ToRadians(rotation));
-
 
                 Projectile.NewProjectile(projectile.Center, velocity, mod.ProjectileType("AntimatterSpawn"), projectile.damage, 0, projectile.owner, 0, 1);
 
@@ -61,12 +55,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 
                 rotation2 += 16f;
 
-
-
                 timer = 2;
             }
-            
-
 
             if (++projectile.frameCounter >= 5)
             {
@@ -76,10 +66,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
                     projectile.frame = 0;
                 }
             }
-
         }
-
-
 
         /*public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
@@ -94,9 +81,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 
             //return true;
         }*/
-
-
-
-
     }
 }

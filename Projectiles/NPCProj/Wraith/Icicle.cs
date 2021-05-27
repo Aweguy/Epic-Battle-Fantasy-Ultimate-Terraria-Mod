@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
-    public class Icicle: ModProjectile
+    public class Icicle : ModProjectile
     {
-
-
-        bool Frame = false;
-
-
-
+        private bool Frame = false;
 
         public override void SetStaticDefaults()
         {
@@ -30,19 +23,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
-            
+
             projectile.hostile = true;
             projectile.friendly = false;
             projectile.tileCollide = false;
-
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Chilled, 60 * 3);
+            if (Main.rand.NextFloat(1f) <= 0.3f)
+            {
+                target.AddBuff(BuffID.Chilled, 60 * 3);
+            }
         }
-
 
         public override void AI()
         {
@@ -56,16 +49,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
-
-
-
         }
-
-
-
-
-
-
     }
 }

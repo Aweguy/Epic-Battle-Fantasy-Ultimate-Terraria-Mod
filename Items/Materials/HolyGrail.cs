@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class HolyGrail : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Holy Grail");
@@ -22,11 +18,10 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 30;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 99;
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -36,11 +31,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
     }
 }

@@ -1,16 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class RainbowOre : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rainbow Ore");
@@ -29,28 +24,6 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.rare = ItemRarityID.Yellow;
             item.maxStack = 99;
             item.consumable = true;
-
-            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

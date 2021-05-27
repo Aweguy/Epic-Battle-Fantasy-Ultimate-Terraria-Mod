@@ -1,14 +1,12 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class FrostBoneShot : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Bone Shot");
@@ -29,45 +27,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = false;
             projectile.tileCollide = false;
             projectile.alpha = 100;
-
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Chilled, 3 * 60);
         }
 
-
-
-
         public override void AI()
         {
-
             Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 185, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
 
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

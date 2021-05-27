@@ -9,8 +9,6 @@ namespace EpicBattleFantasyUltimate.HelperClasses
 {
     public static class ProjectileExtensions
     {
-
-
         public static void DoProjectile_OrbitPosition(this Projectile projectile, Vector2 position, float distance, float rotationPerSecond = MathHelper.PiOver2)
         {
             projectile.ai[1] += rotationPerSecond / 60;
@@ -55,10 +53,6 @@ namespace EpicBattleFantasyUltimate.HelperClasses
             }
         }
 
-        #endregion
-
-
-
-
+        #endregion After Effects
     }
 }

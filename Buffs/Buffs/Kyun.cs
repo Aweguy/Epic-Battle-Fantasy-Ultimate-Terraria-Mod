@@ -1,23 +1,16 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
     public class Kyun : ModBuff
     {
-
-        bool initial = true;
+        private bool initial = true;
 
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Kyun");
-
         }
-
 
         public override void Update(Player player, ref int buffIndex)
         {
@@ -33,9 +26,5 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
             player.endurance += 10;
             player.allDamage += 0.75f;
         }
-
-
-
-
     }
 }

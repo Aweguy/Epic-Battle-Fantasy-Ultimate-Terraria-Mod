@@ -1,26 +1,18 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.ClassTypes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.ClassTypes;
-using EpicBattleFantasyUltimate.Buffs.Buffs;
 
 namespace EpicBattleFantasyUltimate.Items.Spells
 {
     public class KyunRose : LimitItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Kyun Rose");
             Tooltip.SetDefault("");
         }
-
-
-
-
 
         public override void SetSafeDefaults()
         {
@@ -36,14 +28,8 @@ namespace EpicBattleFantasyUltimate.Items.Spells
             item.noMelee = true;
             item.value = Item.sellPrice(platinum: 1);
 
-
-
             item.rare = ItemRarityID.Expert;
-
-
         }
-
-
 
         public override bool UseItem(Player player)
         {
@@ -51,8 +37,5 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 
             return base.UseItem(player);
         }
-
-
-
     }
 }

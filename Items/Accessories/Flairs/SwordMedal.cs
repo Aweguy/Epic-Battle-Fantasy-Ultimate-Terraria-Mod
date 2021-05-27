@@ -1,9 +1,8 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
@@ -23,24 +22,16 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             item.rare = ItemRarityID.Lime;
         }
 
-
-
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.rangedDamage += 0.4f;
             player.meleeDamage += 0.4f;
         }
 
-
-
         public override int ChoosePrefix(UnifiedRandom rand)
         {
             return rand.Next(new int[] { PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick, PrefixID.Violent, PrefixID.Warding, PrefixID.Hard, PrefixID.Guarding, PrefixID.Armored, PrefixID.Precise, PrefixID.Jagged, PrefixID.Spiked, PrefixID.Angry, PrefixID.Brisk, PrefixID.Fleeting, PrefixID.Hasty, PrefixID.Wild, PrefixID.Rash, PrefixID.Intrepid, PrefixID.Arcane });
         }
-
-
-
 
         public override void AddRecipes()
         {
@@ -51,10 +42,6 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
-
-            
         }
-
     }
 }

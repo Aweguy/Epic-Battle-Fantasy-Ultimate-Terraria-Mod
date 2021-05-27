@@ -1,24 +1,18 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
 using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class CrystalRevolver : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystal Revolver");
             Tooltip.SetDefault("Use holy water when cleaning.\nHeals 3 hp on target hit.\nBecomes 6 hp if you have Crystal Wing in your inventory.");
         }
-
 
         public override void SetDefaults()
         {
@@ -44,10 +38,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,10 +48,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
 }

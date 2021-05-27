@@ -1,22 +1,19 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
 
 namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 {
     public class IceIdol1 : ModNPC
     {
-
-        int IceTimer = 30;
-        float IceRotation = 0;
-        bool Left = false;
-        bool Right = true;
-        bool Ice = false;
-        bool Spin = false;
+        private int IceTimer = 30;
+        private float IceRotation = 0;
+        private bool Left = false;
+        private bool Right = true;
+        private bool Ice = false;
+        private bool Spin = false;
 
         public override void SetStaticDefaults()
         {
@@ -42,25 +39,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 npc.lifeMax *= 3;
                 npc.damage = (int)(npc.damage * 1.5f);
             }
-
-
-
-
-
         }
 
         public override void AI()
         {
-
-
-
             Rotation(npc);
             MovementSpeed(npc);
             Jumping(npc);
             IceAttack(npc);
 
             npc.spriteDirection = npc.direction;
-
         }
 
         #region MovementSpeed
@@ -70,8 +58,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             npc.TargetClosest(true);
 
             Vector2 target = Main.player[npc.target].Center - npc.Center;
-
-
 
             if (Spin)
             {
@@ -83,7 +69,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
             else
             {
@@ -95,28 +80,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
-
-
-
-
-
-
-
-
         }
 
-        #endregion
+        #endregion MovementSpeed
 
         #region Jumping
 
         private void Jumping(NPC npc)
         {
-
             if (npc.velocity.Y == 0f)
             {
-                if(Main.rand.NextFloat() < .1f)
+                if (Main.rand.NextFloat() < .1f)
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
@@ -136,34 +111,27 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                         Left = false;
                         Right = true;
                     }
-
-
-
                 }
                 else
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -5f);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
-                    if(!Left && Right && !Spin)
+                    if (!Left && Right && !Spin)
                     {
                         Left = true;
                         Right = false;
                     }
-                    else if(Left && !Right && !Spin)
+                    else if (Left && !Right && !Spin)
                     {
                         Left = false;
                         Right = true;
                     }
-
-
-
                 }
             }
-
         }
 
-        #endregion
+        #endregion Jumping
 
         #region IceAttack
 
@@ -175,7 +143,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
                 Dust.NewDustDirect(npc.position, npc.width, npc.height, 92, 0, 0, 0, Scale: .7f);
 
-                if(IceTimer <= 0)
+                if (IceTimer <= 0)
                 {
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.3f), npc.position);
 
@@ -188,9 +156,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                             int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
                             IceRotation += 40;
-
                         }
-
                     }
                     else
                     {
@@ -201,35 +167,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                             int a = Projectile.NewProjectile(npc.Center, velocity, ModContent.ProjectileType<IceSpike>(), npc.damage, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
                             IceRotation += 120;
-
                         }
-
                     }
-
-
-
-
 
                     IceTimer = 30;
                     Ice = false;
-
                 }
-
             }
         }
 
-        #endregion
+        #endregion IceAttack
 
         #region Rotation
 
         private void Rotation(NPC npc)
         {
-            if(Right && !Spin)
+            if (Right && !Spin)
             {
                 npc.rotation += MathHelper.ToRadians(1);
 
                 npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
-
             }
             else if (Left && !Spin)
             {
@@ -243,22 +200,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 npc.rotation += MathHelper.ToRadians(30) * npc.spriteDirection;
                 Spin = true;
             }
-
-            
         }
 
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
+        #endregion Rotation
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -266,13 +210,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
-
         }
-
 
         public override bool CheckDead()
         {
-
             int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/IceIdols/IceIdol1/IceIdol1_Gore1"), 1f);
             int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/IceIdols/IceIdol1/IceIdol1_Gore2"), 1f);
             int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/IceIdols/IceIdol1/IceIdol1_Gore3"), 1f);
@@ -280,21 +221,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             int goreIndex5 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/IceIdols/IceIdol1/IceIdol1_Gore5"), 1f);
             int goreIndex6 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/IceIdols/IceIdol1/IceIdol1_Gore6"), 1f);
 
-
-
             for (int i = 0; i <= 20; i++)
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
 
-
-
-
-
             return true;
         }
-
-
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -303,31 +236,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 return .02f;
             }
 
-
             return 0f;
         }
-
 
         #region NPCLoot
 
         public override void NPCLoot()
         {
-
-
             if (Main.rand.NextFloat() < .33f)
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("SolidWater"), 1);
             }
-
-
         }
 
-        #endregion
-
-
-
-
-
-
+        #endregion NPCLoot
     }
 }

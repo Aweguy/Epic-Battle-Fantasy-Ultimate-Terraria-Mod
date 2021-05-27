@@ -1,13 +1,8 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -28,13 +23,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 30;
             item.reuseDelay = 100;
 
-
             item.damage = 35;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item36;
             item.shootSpeed = 7f;
@@ -62,8 +56,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return false;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-30, 0);
@@ -82,4 +74,3 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         }
     }
 }
-

@@ -1,22 +1,16 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class ThunderCoreGun : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thunder Revolver");
             Tooltip.SetDefault("A miniature railgun that fires electrifying shots.\nUses bullets to fire\nQuick fire with 2 round bursts.");
         }
-
 
         public override void SetDefaults()
         {
@@ -43,10 +37,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,7 +48,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

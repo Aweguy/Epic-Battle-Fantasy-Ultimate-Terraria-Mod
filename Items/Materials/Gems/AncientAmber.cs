@@ -1,13 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 {
     public class AncientAmber : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Amber");
@@ -35,8 +33,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
     }
 }

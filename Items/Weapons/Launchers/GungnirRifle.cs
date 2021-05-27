@@ -1,14 +1,8 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -29,14 +23,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 65;
             item.reuseDelay = 20;
 
-
             item.damage = 135;
             item.crit = 25;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item40;
             item.shootSpeed = 24f;

@@ -1,12 +1,10 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs
 {
     public class Overheat : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Overheat");
@@ -14,8 +12,5 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs
             Main.debuff[Type] = true;
             canBeCleared = false;
         }
-
-
-
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -31,21 +28,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.autoReuse = true;
         }
 
-
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 60 * 5);
             player.statLife += 6;
             player.HealEffect(6);
         }
-
-
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -57,17 +45,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

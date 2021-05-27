@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class LeckoBrick : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lecko Brick");
@@ -22,17 +18,8 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 20;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 999;
-
-
         }
-
-
-
-
-
-
-
     }
 }

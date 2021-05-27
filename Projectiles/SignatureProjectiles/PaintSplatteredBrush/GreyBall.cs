@@ -1,23 +1,14 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush
 {
     public class GreyBall : ModProjectile
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Grey Paint");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -34,8 +25,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
         {
             int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<GreyExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
         }
-
-
-
     }
 }

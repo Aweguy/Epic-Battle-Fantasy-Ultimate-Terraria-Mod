@@ -1,34 +1,27 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.ClassTypes
 {
     public abstract class LimitItem : ModItem
     {
-
         public override bool CloneNewInstances => true;
-
 
         public int LimitCost = 0;
         public int LimitGain = 0;
         public int LimitDrain = 0;
-        
 
-        public virtual void SetSafeDefaults() { }
+        public virtual void SetSafeDefaults()
+        {
+        }
 
         public sealed override void SetDefaults()
         {
             SetSafeDefaults();
         }
 
-
         public virtual bool CanUseSpecial(Player player)
         {
-
             var epicPlayer = EpicPlayer.ModPlayer(player);
             if (epicPlayer.LimitCurrent >= LimitCost)
             {
@@ -39,7 +32,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
             return false;
         }
 
-
         public override bool CanUseItem(Player player)
         {
             return CanUseSpecial(player) && base.CanUseItem(player);
@@ -49,16 +41,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
         {
             var epicPlayer = EpicPlayer.ModPlayer(player);
 
-
             epicPlayer.LimitCurrent -= LimitDrain;
         }
-
-
-
-
-
-
-
-
     }
 }

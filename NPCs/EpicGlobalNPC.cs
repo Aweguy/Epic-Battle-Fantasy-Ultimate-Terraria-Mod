@@ -1,21 +1,15 @@
-﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
-using EpicBattleFantasyUltimate.Items;
-using EpicBattleFantasyUltimate.Items.Consumables;
+﻿using EpicBattleFantasyUltimate.Items.Consumables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoMod.Utils;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-
-
 namespace EpicBattleFantasyUltimate.NPCs
 {
     public class EpicGlobalNPC : GlobalNPC
     {
-
         #region Rampant Bleed Variables
 
         public bool RBleed = true;
@@ -23,17 +17,16 @@ namespace EpicBattleFantasyUltimate.NPCs
 
         public override bool InstancePerEntity => true;
 
-        #endregion
+        #endregion Rampant Bleed Variables
 
         #region Weakened Variables
 
         public bool Weakened = true;
         public int WeakenedStacks;
-        double WeakenedPower;
-        double WeakenedMult;
+        private double WeakenedPower;
+        private double WeakenedMult;
 
-
-        #endregion
+        #endregion Weakened Variables
 
         #region Cursed Variables
 
@@ -41,10 +34,10 @@ namespace EpicBattleFantasyUltimate.NPCs
         public bool CursedAlphaCheck = true;
         public int CursedStacks;
         public int CursedAlpha = 0;
-        double CursedDefense;
-        double CursedMult;
+        private double CursedDefense;
+        private double CursedMult;
 
-        #endregion
+        #endregion Cursed Variables
 
         public int bossesDefeated = 0;
 
@@ -52,14 +45,12 @@ namespace EpicBattleFantasyUltimate.NPCs
 
         public bool Electrified = false;
 
-
-        #endregion
+        #endregion Electrified Variables
 
         #region ResetEffects
 
         public override void ResetEffects(NPC npc)
         {
-
             #region Feral Bleed Reset
 
             if (RBleed == false)
@@ -68,7 +59,7 @@ namespace EpicBattleFantasyUltimate.NPCs
             }
             RBleed = false;
 
-            #endregion
+            #endregion Feral Bleed Reset
 
             #region Weakened Reset
 
@@ -79,52 +70,45 @@ namespace EpicBattleFantasyUltimate.NPCs
 
             Weakened = false;
 
-            #endregion
+            #endregion Weakened Reset
 
             #region Cursed Reset
 
-            if(Cursed == false)
+            if (Cursed == false)
             {
                 CursedStacks = 0;
             }
 
             Cursed = false;
 
-
-            #endregion
-
+            #endregion Cursed Reset
 
             Electrified = false;
-
         }
 
-        #endregion
+        #endregion ResetEffects
 
         #region ModifyHitPlayer
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
-
             #region Weakened Weakening
-           
-                if (Weakened && WeakenedStacks <= 5)
-                {
-                    WeakenedMult = 0.1 * WeakenedStacks;
-                    WeakenedPower = 1 - WeakenedMult;
-                    damage = (int)(damage * WeakenedPower);
-                }
-                else if (Weakened && WeakenedStacks > 5)
-                {
-                    damage = (int)(damage * 0.50f);
-                }
-            
-            
 
-            #endregion
+            if (Weakened && WeakenedStacks <= 5)
+            {
+                WeakenedMult = 0.1 * WeakenedStacks;
+                WeakenedPower = 1 - WeakenedMult;
+                damage = (int)(damage * WeakenedPower);
+            }
+            else if (Weakened && WeakenedStacks > 5)
+            {
+                damage = (int)(damage * 0.50f);
+            }
 
+            #endregion Weakened Weakening
         }
 
-        #endregion
+        #endregion ModifyHitPlayer
 
         #region PostAI
 
@@ -144,14 +128,13 @@ namespace EpicBattleFantasyUltimate.NPCs
                 {
                     npc.defense = (int)(npc.defense * 0.5);
                 }
-
             }
             else
             {
                 npc.defense = npc.defDefense;
             }
 
-            if(CursedStacks == 1)
+            if (CursedStacks == 1)
             {
                 CursedAlpha = 25;
             }
@@ -188,34 +171,15 @@ namespace EpicBattleFantasyUltimate.NPCs
                 }
             }
 
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-            
-
-
-            #endregion
-
+            #endregion Cursed Effects
         }
 
-        #endregion
+        #endregion PostAI
 
         #region UpdateLifeRegen
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-
             #region Feral Bleed Effects
 
             if (RBleed == true)
@@ -224,11 +188,11 @@ namespace EpicBattleFantasyUltimate.NPCs
                 {
                     npc.lifeRegen = 0;
                 }
-             
+
                 npc.lifeRegen -= RBleedStacks * 10;
             }
 
-            #endregion
+            #endregion Feral Bleed Effects
 
             #region Electrified Effects
 
@@ -239,7 +203,6 @@ namespace EpicBattleFantasyUltimate.NPCs
                     npc.lifeRegen = 0;
                 }
 
-
                 npc.lifeRegen -= 8;
                 if (npc.velocity.X != 0f)
                 {
@@ -247,45 +210,43 @@ namespace EpicBattleFantasyUltimate.NPCs
                 }
             }
 
-            #endregion
+            #endregion Electrified Effects
         }
 
-        #endregion
+        #endregion UpdateLifeRegen
 
         #region SetupShop
+
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             if (type == NPCID.PartyGirl)
             {
-
                 shop.item[nextSlot].SetDefaults(ItemType<Cake>());
                 shop.item[nextSlot].shopCustomPrice = 1000000;
                 nextSlot++;
             }
-
-
         }
 
-        #endregion
+        #endregion SetupShop
 
         #region NPCLoot
 
         public override void NPCLoot(NPC npc)
         {
-
             #region if boss
+
             if (npc.boss)
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("DarkMatter"), Main.rand.Next(2) + 1);
 
                 #region unique boss count
+
                 //unique boss count
 
                 if (NPC.killCount[npc.type] <= 0)
                 {
                     EpicWorld.bossesDefeated++;
                 }
-
 
                 /*for (int i = 0; i < NPCLoader.NPCCount; ++i)
                 {
@@ -297,28 +258,26 @@ namespace EpicBattleFantasyUltimate.NPCs
                     }
                 }*/
 
-                #endregion
-
+                #endregion unique boss count
             }
 
-            #endregion
+            #endregion if boss
         }
 
-        #endregion
+        #endregion NPCLoot
 
         #region DrawEffects
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-
             #region Rampant Bleeding Dust
 
             if (RBleed)
             {
-                if(RBleedStacks <= 5)
+                if (RBleedStacks <= 5)
                 {
-                    if(Main.rand.NextFloat() <= .1f)
-                    {                        
+                    if (Main.rand.NextFloat() <= .1f)
+                    {
                         Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                     }
                 }
@@ -337,15 +296,12 @@ namespace EpicBattleFantasyUltimate.NPCs
                     }
                 }
                 else if (RBleedStacks > 20)
-                {                   
-                    Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);                    
+                {
+                    Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 }
-
-                
-
-
             }
-            #endregion
+
+            #endregion Rampant Bleeding Dust
 
             #region Electrified Dust
 
@@ -355,14 +311,10 @@ namespace EpicBattleFantasyUltimate.NPCs
                 dust.noGravity = true;
             }
 
-
-
-            #endregion
-
-
+            #endregion Electrified Dust
         }
 
-        #endregion
+        #endregion DrawEffects
 
         #region PostDraw
 
@@ -375,13 +327,10 @@ namespace EpicBattleFantasyUltimate.NPCs
 
                 Vector2 drawPos = npc.Center - new Vector2(0, 15 + npc.height / 2) - Main.screenPosition;
 
-                spriteBatch.Draw(tex, drawPos, new Rectangle(0, 0, tex.Width, tex.Height), new Color(255, 255, 255, CursedAlpha), 0, drawOrigin, 1, SpriteEffects.None, 0f);              
+                spriteBatch.Draw(tex, drawPos, new Rectangle(0, 0, tex.Width, tex.Height), new Color(255, 255, 255, CursedAlpha), 0, drawOrigin, 1, SpriteEffects.None, 0f);
             }
         }
 
-        #endregion
-
-
-
+        #endregion PostDraw
     }
 }

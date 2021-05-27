@@ -1,21 +1,17 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 {
     public class GashSpike : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gash Spike");
         }
 
-        int pentimer = 30;
-
+        private int pentimer = 30;
 
         public override void SetDefaults()
         {
@@ -35,21 +31,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 
             pentimer--;
 
-            if(pentimer <= 0)
+            if (pentimer <= 0)
             {
                 projectile.penetrate = 1;
             }
 
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
         }
-
-
-
-
-
     }
 }

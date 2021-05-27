@@ -1,20 +1,18 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
     public class LightningShard : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lightning Shard");
             Tooltip.SetDefault("You feel shock and awe when you hold this.\nRight-click to launch a spinning sword boomerang.\nThe item cannot be used while the boomerang is out.");
         }
-
 
         public override void SetDefaults()
         {
@@ -33,14 +31,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useTurn = true;
         }
 
-
-
         public override void UseStyle(Player player)
         {
-
             player.itemLocation = player.Center + new Vector2(0, 5);
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
@@ -70,8 +64,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.noUseGraphic = true;
                 return player.ownedProjectileCounts[item.shoot] < 1;
             }
-
-
             else
             {
                 item.damage = 50;
@@ -92,9 +84,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.noUseGraphic = false;
             }
             return player.ownedProjectileCounts[mod.ProjectileType("LightningShardCyclone")] < 1;
-
         }
-
 
         public override void AddRecipes()
         {
@@ -107,17 +97,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

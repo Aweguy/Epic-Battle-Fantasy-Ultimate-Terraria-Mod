@@ -1,20 +1,15 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush;
-using System.Collections.Generic;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.SignatureItems
 {
     public class PaintSplatteredBrush : ModItem, IPlayerLayerDrawable
     {
-
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Paint Splattered B(r)ush");
@@ -39,29 +34,23 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.shootSpeed = 20f;
             item.shoot = ModContent.ProjectileType<RedBall>();
 
-
             item.rare = ItemRarityID.Expert;
-
         }
 
         #region Shoot
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
 
+            int ball = Main.rand.Next(EpicBattleFantasyUltimate.BrushProj.ToArray());
 
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-
-                int ball = Main.rand.Next(EpicBattleFantasyUltimate.BrushProj.ToArray());
-
-                Projectile.NewProjectile(player.Center, perturbedSpeed, ball, item.damage, 3f, player.whoAmI);
-            
-            
+            Projectile.NewProjectile(player.Center, perturbedSpeed, ball, item.damage, 3f, player.whoAmI);
 
             return false;
         }
 
-        #endregion
+        #endregion Shoot
 
         #region DrawGlowMask
 
@@ -73,12 +62,10 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 
             float rotation;
             int direction;
-            
 
-
-            if(player.itemAnimation > 0)
+            if (player.itemAnimation > 0)
             {
-                if(player.direction == -1)
+                if (player.direction == -1)
                 {
                     tex = mod.GetTexture("Items/SignatureItems/PaintSplatteredBrush");
                     direction = 1;
@@ -90,7 +77,6 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
                     direction = -1;
                     rotation = player.itemRotation + MathHelper.Pi + 5.5f;
                 }
-
 
                 Main.playerDrawData.Add(
                    new DrawData(
@@ -105,12 +91,8 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
                        0 //we dont need to worry about the layer depth here
                    ));
             }
-           
         }
 
-        #endregion
-
-
-
+        #endregion DrawGlowMask
     }
 }

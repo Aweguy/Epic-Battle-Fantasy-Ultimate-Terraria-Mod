@@ -1,25 +1,15 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Minions
 {
     public class AngelicMirrorExplosion : ModProjectile
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angelic Explosion");
             Main.projFrames[projectile.type] = 9;
         }
-
-        
-
-
-
 
         public override void SetDefaults()
         {
@@ -34,17 +24,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Minions
             projectile.alpha = 64;
         }
 
-
-
         public override void AI()
         {
-
             projectile.alpha += 10;
-
-
-
-
-
 
             if (++projectile.frameCounter >= 2)
             {
@@ -54,21 +36,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Minions
                     projectile.Kill();
                 }
             }
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

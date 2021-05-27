@@ -1,5 +1,4 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,7 +6,6 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 {
     public class Shot3 : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Shot");
@@ -30,17 +28,10 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.ammo = mod.ItemType("Shot");
         }
 
-
         public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
             if (weapon.type == mod.ItemType("ShadowBlaster"))
                 damage += 25;
         }
-
-
-
-
-
-
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
@@ -12,7 +9,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Eater");
-            Tooltip.SetDefault("Honestly, it could have been worse. It could kill you instantly.\nIncreases your damage by 180% but reduces your defenst to 0.");
+            Tooltip.SetDefault("Honestly, it could have been worse. It could kill you instantly.\nWhen held, increases your damage by 80% but reduces your defenst by 50%.");
         }
 
         public override void SetDefaults()
@@ -32,13 +29,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.scale = 1.15f;
         }
 
-        public override void UpdateInventory(Player player)
+        public override void HoldItem(Player player)
         {
-            player.allDamage += 1.8f;
-            player.statDefense -= 100000;
+            player.allDamage += 0.8f;
+            player.statDefense /= (int)2f;
         }
-
-
 
         public override void AddRecipes()
         {
@@ -54,8 +49,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
     }
 }

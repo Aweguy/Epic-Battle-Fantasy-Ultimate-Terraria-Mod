@@ -1,22 +1,16 @@
-﻿using System;
-using Terraria;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class SuperRevolverCA : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Revolver CA");
             Tooltip.SetDefault("Any time of year, you can snipe from here…");
         }
-
 
         public override void SetDefaults()
         {
@@ -35,14 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 10f;
             item.useAmmo = AmmoID.Bullet;
-            
         }
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -54,10 +41,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
 }

@@ -1,18 +1,17 @@
 ﻿#region Using
-using System;
+
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-#endregion
+
+#endregion Using
+
 namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 {
     public class GaiaAxeProj : ModProjectile
     {
-        int timer = 0;
-        int direction;
-        bool directionB = false;
+        private int timer = 0;
+        private int direction;
+        private bool directionB = false;
 
         public override void SetStaticDefaults()
         {
@@ -36,7 +35,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
         {
             Player player = Main.player[projectile.owner];
 
-            if(!directionB)
+            if (!directionB)
             {
                 direction = player.direction;
                 directionB = true;
@@ -46,17 +45,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
             timer++;
 
-            if(timer >= 20)
+            if (timer >= 20)
             {
                 projectile.velocity.Y += 0.2f;
 
-                if(projectile.velocity.X != 0)
+                if (projectile.velocity.X != 0)
                 {
                     projectile.velocity.X *= 0.99f;
                 }
             }
-
-
         }
     }
 }

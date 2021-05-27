@@ -1,15 +1,12 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
-
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class MetalShot : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Metal Shot");
@@ -31,19 +28,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.tileCollide = false;
             projectile.alpha = 50;
             drawOffsetX = -5;
-           
-
-
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("RampantBleed"), 60 * 10);
         }
-
-
-
 
         public override void AI()
         {
@@ -52,25 +42,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             dust.noGravity = true;
             dust.fadeIn = 0.1578947f;
 
-
-
-
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

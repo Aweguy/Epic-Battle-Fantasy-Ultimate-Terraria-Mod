@@ -1,20 +1,17 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 {
     public class IceNeedle : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Needle");
             Tooltip.SetDefault("An icicle massive and sharp enough to be a jousting lance.");
         }
-
 
         public override void SetDefaults()
         {
@@ -27,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             item.width = 32;
             item.height = 32;
             item.scale = 1f;
-            item.rare= ItemRarityID.Pink;
+            item.rare = ItemRarityID.Pink;
             item.value = Item.sellPrice(gold: 10);
             item.melee = true;
         }
@@ -38,22 +35,12 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             {
                 target.AddBuff(BuffID.Frostburn, 60 * 3);
             }
-            
         }
-
-
-
-
-
-
-
 
         public override void UseStyle(Player player)
         {
-
             player.itemLocation = player.Center + new Vector2(0, 3);
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
@@ -73,7 +60,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.width = 32;
                 item.height = 32;
                 item.scale = 1f;
-                item.rare= ItemRarityID.Pink;
+                item.rare = ItemRarityID.Pink;
                 item.value = Item.sellPrice(gold: 10);
                 item.melee = true;
                 item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
@@ -81,8 +68,6 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.shoot = mod.ProjectileType("IceNeedleProj");
                 item.autoReuse = false;
             }
-
-
             else
             {
                 item.damage = 60;
@@ -94,7 +79,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.width = 32;
                 item.height = 32;
                 item.scale = 1f;
-                item.rare= ItemRarityID.Pink;
+                item.rare = ItemRarityID.Pink;
                 item.value = Item.sellPrice(gold: 10);
                 item.melee = true;
                 item.noMelee = false; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
@@ -103,7 +88,6 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
                 item.autoReuse = true;
             }
             return player.ownedProjectileCounts[mod.ProjectileType("IceNeedleProj")] < 1;
-
         }
 
         public override void AddRecipes()
@@ -116,11 +100,5 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
     }
 }

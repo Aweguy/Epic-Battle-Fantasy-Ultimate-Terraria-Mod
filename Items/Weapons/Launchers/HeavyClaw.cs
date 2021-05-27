@@ -1,12 +1,9 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Materials;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -27,7 +24,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 65;
             item.useTime = 65;
             item.reuseDelay = 20;
-
 
             item.damage = 102;
             item.melee = true;

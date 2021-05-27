@@ -1,21 +1,17 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.NPCs;
+using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.NPCs;
 
 namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class Weaken : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Weakened");
             Description.SetDefault("Your strength ebbs…");
             Main.debuff[Type] = true;
             canBeCleared = false;
-
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -37,18 +33,9 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 
         public override bool ReApply(Player player, int time, int buffIndex)
         {
-
             player.GetModPlayer<EpicPlayer>().WeakenedStacks++;
 
             return false;
         }
-
-
-
-
-
-
-
-
     }
 }

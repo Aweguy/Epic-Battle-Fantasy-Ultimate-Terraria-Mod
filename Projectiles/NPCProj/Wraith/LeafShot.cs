@@ -1,16 +1,12 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class LeafShot : ModProjectile
     {
-
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Leaf Shot");
@@ -37,29 +33,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             target.AddBuff(BuffID.Poisoned, 2 * 60);
         }
 
-
-
-
-
-
-
-
-
-
         public override void AI()
         {
-
-
-            
-
-
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
-
-
 
             if (++projectile.frameCounter >= 2)
             {
@@ -69,12 +47,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
                     projectile.frame = 0;
                 }
             }
-
-
-
-
-
-
         }
 
         public override void Kill(int timeLeft)
@@ -87,10 +59,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
                 Projectile.NewProjectile(projectile.Center, perturbedSpeed, mod.ProjectileType("LeafSplinter"), projectile.damage, 0, projectile.owner, 0, 1);
             }
         }
-
-
-
-
-
     }
 }

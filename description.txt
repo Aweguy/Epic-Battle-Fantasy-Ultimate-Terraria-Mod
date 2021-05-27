@@ -368,3 +368,5 @@ All of our Family members for close support
 	-3 New Launchers and their sidearms.
 	-Reworked Tired debuff and Berzerker. Berzerker now has a chance to apply a stack of tired on usage. It no lenger has a right click use. Creates a quake when slamming the ground.
 	-Halved the defense shield medal gives. It was too high.
+	-Reduced the damage increase of the soul eater and decreased the defense reduction. Also reduced its damage
+	-Reduced Heaven's Gate damage

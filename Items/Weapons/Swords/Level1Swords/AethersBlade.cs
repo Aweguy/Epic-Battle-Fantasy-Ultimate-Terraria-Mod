@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords
 {
@@ -12,7 +11,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords
             DisplayName.SetDefault("Aether's Blade");
             Tooltip.SetDefault("A noncanonical weapon hewn from the skies.\nEssential for crafting Heaven's Gate");
         }
-
 
         public override void SetDefaults()
         {
@@ -30,7 +28,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords
             item.autoReuse = true;
             item.material = true;
         }
-
-
-    }	
+    }
 }

@@ -1,13 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 {
     public class VolcanicRuby : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Volcanic Ruby");
@@ -35,10 +33,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
 }

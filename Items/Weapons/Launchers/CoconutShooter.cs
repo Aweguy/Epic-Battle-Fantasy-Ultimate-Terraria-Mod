@@ -1,17 +1,13 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
     public class CoconutShooter : EpicLauncher
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Coconut Shooter");
@@ -27,14 +23,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 60;
             item.reuseDelay = 10;
 
-
             item.damage = 110;
             item.knockBack = 20f;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 3);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 5f;

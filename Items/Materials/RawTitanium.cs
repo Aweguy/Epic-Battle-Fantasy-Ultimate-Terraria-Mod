@@ -1,17 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class RawTitanium : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Raw Titanium");
@@ -27,16 +21,8 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.useStyle = 4;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 99;
-
-
-
         }
-
-
-
-
-
     }
 }

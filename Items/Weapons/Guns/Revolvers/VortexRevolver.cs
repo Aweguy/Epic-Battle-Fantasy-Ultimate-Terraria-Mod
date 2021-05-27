@@ -1,26 +1,18 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class VortexRevolver : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vortex Revolver");
             Tooltip.SetDefault("Propels bullets with the force of a cyclone.\nShots have inverted knockback.\nShots from this weapon home to enemies.");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -43,7 +35,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 12f;
             item.useStyle = ItemUseStyleID.HoldingOut;
-
         }
 
         public Projectile shot;
@@ -67,11 +58,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
     }
 }

@@ -1,27 +1,19 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class HellfireRevolver : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hellfire Revolver");
             Tooltip.SetDefault("For hunting small game like rabbits and haggis.\nSets enemies on fire. Shoots 3 bullets when using musket balls.");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -36,21 +28,18 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 2);
-            item.rare= ItemRarityID.Pink;
+            item.rare = ItemRarityID.Pink;
 
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item36;
             item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 9f;
             item.useStyle = ItemUseStyleID.HoldingOut;
-
         }
-
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-            if(type == ProjectileID.Bullet)
+            if (type == ProjectileID.Bullet)
             {
                 int degrees = Main.rand.Next(10);
                 float numberProjectiles = 3; // 3 shots
@@ -67,10 +56,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             {
                 return true;
             }
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -83,9 +69,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Spellbooks
 {
@@ -27,11 +26,6 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
             item.UseSound = SoundID.Item29;
         }
 
-
-
-
-
-
         public override bool CanUseItem(Player player)
         {
             int buff = mod.BuffType("Exhaustion");
@@ -45,6 +39,5 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
             return base.UseItem(player);
         }
-
     }
 }

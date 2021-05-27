@@ -1,24 +1,18 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.NPCs;
+using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.NPCs;
 
 namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class RampantBleed : ModBuff
     {
-
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Rampant Bleed");
             Description.SetDefault("Paper cuts deeper");
             Main.debuff[Type] = true;
             canBeCleared = false;
-
         }
-
 
         public override void Update(Player player, ref int buffIndex)
         {
@@ -39,18 +33,9 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 
         public override bool ReApply(Player player, int time, int buffIndex)
         {
-
             player.GetModPlayer<EpicPlayer>().RBleedStacks += 3;
-
-
 
             return false;
         }
-
-
-
-
-
-
     }
 }

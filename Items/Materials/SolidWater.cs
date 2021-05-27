@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class SolidWater : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solid Water");
@@ -22,12 +18,9 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 32;
 
             item.value = Item.sellPrice(silver: 1);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 999;
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -37,17 +30,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

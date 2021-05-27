@@ -1,26 +1,22 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 {
     public class PlasmaField : ModProjectile
     {
-
-        float rotation = -45; //The rotation of the wave to the right
-        float rotation2 = -45 + 180; //The rotation of the wave to the left
-        int WaveTimer = 0; //The interval between the waves
-
+        private float rotation = -45; //The rotation of the wave to the right
+        private float rotation2 = -45 + 180; //The rotation of the wave to the left
+        private int WaveTimer = 0; //The interval between the waves
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Plasma Field");
             Main.projFrames[projectile.type] = 13;
         }
-
 
         public override void SetDefaults()
         {
@@ -36,11 +32,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
             projectile.scale = 5f;
         }
 
-
-
         public override void AI()
         {
-
             Shooting(projectile);
 
             #region Frame Changing
@@ -63,16 +56,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
                 {
                     projectile.Kill();
                 }
-
             }
 
-            #endregion
-
-
-
+            #endregion Frame Changing
         }
-
-
 
         private void Shooting(Projectile projectile)
         {
@@ -80,7 +67,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
             rotation2 = -45 + 180;
             WaveTimer--;
 
-            if(WaveTimer <= 0)
+            if (WaveTimer <= 0)
             {
                 for (int i = 0; i <= 17; i++)
                 {
@@ -91,8 +78,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
                     rotation += 5;
                 }
 
-
-
                 for (int j = 0; j <= 17; j++)
                 {
                     Vector2 velocity2 = new Vector2(6, 0).RotatedBy(MathHelper.ToRadians(rotation2));
@@ -100,31 +85,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
                     Projectile.NewProjectile(projectile.Center, velocity2, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
 
                     rotation2 += 5;
-
                 }
 
                 WaveTimer = 30;
-
-
             }
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
@@ -139,25 +104,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 
             //return true;
         }
-
-
-
-
-
-
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-    

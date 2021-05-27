@@ -9,13 +9,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 {
     public class MagicPuppy : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magic Puppy");
             Main.projFrames[projectile.type] = 9;
         }
-
 
         public override void SetDefaults()
         {
@@ -28,7 +26,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
             projectile.knockBack = 1f;
             projectile.tileCollide = true;
 			aiType = 398;
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -43,15 +40,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 			return true;
 		}
 
-
 		public override void AI()
 		{
-
 			Player player = Main.player[projectile.owner];
 
 			EpicPlayer modPlayer = player.GetModPlayer<EpicPlayer>();
-
-
 
 			if (player.dead)
 			{
@@ -60,10 +53,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 			if (modPlayer.MagicPuppyBuff)
 			{
 				projectile.timeLeft = 2;
-
-
-
-
 
 				if ((double)projectile.velocity.X > 0.5)
 				{
@@ -75,7 +64,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 				}
 
 				projectile.spriteDirection = projectile.direction;
-
 
 				if (projectile.ai[1] > 0f)
 				{
@@ -147,8 +135,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 				}
 				Vector2 velocity = projectile.velocity;
 
-
-
 				if (projectile.velocity.Y == 0f)
 				{
 					if (projectile.velocity.X == 0f)
@@ -186,19 +172,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 				{
 					projectile.velocity.Y = 10f;
 				}
-
-
-
-
-
-
-
-
 			}
-
-
-
 		}
-
 	}
 }*/

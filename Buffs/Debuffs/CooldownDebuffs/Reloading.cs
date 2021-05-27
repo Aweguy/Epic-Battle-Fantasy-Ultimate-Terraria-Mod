@@ -1,7 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-
 
 namespace EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs
 {
@@ -14,6 +12,5 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs
             Main.debuff[Type] = true;
             canBeCleared = false;
         }
-
     }
 }

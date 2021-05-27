@@ -1,12 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.GameContent.Achievements;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-
-
+﻿using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions
 {
@@ -33,15 +25,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions
             projectile.alpha = 255;
             projectile.tileCollide = false;
         }
-        #endregion
 
-
-
-
-        
-
-
-
-        
+        #endregion SetDefaults
     }
 }

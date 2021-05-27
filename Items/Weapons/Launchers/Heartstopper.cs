@@ -1,22 +1,14 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
-using EpicBattleFantasyUltimate.ClassTypes;
-
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
     public class Heartstopper : EpicLauncher
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heartstopper");
@@ -30,7 +22,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
             item.useTime = 60;
             item.useAnimation = 60;
-
 
             item.damage = 60;
             item.crit = 2;

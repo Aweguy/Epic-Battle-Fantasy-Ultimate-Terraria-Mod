@@ -1,7 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
 {
@@ -28,28 +28,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
             drawOffsetX = -9;
         }
 
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 9 * 60);
         }
 
-
-
         public override void AI()
         {
-        
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            
+
             for (int i = 0; i <= 3; i++)
             {
-                 Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
+                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
             }
 
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
 
             if (++projectile.frameCounter >= 1)
             {
@@ -59,16 +54,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
                     projectile.frame = 0;
                 }
             }
-
-
-
         }
-
-
-
-
-
-
 
         public override void Kill(int timeLeft)
         {
@@ -76,7 +62,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             Main.PlaySound(SoundID.Item10, projectile.position);
 
-            
             for (int i = 0; i <= 90; i++)
             {
                 Vector2 vel = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
@@ -84,20 +69,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
                 {
                     Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("HellfireBullet"), 20, 0, projectile.owner, 0, 1);
                 }
-                
             }
 
-
-     
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 
             for (int i = 0; i <= 13; i++)
             {
                 Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
             }
-
-
-
         }
     }
 }

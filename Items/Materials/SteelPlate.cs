@@ -1,16 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class SteelPlate : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Steel Plate");
@@ -25,10 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.value = Item.sellPrice(copper: 50);
             item.rare = ItemRarityID.LightRed;
             item.maxStack = 999;
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -38,15 +30,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -5,18 +5,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace EpicBattleFantasyUltimate.Items.Staves
 {
     public class Seraphim : LimitItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Seraphim");
             Tooltip.SetDefault("A glorious staff used by gorgeous angels.\nConsume Limit Break.");
         }
-
 
         public override void SetSafeDefaults()
         {
@@ -39,11 +36,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             item.shootSpeed = 1f;
         }
 
-
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
             int num233 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
             int num234 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
             if (player.gravDir == -1f)
@@ -55,23 +49,12 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             }
             Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>(), item.damage, 0f, player.whoAmI, 0f, 0f);
 
-
-
-
-
             return true;
         }
-
 
         public override bool CanUseItem(Player player)
         {
             return player.ownedProjectileCounts[ModContent.ProjectileType<Judgement>()] < 1 && base.CanUseItem(player);
         }
-
-
-
-
-
-
     }
 }

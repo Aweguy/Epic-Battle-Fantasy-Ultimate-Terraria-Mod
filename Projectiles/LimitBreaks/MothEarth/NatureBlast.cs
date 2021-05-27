@@ -1,42 +1,34 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.HelperClasses;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using EpicBattleFantasyUltimate.HelperClasses;
 
 namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 {
     public class NatureBlast : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("NatureBlast");
             Main.projFrames[projectile.type] = 24;
-
         }
 
+        private Vector2 SpawnPosition;
+        private Vector2 CachedPosition;
+        private bool PositionCheck = false;
 
+        private bool collision = false;
 
-        Vector2 SpawnPosition;
-        Vector2 CachedPosition;
-        bool PositionCheck = false;
+        private Vector2 origin;
+        private float rotation;
 
-        bool collision = false;
-
-        Vector2 origin;
-        float rotation;
-
-        float BlastVel = 5f;
-        bool Veloc = false;
-
-
+        private float BlastVel = 5f;
+        private bool Veloc = false;
 
         public override bool CanDamage()
     => projectile.frame >= 23;
-
 
         public override void SetDefaults()
         {
@@ -50,16 +42,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
             projectile.magic = true;
         }
 
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-
-            if(projectile.frame >= 23)
+            if (projectile.frame >= 23)
             {
-
-
-                if(projectile.tileCollide == true)
+                if (projectile.tileCollide == true)
                 {
                     Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 
@@ -72,41 +59,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                     {
                         projectile.velocity.Y = -oldVelocity.Y;
                     }
-
                 }
-
-
-
-
-
-
-
-
-
-
             }
-
-
-
-
             return false;
         }
 
-
-
-
         public override void AI()
         {
-
-
-
-
-
             if (++projectile.frameCounter >= 5) //reducing the frame timer
             {
                 projectile.frameCounter = 0; //resetting it
-
-
 
                 if (++projectile.frame >= 24) //Animation loop
                 {
@@ -114,23 +76,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                 }
             }
 
-            if(projectile.frame < 23) //Positioning and shooting control
+            if (projectile.frame < 23) //Positioning and shooting control
             {
-
-
                 Positioning();
-
             }
             else
             {
-
                 if (!Collision.SolidCollision(projectile.position, projectile.width, projectile.height) && collision == false)
                 {
                     projectile.tileCollide = true;
 
                     collision = true;
                 }
-
 
                 Positioning();
 
@@ -139,62 +96,50 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                 PlayerCollision();
 
                 gravity();
-
             }
-
         }
-
 
         private void Positioning()
         {
-
             #region PosCheck
 
             if (PositionCheck == false)
             {
-
                 origin = new Vector2(projectile.ai[0], projectile.ai[1]);
 
                 rotation = Main.rand.NextFloat() * (float)Math.PI * 2; //random angle
 
                 SpawnPosition = origin + (new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * BlastVel) * 20f;
 
-
                 CachedPosition = SpawnPosition - Main.screenPosition;
 
-
-
                 PositionCheck = true;
-
             }
 
-            #endregion
+            #endregion PosCheck
 
             #region Positioning
 
             if (projectile.frame < 23)//While the projectile is forming it will stay on the screen position it spawned
             {
                 projectile.position = CachedPosition + Main.screenPosition;
-
-
             }
             else
             {
-                if(Veloc == false)//Making sure that this won't run more than once
+                if (Veloc == false)//Making sure that this won't run more than once
                 {
-                    projectile.velocity =new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * BlastVel;
+                    projectile.velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * BlastVel;
 
                     Veloc = true;
                 }
             }
-            #endregion
 
-
+            #endregion Positioning
         }
 
         private void Dusting()
         {
-            if(Main.rand.NextFloat(2f) < 1f)
+            if (Main.rand.NextFloat(2f) < 1f)
             {
                 Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, 61, 0, 0, 0, default, 1);
             }
@@ -215,18 +160,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                         player.statLife += 10;
                         player.HealEffect(10);
                     }
-                    if(player.statMana < player.statManaMax2)
+                    if (player.statMana < player.statManaMax2)
                     {
                         player.statMana += 20;
                         player.ManaEffect(20);
                     }
-                    if(epicPlayer.LimitCurrent < epicPlayer.MaxLimit2 && Main.rand.NextFloat(2f) > 1f)
+                    if (epicPlayer.LimitCurrent < epicPlayer.MaxLimit2 && Main.rand.NextFloat(2f) > 1f)
                     {
                         epicPlayer.LimitCurrent += 3;
 
                         MathHelper.Clamp(epicPlayer.LimitCurrent, 0, epicPlayer.MaxLimit2);
                     }
-
 
                     // Heal the player.
                     projectile.Kill();
@@ -235,39 +179,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
             }
         }
 
-
-
         private void gravity()
         {
             projectile.velocity.Y += 0.3f; //gravity
 
             projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -16, 16);
-
         }
-
-
-
-
-
-
-
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return this.DrawProjectileCentered(spriteBatch, lightColor);
-
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }

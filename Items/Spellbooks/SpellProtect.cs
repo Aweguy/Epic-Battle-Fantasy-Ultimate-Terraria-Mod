@@ -1,7 +1,6 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Spellbooks
 {
@@ -40,6 +39,5 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
             return base.UseItem(player);
         }
-
     }
 }

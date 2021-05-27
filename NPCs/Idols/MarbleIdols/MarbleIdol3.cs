@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,15 +7,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 {
     public class MarbleIdol3 : ModNPC
     {
-
-        bool Left = false;
-        bool Right = true;
-        bool Spin = false;
-        bool Drop = false;
-
-
-
-
+        private bool Left = false;
+        private bool Right = true;
+        private bool Spin = false;
+        private bool Drop = false;
 
         public override void SetStaticDefaults()
         {
@@ -42,32 +35,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             {
                 npc.lifeMax *= 3;
                 npc.defense *= 2;
-
             }
-
-
-
         }
 
         public override void AI()
         {
-
             Rotation(npc);
             MovementSpeed(npc);
             Jumping(npc);
 
             npc.spriteDirection = npc.direction;
-
         }
-
 
         private void MovementSpeed(NPC npc)
         {
             npc.TargetClosest(true);
 
             Vector2 target = Main.player[npc.target].Center - npc.Center;
-
-
 
             if (Spin)
             {
@@ -79,7 +63,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
             else
             {
@@ -91,16 +74,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
-
-
-
-
-
-
-
-
         }
 
         private void Jumping(NPC npc)
@@ -112,7 +86,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
-
                     if (!Left && Right && !Spin)
                     {
                         Left = true;
@@ -123,9 +96,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                         Left = false;
                         Right = true;
                     }
-
-
-
                 }
                 else
                 {
@@ -142,14 +112,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                         Left = false;
                         Right = true;
                     }
-
-
-
                 }
             }
-
         }
-
 
         private void Rotation(NPC npc)
         {
@@ -158,7 +123,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 npc.rotation += MathHelper.ToRadians(1);
 
                 npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
-
             }
             else if (Left && !Spin)
             {
@@ -172,25 +136,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 npc.rotation += MathHelper.ToRadians(30) * npc.spriteDirection;
                 Spin = true;
             }
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -198,7 +144,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
-
         }
 
         #region NPCLoot
@@ -210,19 +155,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 Item.NewItem(npc.getRect(), ItemID.Sapphire, 1);
 
                 Drop = true;
-
             }
-
-
         }
 
-        #endregion
-
-
+        #endregion NPCLoot
 
         public override bool CheckDead()
         {
-            if(Drop == false)
+            if (Drop == false)
             {
                 int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/MarbleIdols/MarbleIdol3/MarbleIdol3_Gore1"), 1f);
             }
@@ -230,20 +170,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/MarbleIdols/MarbleIdol3/MarbleIdol3_Gore3"), 1f);
             int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/MarbleIdols/MarbleIdol3/MarbleIdol3_Gore4"), 1f);
 
-
             for (int i = 0; i <= 20; i++)
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
 
-
-
-
-
             return true;
         }
-
-
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -252,37 +185,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 return .2f;
             }
 
-
             return 0f;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -1,15 +1,13 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.Utilities;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.ClassTypes;
 
 namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
     public class AngryFaic : Flair
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angry Faic");
@@ -24,8 +22,6 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             item.accessory = true;
         }
 
-
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statDefense += 2;
@@ -37,14 +33,10 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             player.aggro += 450;
         }
 
-
-
         public override int ChoosePrefix(UnifiedRandom rand)
         {
             return rand.Next(new int[] { PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick, PrefixID.Violent, PrefixID.Warding, PrefixID.Hard, PrefixID.Guarding, PrefixID.Armored, PrefixID.Precise, PrefixID.Jagged, PrefixID.Spiked, PrefixID.Angry, PrefixID.Brisk, PrefixID.Fleeting, PrefixID.Hasty, PrefixID.Wild, PrefixID.Rash, PrefixID.Intrepid, PrefixID.Arcane });
         }
-
-
 
         public override void AddRecipes()
         {
@@ -55,7 +47,6 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
     }
 }

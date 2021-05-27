@@ -1,25 +1,19 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Specialized;
 
 namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 {
     public class WoodenIdol1 : ModNPC
     {
-
-        bool Left = false;
-        bool Right = true;
-        bool Spin = false;
-
+        private bool Left = false;
+        private bool Right = true;
+        private bool Spin = false;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wooden Idol");
-
         }
 
         public override void SetDefaults()
@@ -41,32 +35,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 npc.lifeMax *= 2;
                 npc.damage *= 2;
                 npc.defense *= 2;
-
             }
-
-
-
         }
 
         public override void AI()
         {
-
             Rotation(npc);
             MovementSpeed(npc);
             Jumping(npc);
 
             npc.spriteDirection = npc.direction;
-
         }
-
 
         private void MovementSpeed(NPC npc)
         {
             npc.TargetClosest(true);
 
             Vector2 target = Main.player[npc.target].Center - npc.Center;
-
-
 
             if (Spin)
             {
@@ -78,7 +63,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
             else
             {
@@ -90,11 +74,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 target *= MoveSpeedMult;
 
                 npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-
             }
-
-
-
         }
 
         private void Jumping(NPC npc)
@@ -106,7 +86,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump").WithPitchVariance(.7f), npc.position);
 
-
                     if (!Left && Right && !Spin)
                     {
                         Left = true;
@@ -117,7 +96,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                         Left = false;
                         Right = true;
                     }
-
                 }
                 else
                 {
@@ -134,12 +112,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                         Left = false;
                         Right = true;
                     }
-
-
-
                 }
             }
-
         }
 
         private void Rotation(NPC npc)
@@ -149,7 +123,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 npc.rotation += MathHelper.ToRadians(1);
 
                 npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
-
             }
             else if (Left && !Spin)
             {
@@ -163,12 +136,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 npc.rotation += MathHelper.ToRadians(30) * npc.spriteDirection;
                 Spin = true;
             }
-
-
         }
-
-
-
 
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -176,24 +144,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.t_LivingWood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
-
         }
-
 
         public override bool CheckDead()
         {
-
-            int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) , mod.GetGoreSlot("Gores/Idols/WoodenIdols/WoodenIdol1/WoodenIdol1_Gore1"), 1f);
+            int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/WoodenIdols/WoodenIdol1/WoodenIdol1_Gore1"), 1f);
             int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/WoodenIdols/WoodenIdol1/WoodenIdol1_Gore2"), 1f);
 
-            for(int i = 0; i <= 20; i++)
+            for (int i = 0; i <= 20; i++)
             {
                 Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.t_LivingWood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
-
-
-
-
 
             return true;
         }
@@ -214,46 +175,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 && player.ZoneOverworldHeight;
         }
 
-
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             Player player = Main.player[Main.myPlayer];
             if (PlayerIsInForest(player))
             {
                 return 0.1f;
-
             }
 
             return 0f;
-
         }
-
 
         #region NPCLoot
 
         public override void NPCLoot()
         {
-
             Item.NewItem(npc.getRect(), ItemID.Wood, 5);
-
-
         }
 
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #endregion NPCLoot
     }
 }

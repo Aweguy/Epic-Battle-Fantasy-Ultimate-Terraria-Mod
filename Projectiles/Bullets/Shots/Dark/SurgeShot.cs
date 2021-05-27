@@ -1,7 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
 {
@@ -38,20 +38,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
                 }
             }
 
-
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
-
         }
-
-
-
-
-
-
 
         public override void Kill(int timeLeft)
         {
@@ -59,13 +49,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             Main.PlaySound(SoundID.Item10, projectile.position);
 
-
-            
-                    
-            int a = Projectile.NewProjectile(projectile.Center.X , projectile.Center.Y , 0f, 0f, mod.ProjectileType("SurgeFissure"), 70, 0, projectile.owner);
-                
-
-
+            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("SurgeFissure"), 70, 0, projectile.owner);
         }
     }
 }

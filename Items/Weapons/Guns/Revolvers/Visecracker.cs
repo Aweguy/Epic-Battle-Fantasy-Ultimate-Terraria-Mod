@@ -1,21 +1,15 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class Visecracker : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Visecracker");
             Tooltip.SetDefault("Puts the bullet's weight into every shot\nDeals melee damage.");
         }
-
 
         public override void SetDefaults()
         {
@@ -35,16 +29,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shootSpeed = 10f;
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item41;
-
-
         }
-
-
-
-
-
-
-
-
     }
 }

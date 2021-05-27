@@ -1,20 +1,17 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Buffs.Debuffs;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
     public class BoneBlade : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bone Blade");
             Tooltip.SetDefault("Also known as the Macabre Machete, and the Rib Rapier.\nWeakens targets on hit.");
         }
-
 
         public override void SetDefaults()
         {
@@ -33,13 +30,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useTurn = true;
         }
 
-
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(ModContent.BuffType<Weaken>(), 60 * 5);
         }
-
-
 
         public override void AddRecipes()
         {
@@ -50,21 +44,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -1,25 +1,23 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 {
     public class ZirconExplosion : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zircon Explosion");
             Main.projFrames[projectile.type] = 8;
         }
 
-        int timer2 = 1;
-        int shrink = 0;
-        int baseWidth;
-        int baseHeight;
+        private int timer2 = 1;
+        private int shrink = 0;
+        private int baseWidth;
+        private int baseHeight;
 
         public override void SetDefaults()
         {
@@ -45,14 +43,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
             else
             {
                 target.AddBuff(BuffID.Chilled, 60 * 5);
-            }    
+            }
         }
-
-
 
         public override void AI()
         {
-
             Vector2 oldSize = projectile.Size;
 
             timer2--;
@@ -62,7 +57,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
                 if (shrink < 5)
                 {
                     projectile.scale += 0.1f;
-
 
                     projectile.width = (int)(baseWidth * projectile.scale);
                     projectile.height = (int)(baseHeight * projectile.scale);
@@ -74,7 +68,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
                 {
                     projectile.scale -= 0.05f;
 
-
                     projectile.width = (int)(baseWidth * projectile.scale);
                     projectile.height = (int)(baseHeight * projectile.scale);
                     projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
@@ -82,8 +75,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
                     timer2 = 1;
                 }
             }
-
-
 
             if (++projectile.frameCounter >= 3)
             {
@@ -93,10 +84,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
                     projectile.Kill();
                 }
             }
-
         }
-
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
@@ -111,19 +99,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 
             //return true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

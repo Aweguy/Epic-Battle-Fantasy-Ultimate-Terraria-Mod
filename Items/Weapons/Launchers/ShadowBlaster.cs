@@ -1,13 +1,8 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -33,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 19f;
@@ -51,13 +46,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             return true;
         }
 
-
-
         public override Vector2? HoldoutOffset()
         {
-
             return new Vector2(-50, -10);
-
         }
 
         public override void AddRecipes()

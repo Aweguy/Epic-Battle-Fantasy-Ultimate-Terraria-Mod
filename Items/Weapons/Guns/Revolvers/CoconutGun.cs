@@ -1,27 +1,17 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class CoconutGun : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Coconut Gun");
             Tooltip.SetDefault("A gun for smaller primates, storable in barrels for easy access.\nFires in 4 shot bursts and converts musket balls to peanuts.");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -44,18 +34,16 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 11f;
             item.useStyle = ItemUseStyleID.HoldingOut;
-
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
-			{
-				type = mod.ProjectileType("Peanut"); // or ProjectileID.FireArrow;
-			}
-			return true; // return true to allow tmodloader to call Projectile.NewProjectile as normal
-		}
-
+        {
+            if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
+            {
+                type = mod.ProjectileType("Peanut"); // or ProjectileID.FireArrow;
+            }
+            return true; // return true to allow tmodloader to call Projectile.NewProjectile as normal
+        }
 
         public override void AddRecipes()
         {
@@ -67,9 +55,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
     }
 }

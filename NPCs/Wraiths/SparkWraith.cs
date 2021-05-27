@@ -1,35 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
     public class SparkWraith : ModNPC
     {
-
-
-
-        
-        int timer = 10;   //The timer that makes the first projectile be shot.
-        int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
-        int timer3 = 120; //The timer that defines when the Sparkle will be shot.
-        int shootTimer = 60; //The timer that sets the shoot bool to false again.
-        bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
-
-
+        private int timer = 10;   //The timer that makes the first projectile be shot.
+        private int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+        private int timer3 = 120; //The timer that defines when the Sparkle will be shot.
+        private int shootTimer = 60; //The timer that sets the shoot bool to false again.
+        private bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spark Wraith");
         }
-
 
         public override void SetDefaults()
         {
@@ -42,14 +30,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             npc.defense = 50;
             npc.lifeRegen = 4;
 
-
             npc.aiStyle = 22;
             aiType = NPCID.Wraith;
             npc.noTileCollide = true;
-
-
-
-
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -57,22 +40,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             target.AddBuff(BuffID.OnFire, 45 * 2);
         }
 
-
-
         #region AI
 
         public override void AI()
         {
-
             Player player = Main.player[npc.target]; //Target
             int proj;
             int proj2;
             int proj3;
 
             Dust.NewDustDirect(npc.position, npc.width, npc.height, 6, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
-
-            
-
 
             #region Movement Direction
 
@@ -89,7 +66,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 npc.direction = npc.oldDirection;
             }
 
-
             if (npc.direction == 1)
             {
                 npc.spriteDirection = 1;
@@ -99,30 +75,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 npc.spriteDirection = -1;
             }
 
-            #endregion
-
+            #endregion Movement Direction
 
             #region Shooting
 
             timer--;
-
 
             if (timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
             {
                 shoot = true;
             }
 
-
-
-
             if (timer <= 0) //If timer is 0 or less it shoots.
             {
-
                 if (player.statLife > 0)
                 {
-
-
-
                     if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
                     {
                         proj = Projectile.NewProjectile(new Vector2(npc.Center.X + 22f, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
@@ -131,26 +98,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                     {
                         proj = Projectile.NewProjectile(new Vector2(npc.Center.X - 31f, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
                     }
-
-
-
                 }
 
                 timer = 120; //Resetting the timer to 120 ticks (2 seconds).
             }
 
-
-
             timer2--; // Same logic as the first timer.
-
 
             if (timer2 <= 0)
             {
-
                 if (player.statLife > 0)
                 {
-
-
                     if (npc.direction == 1)
                     {
                         proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y - 2f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
@@ -161,34 +119,22 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                     }
                 }
 
-
                 timer2 = 120;
             }
 
-
-
             timer3--;
 
-
-            if(timer3 <= 0)
+            if (timer3 <= 0)
             {
-                if(player.statLife > 0)
+                if (player.statLife > 0)
                 {
                     proj3 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
                 }
 
-
                 timer3 = 360;
             }
 
-
-
-
-
-
-
-            #endregion
-
+            #endregion Shooting
 
             #region Logic Control
 
@@ -196,8 +142,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             {
                 shootTimer--;
             }
-
-
 
             if (shootTimer <= 0) //If it becomes 0 or less, reset the shoot bool to false.
             {
@@ -211,15 +155,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 npc.velocity.X *= 0.9f;
             }
 
-            #endregion
-
-
+            #endregion Logic Control
         }
-        #endregion
 
-
-
-
+        #endregion AI
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -228,10 +167,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 return 0.03f;
             }
 
-
             return 0f;
         }
-
 
         #region NPCLoot
 
@@ -243,14 +180,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("SilkScrap"), Main.rand.Next(2) + 1);
             }
-
         }
 
-        #endregion
-
-
-
-
-
+        #endregion NPCLoot
     }
 }

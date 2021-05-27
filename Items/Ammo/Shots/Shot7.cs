@@ -1,14 +1,12 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 
 namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 {
     public class Shot7 : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hellfire Canisters");
@@ -32,20 +30,10 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.ammo = mod.ItemType("Shot");
         }
 
-
-
-
         public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
-            if(weapon.type == mod.ItemType("HellfireShotgun"))
-            damage += 30;
+            if (weapon.type == mod.ItemType("HellfireShotgun"))
+                damage += 30;
         }
-
-
-
-
-
-
-
     }
 }

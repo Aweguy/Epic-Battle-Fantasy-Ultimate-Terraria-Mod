@@ -1,29 +1,23 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
 	public class RedCannonBehind : ModProjectile
 	{
-
-		int ShootTimer = 60;//Determines when the cannon will shoot
-		int damage;//The damage of the projectiles
-		int ShotNum = 0;//Number of shots
-		int ShootInterv = 30;//The interval between shots
-		bool Shoot = false;//Determines if the cannon will shoot
-		float distance;// the distance of the player and the npc.
-		float rotDistance;//The distance between the player and the npc for the rotation of the cannon 
-		float projectileSpeed = 10f;
-		Vector2 projectileVelocity;
-		Vector2 modifiedTargetPosition;
-		Vector2 modifiedRotTargetPosition;
-
+		private int ShootTimer = 60;//Determines when the cannon will shoot
+		private int damage;//The damage of the projectiles
+		private int ShotNum = 0;//Number of shots
+		private int ShootInterv = 30;//The interval between shots
+		private bool Shoot = false;//Determines if the cannon will shoot
+		private float distance;// the distance of the player and the npc.
+		private float rotDistance;//The distance between the player and the npc for the rotation of the cannon
+		private float projectileSpeed = 10f;
+		private Vector2 projectileVelocity;
+		private Vector2 modifiedTargetPosition;
+		private Vector2 modifiedRotTargetPosition;
 
 		public override void SetStaticDefaults()
 		{
@@ -44,14 +38,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			projectile.tileCollide = false;
 		}
 
-
 		public override void AI()
 		{
 			NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
 
 			Player target = Main.player[npc.target];
 
-			projectile.Center = new Vector2(npc.Center.X + 9 * npc.spriteDirection , npc.Center.Y + 22);
+			projectile.Center = new Vector2(npc.Center.X + 9 * npc.spriteDirection, npc.Center.Y + 22);
 
 			rotDistance = (target.position - npc.position).Length();// Calculating the distance
 
@@ -65,7 +58,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 			{
 				projectile.Kill();
 			}
-
 
 			if (npc.life <= 0)
 			{
@@ -85,7 +77,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
 
 					damage = 30;
-
 				}
 				else if (ShotNum == 2)
 				{
@@ -105,14 +96,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 
 				if (ShotNum < 2)
 				{
-
 					ShootTimer = 35;
 				}
 				else if (ShotNum == 2)
 				{
 					ShootTimer = 70;
 					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeTarget").WithPitchVariance(.2f).WithVolume(.7f), projectile.position);
-
 				}
 				else
 				{

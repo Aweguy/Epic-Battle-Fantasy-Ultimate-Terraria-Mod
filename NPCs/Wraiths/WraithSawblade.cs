@@ -1,197 +1,209 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
-	internal sealed class WraithSawblade : ModNPC
-	{
-		private readonly float moveSpeed = 6f;
-		//private readonly float rotationSpeed = 0.13f;
-		private int lifetime = 60 * 20;
+    internal sealed class WraithSawblade : ModNPC
+    {
+        private readonly float moveSpeed = 6f;
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sawblade");
-			Main.npcFrameCount[npc.type] = 4;
-		}
-		public override void SetDefaults()
-		{
-			// You might want to play with the width and the height of the NPC a bit to get the required visuals.
-			npc.width = npc.height = 36;
+        //private readonly float rotationSpeed = 0.13f;
+        private int lifetime = 60 * 20;
 
-			npc.scale = 1.2f;
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Sawblade");
+            Main.npcFrameCount[npc.type] = 4;
+        }
 
-			npc.damage = 40;
-			npc.lifeMax = 100;
-			npc.knockBackResist = 0f;
+        public override void SetDefaults()
+        {
+            // You might want to play with the width and the height of the NPC a bit to get the required visuals.
+            npc.width = npc.height = 36;
 
-			npc.noGravity = true;
-			npc.behindTiles = true;
-			npc.noTileCollide = true;
-			npc.dontTakeDamage = true;
+            npc.scale = 1.2f;
 
-			drawOffsetY = -2f;
-		}
+            npc.damage = 40;
+            npc.lifeMax = 100;
+            npc.knockBackResist = 0f;
 
-		public override bool PreAI()
-		{
+            npc.noGravity = true;
+            npc.behindTiles = true;
+            npc.noTileCollide = true;
+            npc.dontTakeDamage = true;
 
-			lifetime--;
+            drawOffsetY = -2f;
+        }
 
-			if(lifetime <= 0)
-			{
-				npc.life = 0;
-			}
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (Main.rand.NextFloat(1f) <= 0.4f)
+            {
+                target.AddBuff(ModContent.BuffType<RampantBleed>(), 60 * 3);
+            }
+        }
 
-			// First update only.
-			// We want to target the closest player and set directionY to 1.
-			// This is because the AI of this NPC is dependent on its 'npc.direction' and 'npc.directionY' variables.
-			if (npc.ai[0] == 0f)
-			{
-				npc.ai[0] = 1f;
+        public override bool PreAI()
+        {
+            lifetime--;
 
-				npc.TargetClosest();
-				npc.directionY = 1;
-			}
+            if (lifetime <= 0)
+            {
+                npc.life = 0;
+            }
 
-			// This 'if' statement and its appended 'else' are responsible for changing which way this NPC is heading.
-			// This is done by checking the relevant 'npc.collideX' and 'npc.collideY' variables.
-			if (npc.ai[1] == 0f)
-			{
-				// Increment rotation.
-				// If you want a faster or slower rotation, you'll want to change the 'rotationSpeed' value at the top of this class.
-				//npc.rotation += (npc.direction * npc.directionY) * rotationSpeed;
+            // First update only.
+            // We want to target the closest player and set directionY to 1.
+            // This is because the AI of this NPC is dependent on its 'npc.direction' and 'npc.directionY' variables.
+            if (npc.ai[0] == 0f)
+            {
+                npc.ai[0] = 1f;
 
-				if (npc.collideY)
-				{
-					npc.ai[0] = 2f;
-				}
-				else if (npc.ai[0] == 2f)
-				{
-					npc.direction *= -1;
+                npc.TargetClosest();
+                npc.directionY = 1;
+            }
 
-					npc.ai[0] = npc.ai[1] = 1f;
-				}
+            // This 'if' statement and its appended 'else' are responsible for changing which way this NPC is heading.
+            // This is done by checking the relevant 'npc.collideX' and 'npc.collideY' variables.
+            if (npc.ai[1] == 0f)
+            {
+                // Increment rotation.
+                // If you want a faster or slower rotation, you'll want to change the 'rotationSpeed' value at the top of this class.
+                //npc.rotation += (npc.direction * npc.directionY) * rotationSpeed;
 
-				if (npc.collideX)
-				{
-					npc.directionY *= -1;
+                if (npc.collideY)
+                {
+                    npc.ai[0] = 2f;
+                }
+                else if (npc.ai[0] == 2f)
+                {
+                    npc.direction *= -1;
 
-					npc.ai[1] = 1f;
-				}
-			}
-			else
-			{
-				// Same here are before, except it's rotating the other way.
-				//npc.rotation -= (npc.direction * npc.directionY) * rotationSpeed;
+                    npc.ai[0] = npc.ai[1] = 1f;
+                }
 
-				if (npc.collideX)
-				{
-					npc.ai[0] = 2f;
-				}
-				else if (npc.ai[0] == 2f)
-				{
-					npc.directionY *= -1;
+                if (npc.collideX)
+                {
+                    npc.directionY *= -1;
 
-					npc.ai[0] = 1f;
-					npc.ai[1] = 0f;
-				}
+                    npc.ai[1] = 1f;
+                }
+            }
+            else
+            {
+                // Same here are before, except it's rotating the other way.
+                //npc.rotation -= (npc.direction * npc.directionY) * rotationSpeed;
 
-				if (npc.collideY)
-				{
-					npc.direction *= -1;
+                if (npc.collideX)
+                {
+                    npc.ai[0] = 2f;
+                }
+                else if (npc.ai[0] == 2f)
+                {
+                    npc.directionY *= -1;
 
-					npc.ai[1] = 0f;
-				}
-			}
+                    npc.ai[0] = 1f;
+                    npc.ai[1] = 0f;
+                }
 
-			// After all collision and direction checking, set the velocity of this NPC based on those checks using 'npc.direction' and 'npc.directionY'.
-			npc.velocity = new Vector2(npc.direction, npc.directionY) * moveSpeed;
+                if (npc.collideY)
+                {
+                    npc.direction *= -1;
 
-			return (false);
-		}
+                    npc.ai[1] = 0f;
+                }
+            }
 
-		public override void PostAI()
-		{
-			SlopeCollision();
-			OffsetCollision();
-		}
+            // After all collision and direction checking, set the velocity of this NPC based on those checks using 'npc.direction' and 'npc.directionY'.
+            npc.velocity = new Vector2(npc.direction, npc.directionY) * moveSpeed;
 
-		public override void FindFrame(int frameHeight)
-		{
-			if (++npc.frameCounter >= 2)
-			{
-				npc.frameCounter = 0;
-				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
-			}
-		}
+            return (false);
+        }
 
-		// Overriding PreDraw to draw around NPC origin, instead of some arbitrary value.
-		// Important to make sure the NPC is being drawn correctly around its own center, so it looks like it's half behind tiles.
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
-			Texture2D texture = Main.npcTexture[npc.type];
-			Vector2 origin = npc.frame.Size() / 2;
+        public override void PostAI()
+        {
+            SlopeCollision();
+            OffsetCollision();
+        }
 
-			SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        public override void FindFrame(int frameHeight)
+        {
+            if (++npc.frameCounter >= 2)
+            {
+                npc.frameCounter = 0;
+                npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
+            }
+        }
 
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+        // Overriding PreDraw to draw around NPC origin, instead of some arbitrary value.
+        // Important to make sure the NPC is being drawn correctly around its own center, so it looks like it's half behind tiles.
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Texture2D texture = Main.npcTexture[npc.type];
+            Vector2 origin = npc.frame.Size() / 2;
 
-			DrawData data = new DrawData(texture, npc.Center - Main.screenPosition, npc.frame, drawColor * npc.Opacity, npc.rotation, origin, npc.scale, effects, 0);
+            SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
-			data.Draw(spriteBatch);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			//spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0f);
+            DrawData data = new DrawData(texture, npc.Center - Main.screenPosition, npc.frame, drawColor * npc.Opacity, npc.rotation, origin, npc.scale, effects, 0);
 
-			return false;
-		}
+            data.Draw(spriteBatch);
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
-			Main.spriteBatch.End();
-			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-		}
+            //spriteBatch.Draw(texture, npc.Center - Main.screenPosition, npc.frame, drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0f);
 
-		private void SlopeCollision()
-		{
-			Vector4 vector = Collision.WalkDownSlope(npc.position, npc.velocity, npc.width, npc.height, 0.3f);
-			npc.position = new Vector2(vector.X, vector.Y);
-			npc.velocity = new Vector2(vector.Z, vector.W);
-		}
+            return false;
+        }
 
-		private void OffsetCollision()
-		{
-			npc.oldVelocity = npc.velocity;
-			npc.collideX = npc.collideY = false;
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+        }
 
-			int widthOffset = 12;
-			int heightOffset = 12;
-			Vector2 pos = npc.Center - new Vector2(widthOffset / 2, heightOffset / 2);
-			npc.velocity = Collision.noSlopeCollision(pos, npc.velocity, widthOffset, heightOffset, true, true);
+        private void SlopeCollision()
+        {
+            Vector4 vector = Collision.WalkDownSlope(npc.position, npc.velocity, npc.width, npc.height, 0.3f);
+            npc.position = new Vector2(vector.X, vector.Y);
+            npc.velocity = new Vector2(vector.Z, vector.W);
+        }
 
-			if (Collision.up)
-			{
-				npc.velocity.Y = 0.01f;
-			}
+        private void OffsetCollision()
+        {
+            npc.oldVelocity = npc.velocity;
+            npc.collideX = npc.collideY = false;
 
-			if (npc.oldVelocity.X != npc.velocity.X)
-			{
-				npc.collideX = true;
-			}
-			if (npc.oldVelocity.Y != npc.velocity.Y)
-			{
-				npc.collideY = true;
-			}
+            int widthOffset = 12;
+            int heightOffset = 12;
+            Vector2 pos = npc.Center - new Vector2(widthOffset / 2, heightOffset / 2);
+            npc.velocity = Collision.noSlopeCollision(pos, npc.velocity, widthOffset, heightOffset, true, true);
 
-			npc.oldPosition = npc.position;
-			npc.oldDirection = npc.direction;
-		}
-	}
+            if (Collision.up)
+            {
+                npc.velocity.Y = 0.01f;
+            }
+
+            if (npc.oldVelocity.X != npc.velocity.X)
+            {
+                npc.collideX = true;
+            }
+            if (npc.oldVelocity.Y != npc.velocity.Y)
+            {
+                npc.collideY = true;
+            }
+
+            npc.oldPosition = npc.position;
+            npc.oldDirection = npc.direction;
+        }
+
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
+        }
+    }
 }

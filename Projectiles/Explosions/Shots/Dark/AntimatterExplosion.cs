@@ -1,14 +1,10 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 {
     public class AntimatterExplosion : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Antimatter Explosion");
@@ -30,12 +26,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 
             projectile.localNPCHitCooldown = -1;
             projectile.usesLocalNPCImmunity = true;
-
         }
 
         public override void AI()
         {
-
             if (++projectile.frameCounter >= 2)
             {
                 projectile.frameCounter = 0;

@@ -1,26 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.GameContent.Achievements;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
-
-
+using Terraria;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 {
-    
     public class Pulsar : ModProjectile
     {
-        int timer2 = 0;
-        int timer = 1;
-        int timer3 = 5;
-        int DrainTimer = 60;
-        float SuckRange = 160f;
-
-
-
+        private int timer2 = 0;
+        private int timer = 1;
+        private int timer3 = 5;
+        private int DrainTimer = 60;
+        private float SuckRange = 160f;
 
         public override void SetStaticDefaults()
         {
@@ -29,8 +20,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
         }
 
         #region SetDefaults
-        int baseWidth;
-        int baseHeight;
+
+        private int baseWidth;
+        private int baseHeight;
+
         public override void SetDefaults()
         {
             projectile.width = 24;
@@ -47,37 +40,27 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             drawOriginOffsetY = 3;
             baseWidth = projectile.width;
             baseHeight = projectile.height;
-
         }
-        #endregion
 
-
+        #endregion SetDefaults
 
         #region AI
 
         public override void AI()
         {
-
-
-
             Color drawColor = Color.Black;
             if (Main.rand.Next(2) == 0)
             {
                 drawColor = Color.Red;
             }
 
-
             Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 0, drawColor, 1f);
-
-
 
             Vector2 oldSize = projectile.Size;
             // In Multi Player (MP) This code only runs on the client of the projectile's owner, this is because it relies on mouse position, which isn't the same across all clients.
             if (Main.myPlayer == projectile.owner && projectile.ai[0] == 0f)
             {
-
                 Player player = Main.player[projectile.owner];
-
 
                 var epicPlayer = EpicPlayer.ModPlayer(player);
 
@@ -109,136 +92,98 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
                     projectile.velocity = vectorToCursor;
 
-
-
-
-
                     #region Sucking Target
 
                     Vector2 targetCenter = projectile.position;
 
-
-                    #endregion
-
-
-
-
+                    #endregion Sucking Target
 
                     DrainTimer--;
 
-                    if(DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent > 0)
+                    if (DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent > 0)
                     {
                         player.GetModPlayer<EpicPlayer>().LimitCurrent--;
 
                         DrainTimer = 60;
-
                     }
-                    else if(DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
+                    else if (DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
                     {
                         projectile.Kill();
 
                         DrainTimer = 60;
                     }
 
-
                     timer--;
-
-
-
 
                     if (player.HasBuff(mod.BuffType("HasteBuff")))
                     {
-                            if (projectile.width <= 150)
-                            {
-                                projectile.scale = projectile.scale + 0.2f;
-                                SuckRange = SuckRange + (0.5f * 16f);
-                            }
-                            else if (projectile.width <= 325 && projectile.width > 150)
-                            {
-                                projectile.scale = projectile.scale + 0.1f;
-                                SuckRange = SuckRange + (0.25f * 16f);
+                        if (projectile.width <= 150)
+                        {
+                            projectile.scale = projectile.scale + 0.2f;
+                            SuckRange = SuckRange + (0.5f * 16f);
                         }
-                            else
-                            {
-                                projectile.scale = projectile.scale + 0.05f;
-                                SuckRange = SuckRange + (0.125f * 16f);
-                            }
-                            timer = 1;
-                            projectile.width = (int)(baseWidth * projectile.scale);
-                            projectile.height = (int)(baseHeight * projectile.scale);
-                            projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
-                        
+                        else if (projectile.width <= 325 && projectile.width > 150)
+                        {
+                            projectile.scale = projectile.scale + 0.1f;
+                            SuckRange = SuckRange + (0.25f * 16f);
+                        }
+                        else
+                        {
+                            projectile.scale = projectile.scale + 0.05f;
+                            SuckRange = SuckRange + (0.125f * 16f);
+                        }
+                        timer = 1;
+                        projectile.width = (int)(baseWidth * projectile.scale);
+                        projectile.height = (int)(baseHeight * projectile.scale);
+                        projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
                     }
                     else
                     {
-                        
-                        
-                            if (projectile.width <= 150)
-                            {
-                                projectile.scale = projectile.scale + 0.1f;
-                                SuckRange = SuckRange + (0.25f * 16f);
-                            }
-                            else if (projectile.width <= 325 && projectile.width > 150)
-                            {
-                                projectile.scale = projectile.scale + 0.05f;
-                                SuckRange = SuckRange + (0.125f * 16f);
-                            }
-                            else
-                            {
-                                projectile.scale = projectile.scale + 0.025f;
-                                SuckRange = SuckRange + (0.0625f * 16f);
-                            }
-                            timer = 1;
-                            projectile.width = (int)(baseWidth * projectile.scale);
-                            projectile.height = (int)(baseHeight * projectile.scale);
-                            projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
-                        
+                        if (projectile.width <= 150)
+                        {
+                            projectile.scale = projectile.scale + 0.1f;
+                            SuckRange = SuckRange + (0.25f * 16f);
+                        }
+                        else if (projectile.width <= 325 && projectile.width > 150)
+                        {
+                            projectile.scale = projectile.scale + 0.05f;
+                            SuckRange = SuckRange + (0.125f * 16f);
+                        }
+                        else
+                        {
+                            projectile.scale = projectile.scale + 0.025f;
+                            SuckRange = SuckRange + (0.0625f * 16f);
+                        }
+                        timer = 1;
+                        projectile.width = (int)(baseWidth * projectile.scale);
+                        projectile.height = (int)(baseHeight * projectile.scale);
+                        projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
                     }
 
-
-
                     #region Sucking
-
-                    
-
-
 
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
 
-
                         float between = Vector2.Distance(npc.Center, projectile.Center);
 
                         bool inRange = between < SuckRange;
-
 
                         if (!(npc.boss || npc.friendly || npc.townNPC) && inRange)
                         {
                             npc.velocity = npc.DirectionTo(projectile.Center) * 10f;
                         }
-
-
                     }
 
-                    #endregion
-
-
-
-
-
+                    #endregion Sucking
                 }
                 // If the player stops channeling, do something else.
                 else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)
                 {
+                    projectile.timeLeft = 1;
 
-
-
-
-
-                    projectile.timeLeft = 1;   
-                    
-                    if(timer2 == 0)
+                    if (timer2 == 0)
                     {
                         projectile.tileCollide = false;
                         // Set to transparent. This projectile technically lives as  transparent for about 3 frames
@@ -263,7 +208,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                             projectile.width += 500;
                             projectile.height += 500;
                             projectile.damage = (700 + projectile.width) * 5;
-                        }                      
+                        }
                         projectile.Center = projectile.position;
                         //projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
                         //projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
@@ -279,12 +224,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                     projectile.frame = 0;
                 }
             }
-
         }
-        #endregion
 
+        #endregion AI
 
         #region Kill
+
         public override void Kill(int timeLeft)
         {
             // Fire Dust spawn
@@ -315,7 +260,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                     dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Black, 2.5f);
                 }
             }
-               
+
             // Large Smoke Gore spawn
             // reset size to normal width and height.
             projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
@@ -324,16 +269,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             projectile.height = 10;
             projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
             projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-            
-            
-
-          
         }
-        #endregion
 
-
+        #endregion Kill
 
         #region PreDraw
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -342,6 +283,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
             return false;
         }
-        #endregion
+
+        #endregion PreDraw
     }
 }

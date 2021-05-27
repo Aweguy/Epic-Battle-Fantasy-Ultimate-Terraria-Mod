@@ -1,9 +1,6 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush
 {
@@ -13,9 +10,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
         {
             DisplayName.SetDefault("Blue Paint");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -33,22 +27,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
             target.AddBuff(BuffID.Wet, 60 * 2);
             target.AddBuff(BuffID.Confused, 60 * 2);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

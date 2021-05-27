@@ -1,8 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using static Terraria.ModLoader.ModContent;
-
 
 namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
@@ -16,7 +13,6 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
             player.endurance += 0.25f;
         }
     }

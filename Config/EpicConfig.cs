@@ -1,12 +1,10 @@
 ﻿#region Using directives
 
+using Microsoft.Xna.Framework;
 using System.ComponentModel;
-
 using Terraria.ModLoader.Config;
 
-using Microsoft.Xna.Framework;
-
-#endregion
+#endregion Using directives
 
 namespace EpicBattleFantasyUltimate.Config
 {
@@ -24,16 +22,10 @@ namespace EpicBattleFantasyUltimate.Config
         [Label("Flair Slot Vertical Stack")]
         public bool VerticalStack { get; set; }
 
-
         [DefaultValue(typeof(Vector2), "500,500")]
-        [Range(0f,1902f)]
+        [Range(0f, 1902f)]
         [Label("Limit Break Bar Position")]
         [Tooltip("The Postition of the Limit Break Bar")]
-
         public Vector2 LimitBarPosition { get; set; }
-
-
-
-
     }
 }

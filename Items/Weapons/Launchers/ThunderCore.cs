@@ -1,19 +1,13 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
     public class ThunderCore : EpicLauncher
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thunder Core");
@@ -29,14 +23,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useAnimation = 30;
             item.reuseDelay = 20;
 
-
             item.damage = 55;
             item.crit = 1;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 14f;

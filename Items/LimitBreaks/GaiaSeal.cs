@@ -1,129 +1,101 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EpicBattleFantasyUltimate.ClassTypes;
-using EpicBattleFantasyUltimate.Buffs.Buffs;
-using System.Collections.Generic;
-using EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth;
 
 namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 {
-	public class GaiaSeal : LimitItem
-	{
+    public class GaiaSeal : LimitItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Gaia's Seal");
+            Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger with each unique boss defeated");
+        }
 
+        public override void SetSafeDefaults()
+        {
+            item.width = 100;
+            item.height = 100;
 
+            item.damage = 100;
+            item.magic = true;
+            //item.mana = 100;
+            LimitCost = 100;
+            item.buffType = ModContent.BuffType<BlessedBuff>();
+            item.buffTime = 60 * 60;
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gaia's Seal");
-			Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger with each unique boss defeated");
-		}
+            item.shoot = ModContent.ProjectileType<MotherEarth>();
+            item.shootSpeed = 0f;
 
-		public override void SetSafeDefaults()
-		{
-			item.width = 100;
-			item.height = 100;
+            item.useTime = 60;
+            item.useAnimation = 60;
+            item.useStyle = ItemUseStyleID.SwingThrow;
 
-			item.damage = 100;
-			item.magic = true;
-			//item.mana = 100;
-			LimitCost = 100;
-			item.buffType = ModContent.BuffType<BlessedBuff>();
-			item.buffTime = 60 * 60;
+            //item.channel = true; //Channel so that you can held the weapon [Important]
+        }
 
-			item.shoot = ModContent.ProjectileType<MotherEarth>();
-			item.shootSpeed = 0f;
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
 
-			item.useTime = 60;
-			item.useAnimation = 60;
-			item.useStyle = ItemUseStyleID.SwingThrow;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            //Rainbow Line
 
-			//item.channel = true; //Channel so that you can held the weapon [Important]
+            var line = new TooltipLine(mod, "Gaia's Seal", "LIMIT BREAK!!!")
+            {
+                overrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
+            };
+            tooltips.Add(line);
+        }
 
+        public override bool UseItem(Player player)
+        {
+            for (int i = 0; i < Player.MaxBuffs; ++i)
+            {
+                if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
+                {
+                    player.DelBuff(i);
+                    i--;
+                }
+            }
 
-		}
+            player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 10);
 
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
 
-		public override Color? GetAlpha(Color lightColor)
-		{
-			return Color.White;
-		}
+                if (!Main.npc[i].active)
+                {
+                    continue;
+                }
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			//Rainbow Line
+                npc.AddBuff(BuffID.Poisoned, 60 * 600);
 
-			var line = new TooltipLine(mod, "Gaia's Seal", "LIMIT BREAK!!!")
-			{
-				overrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
-			};
-			tooltips.Add(line);
-		}
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    player.ApplyDamageToNPC(Main.npc[i], item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+                }
+            }
 
+            return true;
+        }
 
-		public override bool UseItem(Player player)
-		{
-		   for (int i = 0; i < Player.MaxBuffs; ++i)
-			{
-				if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
-				{
-					player.DelBuff(i);
-					i--;
-				}
-			}
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[ModContent.ProjectileType<MotherEarth>()] < 1 && base.CanUseItem(player);
+        }
 
-			player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 10);
-
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-
-				NPC npc = Main.npc[i];
-
-				if (!Main.npc[i].active)
-				{
-					continue;
-				}
-
-
-				npc.AddBuff(BuffID.Poisoned, 60 * 600);
-
-				if (player.whoAmI == Main.myPlayer)
-				{
-					player.ApplyDamageToNPC(Main.npc[i], item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
-				}
-
-			}
-
-			return true;
-		}
-
-
-		public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[ModContent.ProjectileType<MotherEarth>()] < 1 && base.CanUseItem(player);
-		}
-
-
-		/*public override void HoldItem(Player player)
+        /*public override void HoldItem(Player player)
 		{
 			item.damage = 100 + (100 * EpicWorld.bossesDefeated);
-
-
 		}*/
-
-
-
-
-
-
-
-
-
-
-
-
-	}
+    }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 {
@@ -16,14 +14,14 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
         public override void SetDefaults()
         {
-            item.useStyle= ItemUseStyleID.HoldingOut;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.useAnimation = 10;
             item.useTime = 10;
             item.shootSpeed = 24f;
             item.knockBack = 7f;
             item.width = 16;
             item.height = 16;
-            item.rare= ItemRarityID.Pink;
+            item.rare = ItemRarityID.Pink;
             item.value = Item.sellPrice(0, 1, 0, 0);
             item.noMelee = true;
             item.noUseGraphic = true;

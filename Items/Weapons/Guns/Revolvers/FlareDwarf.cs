@@ -1,24 +1,19 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class FlareDwarf : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flare Dwarf");
             Tooltip.SetDefault("Made for a madman, each round is backed by enough fluid and power to level a small building.");
         }
-
 
         public override void SetDefaults()
         {
@@ -43,10 +38,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-
-
-
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -57,17 +48,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

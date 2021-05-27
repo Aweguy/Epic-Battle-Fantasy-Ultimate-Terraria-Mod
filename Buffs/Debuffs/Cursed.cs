@@ -1,16 +1,11 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.NPCs;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.NPCs;
 
 namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class Cursed : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Cursed");
@@ -26,36 +21,22 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 
         public override bool ReApply(NPC npc, int time, int buffIndex)
         {
-
             npc.GetGlobalNPC<EpicGlobalNPC>().CursedStacks++;
             return false;
         }
 
-
         public override void Update(Player player, ref int buffIndex)
         {
-
             player.GetModPlayer<EpicPlayer>().numberOfDrawableBuffs++;
-
 
             player.GetModPlayer<EpicPlayer>().Cursed = true;
         }
 
         public override bool ReApply(Player player, int time, int buffIndex)
         {
-
             player.GetModPlayer<EpicPlayer>().CursedStacks++;
 
             return false;
         }
-
-
-
-
-
-
-
-
-
     }
 }

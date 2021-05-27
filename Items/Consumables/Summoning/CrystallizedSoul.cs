@@ -1,17 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
-using System;
-
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 {
     public class CrystallizedSoul : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crystallized Soul");
@@ -30,16 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
             item.rare = ItemRarityID.Purple;
             item.maxStack = 99;
             item.consumable = true;
-
-
         }
-
-
-
-
-
-
-
 
         public override bool CanUseItem(Player player)
         {
@@ -67,8 +54,5 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 
             return true;
         }
-
-
-
     }
 }

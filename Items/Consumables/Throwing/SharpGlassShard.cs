@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Consumables.Throwing
 {
     public class SharpGlassShard : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sharp Glass Shard");
@@ -38,21 +34,10 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Throwing
             item.UseSound = SoundID.Item1;
         }
 
-
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(mod.BuffType("RampantBleed"), 60 * 10);
         }
-
-
-
-
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -62,7 +47,6 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Throwing
             recipe.AddTile(TileID.AlchemyTable);
             recipe.SetResult(this, 100);
             recipe.AddRecipe();
-
         }
     }
 }

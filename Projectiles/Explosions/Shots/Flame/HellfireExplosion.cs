@@ -1,16 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.GameContent.Achievements;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 {
     public class HellfireExplosion : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hellfire Explosion");
@@ -31,12 +25,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 
             projectile.localNPCHitCooldown = -1;
             projectile.usesLocalNPCImmunity = true;
-
         }
 
         public override void AI()
         {
-
             if (++projectile.frameCounter >= 1)
             {
                 projectile.frameCounter = 0;
@@ -45,10 +37,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                     projectile.Kill();
                 }
             }
-
         }
-
-
-
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
     public class GaiaAxe : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gaia's Axe");
@@ -30,7 +26,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useAnimation = 30;
             item.UseSound = SoundID.Item1;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            
 
             item.value = Item.sellPrice(gold: 10);
             item.rare = ItemRarityID.Red;
@@ -39,7 +34,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override bool OnlyShootOnSwing => true;
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -47,7 +41,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override bool CanUseItem(Player player)
         {
-
             if (player.altFunctionUse == 2)
             {
                 item.width = 64;
@@ -64,11 +57,9 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.UseSound = SoundID.Item1;
                 item.useStyle = ItemUseStyleID.SwingThrow;
 
-
                 item.value = Item.sellPrice(gold: 10);
                 item.rare = ItemRarityID.Red;
                 item.autoReuse = true;
-
             }
             else
             {
@@ -86,20 +77,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 item.UseSound = SoundID.Item1;
                 item.useStyle = ItemUseStyleID.SwingThrow;
 
-
                 item.value = Item.sellPrice(gold: 10);
                 item.rare = ItemRarityID.Cyan;
                 item.autoReuse = true;
             }
 
-
             return player.ownedProjectileCounts[ModContent.ProjectileType<GaiaAxeProj>()] < 1;
-
         }
-
-
-
-
-
     }
 }

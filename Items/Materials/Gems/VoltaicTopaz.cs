@@ -1,13 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 {
     public class VoltaicTopaz : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Voltaic Topaz");
@@ -34,9 +32,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
     }
 }

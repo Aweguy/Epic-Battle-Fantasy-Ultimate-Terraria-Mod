@@ -1,24 +1,18 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster;
 
 namespace EpicBattleFantasyUltimate.Items.SignatureItems
 {
     public class ScarletCaster : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scarlet Caster");
             Tooltip.SetDefault("A torch-like staff that shoots two fireballs and a seeking firebat\n[c/FF0000:By Nab]");
             Item.staff[item.type] = true;
         }
-
 
         public override void SetDefaults()
         {
@@ -37,10 +31,8 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.shootSpeed = 9.6f;
         }
 
-
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("HellwingV2"), damage, knockBack, player.whoAmI, 0f, 0f);
 
             int degrees = Main.rand.Next(10);
@@ -53,20 +45,6 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false;
-
         }
-
-
-       
-
-
-
-
-
-
-
-
-
-
     }
 }

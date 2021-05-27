@@ -11,7 +11,6 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 {
     public class MagicChewToy : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magic Chew Toy");
@@ -28,10 +27,5 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             item.shoot = ModContent.ProjectileType<MagicPuppy>();
             item.buffType = ModContent.BuffType<MagicPuppyBuff>();
         }
-
-
-
-
-
     }
 }*/

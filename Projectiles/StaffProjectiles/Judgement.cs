@@ -1,33 +1,34 @@
 ﻿#region Using
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.Enums;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
+
 using EpicBattleFantasyUltimate.Buffs.Buffs;
 using EpicBattleFantasyUltimate.Dusts;
-#endregion
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
+
+#endregion Using
 
 namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 {
 	public class Judgement : ModProjectile
 	{
+		#region Variables and Constants
 
-        #region Variables and Constants
-        private const float MAX_CHARGE = 40f;
+		private const float MAX_CHARGE = 40f;
+
 		//The distance charge particle from the player center
 		public float MOVE_DISTANCE = 20f;
 
 		// The actual distance is stored in the ai0 field
 		// By making a property to handle this it makes our life easier, and the accessibility more readable
 		public float Distance = 2500;
+
 		//{
-			//get => projectile.ai[0];
-			//set => projectile.ai[0] = value;
+		//get => projectile.ai[0];
+		//set => projectile.ai[0] = value;
 		//}
 
 		// The actual charge value is stored in the localAI0 field
@@ -39,27 +40,29 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 		public bool IsAtMaxCharge => Charge == MAX_CHARGE;
 
-		float scaled = 5f;//Used for the animation illusion
-		float increaseY = 0f; //It increases the Y axis of the dust spawning
-		float increaseY2 = 0f;//Same as above
-		float WaveFrequency = 70f;//Dust spawning wave frequency on both spawners
-		float WaveLength = 100f;//Dust Spawning wave length on both spawners
-		float beamWidth = 100f;//Collision hitbox.
-		float offDistance = 0.6f;//Distance Reduction
+		private float scaled = 5f;//Used for the animation illusion
+		private float increaseY = 0f; //It increases the Y axis of the dust spawning
+		private float increaseY2 = 0f;//Same as above
+		private float WaveFrequency = 70f;//Dust spawning wave frequency on both spawners
+		private float WaveLength = 100f;//Dust Spawning wave length on both spawners
+		private float beamWidth = 100f;//Collision hitbox.
+		private float offDistance = 0.6f;//Distance Reduction
 
-		Vector2 position;//the initial position of the laser
-		Vector2 spriterotation = new Vector2(0,-1);//rotation of the laser to look up
+		private Vector2 position;//the initial position of the laser
+		private Vector2 spriterotation = new Vector2(0, -1);//rotation of the laser to look up
 
-		int timer = 0;//So the ground detection AI runs only once so the laser is not moving.
-		int timer2 = 0;//Dust spawning timer for the feathers
-		int timer3 = 0;//Dust spawning for the bubbles
-		int animation = 0;//Sets 0 or 1 for a small animation.
-        #endregion
+		private int timer = 0;//So the ground detection AI runs only once so the laser is not moving.
+		private int timer2 = 0;//Dust spawning timer for the feathers
+		private int timer3 = 0;//Dust spawning for the bubbles
+		private int animation = 0;//Sets 0 or 1 for a small animation.
 
-        public override void SetStaticDefaults()
+		#endregion Variables and Constants
+
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Judgement");
 		}
+
 		public override void SetDefaults()
 		{
 			projectile.width = 0;
@@ -74,8 +77,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			projectile.hide = true;
 		}
 
-		
-
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			if (!IsAtMaxCharge)//When it's not at max charge have a small laser beam
@@ -83,14 +84,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				scaled = 1f;
 				MOVE_DISTANCE = 4f;
 			}
-			else if(IsAtMaxCharge && projectile.timeLeft <= 80)//if it's at max charge and some time has passed reduce its scale.
+			else if (IsAtMaxCharge && projectile.timeLeft <= 80)//if it's at max charge and some time has passed reduce its scale.
 			{
 				scaled -= 0.06f;
 				MOVE_DISTANCE -= 0.24f;
 			}
 			else//The animation while damaging
 			{
-				if(animation == 0)
+				if (animation == 0)
 				{
 					scaled = 5.5f;
 					animation = 1;
@@ -101,9 +102,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					scaled = 5f;
 					animation = 0;
 					MOVE_DISTANCE = 20f;
-				}		
+				}
 			}
-			if(scaled <= 0f)
+			if (scaled <= 0f)
 			{
 				projectile.Kill();
 			}
@@ -124,7 +125,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				Color c = Color.White;
 				origin = start + i * unit;
 
-				spriteBatch.Draw(texture, origin - Main.screenPosition, new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r,	new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+				spriteBatch.Draw(texture, origin - Main.screenPosition, new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
 			}
 
 			// Draws the laser 'tail'
@@ -158,12 +159,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			target.immune[projectile.owner] = 5;
 		}
 
-
-
 		public override void AI()
 		{
-
 			#region Ground Detection
+
 			Player player = Main.player[projectile.owner];
 			if (timer == 0)
 			{
@@ -171,18 +170,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				int num234 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
 				if (player.gravDir == -1f)
 				{
-				   num234 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
+					num234 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
 				}
 				for (; num234 < Main.maxTilesY && Main.tile[num233, num234] != null && !WorldGen.SolidTile2(num233, num234) && Main.tile[num233 - 1, num234] != null && !WorldGen.SolidTile2(num233 - 1, num234) && Main.tile[num233 + 1, num234] != null && !WorldGen.SolidTile2(num233 + 1, num234); num234++)
 				{
 				}
-				
-		   
-				 projectile.position = new Vector2((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16));
-				 position = projectile.position;
-				 timer--;
+
+				projectile.position = new Vector2((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16));
+				position = projectile.position;
+				timer--;
 			}
-			#endregion
+
+			#endregion Ground Detection
 
 			#region Beam Shrinking
 
@@ -195,7 +194,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				beamWidth = 100f;
 			}
 
-			#endregion
+			#endregion Beam Shrinking
 
 			// By separating large AI into methods it becomes very easy to see the flow of the AI in a broader sense
 			// First we update player variables that are needed to channel the laser
@@ -205,7 +204,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 			UpdatePlayer(player);
 			ChargeLaser(player);
-
 
 			SetLaserPosition(player);
 			SpawnDusts(player);
@@ -222,10 +220,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			{
 				for (int i = 0; i < 1; ++i)
 				{
+					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f);
 
-					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f); 
-
-					Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0 , Color.White)];
+					Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
 					dust.noGravity = true;
 					dust.scale = 1.2f;
 					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
@@ -236,14 +233,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					dust.color = Color.White;
 					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
 				}
-
 			}
 			else
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-
-					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f); 
+					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f);
 
 					Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, 226, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
 					dust.noGravity = true;
@@ -266,12 +261,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					dust2.scale = 0.88f;
 					dust2.color = Color.White;
 					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-
 				}
-
 			}
 
-			#endregion
+			#endregion generalDust
 
 			#region Feathers
 
@@ -287,7 +280,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			if (timer2 == 40)
 			{
 				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Spells/Judgement").WithPitchVariance(1f).WithVolume(.2f), projectile.position);
-
 
 				for (int i = 0; i < 85; ++i)
 				{
@@ -308,13 +300,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					dust.alpha += 2;
 					dust.color = Color.Cyan;
 				}
-
 			}
 
-			#endregion
+			#endregion Feathers
 
 			#region SpiralDust
-
 
 			if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
 			{
@@ -323,7 +313,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			else
 			{
 				timer3++;
-
 			}
 
 			if (timer3 >= 40)
@@ -339,14 +328,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					dust.noGravity = true;
 					dust.scale = 0.88f;
 					dust.color = Color.Cyan;
-
 				}
 
 				if (increaseY < Distance)//Moving the spiral up
 				{
 					increaseY += 10;
 				}
-
 			}
 
 			if (timer3 >= 40)
@@ -362,7 +349,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					dust2.noGravity = true;
 					dust2.scale = 0.88f;
 					dust2.color = Color.Cyan;
-
 				}
 
 				if (increaseY2 < Distance)//Moving the spiral up
@@ -371,14 +357,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				}
 			}
 
-
-			#endregion
-
+			#endregion SpiralDust
 		}
 
 		/*
 		 * Sets the end of the laser position based on where it collides with something
 		 */
+
 		private void SetLaserPosition(Player player)
 		{
 			for (Distance = MOVE_DISTANCE; Distance <= 2500f; Distance += 1f)
@@ -393,7 +378,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					}
 					else if (IsAtMaxCharge && projectile.timeLeft <= 80)
 					{
-
 						Distance -= 50f - offDistance;
 						offDistance += 0.6f;
 						break;
@@ -409,21 +393,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 		private void ChargeLaser(Player player)
 		{
-				if (Charge < MAX_CHARGE)
+			if (Charge < MAX_CHARGE)
+			{
+				if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
 				{
-					if(player.HasBuff(ModContent.BuffType<HasteBuff>()))
-					{
-						Charge += 2;
-					}
-					else
-					{
-						Charge++;
-
-					}
-
+					Charge += 2;
 				}
+				else
+				{
+					Charge++;
+				}
+			}
 		}
-
 
 		private void UpdatePlayer(Player player)
 		{
@@ -446,6 +427,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
 			Utils.PlotTileLine(position, position + spriterotation * (Distance - MOVE_DISTANCE), 50, DelegateMethods.CastLight);
 		}
-
 	}
 }

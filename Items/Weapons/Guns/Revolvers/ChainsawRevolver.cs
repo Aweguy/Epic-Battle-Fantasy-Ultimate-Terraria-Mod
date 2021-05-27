@@ -1,22 +1,16 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class ChainsawRevolver : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chainsaw Revolver");
             Tooltip.SetDefault("Now with extra safety warnings and no sharp edges!");
         }
-
 
         public override void SetDefaults()
         {
@@ -33,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 1);
-            item.rare= ItemRarityID.Pink;
+            item.rare = ItemRarityID.Pink;
 
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item41;
@@ -41,10 +35,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shootSpeed = 11f;
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -55,7 +45,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

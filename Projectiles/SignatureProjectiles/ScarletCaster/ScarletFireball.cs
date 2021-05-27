@@ -1,11 +1,7 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using EpicBattleFantasyUltimate;
-using System;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster
 {
@@ -15,8 +11,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
         {
             DisplayName.SetDefault("Scarlet Fireball");
         }
-
-
 
         public override void SetDefaults()
         {
@@ -31,15 +25,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             projectile.timeLeft = 1000;
         }
 
-
-
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 240);
         }
-
-
 
         public override void AI()
         {
@@ -47,7 +36,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = projectile.position;
             dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1f);
-
         }
 
         public override void Kill(int timeLeft)
@@ -56,16 +44,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
 
             Vector2 position = projectile.position;
 
-
-
             for (int i = 0; i < 10; i++)
             {
                 dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1.25f);
-            }               
+            }
         }
-
-
-
-
     }
 }

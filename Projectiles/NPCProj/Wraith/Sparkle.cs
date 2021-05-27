@@ -1,21 +1,13 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class Sparkle : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sparkle");
         }
-
-
 
         public override void SetDefaults()
         {
@@ -28,23 +20,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.alpha = 100;
             aiType = 15;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

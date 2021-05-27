@@ -1,13 +1,12 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
 {
-    public class AntimatterShot :  ModProjectile
+    public class AntimatterShot : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Antimatter Shot");
@@ -26,19 +25,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
             aiType = ProjectileID.Bullet;
         }
 
-
-
         public override void AI()
         {
-
-
-
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
-
-
 
             if (++projectile.frameCounter >= 4)
             {
@@ -50,28 +41,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
             }
         }
 
-
-
-
         public override void Kill(int timeLeft)
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-            
-
 
             int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AntimatterFissure"), projectile.damage, 0, projectile.owner);
-
-
-
         }
-
-
-
-
-
-
-
-
     }
 }

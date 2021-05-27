@@ -1,16 +1,12 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
-
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
     public class BoneShot : ModProjectile
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bone Spike");
@@ -30,39 +26,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
             projectile.friendly = false;
             projectile.tileCollide = false;
             projectile.alpha = 100;
-            
         }
-
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 2 * 60);
         }
-        
-
-
 
         public override void AI()
         {
-
             Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 6, 0.2631578f, -2.368421f, 0, Color.Orange, 0.5f);
 
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -17,7 +17,6 @@
     <Reference Include="PresentationCore" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Projectiles\Minions\OreMinions\" />
     <Folder Include="Shading\" />
   </ItemGroup>
 </Project>

@@ -1,21 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-
-
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 {
     public class FlameBurstExplosion : ModProjectile
     {
-        int timer = 2;
-        int timer2 = 1;
-        int shrink = 0;
-
+        private int timer = 2;
+        private int timer2 = 1;
+        private int shrink = 0;
 
         public override void SetStaticDefaults()
         {
@@ -23,8 +18,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             Main.projFrames[projectile.type] = 13;
         }
 
-        int baseWidth;
-        int baseHeight;
+        private int baseWidth;
+        private int baseHeight;
 
         public override void SetDefaults()
         {
@@ -44,9 +39,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 
             projectile.localNPCHitCooldown = -1;
             projectile.usesLocalNPCImmunity = true;
-
         }
-
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -66,19 +59,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = projectile.position;
                 dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, new Color(255, 251, 0), 1.25f);
-
-
             }
-
 
             timer2--;
             shrink++;
-            if(timer2 == 0)
+            if (timer2 == 0)
             {
-                if(shrink < 5)
+                if (shrink < 5)
                 {
                     projectile.scale += 0.1f;
-
 
                     projectile.width = (int)(baseWidth * projectile.scale);
                     projectile.height = (int)(baseHeight * projectile.scale);
@@ -86,10 +75,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 
                     timer2 = 1;
                 }
-                else if(shrink>=5)
+                else if (shrink >= 5)
                 {
                     projectile.scale -= 0.05f;
-
 
                     projectile.width = (int)(baseWidth * projectile.scale);
                     projectile.height = (int)(baseHeight * projectile.scale);
@@ -98,11 +86,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                     timer2 = 1;
                 }
             }
-            
-
-
-
-
 
             timer--;
             if (timer == 0)
@@ -116,9 +99,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                 timer = 4;
             }
 
-
-
-
             if (++projectile.frameCounter >= 2)
             {
                 projectile.frameCounter = 0;
@@ -127,9 +107,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
                     projectile.Kill();
                 }
             }
-
         }
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {

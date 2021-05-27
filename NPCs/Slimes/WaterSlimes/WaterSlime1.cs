@@ -9,7 +9,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Slimes.WaterSlimes
 {
     public class WaterSlime1 : ModNPC
     {
-
         public override void SetDefaults()
         {
             npc.width = 36;
@@ -23,27 +22,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Slimes.WaterSlimes
             npc.aiStyle = 1;
             npc.noGravity = false;
             aiType = 1;
-
-
-
-
         }
-
 
         public override void AI()
         {
             npc.TargetClosest(true);
-            
+
             npc.spriteDirection = npc.direction;
-
         }
-
-
-
-
-
-
-
-
     }
 }*/

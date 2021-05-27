@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class SilkScrap : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Silk Scrap");
@@ -24,14 +20,6 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.value = Item.sellPrice(silver: 1);
             item.rare = ItemRarityID.Yellow;
             item.maxStack = 99;
-
-
         }
-
-
-
-
-
-
     }
 }

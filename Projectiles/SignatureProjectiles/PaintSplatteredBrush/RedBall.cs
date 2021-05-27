@@ -1,24 +1,13 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush
 {
     public class RedBall : ModProjectile
     {
-
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Red Paint");
         }
-
-
-
 
         public override void SetDefaults()
         {
@@ -30,31 +19,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
             projectile.penetrate = 1;
             projectile.tileCollide = true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

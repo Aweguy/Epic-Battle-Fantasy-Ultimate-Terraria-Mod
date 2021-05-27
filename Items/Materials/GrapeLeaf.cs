@@ -1,21 +1,16 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
-    public class GrapeLeaf :ModItem
+    public class GrapeLeaf : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Grape Leaf");
             Tooltip.SetDefault("You can use it to make dolmades. Mmmm... tasty");
         }
-
 
         public override void SetDefaults()
         {
@@ -25,15 +20,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.maxStack = 999;
             item.rare = ItemRarityID.Green;
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

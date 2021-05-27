@@ -1,75 +1,68 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
 using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 {
-	public class HeavensGate : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Heaven's Gate"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("A legendary sword belonging to a line of famed corsairs.");
-		}
+    public class HeavensGate : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Heaven's Gate"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+            Tooltip.SetDefault("A legendary sword belonging to a line of famed corsairs.");
+        }
 
-		public override void SetDefaults()
-		{
-			item.width = 64;
-			item.height = 64;
+        public override void SetDefaults()
+        {
+            item.width = 64;
+            item.height = 64;
 
-			item.damage = 100;
-			item.knockBack = 8f;
-			item.melee = true;
-			
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.autoReuse = true;
-			item.channel = true;
+            item.damage = 50;
+            item.knockBack = 8f;
+            item.melee = true;
 
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.autoReuse = true;
+            item.channel = true;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			
-			item.shootSpeed = 10f;
-			item.shoot = ModContent.ProjectileType<LightBlade>();
+            item.value = Item.sellPrice(gold: 10);
+            item.rare = ItemRarityID.Red;
+            item.UseSound = SoundID.Item1;
 
-		}
+            item.shootSpeed = 10f;
+            item.shoot = ModContent.ProjectileType<LightBlade>();
+        }
 
-		public override void MeleeEffects(Player player, Rectangle hitbox)
-		{
-			if (Main.rand.Next(3) == 0)
-			{
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
-			}
-				
-		}
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.Next(3) == 0)
+            {
+                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
+            }
+        }
 
-		public override bool OnlyShootOnSwing => true;
+        public override bool OnlyShootOnSwing => true;
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HallowedBar, 10);
-			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 20);
-			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 20);
-			recipe.AddIngredient(ModContent.ItemType<HolyGrail>());
-			recipe.AddIngredient(ItemID.SoulofLight, 45);
-			recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 3);
-			recipe.AddIngredient(ModContent.ItemType<AethersBlade>());
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-
-
-
-		
-	}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.HallowedBar, 10);
+            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 20);
+            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 20);
+            recipe.AddIngredient(ModContent.ItemType<HolyGrail>());
+            recipe.AddIngredient(ItemID.SoulofLight, 45);
+            recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 3);
+            recipe.AddIngredient(ModContent.ItemType<AethersBlade>());
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
 }

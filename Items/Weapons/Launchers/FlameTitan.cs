@@ -1,16 +1,11 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
-using EpicBattleFantasyUltimate.Items.Materials;
-using EpicBattleFantasyUltimate.ClassTypes;
-
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
@@ -22,7 +17,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             Tooltip.SetDefault("A mythical flamethrower capable of scouring ravening hordes. Untold magical power lies within.");
         }
 
-
         public override void SetSafeDefaults()
         {
             item.width = 108;
@@ -30,7 +24,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
             item.useTime = 80;
             item.useAnimation = 80;
-
 
             item.damage = 150;
             item.ranged = true;
@@ -54,8 +47,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             }
             return true;
         }
-
-
 
         public override Vector2? HoldoutOffset()
         {

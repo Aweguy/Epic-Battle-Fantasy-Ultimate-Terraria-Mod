@@ -1,13 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 {
     public class CyclonicEmerald : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cyclonic Emerald");
@@ -25,7 +23,6 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             item.scale = 0.8f;
         }
 
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -35,8 +32,5 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
     }
 }

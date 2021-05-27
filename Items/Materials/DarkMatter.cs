@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
@@ -18,21 +16,13 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
-
         public override void SetDefaults()
         {
             item.width = 24;
             item.height = 24;
             item.value = Item.sellPrice(gold: 1);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 99;
         }
-
-
-
-
-
-
-
     }
 }

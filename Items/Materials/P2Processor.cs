@@ -1,15 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace EpicBattleFantasyUltimate.Items.Materials
 {
     public class P2Processor : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("P2 Processor");
@@ -22,18 +18,8 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 30;
 
             item.value = Item.sellPrice(silver: 10);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
             item.maxStack = 999;
-
-
         }
-
-
-
-
-
-
-
-
     }
 }

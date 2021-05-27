@@ -1,14 +1,11 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.ID;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Consumables
 {
     public class ChilliPepper : LimitItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chilli Pepper");
@@ -24,12 +21,10 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.useAnimation = 10;
             item.useTurn = true;
 
-
             item.maxStack = 30;
             item.consumable = true;
             item.UseSound = SoundID.Item2;
         }
-
 
         public override bool UseItem(Player player)
         {
@@ -43,24 +38,10 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             return true;
         }
 
-
-
-
-
-
-
-
         public override bool CanUseItem(Player player)
         {
             int buff = mod.BuffType("BurntMouth");
             return !player.HasBuff(buff) && base.CanUseItem(player);
         }
-
-
-
-
-
-
-
     }
 }

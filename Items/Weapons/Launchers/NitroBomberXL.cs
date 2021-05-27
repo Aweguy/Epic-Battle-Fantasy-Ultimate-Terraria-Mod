@@ -1,19 +1,13 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Items.Ammo.Shots;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.ClassTypes;
-
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 {
     public class NitroBomberXL : EpicLauncher
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nitro Bomber XL");
@@ -28,14 +22,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.useTime = 70;
             item.useAnimation = 70;
 
-
             item.damage = 150;
             item.crit = 8;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 5);
-            item.rare= ItemRarityID.Purple;
+            item.rare = ItemRarityID.Purple;
 
             item.UseSound = SoundID.Item38;
             item.shootSpeed = 11f;
@@ -55,9 +48,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
         public override Vector2? HoldoutOffset()
         {
-
             return new Vector2(-50, -10);
-
         }
 
         public override void AddRecipes()

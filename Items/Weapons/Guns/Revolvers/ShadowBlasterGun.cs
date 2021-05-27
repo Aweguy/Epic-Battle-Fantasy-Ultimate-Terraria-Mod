@@ -1,23 +1,17 @@
-﻿using System;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using EpicBattleFantasyUltimate.Projectiles.Bullets;
-using static Terraria.ModLoader.ModContent;
-using EpicBattleFantasyUltimate.Items.Materials;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
     public class ShadowBlasterGun : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Revolver");
             Tooltip.SetDefault("'Oh my god, it’s full of stars.'\nUses bullets to fire\nHigh Critical Chance.");
         }
-
 
         public override void SetDefaults()
         {
@@ -27,14 +21,14 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.damage = 20;
             item.useTime = 10;
             item.useAnimation = 10;
-            
+
             item.crit = 10;
             item.knockBack = 5f;
             item.ranged = true;
             item.noMelee = true;
 
             item.value = Item.sellPrice(gold: 2);
-            item.rare= ItemRarityID.Pink;
+            item.rare = ItemRarityID.Pink;
 
             item.useAmmo = AmmoID.Bullet;
             item.UseSound = SoundID.Item41;
@@ -42,10 +36,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shootSpeed = 11f;
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -57,7 +47,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }
