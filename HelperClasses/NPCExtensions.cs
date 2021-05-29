@@ -13,5 +13,6 @@ namespace EpicBattleFantasyUltimate.HelperClasses
             npc.position.X = position.X - (int)(Math.Cos(npc.ai[1]) * distance) - npc.width / 2;
             npc.position.Y = position.Y - (int)(Math.Sin(npc.ai[1]) * distance) - npc.height / 2;
         }
+
     }
 }

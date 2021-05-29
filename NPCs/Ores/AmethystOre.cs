@@ -143,7 +143,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			Direction(npc);
 			Movement(npc, player);
 			Charging(npc);
-
 		}
 
 		#endregion AI
@@ -190,6 +189,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			target *= MoveSpeedMult;
 			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
+			//Smoot stop for the dash
 			if(Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
 			{
 				npc.velocity *= 0.90f;
@@ -201,7 +201,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				InRange = false;
 			}
 
-
+			//if it's max charged, dash towards the player
 			if (IsAtMaxCharge)
 			{
 				npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
@@ -211,6 +211,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				DashCooldown = MAX_DASH_COOLDOWN;
 			}
 
+			//cooldown reduction
 			if (IsOnCooldown)
 			{
 				DashCooldown--;

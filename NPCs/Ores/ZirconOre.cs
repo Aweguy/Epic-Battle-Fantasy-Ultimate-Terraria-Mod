@@ -9,6 +9,31 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
     public class ZirconOre : ModNPC
     {
+
+        private const float MAX_CHARGE = 40f;
+
+        private const int MAX_DASH_COOLDOWN = 60 * 10;
+        //the range of the ore starting to charge its attack
+        public float DashAttackRange = 16f * 15f;
+        // The actual charge value is stored in the localAI0 field
+        public float Charge
+        {
+            get => npc.localAI[0];
+            set => npc.localAI[0] = value;
+        }
+        //The speed of the dash
+        float DashSpeed = 17f;
+
+        float DashCooldown;
+
+        //When the ore is max charged or not
+        public bool IsAtMaxCharge => Charge == MAX_CHARGE;
+        //Whether the ore is in range or not
+        bool InRange;
+        //Whether the dash attack is on cooldown or not
+        bool IsOnCooldown => DashCooldown > 0;
+
+
         private Vector2 center;
 
         public override void SetStaticDefaults()
@@ -114,8 +139,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         public override void AI()
         {
+            Player player = Main.player[npc.target];
+
             Direction(npc);
-            Movement(npc);
+            Movement(npc, player);
+            Charging(npc);
         }
 
         #endregion AI
@@ -151,9 +179,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         #region Movement
 
-        private void Movement(NPC npc)
+        private void Movement(NPC npc, Player player)
         {
-            Vector2 target = Main.player[npc.target].Center - npc.Center;
+            Vector2 target = player.Center - npc.Center;
             float num1276 = target.Length(); //This seems totally useless, not used anywhere.
             float MoveSpeedMult = 4f; //How fast it moves and turns. A multiplier maybe?
             MoveSpeedMult += num1276 / 200f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
@@ -162,11 +190,48 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             target *= MoveSpeedMult;
             npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
+            //Smoot stop for the dash
+            if (Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
+            {
+                npc.velocity *= 0.90f;
+
+                InRange = true;
+            }
+            else
+            {
+                InRange = false;
+            }
+
+            //if it's max charged, dash towards the player
+            if (IsAtMaxCharge)
+            {
+                npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
+
+                Charge = 0;
+
+                DashCooldown = MAX_DASH_COOLDOWN;
+            }
+
+            //cooldown reduction
+            if (IsOnCooldown)
+            {
+                DashCooldown--;
+            }
+
+
             npc.noGravity = true;
             npc.TargetClosest(true);
         }
 
         #endregion Movement
+
+        private void Charging(NPC npc)
+        {
+            if (InRange && !IsOnCooldown)
+            {
+                Charge++;
+            }
+        }
 
         #region FindFrame
 
