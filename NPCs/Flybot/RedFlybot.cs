@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
             npc.width = 68;
             npc.height = 54;
 
-            npc.lifeMax = 140;
+            npc.lifeMax = 1400000;
             npc.damage = 25;
             npc.defense = 30;
             npc.value = 100;

@@ -24,6 +24,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		//The speed of the dash
 		float DashSpeed = 17f;
 
+		bool Dashing;
+
+		bool Stunned;
+
+		int StunnedDuration = 60 * 1;
+
 		float DashCooldown;
 
 		//When the ore is max charged or not
@@ -60,6 +66,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			//npc.life = 0;
+
+			if (Dashing)
+			{
+				Stunned = true;
+				StunnedDuration = 60 * 1;
+
+				npc.noGravity = false;
+				npc.noTileCollide = false;
+			}
 
 			#region Death Check
 
@@ -138,6 +153,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void AI()
 		{
+
 			Player player = Main.player[npc.target];
 
 			Direction(npc);
@@ -151,7 +167,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Direction(NPC npc)
 		{
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (npc.velocity.X > 0f) // npc is the code that makes the sprite turn. npcd on the vanilla one.
 			{
 				npc.direction = 1;
 			}
@@ -179,36 +195,42 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Movement(NPC npc, Player player)
 		{
-
-			Vector2 target =  player.Center - npc.Center;
-			float num1276 = target.Length();
-			float MoveSpeedMult = 7f; //How fast it moves and turns. A multiplier maybe?
-			MoveSpeedMult += num1276 / 100f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
-			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-			target *= MoveSpeedMult;
-			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
-
-			//Smoot stop for the dash
-			if(Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
+			if (!Stunned)
 			{
-				npc.velocity *= 0.90f;
+				Vector2 target = player.Center - npc.Center;
+				float num1276 = target.Length();
+				float MoveSpeedMult = 7f; //How fast it moves and turns. A multiplier maybe?
+				MoveSpeedMult += num1276 / 100f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+				int MoveSpeedBal = 100; //npc does the same as the above.... I do not understand.
+				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+				target *= MoveSpeedMult;
+				npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
-				InRange = true;
-			}
-			else
-			{
-				InRange = false;
-			}
+				//Smoot stop for the dash
+				if (Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
+				{
+					npc.velocity *= 0.90f;
 
-			//if it's max charged, dash towards the player
-			if (IsAtMaxCharge)
-			{
-				npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
+					InRange = true;
+				}
+				else
+				{
+					InRange = false;
+				}
 
-				Charge = 0;
+				//if it's max charged, dash towards the player
+				if (IsAtMaxCharge)
+				{
+					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
 
-				DashCooldown = MAX_DASH_COOLDOWN;
+					Charge = 0;
+
+					DashCooldown = MAX_DASH_COOLDOWN;
+
+					Dashing = true;
+				}
+
+				npc.noGravity = true;
 			}
 
 			//cooldown reduction
@@ -218,7 +240,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 
 
-			npc.noGravity = true;
 			npc.TargetClosest(true);
 		}
 

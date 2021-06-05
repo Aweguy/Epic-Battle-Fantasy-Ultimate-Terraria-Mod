@@ -272,7 +272,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 			if (EpicWorld.OreEvent)
 			{
 				maxSpawns *= 2;
-				spawnRate *= (int)0.5f;
+				spawnRate *= (int)0.7f;
 			}
 		}
 
