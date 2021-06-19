@@ -36,9 +36,19 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
 
-            item.shootSpeed = 10f;
+            item.shootSpeed = 8f;
             item.shoot = ModContent.ProjectileType<LightBlade>();
         }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            Vector2 Velocity = new Vector2(speedX, speedY);
+
+            Projectile.NewProjectile(Main.MouseWorld - (Vector2.Normalize(Velocity) * 100f), Vector2.Zero, type, damage, knockBack, player.whoAmI,speedX,speedY);
+
+            return false;
+        }
+
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -48,21 +58,10 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             }
         }
 
+
+
+
         public override bool OnlyShootOnSwing => true;
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HallowedBar, 10);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 20);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 20);
-            recipe.AddIngredient(ModContent.ItemType<HolyGrail>());
-            recipe.AddIngredient(ItemID.SoulofLight, 45);
-            recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 3);
-            recipe.AddIngredient(ModContent.ItemType<AethersBlade>());
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

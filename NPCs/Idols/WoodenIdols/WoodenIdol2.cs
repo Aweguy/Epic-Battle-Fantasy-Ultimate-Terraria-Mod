@@ -194,7 +194,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.player[Main.myPlayer];
-            if (PlayerIsInForest(player))
+            if (PlayerIsInForest(player) && Main.dayTime)
             {
                 return 0.1f;
             }

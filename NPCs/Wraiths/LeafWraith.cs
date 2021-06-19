@@ -207,9 +207,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         #endregion AI
 
+        public static bool PlayerIsInForest(Player player)
+        {
+            return !player.ZoneJungle
+                && !player.ZoneDungeon
+                && !player.ZoneCorrupt
+                && !player.ZoneCrimson
+                && !player.ZoneHoly
+                && !player.ZoneSnow
+                && !player.ZoneDesert
+                && !player.ZoneUndergroundDesert
+                && !player.ZoneGlowshroom
+                && !player.ZoneMeteor
+                && !player.ZoneBeach
+                && player.ZoneOverworldHeight;
+        }
+
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode == true && spawnInfo.player.ZoneJungle)
+            Player player = Main.player[Main.myPlayer];
+
+            if (Main.hardMode == true && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)))
             {
                 return 0.03f;
             }
@@ -221,11 +240,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         public override void NPCLoot()
         {
-            Item.NewItem(npc.getRect(), mod.ItemType("Wool"), 1);
+            Item.NewItem(npc.getRect(), ModContent.ItemType<Wool>(), 2);
+
+            Item.NewItem(npc.getRect(), ItemID.Silk);
+
 
             if (Main.rand.NextFloat() < .10f)
             {
-                Item.NewItem(npc.getRect(), mod.ItemType("SilkScrap"), Main.rand.Next(2) + 1);
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), Main.rand.Next(2) + 1);
             }
 
             if (Main.rand.NextFloat() < .20f)
