@@ -27,9 +27,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 0;
-			projectile.height = 0;
+			projectile.width = 14;
+			projectile.height = 14;
 			projectile.aiStyle = -1;
+
 
 			projectile.friendly = true;
 			projectile.penetrate = -1;
@@ -42,6 +43,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 			projectile.localNPCHitCooldown = -1;
 			projectile.usesLocalNPCImmunity = true;
+
+			projectile.scale = 1.3f;
 		}
 
 		public override void Kill(int timeLeft)
@@ -53,13 +56,28 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			}
 		}
 
+
+		public override bool CanDamage() //If it's not fully form, do not damage
+		{
+			if (projectile.frame == 4)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+		}
+
+
 		public override void AI()
 		{
 
-			if (!DistanceSet)
+			if (!DistanceSet)//Setting the distance of the projectile from the cursor.
 			{
 
-				SpawnPosition = Main.MouseWorld - Vector2.Normalize(new Vector2(projectile.ai[0], projectile.ai[1])) * 100f;
+				SpawnPosition = Main.MouseWorld - Vector2.Normalize(new Vector2(projectile.ai[0], projectile.ai[1])) * 80f;
 
 				SpawnDistanceFromClick = Vector2.Distance(SpawnPosition, Main.MouseWorld);
 				OldMouseWorld = Main.MouseWorld;
@@ -76,10 +94,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			}
 
 
-
+			#region animation and more
 			if (!Stop)
 			{
-				if (++projectile.frameCounter > 3)
+				if (++projectile.frameCounter > 2)
 				{
 					projectile.frameCounter = 0;
 
@@ -89,7 +107,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 					}
 					else if (projectile.frame == 4)
 					{
-						projectile.width = projectile.height = 14;
 
 						projectile.velocity = MoveSpeed;
 						Stop = true;
@@ -97,7 +114,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 				   
 					else if (projectile.frame > 4)
 					{
-						projectile.width = projectile.height = 0;
 
 						projectile.velocity = Vector2.Zero;
 
@@ -109,6 +125,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 				}
 			}
+
 			if (Stop)
 			{
 				if(Vector2.Distance(OldMouseWorld, projectile.Center) >= SpawnDistanceFromClick * 2f)
@@ -116,11 +133,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 					Stop = false;
 				}
 			}
+			#endregion
 
-			if (projectile.alpha >= 255)
-			{
-				projectile.Kill();
-			}
+
 
 			float velRotation = MoveSpeed.ToRotation();
 			projectile.rotation = velRotation + MathHelper.ToRadians(90f);

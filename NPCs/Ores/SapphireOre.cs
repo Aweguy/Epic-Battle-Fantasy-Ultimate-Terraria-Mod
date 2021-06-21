@@ -10,30 +10,32 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 	public class SapphireOre : ModNPC
 	{
 
-		private const float MAX_CHARGE = 40f;
-
-		private const int MAX_DASH_COOLDOWN = 60 * 10;
-		//the range of the ore starting to charge its attack
-		public float DashAttackRange = 16f * 15f;
-		// The actual charge value is stored in the localAI0 field
-		public float Charge
+		private enum OreState
 		{
-			get => npc.localAI[0];
-			set => npc.localAI[0] = value;
+			Chase = 0,//the state in which the ore only chases the player without dashing
+			Dash = 1,//the state in which the ore will charge its dash while chasing the player.
+			Stunned = 2//The state in which the ore will be stunned and unable to move.
 		}
-		//The speed of the dash
-		float DashSpeed = 17f;
 
-		float DashCooldown;
+		OreState State
+		{
+			get => (OreState)npc.ai[0];
+			set => npc.ai[0] = (float)value;
+		}
 
-		//When the ore is max charged or not
-		public bool IsAtMaxCharge => Charge == MAX_CHARGE;
-		//Whether the ore is in range or not
-		bool InRange;
-		//Whether the dash attack is on cooldown or not
-		bool IsOnCooldown => DashCooldown > 0;
+		float Attack
+		{
+			get => npc.ai[1];
+			set => npc.ai[1] = value;
+		}
 
-		private Vector2 center;
+		float AttackTimer
+		{
+			get => npc.ai[2];
+			set => npc.ai[2] = value;
+		}
+
+		bool Dashing = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -52,6 +54,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
+			npc.noGravity = true;
+
 			npc.noTileCollide = true;
 			npc.aiStyle = -1;
 		}
@@ -61,6 +65,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			//npc.life = 0;
+			#region Stunned
+
+			if (Dashing)
+			{
+				State = OreState.Stunned;
+
+				npc.noGravity = false;
+				npc.noTileCollide = false;
+
+
+				Dashing = false;
+
+				AttackTimer = 0;
+			}
+
+
+			#endregion
 
 			#region Death Check
 
@@ -91,14 +112,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 					{
 						leftRightCollision = true;
 					}
-
-					if (leftRightCollision)
+					if (State != OreState.Stunned)
 					{
-						npc.velocity.X *= -2;
+						if (leftRightCollision)
+						{
+							npc.velocity.X *= -2;
+						}
+						else
+						{
+							npc.velocity.Y *= -2;
+						}
+
 					}
 					else
 					{
-						npc.velocity.Y *= -2;
+						if (leftRightCollision)
+						{
+							npc.velocity.X *= -0.8f;
+						}
+						else
+						{
+							npc.velocity.Y *= -0.8f;
+						}
 					}
 				}
 			}
@@ -146,7 +181,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			Direction(npc);
 			Movement(npc, player);
-			Charging(npc);
 		}
 
 		#endregion AI
@@ -155,7 +189,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Direction(NPC npc)
 		{
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (npc.velocity.X > 0f) // npc is the code that makes the sprite turn. npcd on the vanilla one.
 			{
 				npc.direction = 1;
 			}
@@ -171,10 +205,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
+				if (State != OreState.Stunned)
+				{
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 			else if (npc.direction == -1)
 			{
 				npc.spriteDirection = -1;
+
+				if (State != OreState.Stunned)
+				{
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 		}
 
@@ -184,57 +227,104 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Movement(NPC npc, Player player)
 		{
-			Vector2 target =  player.Center - npc.Center;
-			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-			float MoveSpeedMult = 6f; //How fast it moves and turns. A multiplier maybe?
-			MoveSpeedMult += num1276 / 200f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
-			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-			target *= MoveSpeedMult;
-			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
-
-			//Smoot stop for the dash
-			if (Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
-			{
-				npc.velocity *= 0.90f;
-
-				InRange = true;
-			}
-			else
-			{
-				InRange = false;
-			}
-
-			//if it's max charged, dash towards the player
-			if (IsAtMaxCharge)
-			{
-				npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
-
-				Charge = 0;
-
-				DashCooldown = MAX_DASH_COOLDOWN;
-			}
-
-			//cooldown reduction
-			if (IsOnCooldown)
-			{
-				DashCooldown--;
-			}
-
-
-			npc.noGravity = true;
 			npc.TargetClosest(true);
+
+			if (!Dashing && State != OreState.Stunned)//This boolean shows when the ore is actually dashing. We check if it's not true so it only chases the player while not dashing
+			{
+				Vector2 target = player.Center - npc.Center;
+				float num1276 = target.Length();
+				float MoveSpeedMult = 9f; //How fast it moves and turns. A multiplier maybe?
+				MoveSpeedMult += num1276 / 100f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+				int MoveSpeedBal = 100; //npc does the same as the above.... I do not understand.
+				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+				target *= MoveSpeedMult;
+				npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
+
+			}
+
+
+			if (State == OreState.Chase)//Logic control for when to switch states from chasing to dashing.
+			{
+
+				if (++AttackTimer >= 60 * 5)
+				{
+					AttackTimer = 0;
+
+					State = OreState.Dash;
+
+					npc.netUpdate = true;
+				}
+
+			}
+			else if (State == OreState.Dash)//if the state of the ore is for dashing, then run this code.
+			{
+				if ((Vector2.Distance(player.Center, npc.Center) <= 16 * 25f && AttackTimer < 120))//Range control for the charging.
+				{
+					AttackTimer++;
+					npc.velocity *= 0.95f;//the slow down during the charge
+				}
+				else if (AttackTimer == 120)
+				{
+					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 13f;//the speed that the ore will dash towards the player
+
+
+					AttackTimer++;
+
+					Dashing = true;//Setting this to true since it's actually dashing
+
+				}
+				else if (AttackTimer > 120)
+				{
+					AttackTimer++;
+
+					if (AttackTimer >= 190)
+					{
+						AttackTimer = 0;
+
+						npc.velocity *= 0.25f;
+
+						if (++Attack >= 1)//resetting every variable related to the dash
+						{
+							Attack = 0;
+							Dashing = false;
+							State = OreState.Chase;//Back to player chasing state
+						}
+					}
+
+				}
+			}
+			else if (State == OreState.Stunned)//If the ore is stunned
+			{
+
+				AttackTimer++;
+
+				if (npc.collideX)//if it collides with walls
+				{
+					npc.velocity.X = -(npc.velocity.X * 0.5f);
+				}
+				if (npc.collideY)//if it collides with ground
+				{
+					npc.velocity.Y = -(npc.velocity.Y * 0.5f);
+				}
+
+				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;//rotation based on horizontal velocity
+
+
+				if (AttackTimer >= 60 * 3)
+				{
+					AttackTimer = 0;
+
+					npc.noGravity = true;
+					npc.noTileCollide = true;
+
+
+					State = OreState.Chase;//back to chasing
+				}
+
+			}
 		}
 
 		#endregion Movement
-
-		private void Charging(NPC npc)
-		{
-			if (InRange && !IsOnCooldown)
-			{
-				Charge++;
-			}
-		}
 
 		#region FindFrame
 

@@ -9,32 +9,32 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
 	public class AmethystOre_Dark : ModNPC
 	{
-		//The charge of the ore's dash attack
-		private const float MAX_CHARGE = 40f;
-
-		private const int MAX_DASH_COOLDOWN = 60 * 10;
-		//the range of the ore starting to charge its attack
-		public float DashAttackRange = 16f * 15f;
-		// The actual charge value is stored in the localAI0 field
-		public float Charge
+		private enum OreState
 		{
-			get => npc.localAI[0];
-			set => npc.localAI[0] = value;
+			Chase = 0,//the state in which the ore only chases the player without dashing
+			Dash = 1,//the state in which the ore will charge its dash while chasing the player.
+			Stunned = 2//The state in which the ore will be stunned and unable to move.
 		}
-		//The speed of the dash
-		float DashSpeed = 17f;
 
-		float DashCooldown;
+		OreState State
+		{
+			get => (OreState)npc.ai[0];
+			set => npc.ai[0] = (float)value;
+		}
 
-		//When the ore is max charged or not
-		public bool IsAtMaxCharge => Charge == MAX_CHARGE;
-		//Whether the ore is in range or not
-		bool InRange;
-		//Whether the dash attack is on cooldown or not
-		bool IsOnCooldown => DashCooldown > 0;
+		float Attack
+		{
+			get => npc.ai[1];
+			set => npc.ai[1] = value;
+		}
 
+		float AttackTimer
+		{
+			get => npc.ai[2];
+			set => npc.ai[2] = value;
+		}
 
-		private Vector2 center;
+		bool Dashing = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -53,6 +53,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.lifeRegen = 4;
 			npc.knockBackResist = -0.2f;
 
+			npc.noGravity = true;
+
 			npc.noTileCollide = true;
 			npc.aiStyle = -1;
 		}
@@ -63,6 +65,25 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		{
 			//npc.life = 0;
 
+			#region Stunned
+
+			if (Dashing)
+			{
+				State = OreState.Stunned;
+
+				npc.noGravity = false;
+				npc.noTileCollide = false;
+
+
+				Dashing = false;
+
+				AttackTimer = 0;
+			}
+
+
+			#endregion
+
+
 			#region Death Check
 
 			if (npc.life >= npc.lifeMax * 0.40)
@@ -71,10 +92,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				{
 					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<AmethystExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
-					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 					npc.life = 0;
 				}
@@ -105,10 +126,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			{
 				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<AmethystExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
-				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 				npc.life = 0;
 			}
@@ -144,7 +165,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			Direction(npc);
 			Movement(npc, player);
-			Charging(npc);
 		}
 
 		#endregion AI
@@ -153,7 +173,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Direction(NPC npc)
 		{
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (npc.velocity.X > 0f) // npc is the code that makes the sprite turn. npcd on the vanilla one.
 			{
 				npc.direction = 1;
 			}
@@ -169,10 +189,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
+				if (State != OreState.Stunned)
+				{
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 			else if (npc.direction == -1)
 			{
 				npc.spriteDirection = -1;
+
+				if (State != OreState.Stunned)
+				{
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 		}
 
@@ -182,58 +211,105 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void Movement(NPC npc, Player player)
 		{
-			Vector2 target = player.Center - npc.Center;
-			float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-			float MoveSpeedMult = 7f; //How fast it moves and turns. A multiplier maybe?
-			MoveSpeedMult += num1276 / 100f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-			int MoveSpeedBal = 100; //This does the same as the above.... I do not understand.
-			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-			target *= MoveSpeedMult;
-			npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
-
-			//Smoot stop for the dash
-			if (Vector2.Distance(player.Center, npc.Center) <= DashAttackRange && !IsOnCooldown)
-			{
-				npc.velocity *= 0.90f;
-
-				InRange = true;
-			}
-			else 
-			{
-				InRange = false;
-			}
-
-			//if it's max charged, dash towards the player
-			if (IsAtMaxCharge)
-			{
-				npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashSpeed;
-
-				Charge = 0;
-
-				DashCooldown = MAX_DASH_COOLDOWN;
-			}
-
-			//cooldown reduction
-			if (IsOnCooldown)
-			{
-				DashCooldown--;
-			}
-
-
-
-			npc.noGravity = true;
 			npc.TargetClosest(true);
+
+			if (!Dashing && State != OreState.Stunned)//This boolean shows when the ore is actually dashing. We check if it's not true so it only chases the player while not dashing
+			{
+				Vector2 target = player.Center - npc.Center;
+				float num1276 = target.Length();
+				float MoveSpeedMult = 7f; //How fast it moves and turns. A multiplier maybe?
+				MoveSpeedMult += num1276 / 100f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+				int MoveSpeedBal = 100; //npc does the same as the above.... I do not understand.
+				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+				target *= MoveSpeedMult;
+				npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
+
+			}
+
+
+			if (State == OreState.Chase)//Logic control for when to switch states from chasing to dashing.
+			{
+
+				if (++AttackTimer >= 60 * 5)
+				{
+					AttackTimer = 0;
+
+					State = OreState.Dash;
+
+					npc.netUpdate = true;
+				}
+
+			}
+			else if (State == OreState.Dash)//if the state of the ore is for dashing, then run this code.
+			{
+				if ((Vector2.Distance(player.Center, npc.Center) <= 16 * 20f && AttackTimer < 120))//Range control for the charging.
+				{
+					AttackTimer++;
+					npc.velocity *= 0.95f;//the slow down during the charge
+				}
+				else if (AttackTimer == 120)
+				{
+					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 12f;//the speed that the ore will dash towards the player
+
+
+					AttackTimer++;
+
+					Dashing = true;//Setting this to true since it's actually dashing
+
+				}
+				else if (AttackTimer > 120)
+				{
+					AttackTimer++;
+
+					if (AttackTimer >= 180)
+					{
+						AttackTimer = 0;
+
+						npc.velocity *= 0.25f;
+
+						if (++Attack >= 1)//resetting every variable related to the dash
+						{
+							Attack = 0;
+							Dashing = false;
+							State = OreState.Chase;//Back to player chasing state
+						}
+					}
+
+				}
+			}
+			else if (State == OreState.Stunned)
+			{
+
+				AttackTimer++;
+
+				if (npc.collideX)
+				{
+					npc.velocity.X = -(npc.velocity.X * 0.5f);
+				}
+				if (npc.collideY)
+				{
+					npc.velocity.Y = -(npc.velocity.Y * 0.5f);
+				}
+
+				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
+
+
+				if (AttackTimer >= 60 * 3)
+				{
+					AttackTimer = 0;
+
+					npc.noGravity = true;
+					npc.noTileCollide = true;
+
+
+					State = OreState.Chase;
+				}
+
+			}
 		}
 
 		#endregion Movement
 
-		private void Charging(NPC npc)
-		{
-			if (InRange && !IsOnCooldown)
-			{
-				Charge++;
-			}
-		}
 
 		#region FindFrame
 
@@ -250,10 +326,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override bool CheckDead()
 		{
-			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-			int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-			int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-			int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+			int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+			int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+			int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 			for (int i = 0; i <= 15; i++)
 			{

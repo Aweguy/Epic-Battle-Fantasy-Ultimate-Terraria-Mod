@@ -340,7 +340,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			// Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
 			// You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
-			float fullRotationInFrames = 360;
+			float fullRotationInFrames = 240;
 
 			if (Enraged)
 			{

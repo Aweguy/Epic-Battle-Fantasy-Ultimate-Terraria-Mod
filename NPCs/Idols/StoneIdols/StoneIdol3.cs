@@ -78,7 +78,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 
         private void Jumping(NPC npc)
         {
-            if (npc.velocity.Y == 0f)
+            if (npc.collideY)
             {
                 if (Main.rand.NextFloat() < .1f)
                 {

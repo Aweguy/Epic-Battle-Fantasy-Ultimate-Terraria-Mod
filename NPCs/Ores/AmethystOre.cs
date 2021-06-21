@@ -56,9 +56,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			npc.noGravity = true;
 
+			drawOffsetY = -5;
+
 			npc.noTileCollide = true;
 			npc.aiStyle = -1;
 		}
+
+
+		
+
 
 		#region OnHitPlayer
 
@@ -92,10 +98,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				{
 					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<AmethystExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
-					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+					int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+					int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+					int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+					int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 					npc.life = 0;
 				}
@@ -111,14 +117,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 					{
 						leftRightCollision = true;
 					}
-
-					if (leftRightCollision)
+					if (State != OreState.Stunned)
 					{
-						npc.velocity.X *= -2;
+						if (leftRightCollision)
+						{
+							npc.velocity.X *= -2;
+						}
+						else
+						{
+							npc.velocity.Y *= -2;
+						}
+
 					}
 					else
 					{
-						npc.velocity.Y *= -2;
+						if (leftRightCollision)
+						{
+							npc.velocity.X *= -0.8f;
+						}
+						else
+						{
+							npc.velocity.Y *= -0.8f;
+						}
 					}
 				}
 			}
@@ -126,10 +146,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			{
 				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<AmethystExplosion>(), 40, 5f, Main.myPlayer, 0, 1);
 
-				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+				int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+				int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+				int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+				int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 				npc.life = 0;
 			}
@@ -190,10 +210,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
+				if (State != OreState.Stunned)
+				{
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 			else if (npc.direction == -1)
 			{
 				npc.spriteDirection = -1;
+
+				if(State != OreState.Stunned)
+                {
+					npc.rotation = MathHelper.ToRadians(0);
+				}
 			}
 		}
 
@@ -202,6 +231,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		private void MovementAndDash(NPC npc, Player player)
 		{
+
 
 			npc.TargetClosest(true);
 
@@ -234,19 +264,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 			else if (State == OreState.Dash)//if the state of the ore is for dashing, then run this code.
 			{
-				if((Vector2.Distance(player.Center, npc.Center) <= 16 * 14f && AttackTimer < 120))//Range control for the charging.
+				if ((Vector2.Distance(player.Center, npc.Center) <= 16 * 20f && AttackTimer < 120))//Range control for the charging.
 				{
 					AttackTimer++;
 					npc.velocity *= 0.95f;//the slow down during the charge
-
-					if(Attack != 0)
-					{
-						//npc.position += npc.velocity;
-					}
 				}
 				else if (AttackTimer == 120)
 				{
-					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 10f;//the speed that the ore will dash towards the player
+					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 12f;//the speed that the ore will dash towards the player
 					
 
 					AttackTimer++;
@@ -258,7 +283,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				{
 					AttackTimer++;
 
-					if (AttackTimer >= 200)
+					if (AttackTimer >= 180)
 					{
 						AttackTimer = 0;
 
@@ -278,6 +303,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			{
 
 				AttackTimer++;
+
+                if (npc.collideX)
+                {
+					npc.velocity.X = -(npc.velocity.X * 0.5f);
+                }
+                if (npc.collideY)
+                {
+					npc.velocity.Y = -(npc.velocity.Y * 0.5f);
+                }
+
+				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
+
 
 				if(AttackTimer >= 60 * 3)
 				{
@@ -310,10 +347,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override bool CheckDead()
 		{
-			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore1"), 1f);
-			int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore2"), 1f);
-			int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore3"), 1f);
-			int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOres/AmethystOre_Gore4"), 1f);
+			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore1"), 1f);
+			int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore2"), 1f);
+			int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore3"), 1f);
+			int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/AmethystOre/AmethystOre_Gore4"), 1f);
 
 			for (int i = 0; i <= 15; i++)
 			{

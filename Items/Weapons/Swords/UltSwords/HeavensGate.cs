@@ -26,8 +26,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.knockBack = 8f;
             item.melee = true;
 
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 18;
+            item.useAnimation = 18;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.autoReuse = true;
             item.channel = true;
@@ -36,7 +36,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.rare = ItemRarityID.Red;
             item.UseSound = SoundID.Item1;
 
-            item.shootSpeed = 8f;
+            item.shootSpeed = 12f;
             item.shoot = ModContent.ProjectileType<LightBlade>();
         }
 
@@ -44,7 +44,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         {
             Vector2 Velocity = new Vector2(speedX, speedY);
 
-            Projectile.NewProjectile(Main.MouseWorld - (Vector2.Normalize(Velocity) * 100f), Vector2.Zero, type, damage, knockBack, player.whoAmI,speedX,speedY);
+            Projectile.NewProjectile(Main.MouseWorld - (Vector2.Normalize(Velocity) * 80f), Vector2.Zero, type, damage, knockBack, player.whoAmI,speedX,speedY);
 
             return false;
         }
@@ -57,9 +57,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
             }
         }
-
-
-
 
         public override bool OnlyShootOnSwing => true;
 

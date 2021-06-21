@@ -85,6 +85,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
             #region Fireballs
 
+
             spectimer--;
 
             if (spectimer <= 0)
@@ -101,22 +102,22 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 float fullRotationInFrames = 240;
 
                 if (++spintimer >= fullRotationInFrames / maxFireballs)
-                {
-                    // Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, npc.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
-                    }
+				{
+					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
+					if (Main.netMode != NetmodeID.MultiplayerClient)
+					{
+						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, npc.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
+					}
 
-                    spintimer = 0;
-                    currentFireballs++;
-                }
+					spintimer = 0;
+					currentFireballs++;
+				}
 
-                if (currentFireballs >= maxFireballs)
-                {
-                    currentFireballs = 0;
-                    spectimer = 60 * 25; //Higher than the base value for balance purposes
-                }
+				if (currentFireballs >= maxFireballs)
+				{
+					currentFireballs = 0;
+					spectimer = 60 * 25; //Higher than the base value for balance purposes
+				}
             }
 
             #endregion Fireballs
