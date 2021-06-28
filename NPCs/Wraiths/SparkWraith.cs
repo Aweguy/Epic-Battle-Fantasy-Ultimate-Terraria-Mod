@@ -49,7 +49,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
             int proj2;
             int proj3;
 
-            Dust.NewDustDirect(npc.position, npc.width, npc.height, 6, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
+            Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
             #region Movement Direction
 

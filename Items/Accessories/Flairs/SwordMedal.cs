@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sword Medal");
-            Tooltip.SetDefault("True might is the mark of discipline, honor and courage.");
+            Tooltip.SetDefault("True might is the mark of discipline, honor and courage.\n Increases Ranged and Melee damage by 20%");
         }
 
         public override void SetDefaults()
@@ -24,8 +24,8 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.rangedDamage += 0.4f;
-            player.meleeDamage += 0.4f;
+            player.rangedDamage += 0.2f;
+            player.meleeDamage += 0.2f;
         }
 
         public override int ChoosePrefix(UnifiedRandom rand)

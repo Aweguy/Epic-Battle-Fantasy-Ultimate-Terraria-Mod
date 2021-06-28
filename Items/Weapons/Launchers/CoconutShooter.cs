@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Coconut Shooter");
-            Tooltip.SetDefault("A gorilla's bazooka. Beat your chest with open palms before use.\nHigh damage with huge knockback, but slow fire rate and velocity.\nPassively boosts your max health by 50 if coconut gun us in your inventory.");
+            Tooltip.SetDefault("A gorilla's bazooka. Beat your chest with open palms before use.\nHigh damage with huge knockback, but slow fire rate and velocity.");
         }
 
         public override void SetSafeDefaults()
@@ -35,6 +35,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             item.shootSpeed = 5f;
         }
 
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 29f;
@@ -44,6 +45,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             {
                 position += muzzleOffset;
             }
+
+
             return true;
         }
 
@@ -63,4 +66,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
             recipe.AddRecipe();
         }
     }
+
 }

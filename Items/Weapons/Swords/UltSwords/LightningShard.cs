@@ -86,16 +86,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             return player.ownedProjectileCounts[mod.ProjectileType("LightningShardCyclone")] < 1;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HallowedBar, 10);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 10);
-            recipe.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 4);
-            recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

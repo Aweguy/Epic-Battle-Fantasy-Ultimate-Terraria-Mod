@@ -44,7 +44,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
 
             Vector2 position = projectile.position;
 
-            dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 0.5f);
+            dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 0.5f);
         }
     }
 }

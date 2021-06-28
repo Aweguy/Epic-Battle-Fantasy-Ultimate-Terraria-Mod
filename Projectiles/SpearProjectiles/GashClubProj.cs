@@ -154,12 +154,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
                 Vector2 vector = projectile.Center + (num9 + ((num5 == -1) ? 3.14159274f : 0f)).ToRotationVector2() * 30f;
                 if (Main.rand.Next(2) == 0)
                 {
-                    Dust dust = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, 31, player.velocity.X, player.velocity.Y, 150, default(Color), 1f);
+                    Dust dust = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, DustID.Smoke, player.velocity.X, player.velocity.Y, 150, default(Color), 1f);
                     dust.velocity = projectile.DirectionTo(dust.position) * 0.1f + dust.velocity * 0.1f;
                 }
                 if (num6 >= 0.75f)
                 {
-                    Dust dust2 = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, 55, player.velocity.X, player.velocity.Y, 50, default(Color), 1f);
+                    Dust dust2 = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, DustID.Pixie, player.velocity.X, player.velocity.Y, 50, default(Color), 1f);
                     dust2.velocity = projectile.DirectionTo(dust2.position) * 0.1f + dust2.velocity * 0.1f;
                     dust2.noGravity = true;
                     dust2.color = new Color(20, 255, 100, 160);
@@ -168,7 +168,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        Dust dust3 = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, 55, player.velocity.X, player.velocity.Y, 50, default(Color), 1f);
+                        Dust dust3 = Dust.NewDustDirect(vector - new Vector2(5f), 10, 10, DustID.Pixie, player.velocity.X, player.velocity.Y, 50, default(Color), 1f);
                         dust3.velocity *= 1.2f;
                         dust3.noGravity = true;
                         dust3.scale += 0.1f;

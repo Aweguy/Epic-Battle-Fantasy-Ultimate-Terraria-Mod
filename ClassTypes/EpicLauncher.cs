@@ -6,37 +6,27 @@ using static Terraria.ModLoader.ModContent;
 
 namespace EpicBattleFantasyUltimate.ClassTypes
 {
-    public abstract class EpicLauncher : ModItem
-    {
-        #region Constants and Variables
+	public abstract class EpicLauncher : ModItem
+	{
+		public override bool CloneNewInstances => true;
 
-        private const float MAX_CHARGE = 120f;
+		public virtual void SetSafeDefaults()
+		{
+		}
 
-        private int Charge;
+		public sealed override void SetDefaults()
+		{
+			SetSafeDefaults();
 
-        public bool IsAtMaxCharge => Charge == MAX_CHARGE;
+			item.shoot = ProjectileID.PurificationPowder;
+			item.useAmmo = ItemType<Shot>();
+			item.useStyle = ItemUseStyleID.HoldingOut;
+		}
 
-        #endregion Constants and Variables
-
-        public override bool CloneNewInstances => true;
-
-        public virtual void SetSafeDefaults()
-        {
-        }
-
-        public sealed override void SetDefaults()
-        {
-            SetSafeDefaults();
-
-            item.shoot = ProjectileID.PurificationPowder;
-            item.useAmmo = ItemType<Shot>();
-            item.useStyle = ItemUseStyleID.HoldingOut;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            int buff = mod.BuffType("Overheat");
-            return !player.HasBuff(buff);
-        }
-    }
+		public override bool CanUseItem(Player player)
+		{
+			int buff = mod.BuffType("Overheat");
+			return !player.HasBuff(buff);
+		}
+	}
 }

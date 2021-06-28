@@ -29,8 +29,9 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             timer--;
             if (timer == 0)
             {
-                player.statLife += 10;
-                player.HealEffect(10);
+                int regen = (player.statLifeMax2 / 100) * 5;
+                player.statLife += regen;
+                player.HealEffect(regen);
                 timer = 60 * 10;
             }
             player.lifeRegen += 5;

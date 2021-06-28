@@ -15,7 +15,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 	class LittleAmethystOre : ModProjectile
 	{
 
-		private int timer = 60;
 		NPC npc;
 
 		public override void SetStaticDefaults()

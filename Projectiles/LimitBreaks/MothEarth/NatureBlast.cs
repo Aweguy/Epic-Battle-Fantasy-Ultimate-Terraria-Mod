@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 {
@@ -141,7 +142,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         {
             if (Main.rand.NextFloat(2f) < 1f)
             {
-                Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, 61, 0, 0, 0, default, 1);
+                Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, DustID.GreenTorch, 0, 0, 0, default, 1);
             }
         }
 

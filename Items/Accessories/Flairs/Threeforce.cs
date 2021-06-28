@@ -12,7 +12,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Threeforce");
-            Tooltip.SetDefault("This amulet is fueled by...uh...'Strength', 'Fearlessness' and...uhhhh 'smartness'.");
+            Tooltip.SetDefault("This amulet is fueled by...uh...'Strength', 'Fearlessness' and...uhhhh 'smartness'.\n Increases limit break generation\nApplies passive LB regeneration.");
         }
 
         public override void SetDefaults()

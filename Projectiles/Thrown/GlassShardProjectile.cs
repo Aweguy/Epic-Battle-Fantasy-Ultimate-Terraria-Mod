@@ -57,7 +57,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
             for (int i = 0; i <= 10; i++)
             {
-                dust = Main.dust[Terraria.Dust.NewDust(projectile.Center, projectile.width, projectile.height, 13, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
+                dust = Main.dust[Terraria.Dust.NewDust(projectile.Center, projectile.width, projectile.height, DustID.Glass, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
             }
         }
     }

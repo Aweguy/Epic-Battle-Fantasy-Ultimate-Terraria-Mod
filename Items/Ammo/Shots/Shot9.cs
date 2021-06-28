@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Antimatter Cartridge");
             Tooltip.SetDefault("Converts foes to a focused flux, shredding reality. Probably safe to mass produce.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(3, 5));
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(4, 4));
         }
 
         public override void SetDefaults()
@@ -30,12 +30,5 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.ammo = mod.ItemType("Shot");
         }
 
-        public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            if (weapon.type == mod.ItemType("ShadowBlaster"))
-            {
-                damage += 40;
-            }
-        }
     }
 }

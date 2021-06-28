@@ -35,16 +35,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             player.HealEffect(6);
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DarkShard);
-            recipe.AddIngredient(ItemID.BladeofGrass);
-            recipe.AddIngredient(mod.ItemType("VolcanicRuby"), 2);
-            recipe.AddIngredient(ItemID.SoulofNight, 6);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

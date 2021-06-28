@@ -35,14 +35,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             target.AddBuff(ModContent.BuffType<Weaken>(), 60 * 5);
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 100);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

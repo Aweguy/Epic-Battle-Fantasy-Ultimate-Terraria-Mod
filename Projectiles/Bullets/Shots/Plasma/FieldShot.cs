@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using EpicBattleFantasyUltimate.HelperClasses;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
 {
     public class FieldShot : Terraria.ModLoader.ModProjectile
     {
+
+        float rotation = 0;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Field Shot");
@@ -25,6 +28,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
 
         public override void AI()
         {
+
+            Player player = Main.player[projectile.owner];
+
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
             projectile.spriteDirection = projectile.direction;

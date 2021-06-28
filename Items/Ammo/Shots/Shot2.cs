@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,13 +27,8 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.rare = ItemRarityID.LightRed;
             item.shoot = mod.ProjectileType("PlasmaShot");
             item.shootSpeed = 7f;
-            item.ammo = mod.ItemType("Shot");
+            item.ammo = ModContent.ItemType<Shot>();
         }
 
-        public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            if (weapon.type == mod.ItemType("ThunderCore"))
-                damage += 10;
-        }
     }
 }

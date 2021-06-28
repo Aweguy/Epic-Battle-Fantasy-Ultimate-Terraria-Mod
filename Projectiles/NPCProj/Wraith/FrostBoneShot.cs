@@ -36,7 +36,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void AI()
         {
-            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 185, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
+            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.FrostHydra, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
 
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);

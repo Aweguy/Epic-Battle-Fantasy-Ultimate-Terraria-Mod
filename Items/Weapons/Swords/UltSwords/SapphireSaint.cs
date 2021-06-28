@@ -30,13 +30,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.scale += 0.1f;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 20);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

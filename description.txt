@@ -366,7 +366,12 @@ All of our Family members for close support
 	-New Flair, Threeforce. Gives LB regeneration and increases LB generation when hit.
 	-Made Vortex Revolver's bullet's homing.
 	-3 New Launchers and their sidearms.
-	-Reworked Tired debuff and Berzerker. Berzerker now has a chance to apply a stack of tired on usage. It no lenger has a right click use. Creates a quake when slamming the ground.
+	-Reworked Tired debuff and Berzerker. Berzerker now has a chance to apply a stack of tired on usage. It no longer has a right click use. You can dash while holding it by double tapping direction buttons.
 	-Halved the defense shield medal gives. It was too high.
 	-Reduced the damage increase of the soul eater and decreased the defense reduction. Also reduced its damage
 	-Reduced Heaven's Gate damage
+	-Peanut shot removed, instead Coconut shooter's and Coconut gun's bullets will bounce in general at least twice.
+	-Removed 2 of the launchers since the sprites are old and do not have sidearm counterparts
+	-Various Resprites.
+	-Removed Airstrike since it needs rework. Don't worry, it'll be added later.
+	-Matt now sells swords. All sword recipes are gone for now.

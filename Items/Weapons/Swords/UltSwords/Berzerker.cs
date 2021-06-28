@@ -100,18 +100,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             }
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Wood, 10);
-            recipe.AddIngredient(ItemID.HallowedBar, 10);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Titanium", 20);
-            recipe.AddIngredient(ItemID.Leather, 2);
-            recipe.AddIngredient(ItemID.SoulofMight, 4);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 
     public class BerzerkerDash : ModPlayer

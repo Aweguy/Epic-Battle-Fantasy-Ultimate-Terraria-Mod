@@ -18,7 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
             item.height = 16;
             item.useTime = 10;
             item.useAnimation = 10;
-            item.useStyle = 4;
+            item.useStyle = ItemUseStyleID.HoldingUp;
 
             item.value = Item.sellPrice(gold: 1);
             item.rare = ItemRarityID.Yellow;

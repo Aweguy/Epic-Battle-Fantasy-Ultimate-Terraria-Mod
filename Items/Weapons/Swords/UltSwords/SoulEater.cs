@@ -35,19 +35,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             player.statDefense /= (int)2f;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HellstoneBar, 15);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Evil", 20);
-            recipe.AddIngredient(ItemID.BlackLens, 2);
-            recipe.AddIngredient(ItemID.SoulofMight, 15);
-            recipe.AddIngredient(ItemID.SoulofNight, 15);
-            recipe.AddIngredient(ItemID.SoulofSight, 15);
-            recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

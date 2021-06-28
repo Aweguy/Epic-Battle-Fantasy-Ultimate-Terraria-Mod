@@ -139,14 +139,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 						Sawblade(npc);
 					}
 
-					if (Choice == 1)
-					{
 						SparkBall(npc);
-					}
-					else if (Choice == 2)
-					{
 						Leaves(npc);
-					}
 				}
 			}
 			else if (Enraged)
@@ -385,7 +379,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				if (currentIcicles >= maxIcicles)
 				{
 					currentIcicles = 0;
-					Icetimer = 60 * 20;
+					Icetimer = 60 * 15;
 				}
 			}
 		}
@@ -444,7 +438,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				}
 				int npcIndex2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
-				Sawtimer = 60 * 15;
+				Sawtimer = 60 * 10;
 			}
 		}
 
@@ -454,13 +448,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		private void Leaves(NPC npc)
 		{
-			if (Enraged)
-			{
-				LeafStartTimer--;
-			}
-
-			if (!Enraged)
-			{
 				if (LeafEndStacks <= 3)
 				{
 					LeafTimer--;
@@ -479,58 +466,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					if (LeafEndStacks == 3)
 					{
 						LeafEndStacks = 0;
-						Choice = 0;
-						ChoiceTimer = 150;
 					}
 				}
-			}
-			else if (Enraged && LeafStartTimer <= 0)
-			{
-				if (LeafEndStacks <= 3)
-				{
-					LeafTimer--;
-
-					if (LeafTimer <= 0)
-					{
-						float mult = Main.rand.NextFloat(5f, 10f); //velocity randomization
-
-						velocity = npc.DirectionTo(new Vector2(Main.player[npc.target].Center.X, Main.player[npc.target].Center.Y + 18)) * mult; //Leaf velocity
-
-						Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 18f), velocity, mod.ProjectileType("LeafShot"), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
-
-						LeafTimer = 40;
-						LeafEndStacks++;
-					}
-					if (LeafEndStacks == 3)
-					{
-						LeafEndStacks = 0;
-						LeafStartTimer = 60 * 5;
-					}
-				}
-			}
 		}
 
 		private void SparkBall(NPC npc)
 		{
 			Player player = Main.player[npc.target]; //Target
 
-			if (Enraged)
-			{
 				SparkTimer--;
-			}
 
-			if (!Enraged)
+			if (SparkTimer <= 0)
 			{
 				int proj4 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
 
-				Choice = 0;
-				ChoiceTimer = 100;
-			}
-			else if (Enraged && SparkTimer <= 0)
-			{
-				int proj4 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
-
-				SparkTimer = 60 * 2;
+				SparkTimer = 100;
 			}
 		}
 

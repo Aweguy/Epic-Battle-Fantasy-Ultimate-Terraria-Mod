@@ -111,13 +111,27 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
                         leftRightCollision = true;
                     }
 
-                    if (leftRightCollision)
+                    if (State != OreState.Stunned)
                     {
-                        npc.velocity.X *= -2;
+                        if (leftRightCollision)
+                        {
+                            npc.velocity.X *= -2;
+                        }
+                        else
+                        {
+                            npc.velocity.Y *= -2;
+                        }
                     }
                     else
                     {
-                        npc.velocity.Y *= -2;
+                        if (leftRightCollision)
+                        {
+                            npc.velocity.X *= -0.8f;
+                        }
+                        else
+                        {
+                            npc.velocity.Y *= -0.8f;
+                        }
                     }
                 }
             }

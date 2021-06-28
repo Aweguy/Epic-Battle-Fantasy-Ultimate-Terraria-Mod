@@ -1,6 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Spellbooks;
-using EpicBattleFantasyUltimate.Items.Spells;
 using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
 using Microsoft.Xna.Framework;
 using System.IO;
@@ -99,11 +98,11 @@ namespace EpicBattleFantasyUltimate
                         NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                     string key = "The ores have been defeated";
                     Color messageColor = Color.Orange;
-                    if (Main.netMode == 2) // Server
+                    if (Main.netMode == NetmodeID.Server) // Server
                     {
                         NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
                     }
-                    else if (Main.netMode == 0) // Single Player
+                    else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
                     {
                         Main.NewText(Language.GetTextValue(key), messageColor);
                     }
@@ -120,11 +119,11 @@ namespace EpicBattleFantasyUltimate
                         NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                     string key = "The ores have been defeated";
                     Color messageColor = Color.Orange;
-                    if (Main.netMode == 2) // Server
+                    if (Main.netMode == NetmodeID.Server) // Server
                     {
                         NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
                     }
-                    else if (Main.netMode == 0) // Single Player
+                    else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
                     {
                         Main.NewText(Language.GetTextValue(key), messageColor);
                     }
@@ -216,7 +215,7 @@ namespace EpicBattleFantasyUltimate
 
             #region Locked Gold Chests
 
-            int[] itemsToPlaceInLockedGoldChests = { ItemType<Airstrike>() };
+            /*int[] itemsToPlaceInLockedGoldChests = { ItemType<Airstrike>() };
             int itemsToPlaceInLockedGoldChestsChoice = 0;
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {
@@ -235,7 +234,7 @@ namespace EpicBattleFantasyUltimate
                         }
                     }
                 }
-            }
+            }*/
 
             #endregion Locked Gold Chests
 

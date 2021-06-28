@@ -288,26 +288,26 @@ namespace EpicBattleFantasyUltimate.NPCs
 				{
 					if (Main.rand.NextFloat() <= .1f)
 					{
-						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 5 && RBleedStacks <= 10)
 				{
 					if (Main.rand.NextFloat() <= .2f)
 					{
-						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 10 && RBleedStacks <= 20)
 				{
 					if (Main.rand.NextFloat() <= .4f)
 					{
-						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 20)
 				{
-					Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+					Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 				}
 			}
 
@@ -317,7 +317,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 
 			if (Electrified)
 			{
-				Dust dust = Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 226, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+				Dust dust = Dust.NewDustDirect(npc.position - new Vector2(2f, 2f), npc.width, npc.height, DustID.Electric, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 				dust.noGravity = true;
 			}
 

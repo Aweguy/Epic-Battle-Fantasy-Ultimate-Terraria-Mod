@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,10 +31,5 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.ammo = mod.ItemType("Shot");
         }
 
-        public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            if (weapon.type == mod.ItemType("HellfireShotgun"))
-                damage += 20;
-        }
     }
 }

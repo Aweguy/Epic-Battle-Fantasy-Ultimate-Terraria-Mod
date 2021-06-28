@@ -20,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
             item.height = 24;
             item.useTime = 20;
             item.useAnimation = 20;
-            item.useStyle = 4;
+            item.useStyle = ItemUseStyleID.HoldingUp;
 
             item.value = Item.sellPrice(gold: 1);
             item.rare = ItemRarityID.Purple;
@@ -37,16 +37,16 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
         {
             string key = "Mods.EpicBattleFantasyUltimate.OreEventStart";
             Color messageColor = Color.Orange;
-            if (Main.netMode == 2) // Server
+            if (Main.netMode == NetmodeID.Server) // Server
             {
                 NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
             }
-            else if (Main.netMode == 0) // Single Player
+            else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
             {
                 Main.NewText(Language.GetTextValue(key), messageColor);
             }
 
-            if (Main.netMode == 0)
+            if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.PlaySound(SoundID.Roar, player.position, 0);
                 EpicWorld.OreEvent = true;

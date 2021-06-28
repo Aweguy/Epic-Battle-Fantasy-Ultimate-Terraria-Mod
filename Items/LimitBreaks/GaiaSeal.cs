@@ -9,93 +9,93 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 {
-    public class GaiaSeal : LimitItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Gaia's Seal");
-            Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger with each unique boss defeated");
-        }
+	public class GaiaSeal : LimitItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Gaia's Seal");
+			Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger with each unique boss defeated");
+		}
 
-        public override void SetSafeDefaults()
-        {
-            item.width = 100;
-            item.height = 100;
+		public override void SetSafeDefaults()
+		{
+			item.width = 34;
+			item.height = 30;
 
-            item.damage = 100;
-            item.magic = true;
-            //item.mana = 100;
-            LimitCost = 100;
-            item.buffType = ModContent.BuffType<BlessedBuff>();
-            item.buffTime = 60 * 60;
+			item.damage = 100;
+			item.magic = true;
+			//item.mana = 100;
+			LimitCost = 100;
+			item.buffType = ModContent.BuffType<BlessedBuff>();
+			item.buffTime = 60 * 60;
 
-            item.shoot = ModContent.ProjectileType<MotherEarth>();
-            item.shootSpeed = 0f;
+			item.shoot = ModContent.ProjectileType<MotherEarth>();
+			item.shootSpeed = 0f;
 
-            item.useTime = 60;
-            item.useAnimation = 60;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+			item.useTime = 60;
+			item.useAnimation = 60;
+			item.useStyle = ItemUseStyleID.SwingThrow;
 
-            //item.channel = true; //Channel so that you can held the weapon [Important]
-        }
+			//item.channel = true; //Channel so that you can held the weapon [Important]
+		}
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            //Rainbow Line
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			//Rainbow Line
 
-            var line = new TooltipLine(mod, "Gaia's Seal", "LIMIT BREAK!!!")
-            {
-                overrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
-            };
-            tooltips.Add(line);
-        }
+			var line = new TooltipLine(mod, "Gaia's Seal", "LIMIT BREAK!!!")
+			{
+				overrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
+			};
+			tooltips.Add(line);
+		}
 
-        public override bool UseItem(Player player)
-        {
-            for (int i = 0; i < Player.MaxBuffs; ++i)
-            {
-                if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
-                {
-                    player.DelBuff(i);
-                    i--;
-                }
-            }
+		public override bool UseItem(Player player)
+		{
+			for (int i = 0; i < Player.MaxBuffs; ++i)
+			{
+				if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
+				{
+					player.DelBuff(i);
+					i--;
+				}
+			}
 
-            player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 10);
+			player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 10);
 
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC npc = Main.npc[i];
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC npc = Main.npc[i];
 
-                if (!Main.npc[i].active)
-                {
-                    continue;
-                }
+				if (!Main.npc[i].active)
+				{
+					continue;
+				}
 
-                npc.AddBuff(BuffID.Poisoned, 60 * 600);
+				npc.AddBuff(BuffID.Poisoned, 60 * 600);
 
-                if (player.whoAmI == Main.myPlayer)
-                {
-                    player.ApplyDamageToNPC(Main.npc[i], item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
-                }
-            }
+				if (player.whoAmI == Main.myPlayer)
+				{
+					player.ApplyDamageToNPC(Main.npc[i], item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+				}
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        public override bool CanUseItem(Player player)
-        {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<MotherEarth>()] < 1 && base.CanUseItem(player);
-        }
+		public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[ModContent.ProjectileType<MotherEarth>()] < 1 && base.CanUseItem(player);
+		}
 
-        /*public override void HoldItem(Player player)
+		/*public override void HoldItem(Player player)
 		{
 			item.damage = 100 + (100 * EpicWorld.bossesDefeated);
 		}*/
-    }
+	}
 }

@@ -733,14 +733,6 @@ namespace EpicBattleFantasyUltimate
 
         public override void PreUpdate()
         {
-            #region Coconut Health
-
-            if (player.HasItem(mod.ItemType("CoconutGun")) && player.HasItem(mod.ItemType("CoconutShooter")) && player.statLife > 0)
-            {
-                player.statLifeMax2 += 50;
-            }
-
-            #endregion Coconut Health
 
             #region Shadow Blaster Effect
 
@@ -884,39 +876,31 @@ namespace EpicBattleFantasyUltimate
                 {
                     if (Main.rand.NextFloat() <= .1f)
                     {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                     }
                 }
                 else if (RBleedStacks > 5 && RBleedStacks <= 10)
                 {
                     if (Main.rand.NextFloat() <= .2f)
                     {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                     }
                 }
                 else if (RBleedStacks > 10 && RBleedStacks <= 20)
                 {
                     if (Main.rand.NextFloat() <= .4f)
                     {
-                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                        Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                     }
                 }
                 else if (RBleedStacks > 20)
                 {
-                    Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 5, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+                    Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
                 }
             }
 
             #endregion Rampant Bleeding Dust
 
-            #region Blessed Dust
-
-            if (player.HasBuff(ModContent.BuffType<BlessedBuff>()))
-            {
-                Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, 100, 0f, 0f, 0, new Color(255, 255, 255), 1f);
-            }
-
-            #endregion Blessed Dust
         }
 
         #endregion DrawEffects

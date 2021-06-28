@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 #endregion Using
 
@@ -89,7 +90,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
                         drawColor = Color.Red;
                     }
 
-                    Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 0, drawColor, 1f);
+                    Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, 0f, 0f, 0, drawColor, 1f);
 
                     #endregion Dust Spawning
 
@@ -274,27 +275,27 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Red, 1f);
+                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1f);
                     Main.dust[dustIndex].noGravity = true;
-                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Black, 1.25f);
+                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 1.25f);
                 }
             }
             else if (projectile.width <= 325 && projectile.width > 150)
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Red, 1.5f);
+                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1.5f);
                     Main.dust[dustIndex].noGravity = true;
-                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Black, 2f);
+                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2f);
                 }
             }
             else
             {
                 for (int i = 0; i < 400; i++)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Red, 2f);
+                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 2f);
                     Main.dust[dustIndex].noGravity = true;
-                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 1f, 1f, 0, Color.Black, 2.5f);
+                    dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2.5f);
                 }
             }
 

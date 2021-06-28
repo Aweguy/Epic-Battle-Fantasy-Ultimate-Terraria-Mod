@@ -35,7 +35,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
         {
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            dust = Dust.NewDustDirect(projectile.position, 10, 10, 55, 0f, 0f, 0, new Color(255, 176, 0), 1f);
+            dust = Dust.NewDustDirect(projectile.position, 10, 10, DustID.Pixie, 0f, 0f, 0, new Color(255, 176, 0), 1f);
 
             float velRotation = projectile.velocity.ToRotation();
             projectile.rotation = velRotation + MathHelper.ToRadians(90f);
@@ -54,7 +54,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
 
             for (int i = 0; i <= 13; i++)
             {
-                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
+                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 0, new Color(255, 201, 0), 1f);
             }
         }
     }

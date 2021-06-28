@@ -35,7 +35,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             Dust dust;
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             Vector2 position = projectile.position;
-            dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1f);
+            dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1f);
         }
 
         public override void Kill(int timeLeft)
@@ -46,7 +46,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
 
             for (int i = 0; i < 10; i++)
             {
-                dust = Dust.NewDustDirect(position, projectile.width, projectile.height, 55, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1.25f);
+                dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, Color.PaleVioletRed, 1.25f);
             }
         }
     }

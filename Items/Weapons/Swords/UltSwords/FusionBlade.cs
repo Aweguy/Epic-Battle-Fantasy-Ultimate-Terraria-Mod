@@ -37,15 +37,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
                 Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Fire);
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Actuator, 10);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 20);
-            recipe.AddIngredient(ItemID.SoulofLight, 45);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

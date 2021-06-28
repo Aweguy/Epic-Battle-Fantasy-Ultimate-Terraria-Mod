@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
 
             for (int i = 0; i <= 3; i++)
             {
-                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
+                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 0, new Color(255, 201, 0), 1f);
             }
 
             float velRotation = projectile.velocity.ToRotation();
@@ -75,7 +75,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
 
             for (int i = 0; i <= 13; i++)
             {
-                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 55, 0f, 0f, 0, new Color(255, 201, 0), 1f);
+                Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 0, new Color(255, 201, 0), 1f);
             }
         }
     }

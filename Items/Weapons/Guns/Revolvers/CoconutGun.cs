@@ -36,15 +36,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
-            {
-                type = mod.ProjectileType("Peanut"); // or ProjectileID.FireArrow;
-            }
-            return true; // return true to allow tmodloader to call Projectile.NewProjectile as normal
-        }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -56,4 +47,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             recipe.AddRecipe();
         }
     }
+
 }

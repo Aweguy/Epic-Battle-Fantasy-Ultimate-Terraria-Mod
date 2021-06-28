@@ -16,10 +16,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             timer--;
-            if (timer == 0)
+            if (timer <= 0)
             {
-                player.statLife += 25;
-                player.HealEffect(25);
+                int Regen = player.statLifeMax2 / 100 * 7;
+                player.statLife += Regen;
+                player.HealEffect(Regen);
                 timer = 60;
             }
         }

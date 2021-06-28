@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
@@ -119,6 +120,54 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
             shop.item[nextSlot].SetDefaults(mod.ItemType("Shot9"));
             shop.item[nextSlot].shopCustomPrice = 5000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Avenger>());
+            shop.item[nextSlot].shopCustomPrice = 550000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Berzerker>());
+            shop.item[nextSlot].shopCustomPrice = 500000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BlackFang>());
+            shop.item[nextSlot].shopCustomPrice = 200000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BoneBlade>());
+            shop.item[nextSlot].shopCustomPrice = 200000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<DragonsFeather>());
+            shop.item[nextSlot].shopCustomPrice = 220000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<FusionBlade>());
+            shop.item[nextSlot].shopCustomPrice = 100000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<GaiaAxe>());
+            shop.item[nextSlot].shopCustomPrice = 200000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavensGate>());
+            shop.item[nextSlot].shopCustomPrice = 500000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<Inferno>());
+            shop.item[nextSlot].shopCustomPrice = 100000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LightningShard>());
+            shop.item[nextSlot].shopCustomPrice = 450000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<SapphireSaint>());
+            shop.item[nextSlot].shopCustomPrice = 100000;
+            nextSlot++;
+
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulEater>());
+            shop.item[nextSlot].shopCustomPrice = 500000;
             nextSlot++;
         }
 

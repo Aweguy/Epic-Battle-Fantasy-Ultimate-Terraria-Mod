@@ -165,7 +165,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             }
             for (int j = 0; j <= 2; j++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, 11, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Silver, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
         }
 
@@ -350,7 +350,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             }
             for (int j = 0; j <= 5; j++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, 11, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Silver, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
 
             return true;

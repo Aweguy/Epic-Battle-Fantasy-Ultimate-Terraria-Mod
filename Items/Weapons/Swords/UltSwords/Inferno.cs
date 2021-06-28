@@ -43,15 +43,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             target.AddBuff(BuffID.OnFire, 240);
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 13);
-            recipe.AddIngredient(ItemID.LivingFireBlock, 10);
-            recipe.AddIngredient(ItemID.FireFeather);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

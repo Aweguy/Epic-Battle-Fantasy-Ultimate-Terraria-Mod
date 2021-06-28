@@ -8,9 +8,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 {
     public class PlasmaField : ModProjectile
     {
-        private float rotation = -45; //The rotation of the wave to the right
-        private float rotation2 = -45 + 180; //The rotation of the wave to the left
+        private float rotation = 0; //The rotation of the wave to the right
         private int WaveTimer = 0; //The interval between the waves
+        private int NumberOfBullets = 50;//The number of bullets each weave will spawn.
 
         public override void SetStaticDefaults()
         {
@@ -63,29 +63,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 
         private void Shooting(Projectile projectile)
         {
-            rotation = -45;
-            rotation2 = -45 + 180;
+            rotation = 0;
             WaveTimer--;
 
             if (WaveTimer <= 0)
             {
-                for (int i = 0; i <= 17; i++)
+                for (int i = 0; i <= NumberOfBullets; i++)
                 {
-                    Vector2 velocity = new Vector2(6, 0).RotatedBy(MathHelper.ToRadians(rotation));
+                    Vector2 velocity = Vector2.One.RotatedBy(rotation) * 6;
 
-                    Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+                    Vector2 SpawnPos = projectile.Center + Vector2.One.RotatedBy(rotation) * 100;
 
-                    rotation += 5;
+                    Projectile.NewProjectile(SpawnPos, velocity, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+
+                    rotation += 360 / NumberOfBullets;
                 }
 
-                for (int j = 0; j <= 17; j++)
-                {
-                    Vector2 velocity2 = new Vector2(6, 0).RotatedBy(MathHelper.ToRadians(rotation2));
 
-                    Projectile.NewProjectile(projectile.Center, velocity2, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
-
-                    rotation2 += 5;
-                }
 
                 WaveTimer = 30;
             }

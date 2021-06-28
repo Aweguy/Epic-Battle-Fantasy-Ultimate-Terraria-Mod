@@ -46,7 +46,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             Rotation(npc);
             MovementSpeed(npc);
             Jumping(npc);
-            IceAttack(npc);
+            //IceAttack(npc);
 
             npc.spriteDirection = npc.direction;
         }
@@ -141,7 +141,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
             {
                 IceTimer--;
 
-                Dust.NewDustDirect(npc.position, npc.width, npc.height, 92, 0, 0, 0, Scale: .7f);
+                Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Frost, 0, 0, 0, Scale: .7f);
 
                 if (IceTimer <= 0)
                 {

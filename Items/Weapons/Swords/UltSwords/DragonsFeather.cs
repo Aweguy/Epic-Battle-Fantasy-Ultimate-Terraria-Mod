@@ -29,16 +29,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             item.useTurn = true;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Palladium", 10);
-            recipe.AddIngredient(ItemID.Shuriken, 10);
-            recipe.AddIngredient(ItemID.SoulofFlight, 5);
-            recipe.AddIngredient(ItemID.Feather, 30);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }
