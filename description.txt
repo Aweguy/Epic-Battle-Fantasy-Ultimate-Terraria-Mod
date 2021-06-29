@@ -375,3 +375,4 @@ All of our Family members for close support
 	-Various Resprites.
 	-Removed Airstrike since it needs rework. Don't worry, it'll be added later.
 	-Matt now sells swords. All sword recipes are gone for now.
+	-Removed 2 of the swords since they had no special function and i was not happy with them. Will be readded after i find what to do with them. (Sapphire Saint and Gaia's Axe)

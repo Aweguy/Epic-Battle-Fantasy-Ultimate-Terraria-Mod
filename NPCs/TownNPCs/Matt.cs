@@ -146,9 +146,9 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
             shop.item[nextSlot].shopCustomPrice = 100000;
             nextSlot++;
 
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<GaiaAxe>());
+            /*shop.item[nextSlot].SetDefaults(ModContent.ItemType<GaiaAxe>());
             shop.item[nextSlot].shopCustomPrice = 200000;
-            nextSlot++;
+            nextSlot++;*/
 
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavensGate>());
             shop.item[nextSlot].shopCustomPrice = 500000;
@@ -162,9 +162,9 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
             shop.item[nextSlot].shopCustomPrice = 450000;
             nextSlot++;
 
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<SapphireSaint>());
+            /*shop.item[nextSlot].SetDefaults(ModContent.ItemType<SapphireSaint>());
             shop.item[nextSlot].shopCustomPrice = 100000;
-            nextSlot++;
+            nextSlot++;*/
 
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulEater>());
             shop.item[nextSlot].shopCustomPrice = 500000;
@@ -189,7 +189,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
-            button2 = "Time for Money";
+            //button2 = "Time for Money";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -198,7 +198,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
             {
                 shop = true;
             }
-            else
+            /*else
             {
                 List<int> options = new List<int> { mod.ItemType("PristineDiamond"), mod.ItemType("CyclonicEmerald"), mod.ItemType("AncientAmber"), mod.ItemType("AbyssalSapphire"), mod.ItemType("VolcanicRuby"), mod.ItemType("VoltaicTopaz") };
                 int index = Main.LocalPlayer.FindItem(options);
@@ -215,7 +215,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
                     Main.npcChatText = $"Don't try to fool me by coming with no gems! I have food to buy.";
                     return;
                 }
-            }
+            }*/
         }
 
         #region Npc Attack

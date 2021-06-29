@@ -1,4 +1,4 @@
-using EpicBattleFantasyUltimate.Items.Materials.Gems;
+/*using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,4 +31,4 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         }
 
     }
-}
+}*/

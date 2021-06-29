@@ -1,4 +1,4 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
+﻿/*using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -85,4 +85,4 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
             return player.ownedProjectileCounts[ModContent.ProjectileType<GaiaAxeProj>()] < 1;
         }
     }
-}
+}*/
