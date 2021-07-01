@@ -28,7 +28,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
             projectile.penetrate = -1;
 
             projectile.ranged = true;
-            projectile.timeLeft = 20;
             projectile.tileCollide = false;
 
             projectile.alpha = 1;

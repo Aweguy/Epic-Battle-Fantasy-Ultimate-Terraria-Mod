@@ -34,7 +34,7 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 
 			item.useTime = 60;
 			item.useAnimation = 60;
-			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.useStyle = ItemUseStyleID.HoldingUp;
 
 			//item.channel = true; //Channel so that you can held the weapon [Important]
 		}

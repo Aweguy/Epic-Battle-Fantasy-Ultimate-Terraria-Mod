@@ -71,6 +71,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			npc.alpha = 100;
 			npc.knockBackResist = -1f;
 
+			npc.value = 100000;
+
 			//npc.aiStyle = 22;
 			aiType = NPCID.Wraith;
 			npc.noTileCollide = true;

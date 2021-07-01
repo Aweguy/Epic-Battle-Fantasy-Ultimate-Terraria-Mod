@@ -196,7 +196,30 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             if (player.whoAmI == Main.myPlayer)
             {
-                player.ApplyDamageToNPC(npc, projectile.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+                if (NPC.downedMoonlord)
+                {
+                    player.ApplyDamageToNPC(npc, projectile.damage + 1000, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+
+                }
+                else if (NPC.downedGolemBoss)
+                {
+                    player.ApplyDamageToNPC(npc, projectile.damage + 500, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+
+                }
+                else if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                {
+                    player.ApplyDamageToNPC(npc, projectile.damage + 300, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+
+                }
+                else if (Main.hardMode)
+                {
+                    player.ApplyDamageToNPC(npc, projectile.damage + 200, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+                }
+                else
+                {
+                    player.ApplyDamageToNPC(npc, projectile.damage + 100, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+
+                }
 
                 DamageTimer = 60;
             }

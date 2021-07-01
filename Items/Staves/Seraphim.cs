@@ -1,5 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
-using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
+using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

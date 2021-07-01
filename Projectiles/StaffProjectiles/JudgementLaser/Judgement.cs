@@ -12,7 +12,7 @@ using Terraria.ID;
 
 #endregion Using
 
-namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
+namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 {
 	public class Judgement : ModProjectile
 	{
@@ -114,6 +114,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			return false;
 		}
 
+
 		public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default(Color), int transDist = 0)
 		{
 			float r = unit.ToRotation() + rotation;
@@ -158,6 +159,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.immune[projectile.owner] = 5;
+
+			Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), projectile.damage, 0, projectile.owner);
 		}
 
 		public override void AI()
