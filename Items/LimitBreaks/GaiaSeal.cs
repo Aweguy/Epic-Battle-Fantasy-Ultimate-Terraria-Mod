@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gaia's Seal");
-			Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger with each unique boss defeated");
+			Tooltip.SetDefault("A small emblem given to Greenwood’s defenders. Strikes foes with toxins while Gaia’s blessing shields you from debuffs.\n Gets stronger as you progress further in the game");
 		}
 
 		public override void SetSafeDefaults()
@@ -32,8 +32,8 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 			item.shoot = ModContent.ProjectileType<MotherEarth>();
 			item.shootSpeed = 0f;
 
-			item.useTime = 60;
-			item.useAnimation = 60;
+			item.useTime = 30;
+			item.useAnimation = 30;
 			item.useStyle = ItemUseStyleID.HoldingUp;
 
 			//item.channel = true; //Channel so that you can held the weapon [Important]

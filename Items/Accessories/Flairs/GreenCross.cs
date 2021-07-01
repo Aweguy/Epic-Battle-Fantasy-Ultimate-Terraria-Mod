@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Green Cross");
-            Tooltip.SetDefault("A Geneva-Convention-friendly pin which boasts regenerative properties.\nRegenerates 10 health every 10 seconds");
+            Tooltip.SetDefault("A Geneva-Convention-friendly pin which boasts regenerative properties.\nRegenerates 5% of your maximum health every 10 seconds");
         }
 
         public override void SetDefaults()

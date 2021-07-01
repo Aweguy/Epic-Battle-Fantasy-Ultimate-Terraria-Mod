@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Ammo\Shots\Dark\" />
-    <Folder Include="Items\Ammo\Shots\Flame\" />
     <Folder Include="Items\Ammo\Shots\Plasma\" />
     <Folder Include="Shading\" />
   </ItemGroup>

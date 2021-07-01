@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bone Blade");
-            Tooltip.SetDefault("Also known as the Macabre Machete, and the Rib Rapier.\nWeakens targets on hit.");
+            Tooltip.SetDefault("The Macabre Machete, the Rib Rapier, the Spine Slicer, the-\nWeakens targets on hit.");
         }
 
         public override void SetDefaults()

@@ -8,7 +8,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Infuriated!");
-            Description.SetDefault("Do you know why you are infuriated?\nBecause you thought you had bought a normal pepper.\nDoubles your attack speed and damage");
+            Description.SetDefault("And here you thought you had bought a normal pepper.\nDoubles your attack speed and damage");
             canBeCleared = false;
         }
 

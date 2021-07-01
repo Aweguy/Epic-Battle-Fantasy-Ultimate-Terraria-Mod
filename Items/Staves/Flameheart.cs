@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell;
+﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -6,23 +7,23 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Staves
 {
-    public class Flameheart : ModItem
+    public class Flameheart : LimitItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flameheart");
-            Tooltip.SetDefault("Shoots a fireball that explodes into a bigger one when it dies.\nHas limited range.\nHas a chance of burning enemies");
+            Tooltip.SetDefault("A common but powerful staff, used by mages to scorch foes.\nConsumes minor amounts of Limit Break");
         }
 
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
-            item.damage = 60;
+            item.damage = 70;
             item.width = 40;
             item.height = 40;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 30;
             item.useAnimation = 30;
-            item.mana = 30;
+            LimitCost = 1;
             item.rare = ItemRarityID.LightPurple;
             item.useTurn = true;
             item.shoot = ModContent.ProjectileType<Fireball>();
@@ -50,7 +51,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             {
                 item.useTime = 100;
                 item.useAnimation = 100;
-                item.mana = 60;
+                LimitCost = 5;
                 item.shoot = ModContent.ProjectileType<Firestorm>();
                 item.shootSpeed = 0f;
             }
@@ -58,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             {
                 item.useTime = 30;
                 item.useAnimation = 30;
-                item.mana = 10;
+                LimitCost = 1;
                 item.shoot = ModContent.ProjectileType<Fireball>();
                 item.shootSpeed = 0f;
             }

@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angry Faic");
-            Tooltip.SetDefault("An emblem so angry, you want something to be BLAMMED!\n2 defense\nIncreases critical chance by 8% for all types of damage.\nIncreases damage by 8%.\nIncreases enemy aggression.");
+            Tooltip.SetDefault("Wearing this makes you so angry, you want something to be BLAMMED!\n2 defense\nIncreases critical chance by 8% for all types of damage.\nIncreases damage by 8%.\nIncreases enemy aggression.");
         }
 
         public override void SetDefaults()

@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Target Badge");
-            Tooltip.SetDefault("Somehow a target on yourself makes you a better shot, who knew?\n1 defense\nIncreases critical chance by 10% for all types of damage.\nIncreases enemy aggression.");
+            Tooltip.SetDefault("Somehow putting a target on yourself makes you a better shot, who knew?\n1 defense\nIncreases critical chance by 10% for all types of damage.\nIncreases enemy aggression.");
         }
 
         public override void SetDefaults()

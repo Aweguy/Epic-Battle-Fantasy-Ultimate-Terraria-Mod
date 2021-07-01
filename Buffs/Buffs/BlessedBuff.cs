@@ -8,7 +8,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Blessed");
-            Description.SetDefault("You are immune to all debuffs");
+            Description.SetDefault("You have been granted status immunity, Godcat be praised!");
         }
 
         public override void Update(Player player, ref int buffIndex)

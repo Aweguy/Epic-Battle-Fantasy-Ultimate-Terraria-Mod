@@ -76,7 +76,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			projectile.timeLeft = 120 + (int)MAX_CHARGE;
 			projectile.magic = true;
 			projectile.hide = true;
+
+			projectile.localNPCHitCooldown = 3;
+			projectile.usesLocalNPCImmunity = true;
+
 		}
+
+		
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
@@ -158,8 +164,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.immune[projectile.owner] = 5;
-
 			Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), projectile.damage, 0, projectile.owner);
 		}
 

@@ -8,8 +8,8 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
     {
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Rampant Bleed");
-            Description.SetDefault("Paper cuts deeper");
+            DisplayName.SetDefault("Rampant Bleeding");
+            Description.SetDefault("Paper cuts deeper...");
             Main.debuff[Type] = true;
             canBeCleared = false;
         }

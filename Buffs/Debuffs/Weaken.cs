@@ -9,7 +9,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Weakened");
-            Description.SetDefault("Your strength ebbs…");
+            Description.SetDefault("Your strength ebbs...");
             Main.debuff[Type] = true;
             canBeCleared = false;
         }

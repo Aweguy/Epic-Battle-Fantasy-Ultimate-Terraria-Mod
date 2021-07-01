@@ -26,6 +26,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
 			projectile.timeLeft = 100;
 			projectile.tileCollide = false;
+
+			projectile.localNPCHitCooldown = -1;
+			projectile.usesLocalNPCImmunity = true;
+
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

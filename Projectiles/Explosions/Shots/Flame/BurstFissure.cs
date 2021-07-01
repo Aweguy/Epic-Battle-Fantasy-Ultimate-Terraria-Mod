@@ -29,6 +29,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             projectile.timeLeft = 140;
             projectile.tileCollide = false;
             projectile.alpha = 255;
+
+            projectile.localNPCHitCooldown = -1;
+            projectile.usesLocalNPCImmunity = true;
+
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
