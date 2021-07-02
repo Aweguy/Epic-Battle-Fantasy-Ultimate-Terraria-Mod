@@ -376,3 +376,8 @@ All of our Family members for close support
 	-Removed Airstrike since it needs rework. Don't worry, it'll be added later.
 	-Matt now sells swords. All sword recipes are gone for now.
 	-Removed one of the swords since they had no special function and i was not happy with them. Will be readded after i find what to do with them. (Sapphire Saint)
+
+
+	v0.8.6.7
+
+	-Fixed an exploit of being able to block the cooldowns of Chilli Pepper and Launchers while under the effect of the Blessed buff

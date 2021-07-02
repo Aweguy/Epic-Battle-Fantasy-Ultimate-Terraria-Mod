@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Buffs.Buffs
@@ -21,7 +22,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
             {
                 if (Main.debuff[j])
                 {
-                    player.buffImmune[j] = true;
+
+                    if(j != ModContent.BuffType<BurntMouth>() && j != ModContent.BuffType<Overheat>())
+                    {
+                        player.buffImmune[j] = true;
+                    }
                 }
             }
         }
