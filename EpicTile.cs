@@ -16,7 +16,7 @@ namespace EpicBattleFantasyUltimate
 
             if (Main.tile[i, j].type == TileID.IceBlock)
             {
-                if (Main.rand.NextFloat() < .001)
+                if (Main.rand.NextFloat() < .01)
                 {
                     int npcToSpawn = ModContent.NPCType<ZirconOre>();
 

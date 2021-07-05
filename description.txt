@@ -381,3 +381,13 @@ All of our Family members for close support
 	v0.8.6.7
 
 	-Fixed an exploit of being able to block the cooldowns of Chilli Pepper and Launchers while under the effect of the Blessed buff
+
+
+	v0.8.6.8
+
+	-Added the recipe for an item
+	
+
+	v0.8.6.9
+
+	-Fixed a bug with the new Ore Event

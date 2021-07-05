@@ -1,6 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Spellbooks;
-using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
 using Microsoft.Xna.Framework;
 using System.IO;
 using Terraria;
@@ -90,7 +89,7 @@ namespace EpicBattleFantasyUltimate
 
             if (!Main.hardMode)
             {
-                if (OreKills >= MaxOreKills)
+                if (OreKills >= MaxOreKills && OreEvent)
                 {
                     OreEvent = false;
                     downedOres = true;
@@ -140,26 +139,6 @@ namespace EpicBattleFantasyUltimate
         {
             #region Sky Chests
 
-            int[] itemsToPlaceInSkyChests = { ItemType<AethersBlade>() };
-            int itemsToPlaceInSkyChestsChoice = 0;
-            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
-            {
-                Chest chest = Main.chest[chestIndex];
-                // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                if (Main.rand.NextFloat() < .33f && chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
-                {
-                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                    {
-                        if (chest.item[inventoryIndex].type == ItemID.None)
-                        {
-                            chest.item[inventoryIndex].SetDefaults(itemsToPlaceInSkyChests[itemsToPlaceInSkyChestsChoice]);
-                            itemsToPlaceInSkyChestsChoice = (itemsToPlaceInSkyChestsChoice + 1) % itemsToPlaceInSkyChests.Length;
-                            // Alternate approach: Random instead of cyclical: chest.item[inventoryIndex].SetDefaults(Main.rand.Next(itemsToPlaceInIceChests));
-                            break;
-                        }
-                    }
-                }
-            }
 
             #endregion Sky Chests
 

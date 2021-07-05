@@ -34,6 +34,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			set => npc.ai[2] = value;
 		}
 
+		bool CanHit = false;
+
 		bool Dashing = false;
 
 
@@ -63,9 +65,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		#region OnHitPlayer
 
+
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			//npc.life = 0;
+
+			CanHit = false;
+
 
 			#region Stunned
 
@@ -255,6 +261,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		}
 
 		#endregion Direction
+
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (!CanHit)
+			{
+				if (npc.Hitbox.Intersects(target.Hitbox))
+				{
+					return false;
+				}
+			}
+
+			CanHit = true;
+			return true;
+		}
 
 		#region Movement
 
@@ -446,7 +466,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void NPCLoot()
 		{
-			EpicWorld.OreKills += 1;
+			if (EpicWorld.OreEvent)
+			{
+				EpicWorld.OreKills += 1;
+			}
+
 			if (Main.netMode == NetmodeID.Server)
 			{
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.

@@ -35,6 +35,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			set => npc.ai[2] = value;
 		}
 
+		bool CanHit = true;
+
 		bool Dashing = false;
 
 		public override void SetStaticDefaults()
@@ -72,6 +74,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		{
 			//npc.life = 0;
 
+			CanHit = false;
+
 			#region Stunned
 
 			if (Dashing)
@@ -80,7 +84,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				npc.noGravity = false;
 				npc.noTileCollide = false;
-
+				
 
 				Dashing = false;
 
@@ -212,7 +216,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				npc.spriteDirection = 1;
 				if (State != OreState.Stunned)
 				{
-					npc.rotation = MathHelper.ToRadians(0);
+					npc.rotation = MathHelper.ToRadians(0);//Resetting the ores' rotation to normal
 				}
 			}
 			else if (npc.direction == -1)
@@ -226,10 +230,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			}
 		}
 
-		#endregion Direction
+        #endregion Direction
+
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            if (!CanHit)
+            {
+                if (npc.Hitbox.Intersects(target.Hitbox))
+                {
+					return false;
+                }
+            }
+
+			CanHit = true;
+			return true;
+        }
 
 
-		private void MovementAndDash(NPC npc, Player player)
+        private void MovementAndDash(NPC npc, Player player)
 		{
 
 
@@ -299,12 +317,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				}
 			}
-			else if (State == OreState.Stunned)
+			else if (State == OreState.Stunned)//If the ore is stunned
 			{
+
+
 
 				AttackTimer++;
 
-                if (npc.collideX)
+                if (npc.collideX)//Rolling code and velocity.
                 {
 					npc.velocity.X = -(npc.velocity.X * 0.5f);
                 }
@@ -316,7 +336,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
 
 
-				if(AttackTimer >= 60 * 3)
+				if(AttackTimer >= 60 * 3)//Reset the ore
 				{
 					AttackTimer = 0;
 
@@ -378,7 +398,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void NPCLoot()
 		{
-			EpicWorld.OreKills += 1;
+            if (EpicWorld.OreEvent)
+            {
+				EpicWorld.OreKills += 1;
+			}
+
 			if (Main.netMode == NetmodeID.Server)
 			{
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.

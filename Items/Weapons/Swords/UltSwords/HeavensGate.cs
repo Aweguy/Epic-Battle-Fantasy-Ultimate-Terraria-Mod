@@ -1,6 +1,5 @@
 using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
-using EpicBattleFantasyUltimate.Items.Weapons.Swords.Level1Swords;
 using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;

@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Hellfire Canisters");
             Tooltip.SetDefault("Makes foes dance between scorching lead raindrops.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 19));
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 2));
         }
 
         public override void SetDefaults()

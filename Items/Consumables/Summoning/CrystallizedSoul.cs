@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -54,5 +55,22 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 
             return true;
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<CyclonicEmerald>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<PristineDiamond>(), 2);
+            recipe.AddIngredient(ModContent.ItemType<AncientAmber>(), 2);
+            recipe.AddIngredient(mod.ItemType("DarkMatter"), 20);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+
+
     }
 }

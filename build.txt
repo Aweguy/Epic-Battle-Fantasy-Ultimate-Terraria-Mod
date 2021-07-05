@@ -1,3 +1,3 @@
 displayName = Epic Battle Fantasy Ultimate
 author = Aweguy
-version = 0.8.6.7
+version = 0.8.6.9

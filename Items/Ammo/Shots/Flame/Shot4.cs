@@ -12,7 +12,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Burst Shells");
             Tooltip.SetDefault("A bullet that explodes into more bullets, popular among spin-off lovers.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 5));
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
         }
 
         public override void SetDefaults()
