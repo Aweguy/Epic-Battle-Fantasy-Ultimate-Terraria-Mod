@@ -79,6 +79,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 
         private void Jumping(NPC npc)
         {
+            Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.ai[0], ref npc.ai[1]);
+
             if (npc.collideY)
             {
                 if (Main.rand.NextFloat() < .1f)

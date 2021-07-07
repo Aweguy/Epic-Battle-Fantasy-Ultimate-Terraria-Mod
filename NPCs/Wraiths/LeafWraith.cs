@@ -228,7 +228,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         {
             Player player = Main.player[Main.myPlayer];
 
-            if (Main.hardMode == true && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)))
+            if (Main.hardMode == true && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)) && !spawnInfo.invasion)
             {
                 return 0.03f;
             }

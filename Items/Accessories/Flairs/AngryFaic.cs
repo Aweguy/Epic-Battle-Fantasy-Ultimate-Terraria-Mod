@@ -31,6 +31,8 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
             player.thrownCrit += 8;
             player.allDamage += 0.08f;
             player.aggro += 450;
+
+
         }
 
         public override int ChoosePrefix(UnifiedRandom rand)

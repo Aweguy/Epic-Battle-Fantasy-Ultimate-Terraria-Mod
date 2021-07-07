@@ -79,6 +79,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 
         private void Jumping(NPC npc)
         {
+            Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.ai[0], ref npc.ai[1]);
+
             if (npc.collideY)
             {
                 if (Main.rand.NextFloat() < .1f)
@@ -177,8 +179,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.player[Main.myPlayer];
-            if (PlayerIsInForest(spawnInfo.player) && Main.dayTime)
+            Player player = Main.player[spawnInfo.player.whoAmI];
+            if (PlayerIsInForest(player) && Main.dayTime && !spawnInfo.invasion)
             {
                 return 0.1f;
             }

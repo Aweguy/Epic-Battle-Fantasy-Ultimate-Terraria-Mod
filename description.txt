@@ -391,3 +391,16 @@ All of our Family members for close support
 	v0.8.6.9
 
 	-Fixed a bug with the new Ore Event
+
+	v0.8.6.10
+
+	-Fire Ammunition Resprites
+	-Fixed Oneshotting ores
+
+	v0.8.6.11
+
+	-Nothing new or bug fix. Just fixed the mod not unloading properly. 
+
+	v0.8.6.12
+
+	-Fixed the wooden idols spawning during events

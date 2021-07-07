@@ -135,6 +135,14 @@ namespace EpicBattleFantasyUltimate
             #endregion
         }
 
+        public override void Unload()
+        {
+            instance = null;
+        }
+
+
+
+
         public override void UpdateUI(GameTime gameTime)
         {
             if (SlotUI.Visible)

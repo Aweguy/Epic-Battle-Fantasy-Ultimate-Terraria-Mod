@@ -64,10 +64,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.aiStyle = -1;
 		}
 
-
-		
-
-
 		#region OnHitPlayer
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -224,30 +220,30 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 				npc.spriteDirection = -1;
 
 				if(State != OreState.Stunned)
-                {
+				{
 					npc.rotation = MathHelper.ToRadians(0);
 				}
 			}
 		}
 
-        #endregion Direction
+		#endregion Direction
 
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
-        {
-            if (!CanHit)
-            {
-                if (npc.Hitbox.Intersects(target.Hitbox))
-                {
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+		{
+			if (!CanHit)
+			{
+				if (npc.Hitbox.Intersects(target.Hitbox))
+				{
 					return false;
-                }
-            }
+				}
+			}
 
 			CanHit = true;
 			return true;
-        }
+		}
 
 
-        private void MovementAndDash(NPC npc, Player player)
+		private void MovementAndDash(NPC npc, Player player)
 		{
 
 
@@ -324,14 +320,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 				AttackTimer++;
 
-                if (npc.collideX)//Rolling code and velocity.
-                {
+				if (npc.collideX)//Rolling code and velocity.
+				{
 					npc.velocity.X = -(npc.velocity.X * 0.5f);
-                }
-                if (npc.collideY)
-                {
+				}
+				if (npc.collideY)
+				{
 					npc.velocity.Y = -(npc.velocity.Y * 0.5f);
-                }
+				}
 
 				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
 
@@ -398,8 +394,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void NPCLoot()
 		{
-            if (EpicWorld.OreEvent)
-            {
+			if (EpicWorld.OreEvent)
+			{
 				EpicWorld.OreKills += 1;
 			}
 

@@ -1,29 +1,36 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
+namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
 {
-    public class WoodenIdol2 : ModNPC
+    class MetalIdol1 : ModNPC
     {
+
         private bool Left = false;
         private bool Right = true;
         private bool Spin = false;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wooden Idol");
+            DisplayName.SetDefault("Metal Idol");
         }
 
         public override void SetDefaults()
         {
-            npc.width = 42;
+            npc.width = 36;
             npc.height = 48;
 
-            npc.lifeMax = 105;
-            npc.damage = 10;
-            npc.defense = 6;
+            npc.lifeMax = 95;
+            npc.damage = 16;
+            npc.defense = 5;
             npc.lifeRegen = 4;
             npc.value = 50;
 
@@ -38,20 +45,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             }
         }
 
-        #region AI
-
-        public override void AI()
+        public override bool PreAI()
         {
+
             Rotation(npc);
             MovementSpeed(npc);
             Jumping(npc);
 
             npc.spriteDirection = npc.direction;
+
+            return false;
         }
-
-        #endregion AI
-
-        #region MovementSpeed
 
         private void MovementSpeed(NPC npc)
         {
@@ -83,13 +87,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             }
         }
 
-        #endregion MovementSpeed
 
-        #region Jumping
+       
 
         private void Jumping(NPC npc)
         {
+
             Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.ai[0], ref npc.ai[1]);
+
 
             if (npc.collideY)
             {
@@ -128,9 +133,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             }
         }
 
-        #endregion Jumping
-
-        #region Rotation
 
         private void Rotation(NPC npc)
         {
@@ -154,63 +156,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             }
         }
 
-        #endregion Rotation
 
-        public override void HitEffect(int hitDirection, double damage)
+
+
+
+
+        /*public override void NPCLoot()
         {
-            for (int i = 0; i <= 5; i++)
-            {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.t_LivingWood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
-            }
-        }
-
-        public override bool CheckDead()
-        {
-            int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/WoodenIdols/WoodenIdol2/WoodenIdol2_Gore1"), 1f);
-            int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/WoodenIdols/WoodenIdol2/WoodenIdol2_Gore2"), 1f);
-
-            for (int i = 0; i <= 20; i++)
-            {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.t_LivingWood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
-            }
-
-            return true;
-        }
-
-        public static bool PlayerIsInForest(Player player)
-        {
-            return !player.ZoneJungle
-                && !player.ZoneDungeon
-                && !player.ZoneCorrupt
-                && !player.ZoneCrimson
-                && !player.ZoneHoly
-                && !player.ZoneSnow
-                && !player.ZoneDesert
-                && !player.ZoneUndergroundDesert
-                && !player.ZoneGlowshroom
-                && !player.ZoneMeteor
-                && !player.ZoneBeach
-                && player.ZoneOverworldHeight;
-        }
-
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            Player player = Main.player[spawnInfo.player.whoAmI];
-            if (PlayerIsInForest(player) && Main.dayTime && !spawnInfo.invasion)
-            {
-                return 0.1f;
-            }
-
-            return 0f;
-        }
-
-        #region NPCLoot
-
-        public override void NPCLoot()
-        {
-            Item.NewItem(npc.getRect(), ItemID.Wood, 5);
-        }
-
-        #endregion NPCLoot
+            base.NPCLoot();
+        }*/
     }
 }

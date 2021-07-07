@@ -88,7 +88,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths
 				int pY = (int)player.position.Y / 16;
 				int x = (int)npc.position.X / 16;
 				int y = (int)npc.position.Y / 16;
-				int rand = 50;
+				int rand = 40;
 				int distance = 0;
 				bool checkDistance = false;
 				if ((double)Math.Abs(npc.position.X - player.position.X) + (double)Math.Abs(npc.position.Y - player.position.Y) > 2000)
@@ -104,10 +104,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths
 					{
 						if ((j < pY - 4 || j > pY + 4 || (k < pX - 4 || k > pX + 4)) && (j < y - 1 || j > y + 1 || (k < x - 1 || k > x + 1)) && Main.tile[k, j].nactive())
 						{
-							bool flag2 = true;
+							bool teleport = true;
 							if (Main.tile[k, j - 1].lava())
-								flag2 = false;
-							if (flag2 && Main.tileSolid[(int)Main.tile[k, j].type] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
+								teleport = false;
+							if (teleport && Main.tileSolid[(int)Main.tile[k, j].type] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
 							{
 								state = 1;
 								attack = 55.0f;
