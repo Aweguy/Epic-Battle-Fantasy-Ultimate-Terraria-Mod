@@ -404,3 +404,7 @@ All of our Family members for close support
 	v0.8.6.12
 
 	-Fixed the wooden idols spawning during events
+
+	v0.8.6.13
+
+	-Made Matt appear in pre-hardmode worlds after the Eye of Cthulhu has been defeated.

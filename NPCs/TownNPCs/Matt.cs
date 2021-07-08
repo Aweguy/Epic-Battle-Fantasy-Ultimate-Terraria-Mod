@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords;
+﻿using EpicBattleFantasyUltimate.Items.Consumables;
+using EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 			npc.height = 50;
 			npc.aiStyle = 7;
 			npc.damage = 30;
-			npc.defense = 50;
+			npc.defense = 51;
 			npc.lifeMax = 750;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
@@ -85,10 +86,6 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
-			shop.item[nextSlot].SetDefaults(mod.ItemType("ChilliPepper"));
-			shop.item[nextSlot].shopCustomPrice = 1500000;
-			nextSlot++;
-
 			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot"));
 			shop.item[nextSlot].shopCustomPrice = 10000;
 			nextSlot++;
@@ -125,58 +122,66 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 			shop.item[nextSlot].shopCustomPrice = 5000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Avenger>());
-			shop.item[nextSlot].shopCustomPrice = 550000;
-			nextSlot++;
+            if (Main.hardMode)
+            {
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<ChilliPepper>());
+				shop.item[nextSlot].shopCustomPrice = 1500000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Berzerker>());
-			shop.item[nextSlot].shopCustomPrice = 500000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Avenger>());
+				shop.item[nextSlot].shopCustomPrice = 550000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<BlackFang>());
-			shop.item[nextSlot].shopCustomPrice = 200000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Berzerker>());
+				shop.item[nextSlot].shopCustomPrice = 500000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<BoneBlade>());
-			shop.item[nextSlot].shopCustomPrice = 200000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<BlackFang>());
+				shop.item[nextSlot].shopCustomPrice = 200000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<DragonsFeather>());
-			shop.item[nextSlot].shopCustomPrice = 220000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<BoneBlade>());
+				shop.item[nextSlot].shopCustomPrice = 200000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<FusionBlade>());
-			shop.item[nextSlot].shopCustomPrice = 100000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<DragonsFeather>());
+				shop.item[nextSlot].shopCustomPrice = 220000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<GaiaAxe>());
-			shop.item[nextSlot].shopCustomPrice = 200000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<FusionBlade>());
+				shop.item[nextSlot].shopCustomPrice = 100000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavensGate>());
-			shop.item[nextSlot].shopCustomPrice = 500000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<GaiaAxe>());
+				shop.item[nextSlot].shopCustomPrice = 200000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Inferno>());
-			shop.item[nextSlot].shopCustomPrice = 100000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavensGate>());
+				shop.item[nextSlot].shopCustomPrice = 500000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<LightningShard>());
-			shop.item[nextSlot].shopCustomPrice = 450000;
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Inferno>());
+				shop.item[nextSlot].shopCustomPrice = 100000;
+				nextSlot++;
 
-			/*shop.item[nextSlot].SetDefaults(ModContent.ItemType<SapphireSaint>());
-			shop.item[nextSlot].shopCustomPrice = 100000;
-			nextSlot++;*/
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<LightningShard>());
+				shop.item[nextSlot].shopCustomPrice = 450000;
+				nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulEater>());
-			shop.item[nextSlot].shopCustomPrice = 500000;
-			nextSlot++;
+				/*shop.item[nextSlot].SetDefaults(ModContent.ItemType<SapphireSaint>());
+				shop.item[nextSlot].shopCustomPrice = 100000;
+				nextSlot++;*/
+
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulEater>());
+				shop.item[nextSlot].shopCustomPrice = 500000;
+				nextSlot++;
+
+			}
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
 		{
-			if (Main.hardMode)
+			if (NPC.downedBoss1)
 			{
 				return true;
 			}
