@@ -103,6 +103,9 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				if (Main.rand.NextFloat() < .1f)
 				{
+
+					npc.netUpdate = true;
+
 					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
 
 					CheckDead();
