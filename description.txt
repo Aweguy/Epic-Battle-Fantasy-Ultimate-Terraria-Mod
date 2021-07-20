@@ -408,3 +408,9 @@ All of our Family members for close support
 	v0.8.6.13
 
 	-Made Matt appear in pre-hardmode worlds after the Eye of Cthulhu has been defeated.
+
+	v0.8.7.1
+
+	-Readded airstrike
+	-Some new effects on Mother Earth
+	-Fixed Chilli pepper being consumed 3 at a time.

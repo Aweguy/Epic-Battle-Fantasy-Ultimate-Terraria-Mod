@@ -17,8 +17,8 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
             item.width = 24;
             item.height = 24;
             item.useStyle = ItemUseStyleID.EatingUsing;
-            item.useTime = 10;
-            item.useAnimation = 10;
+            item.useTime = 1;
+            item.useAnimation = 1;
             item.useTurn = true;
 
             item.maxStack = 30;

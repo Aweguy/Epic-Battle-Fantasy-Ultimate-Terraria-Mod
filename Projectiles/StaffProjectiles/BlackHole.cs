@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using EpicBattleFantasyUltimate.Buffs.Buffs;
 
 #endregion Using
 
@@ -176,7 +177,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
         private void Scaling(Player player, Vector2 oldSize)
         {
-            if (player.HasBuff(mod.BuffType("HasteBuff")))
+            if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
             {
                 if (projectile.width <= 150)
                 {

@@ -64,6 +64,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 		#endregion Leaf Dust variables
 
+		#region Glowmask Variables
+
+		int GlowmaskOpacity = 120;
+		float GlowmaskScale = 1f;
+
+		#endregion
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
@@ -127,18 +134,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 				EndDamage--;//reducing the timer so the ending animation starts
 
+				GlowmaskOpacity += 2;//glowmask update for the opacity
+				GlowmaskScale += 0.015f;//glowmask update for the size
+
 				if (DamageTimer-- <= 0 && EndDamage > 0)
 				{
 					for (int i = 0; i < Main.maxNPCs; i++)
 					{
 						NPC npc = Main.npc[i];
 
-						if (!Main.npc[i].active)
+						if(npc.active && !npc.dontTakeDamage)
 						{
-							continue;
+							Damage(npc, player); //The constant damage causing
 						}
-
-						Damage(npc, player); //The constant damage causing
 					}
 				}
 				else if (EndDamage <= 0)
@@ -350,9 +358,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			//Texture2D texture = mod.GetTexture("Projectiles/LimitBreaks/MothEarth/MotherEarth_Glowmask");
+			Texture2D texture = mod.GetTexture("Projectiles/LimitBreaks/MothEarth/MotherEarth");
 
-			//spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, projectile.rotation, texture.Size() /2 , projectile.scale,SpriteEffects.None, 0);
+			if(GlowmaskOpacity < 255 && StartDamage <= 0)
+			{
+				spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * ((255 - GlowmaskOpacity) / 255f), projectile.rotation, texture.Size() / 2, projectile.scale * GlowmaskScale, SpriteEffects.None, 0);
+			}
 
 
 
