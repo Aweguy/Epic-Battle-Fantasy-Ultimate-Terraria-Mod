@@ -45,7 +45,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
             if (player.statLife < player.statLifeMax)
             {
-                item.damage = 1 + missHP;
+                item.damage = 1 + (int)(missHP / 2);
             }
         }
     }

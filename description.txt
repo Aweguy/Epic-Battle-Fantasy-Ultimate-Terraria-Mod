@@ -413,4 +413,20 @@ All of our Family members for close support
 
 	-Readded airstrike
 	-Some new effects on Mother Earth
+	-Fixed Mother Earth damaging invulnerable enemies and town npcs. Whoops.
 	-Fixed Chilli pepper being consumed 3 at a time.
+
+
+	v0.8.7.2
+
+	-Fixed an airstrike bug i hadn't fixed upon previous version release.
+
+
+	v0.8.7.3
+	Reupload of the mod after a temporary takedown because of my steam account being phished. Resolved.
+
+
+	-Changed the recipe of the Cyclonic Emerald.
+	-Buffed Airstrike a bit. Wasn't as strong as i wanted.
+	-Added sound to the airstrike. A bit funny, will fix later.
+	-Beta of the cosmic monolith, not spawnable for now, only from Cheat Sheet and HERO's mod.

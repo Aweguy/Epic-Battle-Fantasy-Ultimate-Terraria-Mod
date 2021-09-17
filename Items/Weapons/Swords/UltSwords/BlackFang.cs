@@ -14,13 +14,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override void SetDefaults()
         {
-            item.damage = 66;
+            item.damage = 40;
             item.melee = true;
             item.width = 64;
             item.height = 64;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 30;
-            item.useAnimation = 30;
+            item.useTime = 25;
+            item.useAnimation = 25;
             item.knockBack = 2f;
             item.value = Item.sellPrice(gold: 5);
             item.rare = ItemRarityID.Cyan;
@@ -31,7 +31,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 60 * 5);
-            player.statLife += 6;
+            player.statLife += (int)(damage / 10);
             player.HealEffect(6);
         }
 

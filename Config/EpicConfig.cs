@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Config
         public bool VerticalStack { get; set; }
 
         [DefaultValue(typeof(Vector2), "500,500")]
-        [Range(0f, 1902f)]
+        [Range(0f, 1920f)]
         [Label("Limit Break Bar Position")]
         [Tooltip("The Postition of the Limit Break Bar")]
         public Vector2 LimitBarPosition { get; set; }

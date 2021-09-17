@@ -143,7 +143,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 					{
 						NPC npc = Main.npc[i];
 
-						if(npc.active && !npc.dontTakeDamage)
+						if(npc.active && !npc.dontTakeDamage && !npc.townNPC)
 						{
 							Damage(npc, player); //The constant damage causing
 						}

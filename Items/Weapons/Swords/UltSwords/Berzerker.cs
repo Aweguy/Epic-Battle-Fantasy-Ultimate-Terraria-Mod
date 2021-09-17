@@ -32,7 +32,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 
         public override bool UseItem(Player player)
         {
-            if (Main.rand.NextFloat(1f) > 0.5f)
+            if (Main.rand.NextFloat(1f) > 0.4f)
             {
                 player.AddBuff(ModContent.BuffType<Tired>(), 60 * 5);
             }

@@ -52,7 +52,6 @@ C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFanta
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\TerrariaHooks.dll
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.exe
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.pdb
-C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\tModLoader.xml
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\bin\Debug\net45\MonoMod.Utils.xml
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.AssemblyInfoInputs.cache
@@ -62,3 +61,4 @@ C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFanta
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.dll
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.pdb
 C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.csproj.AssemblyReference.cache
+C:\Users\irene\Documents\My Games\Terraria\ModLoader\Mod Sources\EpicBattleFantasyUltimate\obj\Debug\net45\EpicBattleFantasyUltimate.GeneratedMSBuildEditorConfig.editorconfig
