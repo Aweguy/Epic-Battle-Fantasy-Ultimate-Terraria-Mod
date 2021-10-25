@@ -320,27 +320,30 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
-			SpriteEffects spriteEffects = SpriteEffects.None;
+
+            #region GlowMask
+            SpriteEffects spriteEffects = SpriteEffects.None;
 
 			if (npc.direction == -1)
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 
-			Texture2D texture = mod.GetTexture("NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
+			Texture2D glowmask = mod.GetTexture("NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
 
-			int frameHeight = texture.Height / 13;
+			int frameHeight = glowmask.Height / 13;
 
 			int startY = frameHeight * GlowmaskFrame;
 
-			Rectangle sourceRectangle = new Rectangle(0, startY, texture.Width, frameHeight);
+			Rectangle sourceRectangle = new Rectangle(0, startY, glowmask.Width, frameHeight);
 
 			Vector2 origin = sourceRectangle.Size() / 2f;
 
 			origin.X = (float)(npc.spriteDirection == 1 ? sourceRectangle.Width - 20 : 20);
 
-			Main.spriteBatch.Draw(texture, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
-		}
+			Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
+            #endregion
+        }
 
-	}  
+    }  
 }
