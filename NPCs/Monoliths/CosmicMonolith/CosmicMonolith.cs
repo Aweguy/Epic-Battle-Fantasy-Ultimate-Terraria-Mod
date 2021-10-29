@@ -291,6 +291,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				AttackChosen = false;
 			}
 
+			
 			if (AttackTimer <= 30)
 			{
 				npc.Center = new Vector2(target.Center.X,target.Center.Y - 150);//Positioning over the player's head.
@@ -321,8 +322,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
 
-            #region GlowMask
-            SpriteEffects spriteEffects = SpriteEffects.None;
+			#region GlowMask
+			SpriteEffects spriteEffects = SpriteEffects.None;
 
 			if (npc.direction == -1)
 			{
@@ -342,8 +343,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			origin.X = (float)(npc.spriteDirection == 1 ? sourceRectangle.Width - 20 : 20);
 
 			Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
-            #endregion
-        }
+			#endregion
 
-    }  
+
+		}
+
+	}  
 }

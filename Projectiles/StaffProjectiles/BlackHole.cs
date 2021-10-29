@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
+using Terraria.DataStructures;
 
 #endregion Using
 
@@ -112,6 +113,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 							Scaling(player, oldSize);
 
 							Sucking();
+
+							PlayerSucking(player);
+
+							GoreSucking();
+
+							DustSucking();
 						}
 						// If the player stops channeling, do something else.
 						else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)
@@ -229,16 +236,69 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					{
 						between = 0.1f;
 					}
-					Main.NewText($"{between}");
-
-
-					gravMagnitude = (projectile.scale * 50) / between; //gravitaional pull equation
+					gravMagnitude = (projectile.scale * 75) / between; //gravitaional pull equation
 
 					if (!npc.boss)
 					{
 						npc.velocity += npc.DirectionTo(projectile.Center) * gravMagnitude;//applying the gravitational pull force calculated above
 					}
+				}
+			}
+		}
 
+		private void PlayerSucking(Player player)
+		{
+			if (player.active)
+			{
+				float between = Vector2.Distance(projectile.Center, player.Center);
+
+				if (between < 0.1f)
+				{
+					between = 0.1f;
+				}
+				if(between <= 80f * projectile.scale)
+				{
+					player.Hurt(PlayerDeathReason.ByCustomReason($"{player.name} was turned into particles!"), (int)(10 * projectile.scale), 0, true, true, false);// Damaging the player if too close to the black hole
+				}
+				gravMagnitude = (projectile.scale * 14) / between; //gravitaional pull equation
+				player.velocity += player.DirectionTo(projectile.Center) * gravMagnitude;
+			}
+		}
+
+		private void GoreSucking()
+		{
+			for(int i = 0; i < Main.maxGore; i++)
+			{
+				Gore gore = Main.gore[i];
+				if (gore.active)
+				{
+					float between = Vector2.Distance(projectile.Center, gore.position);
+
+					if (between < 0.1f)
+					{
+						between = 0.1f;
+					}
+					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
+					gore.velocity -= Vector2.Normalize(gore.position - projectile.Center) * gravMagnitude;
+				}
+			}
+		}
+
+		private void DustSucking()
+		{
+			for(int i = 0; i < Main.maxDust; i++)
+			{
+				Dust dust = Main.dust[i];
+				if (dust.active)
+				{
+					float between = Vector2.Distance(projectile.Center, dust.position);
+
+					if (between < 0.1f)
+					{
+						between = 0.1f;
+					}
+					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
+					dust.velocity -= Vector2.Normalize(dust.position - projectile.Center) * gravMagnitude;
 				}
 			}
 		}
@@ -276,32 +336,38 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 		public override void Kill(int timeLeft)
 		{
-			// Fire Dust spawn
+			
 			if (projectile.width <= 150)
 			{
-				for (int i = 0; i < 50; i++)
+				for (int i = 0; i < 25; i++)
 				{
 					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1f);
 					Main.dust[dustIndex].noGravity = true;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 1.25f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 				}
 			}
 			else if (projectile.width <= 325 && projectile.width > 150)
 			{
-				for (int i = 0; i < 100; i++)
+				for (int i = 0; i < 50; i++)
 				{
 					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1.5f);
 					Main.dust[dustIndex].noGravity = true;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 				}
 			}
 			else
 			{
-				for (int i = 0; i < 400; i++)
+				for (int i = 0; i < 200; i++)
 				{
 					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 2f);
 					Main.dust[dustIndex].noGravity = true;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2.5f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
 				}
 			}
 

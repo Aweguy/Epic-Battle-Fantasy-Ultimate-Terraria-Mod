@@ -100,7 +100,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 			if (StartDamage-- > 0)
 			{
-				for (int i = 0; i < Player.MaxBuffs; ++i)
+				for (int i = 0; i < Player.MaxBuffs; ++i)//Clear debuffs
 				{
 					if (player.buffType[i] != 0 && Main.debuff[player.buffType[i]])
 					{
@@ -192,7 +192,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			{
 				Vector2 origin = new Vector2(projectile.Center.X, projectile.Center.Y);
 
-				Projectile.NewProjectile(origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 20, 2, Main.myPlayer, projectile.Center.X, projectile.Center.Y);
+				Projectile.NewProjectile(origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 24, 2, Main.myPlayer, projectile.Center.X, projectile.Center.Y);
 
 				BlastTimer = 15;
 			}
