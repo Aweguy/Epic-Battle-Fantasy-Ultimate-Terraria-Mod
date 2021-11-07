@@ -30,6 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/WoodIdolHit");
+
             if (Main.hardMode)
             {
                 npc.lifeMax *= 2;

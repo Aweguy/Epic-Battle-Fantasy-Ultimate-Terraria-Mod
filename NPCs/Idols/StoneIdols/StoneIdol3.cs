@@ -30,6 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/StoneIdolHit");
+
             if (Main.hardMode)
             {
                 npc.lifeMax *= 3;

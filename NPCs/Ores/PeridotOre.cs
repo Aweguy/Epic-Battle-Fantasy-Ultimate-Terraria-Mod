@@ -34,6 +34,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			npc.noTileCollide = true;
 			npc.aiStyle = -1;
 
+			Aura = 4;
 			Explosion = ModContent.ProjectileType<PeridotExplosion>();
 
 			MoveSpeedMultval = 4f;

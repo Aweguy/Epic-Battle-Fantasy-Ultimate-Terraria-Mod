@@ -32,9 +32,10 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
             item.shoot = mod.ProjectileType("GiantSlayerProj");
         }
 
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+
+        public override void HoldItem(Player player)
         {
-            target.defense -= 43;
+            player.armorPenetration += 100;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

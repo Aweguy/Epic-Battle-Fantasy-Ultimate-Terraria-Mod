@@ -30,6 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 			npc.noGravity = true;
 
+			npc.HitSound = SoundID.NPCHit4;
+
 			npc.noTileCollide = false;
 			npc.aiStyle = -1;
 		}

@@ -31,6 +31,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             npc.aiStyle = -1;
             npc.noGravity = false;
 
+            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/MarbleIdolHurt");
+
             if (Main.hardMode)
             {
                 npc.lifeMax *= 3;

@@ -48,17 +48,25 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public int MoveSpeedBalval;
 		public float SpeedBalance;
 
-		public int DashCooldown;
+		public int DashCooldown;//The cooldown before the ore is able to dash again
 
-		public int DashCharge;
-		public float DashDistance;
-		public float DashVelocity;
-		public int DashDuration;
+		public int DashCharge;//How much the ore has charged to dash
+		public float DashDistance;//The dash range
+		public float DashVelocity;//The speed of the ore when it dashes
+		public int DashDuration;//The duration of the dash
 
-		public int StunDuration;
+		public int StunDuration;//The duration of the stun when the ore hits the player
+
+		public bool HasAura = false;//Whether the ore will have an aura
+
+		public int Aura = 0;//What aura the ore has.
+
+		public bool SpedUp = false;//Whether the npc has sped up or not from the Topza ore's aura
+		public bool DamUp = false;//Whether the npc has buffed damage from the Amethyst ore's aura
+		public bool DefUp = false;//Whether the npc has buffed defense from the Peridot ore's aura
 
 
-        public virtual void SetSafeDefaults()
+		public virtual void SetSafeDefaults()
 		{
 
 		}
@@ -67,6 +75,13 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			SetSafeDefaults();
 
+			npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
+
+			if(Main.rand.NextFloat(1f) < 0.1f)
+			{
+				HasAura = true;
+			}
+			//Setting the ores to be immune
 			npc.lavaImmune = true;
 			npc.trapImmune = true;
 			npc.buffImmune[BuffID.Poisoned] = true;
@@ -81,17 +96,17 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 			#region Stunned
 
-			if (Dashing)
+			if (Dashing)//If the ore is dashing and it hits the player
 			{
-				State = OreState.Stunned;
+				State = OreState.Stunned;//it gets stunned
 
-				npc.noGravity = false;
+				npc.noGravity = false;//and has some various effects applied to it
 				npc.noTileCollide = false;
 
 
-				Dashing = false;
+				Dashing = false;//and we reset the Dashing variable
 
-				AttackTimer = 0;
+				AttackTimer = 0;//Resetting the attack
 			}
 
 
@@ -159,7 +174,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			}
 
 			#endregion Death Check
-
+			//Death code for the ores.
 		}
 
 
@@ -172,15 +187,20 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		}
 
-        public override bool PreAI()
-        {
+		public override bool PreAI()
+		{
 			Player player = Main.player[npc.target];
 
 			Direction(npc);
 			MovementAndDash(npc, player);
 
+			if (HasAura)
+			{
+				Auras();
+			}
+
 			return true;
-        }
+		}
 
 		private void Direction(NPC npc)
 		{
@@ -321,9 +341,47 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		}
 
+		private void Auras()
+		{
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC npcIndex = Main.npc[i];
 
+				if (npcIndex.active)
+				{
+					float distance = Vector2.Distance(npc.Center, npcIndex.Center);//Calculating the distance
 
-		public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+					SpedUp = false;
+					DamUp = false;
+					DefUp = false;
+
+					if (distance <= 80f)
+					{
+						if (Aura == 1 && npc.life < npc.lifeMax)//The buff aura for the quartz ore
+						{
+							npcIndex.life += 1;
+						}
+						if (Aura == 2 && !SpedUp)//The buff aura for the Topaz Ore
+						{
+							npcIndex.velocity *= 2;
+							SpedUp = true;
+						}
+						if (Aura == 3 && !DamUp)//The buff aura for the Ruby Ore
+						{
+							npcIndex.damage += (int)(npcIndex.defDamage * 0.2f);
+							DamUp = true;
+						}
+						if (Aura == 4 && !DefUp)//The buff aura for the Peridot Ore
+						{
+							npcIndex.defense += (int)(npcIndex.defDefense * 0.2f);
+							DefUp = true;
+						}
+					}
+				}
+			}
+
+		}
+		public override bool CanHitPlayer(Player target, ref int cooldownSlot)//Whether the ore can hit or not the player. Using it to make the ores not hit the player while stunned
 		{
 			if (!CanHit)
 			{
@@ -358,7 +416,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		}
 
-		public override void NPCLoot()
+		public override void NPCLoot()//Shared NPC loot.
 		{
 
 			if (Main.netMode == NetmodeID.Server)
@@ -369,7 +427,16 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			SafeNPCLoot();
 			if (EpicWorld.OreEvent)
 			{
-				EpicWorld.OreKills += 1;
+				if (HasAura)
+				{
+					EpicWorld.OreKills += 2;
+
+				}
+				else
+				{
+					EpicWorld.OreKills += 1;
+
+				}
 			}
 
 		}

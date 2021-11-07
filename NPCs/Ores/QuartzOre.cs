@@ -36,6 +36,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             npc.aiStyle = -1;
 
             Explosion = ModContent.ProjectileType<QuartzExplosion>();
+            Aura = 1;
 
             MoveSpeedMultval = 8f;
             MoveSpeedBalval = 100;

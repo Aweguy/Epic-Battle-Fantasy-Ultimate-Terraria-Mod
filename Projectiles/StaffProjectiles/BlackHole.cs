@@ -23,7 +23,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		private float dustBoost = 2f; //The offset from the center from which the dust will spawn
 		private int dustSpawnRate = 100; //bigger = more dust, total dust is dustSpawnTime*dustSpawnRate
 		private float gravMagnitude; //The power of the gravitational force
-		private float direction;//
 
 		public override void SetStaticDefaults()
 		{
@@ -55,7 +54,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		{
 			Player player = Main.player[projectile.owner];
 
-			if (++projectile.frameCounter >= 5)
+			if (++projectile.frameCounter >= 5)//frame calculation for the animation
 			{
 				projectile.frameCounter = 0;
 
@@ -101,31 +100,31 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 					// In Multi Player (MP) This code only runs on the client of the projectile's owner, this is because it relies on mouse position, which isn't the same across all clients.
 					if (Main.myPlayer == projectile.owner && projectile.ai[0] == 0f)
 					{
-						Movement(player);
+						Movement(player);//The movement of the black hole
 
 						var epicPlayer = EpicPlayer.ModPlayer(player);
 
 						// If the player channels the weapon, do something. This check only works if item.channel is true for the weapon.
 						if (player.channel && epicPlayer.LimitCurrent > 0)
 						{
-							LimitDrain(player);
+							LimitDrain(player);//Draining limit break
 
-							Scaling(player, oldSize);
+							Scaling(player, oldSize);//The growth of the black hole
 
-							Sucking();
+							Sucking();//Sucking enemy npcs (or friendly) not bosses
 
-							PlayerSucking(player);
+							PlayerSucking(player);//Sucking the player and damaging them if too close
 
-							GoreSucking();
+							GoreSucking();//Sucking gore
 
-							DustSucking();
+							DustSucking();//Sucking dust
 						}
 						// If the player stops channeling, do something else.
-						else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)
+						else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)//The damage when it ends
 						{
 							projectile.timeLeft = 1;
 
-							Damage();
+							Damage();//The method that calculates the damage
 						}
 					}
 					if (projectile.frame >= 16)
@@ -137,24 +136,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			return false;
 		}
 
+		//The limit break draining
 		private void LimitDrain(Player player)
 		{
-			DrainTimer--;
-
-			if (DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent > 0)
+			if (--DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent > 0)
 			{
 				player.GetModPlayer<EpicPlayer>().LimitCurrent--;
 
 				DrainTimer = 60;
 			}
-			else if (DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
+			else if (--DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
 			{
 				projectile.Kill();
 
 				DrainTimer = 60;
 			}
 		}
-
+		//Movement of the black hole
 		private void Movement(Player player)
 		{
 			float maxDistance = 3f; // This also sets the maximun speed the projectile can reach while following the cursor.
@@ -182,7 +180,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 			projectile.velocity = vectorToCursor;
 		}
-
+		//The growth rate of the black hole
 		private void Scaling(Player player, Vector2 oldSize)
 		{
 			if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
@@ -222,7 +220,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
 			}
 		}
-
+		//NPC sucking
 		private void Sucking()
 		{
 			for (int i = 0; i < Main.maxNPCs; i++)
@@ -230,7 +228,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				NPC npc = Main.npc[i];
 				if (npc.active)
 				{
-					float between = Vector2.Distance(projectile.Center, npc.Center);
+					float between = Vector2.Distance(projectile.Center, npc.Center);//Calculating the distance
 
 					if(between < 0.1f)
 					{
@@ -245,26 +243,26 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				}
 			}
 		}
-
+		//Player Sucking
 		private void PlayerSucking(Player player)
 		{
 			if (player.active)
 			{
-				float between = Vector2.Distance(projectile.Center, player.Center);
+				float between = Vector2.Distance(projectile.Center, player.Center);//Distance
 
 				if (between < 0.1f)
 				{
 					between = 0.1f;
 				}
-				if(between <= 80f * projectile.scale)
+				if(between <= 50f * projectile.scale)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason($"{player.name} was turned into particles!"), (int)(10 * projectile.scale), 0, true, true, false);// Damaging the player if too close to the black hole
+					player.Hurt(PlayerDeathReason.ByCustomReason($"{player.name} was turned into particles!"), (int)(12 * projectile.scale), 0, true, false, false);// Damaging the player if too close to the black hole
 				}
 				gravMagnitude = (projectile.scale * 14) / between; //gravitaional pull equation
-				player.velocity += player.DirectionTo(projectile.Center) * gravMagnitude;
+				player.velocity += player.DirectionTo(projectile.Center) * gravMagnitude;//Final calculation
 			}
 		}
-
+		//Gore Sucking
 		private void GoreSucking()
 		{
 			for(int i = 0; i < Main.maxGore; i++)
@@ -279,11 +277,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 						between = 0.1f;
 					}
 					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
-					gore.velocity -= Vector2.Normalize(gore.position - projectile.Center) * gravMagnitude;
+					gore.velocity -= Vector2.Normalize(gore.position - projectile.Center) * gravMagnitude;//Final Calculation
 				}
 			}
 		}
-
+		//Dust Sucking
 		private void DustSucking()
 		{
 			for(int i = 0; i < Main.maxDust; i++)
@@ -298,11 +296,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 						between = 0.1f;
 					}
 					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
-					dust.velocity -= Vector2.Normalize(dust.position - projectile.Center) * gravMagnitude;
+					dust.velocity -= Vector2.Normalize(dust.position - projectile.Center) * gravMagnitude;//Final Calculation
 				}
 			}
 		}
-
+		//Damage after it blows up
 		private void Damage()
 		{
 			projectile.tileCollide = false;
@@ -333,7 +331,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			//projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			//projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
 		}
-
+		//The dust when the projectile dies
 		public override void Kill(int timeLeft)
 		{
 			
@@ -380,7 +378,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
 		}
-
+		//Code for making thte projectile animate while its position is centered
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D texture = Main.projectileTexture[projectile.type];

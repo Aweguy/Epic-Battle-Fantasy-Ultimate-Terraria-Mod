@@ -53,19 +53,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		{
 			Dust dust;
 			Vector2 position = projectile.position;
-			if (Main.rand.NextFloat(0f, 1f) <= .5f)
+			if (Main.rand.NextFloat(0f, 1f) <= .3f)
 			{
 
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.	
-				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, 41, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.GlowingMushroom, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 				dust.shader = GameShaders.Armor.GetSecondaryShader(83, Main.LocalPlayer);
 
 			}
-			if (Main.rand.NextFloat(0f, 1f) <= .5f)
+			if (Main.rand.NextFloat(0f, 1f) <= .3f)
 			{	
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 
-				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, 41, 0f, 0f, 0, new Color(255, 0, 0), 1);
+				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.GlowingMushroom, 0f, 0f, 0, new Color(255, 0, 0), 1f);
 				dust.shader = GameShaders.Armor.GetSecondaryShader(23, Main.LocalPlayer);
 			}
 		}

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -60,6 +61,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		private int GlowmaskFrame = 0;
 		private int GlowmaskTimer = 0;
 
+		private int rippleCount = 1;//How many distortions there will be
+		private int rippleSize = 10;//The size of the distortions
+		private int rippleSpeed = 20;//How fast the distortions will travel. Not too applicable here
+		private float distortStrength = 200f;//How much distortion is caused by each ripple. Can create super fun effects.
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cosmic Monolith");
@@ -70,7 +76,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.height = 100;
 			npc.width = 30;
 
-			npc.lifeMax = 1000;
+			npc.lifeMax = 10000;
 			npc.defense = 60;
 
 			npc.knockBackResist = -1;
@@ -84,6 +90,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.spriteDirection = target.Center.X > npc.Center.X ? -1 : 1;
 
 		}
+
+
+		public override void AI()
+		{
+			if (npc.localAI[0] == 0)
+			{
+				npc.localAI[0] = 1;
+
+
+				if (Main.netMode != NetmodeID.Server && !Filters.Scene["ShockwaveMonolith"].IsActive())
+				{
+					Filters.Scene.Activate("ShockwaveMonolith", npc.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(npc.Center);
+				}
+			}
+
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["ShockwaveMonolith"].IsActive())
+			{
+				Filters.Scene["ShockwaveMonolith"].GetShader().UseProgress(0.2f).UseOpacity(distortStrength).UseTargetPosition(npc.Center);
+			}
+		}
+
+
 
 		public override bool PreAI()
 		{
@@ -158,7 +186,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					DarkBolt(player);
 				}
 			}
-			return false;
+			return true;
 		}
 
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
@@ -184,9 +212,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 			if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1) npc.velocity.X = 0.0f;
 
-			if(teleports <= 10)//If it's teleported less than 10 times keep teleporting
+			if (teleports <= 10)//If it's teleported less than 10 times keep teleporting
 			{
 				if (spawned && (double)npc.ai[0] == 0.0) npc.ai[0] = 500f;
+
+				if (teleports == 0 )//Initial teleportation cheaty effect
+				{
+					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+				}
 
 				if ((double)npc.ai[2] != 0.0 && (double)npc.ai[3] != 0.0)
 				{
@@ -198,6 +231,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					npc.ai[2] = 0.0f;
 					npc.ai[3] = 0.0f;
 					teleports++;
+				}
+
+				if(teleports == 11)//ending teleportation cheaty effect
+				{
+					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 			}
 			else//Resetting the variables and passing to the attack state.
@@ -281,7 +319,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		}
 
-		private void Slam(Player target)
+		private void Slam(Player target)//The slam melee attack of the monolith
 		{
 			AttackTimer++;
 			if (AttackTimer >= 90)//Resetting the variables shortly after slaming
@@ -294,6 +332,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			
 			if (AttackTimer <= 30)
 			{
+				/*if(AttackTimer == 1)
+				{
+					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, target.whoAmI);//teleportation cheaty effect for the slam attack
+				}*/
 				npc.Center = new Vector2(target.Center.X,target.Center.Y - 150);//Positioning over the player's head.
 			}
 			else if (AttackTimer > 30)
@@ -310,18 +352,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				if (++GlowmaskFrame >= 13)
 					GlowmaskFrame = 0;
 			}
-
-			/*if (++npc.frameCounter >= 7)
-			{
-				npc.frameCounter = 0;
-				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * 1);
-			}*/
 		}
 
+		public override bool CheckDead()
+		{
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["ShockwaveMonolith"].IsActive())
+			{
+				Filters.Scene["ShockwaveMonolith"].Deactivate();
+			}
+
+			return true;
+		}
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
-
 			#region GlowMask
 			SpriteEffects spriteEffects = SpriteEffects.None;
 
@@ -343,7 +387,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			origin.X = (float)(npc.spriteDirection == 1 ? sourceRectangle.Width - 20 : 20);
 
 			Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
-			#endregion
+			#endregion//Drawing the Glowmask
 
 
 		}

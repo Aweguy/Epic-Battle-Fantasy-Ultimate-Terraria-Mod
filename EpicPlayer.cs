@@ -1,4 +1,6 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers;
+using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 using EpicBattleFantasyUltimate.NPCs.Ores;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
@@ -598,9 +600,9 @@ namespace EpicBattleFantasyUltimate
 
             #region Crystal Revolver Healing
 
-            if (player.HeldItem.type == mod.ItemType("CrystalRevolver") && player.statLife < player.statLifeMax)
+            if (player.HeldItem.type == ModContent.ItemType<CrystalRevolver>() && player.statLife < player.statLifeMax)
             {
-                if (player.HasItem(mod.ItemType("CrystalRevolver")) && player.HasItem(mod.ItemType("CrystalWing")))
+                if (player.HasItem(ModContent.ItemType<CrystalRevolver>()) && player.HasItem(ModContent.ItemType<CrystalWing>()))
                 {
                     player.statLife += 6;
                     player.HealEffect(6);

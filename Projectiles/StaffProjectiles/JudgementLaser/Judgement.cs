@@ -224,54 +224,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 			#region generalDust
 
-			if (!IsAtMaxCharge)
+			
+			for (int i = 0; i < 1; ++i)
 			{
-				for (int i = 0; i < 1; ++i)
-				{
-					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f);
+				Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f);
 
-					Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, DustID.Electric, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
-					dust.noGravity = true;
-					dust.scale = 1.2f;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-					dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, DustID.Smoke, -unit.X * Distance, -unit.Y * Distance);
-					dust.fadeIn = 0f;
-					dust.noGravity = true;
-					dust.scale = 0.88f;
-					dust.color = Color.White;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-				}
+				Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, DustID.Electric, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
+				dust.noGravity = true;
+				dust.scale = 1.2f;
+				dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
+				dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, DustID.Smoke, -unit.X * Distance, -unit.Y * Distance);
+				dust.fadeIn = 0f;
+				dust.noGravity = true;
+				dust.scale = 0.88f;
+				dust.color = Color.White;
+				dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
 			}
-			else
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-					Vector2 dustVel = new Vector2(1, 0).RotatedBy(Main.rand.NextFloat(1.57f, 1.57f) + (Main.rand.Next(2) == 0 ? -1.0f : 1.0f) * 1.57f);
-
-					Dust dust = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y), 0, 0, DustID.Electric, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];
-					dust.noGravity = true;
-					dust.scale = 1.2f;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-					dust = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, DustID.Smoke, -unit.X * Distance, -unit.Y * Distance);
-					dust.fadeIn = 0f;
-					dust.noGravity = true;
-					dust.scale = 0.88f;
-					dust.color = Color.White;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-
-					Dust dust2 = Main.dust[Dust.NewDust(new Vector2(position.X, position.Y - Distance + offDistance - 65), 0, 0, DustID.Electric, dustVel.X * 10, dustVel.Y * 10, 0, Color.White)];//it's offDistance - 65 since that's the number that fits here.
-					dust2.noGravity = true;
-					dust2.scale = 1.2f;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-					dust2 = Dust.NewDustDirect(new Vector2(position.X, position.Y), 0, 0, DustID.Smoke, -unit.X * Distance, -unit.Y * Distance);
-					dust2.fadeIn = 0f;
-					dust2.noGravity = true;
-					dust2.scale = 0.88f;
-					dust2.color = Color.White;
-					dust.shader = GameShaders.Armor.GetSecondaryShader(64, Main.LocalPlayer);
-				}
-			}
-
+			
 			#endregion generalDust
 
 			#region Feathers

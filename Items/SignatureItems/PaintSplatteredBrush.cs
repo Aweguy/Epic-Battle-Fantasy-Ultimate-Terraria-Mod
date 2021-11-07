@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -15,6 +16,8 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
             DisplayName.SetDefault("Paint Splattered B(r)ush");
             Tooltip.SetDefault("Great for impersonating artists!...\n \nAlso plumbers, for whatever reason\n[c/FFE800:By Speed Dynamo]");
         }
+
+        public static List<int> BrushProj = new List<int> { ModContent.ProjectileType<RedBall>(), ModContent.ProjectileType<GreyBall>(), ModContent.ProjectileType<YellowBall>(), ModContent.ProjectileType<GreenBall>(), ModContent.ProjectileType<BlackBall>(), ModContent.ProjectileType<WhiteBall>(), ModContent.ProjectileType<BlueBall>(), ModContent.ProjectileType<IndigoBall>(), ModContent.ProjectileType<VioletBall>(), ModContent.ProjectileType<OrangeBall>(), };
 
         public override void SetDefaults()
         {
@@ -42,10 +45,8 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-
-            int ball = Main.rand.Next(EpicBattleFantasyUltimate.BrushProj.ToArray());
-
-            Projectile.NewProjectile(player.Center, perturbedSpeed, ball, item.damage, 3f, player.whoAmI);
+            int Ball = Main.rand.Next(BrushProj.ToArray());
+            Projectile.NewProjectile(player.Center, perturbedSpeed, Ball, item.damage, 3f, player.whoAmI);
 
             return false;
         }

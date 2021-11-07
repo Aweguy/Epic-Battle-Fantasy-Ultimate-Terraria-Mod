@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,6 +20,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 	{
 		private int StartDamage = 60 * 1; //When it will start damaging enemies.
 		private int DamageTimer = 30; //The interval between each damage tick
+		private bool Shaded = false;//If the cheaty shader projectile has spawned
 
 		#region Breathing Variables
 
@@ -71,6 +73,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 		#endregion
 
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
@@ -79,8 +82,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 		public override void SetDefaults()
 		{
-			projectile.width = 0;
-			projectile.height = 0;
+			projectile.width = 1;
+			projectile.height = 1;
 
 			projectile.friendly = true;
 			projectile.penetrate = -1;
@@ -126,6 +129,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 			if (StartDamage <= 0)//Runs when it starts damaging
 			{
+                if (!Shaded)//Spawning the shader cheaty projectile
+                {
+					Shaded = true;
+
+					Projectile.NewProjectile(projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShaderProjectile>(), 0, 0, player.whoAmI, projectile.Center.X, projectile.Center.Y);
+                }
+
 				Particles();//Dust while it's alive.
 
 				NatureBlasts(player);//Projectile Spawning
@@ -154,6 +164,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 					EndAnimation(); //The end animationa and dust
 				}
 			}
+
+			
 
 			return false;
 		}

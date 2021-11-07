@@ -93,7 +93,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 				Dust dust;
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 				Vector2 position = projectile.position;
-				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, 14, 0f, 0f, 0, new Color(255, 255, 255), 0.9868422f);
+				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Demonite, 0f, 0f, 0, new Color(255, 255, 255), 0.5f);
 				dust.shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
 
