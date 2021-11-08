@@ -346,7 +346,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			for (Distance = MOVE_DISTANCE; Distance <= 2500f; Distance += 1f)
 			{
 				var start = position + spriterotation * Distance;
-				if (!Collision.CanHit(position, 1, 1, start, 1, 1))
+				if (!Collision.CanHitLine(position, 1, 1, start, 1, 1))
 				{
 					if (!IsAtMaxCharge)
 					{
@@ -390,7 +390,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			{
 				Vector2 diff = Main.MouseWorld - player.Center;
 				diff.Normalize();
-				projectile.velocity = diff;
+				projectile.velocity = Vector2.Zero;
 				projectile.direction = Main.MouseWorld.X > player.position.X ? 1 : -1;
 				projectile.netUpdate = true;
 			}

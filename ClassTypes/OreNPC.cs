@@ -61,6 +61,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		public int Aura = 0;//What aura the ore has.
 
+		public int HealTimer = 60;//When the npc will be healed from the Quartz ore's aura
 		public bool SpedUp = false;//Whether the npc has sped up or not from the Topza ore's aura
 		public bool DamUp = false;//Whether the npc has buffed damage from the Amethyst ore's aura
 		public bool DefUp = false;//Whether the npc has buffed defense from the Peridot ore's aura
@@ -351,19 +352,23 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 				{
 					float distance = Vector2.Distance(npc.Center, npcIndex.Center);//Calculating the distance
 
-					SpedUp = false;
-					DamUp = false;
-					DefUp = false;
-
 					if (distance <= 80f)
 					{
-						if (Aura == 1 && npc.life < npc.lifeMax)//The buff aura for the quartz ore
+						if (Aura == 1 && npcIndex.life < npcIndex.lifeMax)//The buff aura for the quartz ore
 						{
-							npcIndex.life += 1;
+							if(--HealTimer == 0)
+							{
+								npcIndex.life += 10;
+								if (npcIndex.life >= npcIndex.lifeMax)
+								{
+									npcIndex.life = npcIndex.lifeMax;
+								}
+								HealTimer = 60;
+							}
 						}
 						if (Aura == 2 && !SpedUp)//The buff aura for the Topaz Ore
 						{
-							npcIndex.velocity *= 2;
+							npcIndex.velocity *= 1.5f;
 							SpedUp = true;
 						}
 						if (Aura == 3 && !DamUp)//The buff aura for the Ruby Ore

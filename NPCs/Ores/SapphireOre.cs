@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Microsoft.Xna.Framework;
 using System;
@@ -50,9 +51,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			StunDuration = 3;
 		}
 
-		#region FindFrame
+        public override void AI()
+        {
+			Player target = Main.player[npc.target];
 
-		public override void FindFrame(int frameHeight)
+			Projectile.NewProjectile(npc.Center,Vector2.Zero,ModContent.ProjectileType<TestLaser>(), 10, 10, npc.whoAmI, target.Center.X, target.Center.Y);
+        }
+
+        #region FindFrame
+
+        public override void FindFrame(int frameHeight)
 		{
 			if (++npc.frameCounter >= 7)
 			{
