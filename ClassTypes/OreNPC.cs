@@ -25,13 +25,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			get => (OreState)npc.ai[0];
 			set => npc.ai[0] = (float)value;
 		}
-
 		public float Attack
 		{
 			get => npc.ai[1];
 			set => npc.ai[1] = value;
 		}
-
 		public float AttackTimer
 		{
 			get => npc.ai[2];
@@ -78,17 +76,16 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 			npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
 
-			if(Main.rand.NextFloat(1f) < 0.1f)
+			if(Main.rand.NextFloat(1f) < 0.1f)//Determining whether the ore will have an aura
 			{
 				HasAura = true;
 			}
 			//Setting the ores to be immune
-			npc.lavaImmune = true;
-			npc.trapImmune = true;
-			npc.buffImmune[BuffID.Poisoned] = true;
-			npc.buffImmune[BuffID.OnFire] = true;
-			npc.buffImmune[BuffID.Venom] = true;
-
+			npc.lavaImmune = true;//Making the ores immune to lava
+			npc.trapImmune = true;//Making the ores immune to traps
+			npc.buffImmune[BuffID.Poisoned] = true;//Poison immunity
+			npc.buffImmune[BuffID.OnFire] = true;//Fire immunity
+			npc.buffImmune[BuffID.Venom] = true;//Venom immunity
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -423,7 +420,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		public override void NPCLoot()//Shared NPC loot.
 		{
-
 			if (Main.netMode == NetmodeID.Server)
 			{
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.

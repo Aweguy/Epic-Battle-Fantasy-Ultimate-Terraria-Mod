@@ -25,7 +25,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		// The actual distance is stored in the ai0 field
 		// By making a property to handle this it makes our life easier, and the accessibility more readable
-		public float Distance = 2500;
+		public float Distance;
 
 		//{
 		//get => projectile.ai[0];
@@ -123,7 +123,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default(Color), int transDist = 0)
 		{
-			float r = unit.ToRotation() + rotation;
+			float rot = unit.ToRotation() + rotation;
 
 			var origin = Vector2.Zero;
 
@@ -133,12 +133,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 				Color c = Color.White;
 				origin = start + i * unit;
 
-				spriteBatch.Draw(texture, origin - Main.screenPosition, new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+				spriteBatch.Draw(texture, origin - Main.screenPosition, new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, rot, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
 			}
 
 			// Draws the laser 'tail'
 			spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
-				new Rectangle(0, 0, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+				new Rectangle(0, 0, 28, 26), Color.White, rot, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
 
 			// Draws the laser 'head'
 			/*spriteBatch.Draw(texture, start + (Distance + step) * unit - Main.screenPosition,
@@ -158,8 +158,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 			// Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
 			// It will look for collisions on the given line using AABB
-			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), position,
-				position + unit * Distance, beamWidth, ref point);
+			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), position, position + unit * Distance, beamWidth, ref point);
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -346,7 +345,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			for (Distance = MOVE_DISTANCE; Distance <= 2500f; Distance += 1f)
 			{
 				var start = position + spriterotation * Distance;
-				if (!Collision.CanHitLine(position, 1, 1, start, 1, 1))
+				if (!Collision.CanHit(position, 1, 1, start, 1, 1))
 				{
 					if (!IsAtMaxCharge)
 					{
@@ -390,7 +389,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			{
 				Vector2 diff = Main.MouseWorld - player.Center;
 				diff.Normalize();
-				projectile.velocity = Vector2.Zero;
+				projectile.velocity = diff;
 				projectile.direction = Main.MouseWorld.X > player.position.X ? 1 : -1;
 				projectile.netUpdate = true;
 			}

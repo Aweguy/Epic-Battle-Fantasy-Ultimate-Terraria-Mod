@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
 using EpicBattleFantasyUltimate.Projectiles;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
+using EpicBattleFantasyUltimate.HelperClasses;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -16,6 +17,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			DisplayName.SetDefault("Sapphire Ore");
 			Main.npcFrameCount[npc.type] = 6;
 		}
+
+		bool Channeling = false;
 
 		public override void SetSafeDefaults()
 		{
@@ -50,14 +53,53 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			StunDuration = 3;
 		}
+        #region Unused
+        /*public override void AI()
+		{
 
-        public override void AI()
-        {
-			Player target = Main.player[npc.target];
+			if (!Channeling)
+			{
+				Player player = Main.player[npc.target];
+				Projectile.NewProjectile(npc.Center, npc.velocity, ModContent.ProjectileType<TestLaser2>(), 100, 1, Main.myPlayer, player.whoAmI, npc.whoAmI);
+				Channeling = true;
+			}
+			//ExpertLaser();
+		}*/
 
-			Projectile.NewProjectile(npc.Center,Vector2.Zero,ModContent.ProjectileType<TestLaser>(), 10, 10, npc.whoAmI, target.Center.X, target.Center.Y);
-        }
 
+        /*private void ExpertLaser()
+		{
+			laserTimer--;
+			if (laserTimer <= 0 && Main.netMode != NetmodeID.MultiplayerClient)
+			{
+				if (npc.localAI[0] == 2f)
+				{
+					Player target = Main.player[npc.target];
+
+					Vector2 pos = npc.Center;
+					int damage = npc.damage / 2;
+					if (Main.expertMode)
+					{
+						damage = (int)(damage / Main.expertDamage);
+					}
+					Projectile.NewProjectile(pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<TestLaser>(), damage, 0f, Main.myPlayer, target.whoAmI, npc.whoAmI);
+				}
+				else
+				{
+					npc.localAI[0] = 2f;
+				}
+
+				laserTimer = 500 + Main.rand.Next(100);
+				laserTimer = 60 + laserTimer * npc.life / npc.lifeMax;
+				laser1 = Main.rand.Next(6) - 1;
+				laser2 = Main.rand.Next(5) - 1;
+				if (laser2 >= laser1)
+				{
+					laser2++;
+				}
+			}
+		}*/
+        #endregion
         #region FindFrame
 
         public override void FindFrame(int frameHeight)

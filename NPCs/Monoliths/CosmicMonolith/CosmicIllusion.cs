@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 {
-	class CosmicMonolith : ModNPC
+	class CosmicIllusion : ModNPC
 	{
 		
 		public enum MonolithState// The general AI state of the monolith
@@ -61,10 +61,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		private int GlowmaskFrame = 0;
 		private int GlowmaskTimer = 0;
 
-		private int rippleCount = 1;//How many distortions there will be
-		private int rippleSize = 10;//The size of the distortions
-		private int rippleSpeed = 20;//How fast the distortions will travel. Not too applicable here
-		private float distortStrength = 200f;//How much distortion is caused by each ripple. Can create super fun effects.
+		private NPC fatherNPC;//the creator of this npc
+		private bool FatherHP = false;//whether the npc has gotten the hp of the creator of this npc.
 
 		public override void SetStaticDefaults()
 		{
@@ -77,8 +75,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.width = 30;
 
 			npc.lifeMax = 10000;
-			npc.damage = 50;
 			npc.defense = 60;
+
+			npc.alpha = 120;
 
 			npc.knockBackResist = -1;
 			npc.aiStyle = -1;
@@ -91,21 +90,27 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.spriteDirection = target.Center.X > npc.Center.X ? -1 : 1;
 		}
 
-		public override void AI()
-		{
-		}
 
 		public override bool PreAI()
 		{
+			#region Father NPC hp
+			fatherNPC = Main.npc[(int)npc.ai[1]];
+			if (!FatherHP)
+			{
+				npc.life = fatherNPC.life / 2;
+				FatherHP = true;
+			}
+			#endregion//Setting the initial hp of the npc as the father npc's half current hp.
+			#region Father NPC death
+			if (!fatherNPC.active)
+			{
+				CheckDead();
+				npc.life = 0;
+			}
+			#endregion
 			npc.TargetClosest(true);
-
 			Player player = Main.player[npc.target];
-
 			Direction(player);//Direction of the monolith towards the player.
-
-			RippleEffect();
-
-			Illusions();//Spawning the illusions
 			
 			if(AIState == MonolithState.Nothing)//If it does nothing it teleports behind the player when within range and if the player looks at it.
 			{
@@ -175,38 +180,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			return true;
 		}
 
-		private void RippleEffect()
-        {
-			if (npc.localAI[0] == 0)
-			{
-				npc.localAI[0] = 1;
-
-
-				if (Main.netMode != NetmodeID.Server && !Filters.Scene["ShockwaveMonolith"].IsActive())
-				{
-					Filters.Scene.Activate("ShockwaveMonolith", npc.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(npc.Center);
-				}
-			}
-
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["ShockwaveMonolith"].IsActive())
-			{
-				Filters.Scene["ShockwaveMonolith"].GetShader().UseProgress(0.2f).UseOpacity(distortStrength).UseTargetPosition(npc.Center);
-			}
-
-		}
-
-		private void Illusions()
-		{
-			if (NPC.CountNPCS(ModContent.NPCType<CosmicIllusion>()) < 2)
-			{
-				int Illusion = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<CosmicIllusion>(),0,0,npc.whoAmI,0,0);
-			}
-		}
-
-
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
 		{
-			Projectile.NewProjectile(new Vector2(npc.Center.X - 50, npc.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, npc.whoAmI, 0);
+			Projectile.NewProjectile(new Vector2(npc.Center.X - 50, npc.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 0, 0, Main.myPlayer, npc.whoAmI, 0);
 
 			AIState = MonolithState.Nothing;
 			AttackChosen = false;
@@ -307,8 +283,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		}
 
 		private void CosmicSphere()//The cosmic bouncy  sphere attack code
-		{
-			
+		{	
 			if(CosmicSphereCirclesCurrent <= CosmicSphereCirclesMax)
 			{	
 				if (++AttackTimer > 20)
@@ -318,7 +293,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					{
 						CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
 
-						Projectile.NewProjectile(CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 20, 0, Main.myPlayer, npc.whoAmI, CosmicSphereRotation);
+						Projectile.NewProjectile(CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 0, 0, Main.myPlayer, npc.whoAmI, CosmicSphereRotation);
 					}
 					AttackTimer = 0;
 					CosmicSphereCirclesCurrent++;
@@ -369,16 +344,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 		}
 
-		public override bool CheckDead()
-		{
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["ShockwaveMonolith"].IsActive())
-			{
-				Filters.Scene["ShockwaveMonolith"].Deactivate();
-			}
-
-			return true;
-		}
-
 		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
 			#region GlowMask
@@ -403,8 +368,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 			Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
 			#endregion//Drawing the Glowmask
-
-
 		}
 
 	}  

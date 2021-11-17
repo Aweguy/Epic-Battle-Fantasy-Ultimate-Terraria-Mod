@@ -17,6 +17,10 @@ namespace EpicBattleFantasyUltimate.HelperClasses
 			projectile.position.Y = position.Y - (int)(Math.Sin(projectile.ai[1]) * distance) - projectile.height / 2;
 		}
 
+		public static Vector2 PolarVector(float radius, float theta)//Taken from qwerty's code
+		{
+			return new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
+		}
 
 		public static bool DrawProjectileCentered(this ModProjectile p, SpriteBatch spriteBatch, Color lightColor)
 		{

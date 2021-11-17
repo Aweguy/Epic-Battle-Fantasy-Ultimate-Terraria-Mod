@@ -4,12 +4,13 @@ Soon more will be added with frequent updates as long as i have time for that.
 Coding: Aweguy
 Situational help with Coding: Eldrazi, qwerty3.14, the whole TML community
 Literally the closest associate : AngryBiskoti
-Lead Spriting: Listochik (aka Leaf),  Renatm, The Purified, codingMad, speedynamo, DigitalZero
+Lead Spriting: Listochik (aka Leaf), Renatm, The Purified, codingMad, speedynamo, DigitalZero
 Additional Spriting: GDA-G, Buff Froge, Myntz, Maskano, Corvus018
-Supporters: Just call me "Nab" (aka Troupe Master Grimm), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid, Patholofical Lurker, Bosh, 
+Supporters: Just call me "Nab" (aka Troupe Master Grimm or Horseman), саѕuаl сοnѕumer οf wοrldѕ (aka codyfun123), CursingAphid, Patholofical Lurker, Bosh
 Help with the Flair slots: abluescarab, Eldrazi
 Help with the Shockwave shaders: Kazzymodus
 Writing and Editing: Hamstermer (aka Squire Doodad)
+Some code is an edited version of other open source mods' code like QWERTY's items and bosses mod or the well known Spirit mod. 
 
 Disclaimer: All the names here are based on their discord Aliases.
 

@@ -185,7 +185,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					{
 						int SpawnChoice = Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithSummoning.ToArray()); //The Wraith that will be spawned based on the List
 
-						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawnign the Wraith
+						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawning the Wraith
 
 						npc.position = new Vector2(player.Center.X + Main.rand.Next(-1000, 1000) * player.direction, player.Center.Y - Main.rand.Next(100, 300));//Blinking
 					}
