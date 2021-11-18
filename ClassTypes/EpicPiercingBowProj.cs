@@ -11,28 +11,50 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
+
+namespace EpicBattleFantasyUltimate.ClassTypes
 {
-	public abstract class BowProj : ModProjectile
+	public abstract class EpicPiercingBowProj : ModProjectile
 	{
-		public int timer = 0;
-		public int reloadTime;
+		#region Variables
+		public int timer = 0;//The current charge value
 		public float direction;
 
 		public float Radd;
 		public bool runOnce = true;
-		private Projectile arrow = null;
-		private float speed = 15f;
-		private int maxTime = 60;
-		private int weaponDamage = 10;
-		private int Ammo = 0;
-		private float weaponKnockback = 0;
-		private bool giveTileCollision = false;
+		public Projectile arrow = null;
+		public float speed;//Speed of the arrows will be set in the safe defaults of each bow projectile.
+		public float velocity;//The velocity multiplier of the arrows will be set in the defaults of each bow projectile.
+		public int maxTime;//The max charge time will be set in the safe defaults of each bow projectile
+		public int weaponDamage;//The weapon damage will be set in the safe defaults of each bow projectile
+		public int MinimumDrawTime;//The minimum time that the player will hold the bow will be set in the safe defaults of each bow projectile.
+		public float DamageMultiplier;//The damage multiplier of the arrows will be set in the safe defaults of each bow projectile.
+		public int Ammo = 0;
+		public float weaponKnockback;//The weapon knockback will be set in the safe defaults of each bow projectile
+		public bool giveTileCollision = false;
+		#endregion//The variables of the bow
+
+		#region SafeMethods
+		public override bool CloneNewInstances => true;
+		public virtual void SetSafeDefaults()
+		{
+		}
+		public virtual void SetSafeStaticDefaults()
+		{
+		}
+		public virtual void SafeKill()
+		{
+		}
+		#endregion
+
+		public override void SetStaticDefaults()
+		{
+			SetSafeStaticDefaults();
+		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 50;
-			projectile.height = 18;
+			SetSafeDefaults();
 
 			projectile.friendly = false;
 			projectile.penetrate = -1;
@@ -42,22 +64,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 			projectile.ignoreWater = true;
 		}
 
-
-		public override void AI()
+		public override bool PreAI()
 		{
 			Player player = Main.player[projectile.owner];
 			//if (runOnce)
 			//{
-				//runOnce = false;
+			//runOnce = false;
 			//}
 			projectile.timeLeft = 2;
 
-			var modPlayer = player.GetModPlayer <EpicPlayer>();
-			bool firing = (player.channel || timer < 30) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
+			var modPlayer = player.GetModPlayer<EpicPlayer>();
+			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
 
 			Ammo = AmmoID.Arrow;
 
-			weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
+			weaponDamage += player.GetWeaponDamage(player.inventory[player.selectedItem]);
 			direction = (Main.MouseWorld - player.Center).ToRotation();
 			weaponKnockback = player.inventory[player.selectedItem].knockBack;
 
@@ -69,7 +90,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 				Vector2 vector24 = Main.player[projectile.owner].RotatedRelativePoint(Main.player[projectile.owner].MountedCenter, true);
 				if (Main.myPlayer == projectile.owner)
 				{
-					if (Main.player[projectile.owner].channel || timer < 30)
+					if (Main.player[projectile.owner].channel || timer < MinimumDrawTime)
 					{
 						float num264 = Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].shootSpeed * projectile.scale;
 						Vector2 vector25 = vector24;
@@ -141,12 +162,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 				arrow.timeLeft += arrow.extraUpdates + 1;
 				arrow.alpha = 1 - (int)(((float)timer / maxTime) * 255f);
 				speed = (8f * (float)timer / maxTime) + 7f;
-				//Main.NewText(arrow.damage);
-				// Main.NewText("AI0: " + arrow.ai[0] + ", AI1: " + arrow.ai[1] + ", LocalAI0: " + arrow.localAI[0] + ", LocalAI1: " + arrow.localAI[1]);
+
 				if (arrow.tileCollide)
 				{
 					giveTileCollision = true;
 					arrow.tileCollide = false;
+				}
+				if(arrow.penetrate > -1)
+				{
+					arrow.penetrate = -1;
 				}
 				if (timer < maxTime)
 				{
@@ -161,7 +185,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 					if (timer == maxTime)
 					{
 						Main.PlaySound(SoundID.MaxMana, player.position, 0);
-						projectile.Kill();
+						//projectile.Kill();
 					}
 				}
 			}
@@ -169,24 +193,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 			{
 				projectile.Kill();
 			}
+
+			return false;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			Main.PlaySound(SoundID.Item5, projectile.position);
-			arrow.velocity = ProjectileExtensions.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
+			arrow.velocity = (ProjectileExtensions.PolarVector(speed, projectile.rotation - (float)Math.PI / 2)) * velocity;
+			arrow.damage *= (int)DamageMultiplier;
+			arrow.extraUpdates = 1;
 			arrow.friendly = true;
 			if (arrow != null && giveTileCollision)
 			{
 				arrow.tileCollide = true;
 			}
-			
-
-			if (timer >= maxTime)
-			{
-				Projectile.NewProjectile(arrow.Center, arrow.velocity * .8f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
-				Projectile.NewProjectile(arrow.Center, arrow.velocity * 1.2f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
-			}
 		}
+
 	}
 }
