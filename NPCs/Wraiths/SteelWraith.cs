@@ -1,196 +1,187 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
-    public class SteelWraith : ModNPC
-    {
-        private int timer = 10;   //The timer that makes the first projectile be shot.
-        private int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
-        private int spectimer = 60 * 5;//Defines when the sawblade will spawn.
-        private int shootTimer = 60; //The timer that sets the shoot bool to false again.
-        private bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
-        private bool speed = false; //Definition of the bool that makes the npc double its speed when it's spawned
+	public class SteelWraith : ModNPC
+	{
+		private int timer = 10;  //The timer that makes the first projectile be shot.
+		private int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
+		private int spectimer = 60 * 5;//Defines when the sawblade will spawn.
+		private int shootTimer = 60; //The timer that sets the shoot bool to false again.
+		private bool shoot; //Definition of the bool that makes the npc to move slower when it's ready to shoot
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Steel Wraith");
-        }
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Steel Wraith");
+		}
 
-        public override void SetDefaults()
-        {
-            npc.CloneDefaults(NPCID.Wraith);
-            npc.width = (int)(53 * 0.8f);
-            npc.height = (int)(78 * 0.8f);
+		public override void SetDefaults()
+		{
+			npc.CloneDefaults(NPCID.Wraith);
+			npc.width = (int)(53 * 0.8f);
+			npc.height = (int)(78 * 0.8f);
 
-            npc.lifeMax = 400;
-            npc.damage = 40;
-            npc.defense = 5;
-            npc.lifeRegen = 4;
+			npc.lifeMax = 400;
+			npc.damage = 40;
+			npc.defense = 5;
+			npc.lifeRegen = 4;
 
-            npc.aiStyle = 22;
-            aiType = NPCID.Wraith;
-            npc.noTileCollide = true;
-        }
+			npc.aiStyle = 22;
+			aiType = NPCID.Wraith;
+			npc.noTileCollide = true;
+		}
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            target.AddBuff(mod.BuffType("RampantBleed"), 60 * 10);
-        }
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+		{
+			target.AddBuff(ModContent.BuffType<RampantBleed>(), 60 * 10);
+		}
 
-        #region AI
+		#region AI
 
-        public override void AI()
-        {
-            Player player = Main.player[npc.target]; //Target
-            int proj;
-            int proj2;
+		public override void AI()
+		{
+			Player player = Main.player[npc.target]; //Target
 
-            if (!speed)
-            {
-                npc.velocity *= 2f;
-                speed = true;
-            }
+			#region Movement Direction
 
-            #region Movement Direction
+			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			{
+				npc.direction = 1;
+			}
+			else if (npc.velocity.X < 0f)
+			{
+				npc.direction = -1;
+			}
+			else if (npc.velocity.X == 0)
+			{
+				npc.direction = npc.oldDirection;
+			}
 
-            if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
-            {
-                npc.direction = 1;
-            }
-            else if (npc.velocity.X < 0f)
-            {
-                npc.direction = -1;
-            }
-            else if (npc.velocity.X == 0)
-            {
-                npc.direction = npc.oldDirection;
-            }
+			if (npc.direction == 1)
+			{
+				npc.spriteDirection = 1;
+			}
+			else if (npc.direction == -1)
+			{
+				npc.spriteDirection = -1;
+			}
 
-            if (npc.direction == 1)
-            {
-                npc.spriteDirection = 1;
-            }
-            else if (npc.direction == -1)
-            {
-                npc.spriteDirection = -1;
-            }
+			#endregion Movement Direction
 
-            #endregion Movement Direction
+			#region Shooting
+			Shooting(player);
+			
+			spectimer--;
 
-            #region Shooting
+			if (spectimer <= 0)
+			{
+				Sawblade(npc);
+			}
+			#endregion Shooting
+		}
+		private void Shooting(Player player)
+		{
+			timer--;
 
-            spectimer--;
+			if (timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
+			{
+				shoot = true;
+			}
 
-            if (spectimer <= 0)
-            {
-                Sawblade(npc);
-            }
+			if(player.statLife > 0)
+			{
+				if (timer <= 0) //If timer is 0 or less it shoots.
+				{
+					if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
+					{
+						Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+					}
+					else if (npc.direction == -1)
+					{
+						Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+					}
+					timer = 120; //Resetting the timer to 120 ticks (2 seconds).
+				}
 
-            timer--;
+				timer2--; // Same logic as the first timer.
 
-            if (timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
-            {
-                shoot = true;
-            }
+				if (timer2 <= 0)
+				{
+					if (npc.direction == 1)
+					{
+						Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+					}
+					else if (npc.direction == -1)
+					{
+						Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+					}
+					timer2 = 120;
+				}
+			}
 
-            if (timer <= 0) //If timer is 0 or less it shoots.
-            {
-                if (player.statLife > 0)
-                {
-                    if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
-                    {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("MetalShot"), 20, 2, Main.myPlayer, 0, 1);
-                    }
-                    else if (npc.direction == -1)
-                    {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("MetalShot"), 20, 2, Main.myPlayer, 0, 1);
-                    }
-                }
+			#region Logic Control
 
-                timer = 120; //Resetting the timer to 120 ticks (2 seconds).
-            }
+			if (shoot) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
+			{
+				shootTimer--;
+			}
 
-            timer2--; // Same logic as the first timer.
+			if (shootTimer <= 0) //If it becomes 0 or less, reset the shoot bool to false.
+			{
+				shoot = false;
 
-            if (timer2 <= 0)
-            {
-                if (player.statLife > 0)
-                {
-                    if (npc.direction == 1)
-                    {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("MetalShot"), 20, 2, Main.myPlayer, 0, 1);
-                    }
-                    else if (npc.direction == -1)
-                    {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("MetalShot"), 20, 2, Main.myPlayer, 0, 1);
-                    }
-                }
+				shootTimer = 60; //Resets the timer to 60 ticks (1 second)
+			}
 
-                timer2 = 120;
-            }
+			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
+			{
+				npc.velocity.X *= 0.9f;
+			}
 
-            #endregion Shooting
+			#endregion Logic Control
 
-            #region Logic Control
+		}
 
-            if (shoot) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
-            {
-                shootTimer--;
-            }
+		#endregion AI
 
-            if (shootTimer <= 0) //If it becomes 0 or less, reset the shoot bool to false.
-            {
-                shoot = false;
+		#region SpawnChance
 
-                shootTimer = 60; //Resets the timer to 60 ticks (1 second)
-            }
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (Main.hardMode && spawnInfo.player.ZoneRockLayerHeight)
+			{
+				return 0.03f;
+			}
 
-            if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
-            {
-                npc.velocity.X *= 0.9f;
-            }
+			return 0f;
+		}
 
-            #endregion Logic Control
-        }
+		#endregion SpawnChance
 
-        #endregion AI
+		private void Sawblade(NPC npc)
+		{
+			int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
 
-        #region SpawnChance
+			spectimer = 60 * 10;
+		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            if (Main.hardMode && spawnInfo.player.ZoneRockLayerHeight)
-            {
-                return 0.03f;
-            }
+		#region NPCLoot
 
-            return 0f;
-        }
+		public override void NPCLoot()
+		{
+			Item.NewItem(npc.getRect(), mod.ItemType("Wool"), 1);
 
-        #endregion SpawnChance
+			if (Main.rand.NextFloat() < .50f)
+			{
+				Item.NewItem(npc.getRect(), mod.ItemType("SteelPlate"), Main.rand.Next(2) + 1);
+			}
+		}
 
-        private void Sawblade(NPC npc)
-        {
-            int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
-
-            spectimer = 60 * 10;
-        }
-
-        #region NPCLoot
-
-        public override void NPCLoot()
-        {
-            Item.NewItem(npc.getRect(), mod.ItemType("Wool"), 1);
-
-            if (Main.rand.NextFloat() < .50f)
-            {
-                Item.NewItem(npc.getRect(), mod.ItemType("SteelPlate"), Main.rand.Next(2) + 1);
-            }
-        }
-
-        #endregion NPCLoot
-    }
+		#endregion NPCLoot
+	}
 }

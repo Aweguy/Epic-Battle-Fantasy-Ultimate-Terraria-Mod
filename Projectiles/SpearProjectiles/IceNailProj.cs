@@ -5,13 +5,8 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 {
-    public class IceNeedleProj : ModProjectile
+    public class IceNailProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Needle");
-        }
-
         public override void SetDefaults()
         {
             projectile.width = 18;

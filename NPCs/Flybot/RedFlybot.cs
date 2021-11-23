@@ -248,7 +248,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			{
 				npc.frameCounter = 0;
 			}
-
 			if (npc.velocity.X > 0f)
 			{
 				npc.spriteDirection = 1;

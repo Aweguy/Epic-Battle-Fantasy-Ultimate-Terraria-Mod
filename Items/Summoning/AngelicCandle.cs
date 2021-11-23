@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Buffs.Minions;
+using EpicBattleFantasyUltimate.Projectiles.Minions;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +12,7 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angelic Candle");
-            Tooltip.SetDefault("A blessed candle said to ward off magical attacks.");
+            Tooltip.SetDefault("A blessed candle said to ward off magical attacks.\nSummons an angelic mirror to fight with you");
             ItemID.Sets.GamepadWholeScreenUseRange[item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[item.type] = true;
         }
@@ -32,9 +34,9 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
             // These below are needed for a minion weapon
             item.noMelee = true;
             item.summon = true;
-            item.buffType = mod.BuffType("AngelicMirrorBuff");
+            item.buffType = ModContent.BuffType<AngelicMirrorBuff>();
             // No buffTime because otherwise the item tooltip would say something like "1 minute duration"
-            item.shoot = mod.ProjectileType("AngelicMirror");
+            item.shoot = ModContent.ProjectileType<AngelicMirror>();
             item.scale = 1.15f;
         }
 

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +12,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             DisplayName.SetDefault("Chainsaw Revolver");
             Tooltip.SetDefault("Now with extra safety warnings and no sharp edges!");
         }
-
         public override void SetDefaults()
         {
             item.width = 50;
@@ -35,12 +35,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
             item.shootSpeed = 11f;
             item.useStyle = ItemUseStyleID.HoldingOut;
         }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts);
-            recipe.AddIngredient(mod.ItemType("RawTitanium"));
+            recipe.AddIngredient(ModContent.ItemType<RawTitanium>());
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

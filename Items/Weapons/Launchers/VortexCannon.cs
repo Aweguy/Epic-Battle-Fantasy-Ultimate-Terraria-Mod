@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -14,7 +15,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			DisplayName.SetDefault("Vortex Cannon");
 			Tooltip.SetDefault("A powerful wind turbine. Boeing may want this back.\nProjectiles shot by this weapon implode.\nShots from this weapon home to enemies.");
 		}
-
 		public override void SetSafeDefaults()
 		{
 			item.width = 84;
@@ -34,7 +34,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			item.UseSound = SoundID.Item38;
 			item.shootSpeed = 11f;
 		}
-
 		public Projectile shot;
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -53,24 +52,21 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
 			return false;
 		}
-
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-36, -8);
 		}
-
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-			recipe.AddIngredient(mod.ItemType("P2Processor"), 2);
-			recipe.AddIngredient(mod.ItemType("SteelPlate"), 15);
+			recipe.AddIngredient(ModContent.ItemType<P2Processor>(), 2);
+			recipe.AddIngredient(ModContent.ItemType<SteelPlate>(), 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}
-
 	public partial class LauncherProjectile : GlobalProjectile
 	{
 		public bool B4Homingshot;

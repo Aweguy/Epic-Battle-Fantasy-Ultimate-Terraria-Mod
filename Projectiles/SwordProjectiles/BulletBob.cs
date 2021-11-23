@@ -56,12 +56,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			else if(projectile.ai[0] > 30)
 			{
 				if(++projectile.frameCounter >= 3)
-                {
+				{
 					projectile.frame++;
 					if(projectile.frame > 2)
-                    {
+					{
 						projectile.frame = 1;
-                    }
+					}
 					Lighting.AddLight(projectile.Center, new Vector3(255, 165, 0)/255f);//Orange lighting coming from the center of the projectile.
 				}
 				Homing();
@@ -78,7 +78,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 		}
 
 		private void Homing()
-        {
+		{
 			Vector2 prey;
 			Vector2 possiblePrey;
 			float distance;

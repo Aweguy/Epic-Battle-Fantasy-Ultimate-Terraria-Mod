@@ -31,8 +31,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 60 * 5);
-            player.statLife += (int)(damage / 10);
-            player.HealEffect(6);
+            if(player.statLife < player.statLifeMax)
+            {
+                int HealthHeal = (int)(damage / 10);
+                player.statLife += HealthHeal;
+                player.HealEffect(HealthHeal);
+            }
         }
 
     }

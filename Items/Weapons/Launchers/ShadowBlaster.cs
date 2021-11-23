@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -55,7 +56,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-			recipe.AddIngredient(mod.ItemType("DarkMatter"), 20);
+			recipe.AddIngredient(ModContent.ItemType<DarkMatter>(), 20);
 			recipe.AddIngredient(ItemID.Obsidian, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);

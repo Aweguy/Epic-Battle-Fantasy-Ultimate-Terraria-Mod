@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Bows
             item.width = 32;
             item.height = 70;
 
-            item.damage = 30;
+            item.damage = 22;
             item.knockBack = 3f;
 
             item.useAnimation = 15;

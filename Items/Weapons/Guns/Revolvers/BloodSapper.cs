@@ -4,40 +4,38 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 {
-    public class BloodSapper : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Blood Sapper");
-            Tooltip.SetDefault("A sidearm so cruel, it seems to aim itself at the bloodiest of organs.");
-        }
+	public class BloodSapper : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Blood Sapper");
+			Tooltip.SetDefault("A sidearm so cruel, it seems to aim itself at the bloodiest of organs.");
+		}
+		public override void SetDefaults()
+		{
+			item.width = 56;
+			item.height = 34;
 
-        public override void SetDefaults()
-        {
-            item.width = 56;
-            item.height = 34;
+			item.damage = 13;
+			item.useTime = 10;
+			item.useAnimation = 10;
 
-            item.damage = 13;
-            item.useTime = 10;
-            item.useAnimation = 10;
+			item.crit = 1;
+			item.knockBack = 3f;
+			item.ranged = true;
+			item.noMelee = true;
+			item.autoReuse = true;
 
-            item.crit = 1;
-            item.knockBack = 3f;
-            item.ranged = true;
-            item.noMelee = true;
-            item.autoReuse = true;
+			item.value = Item.sellPrice(gold: 3);
+			item.rare = ItemRarityID.LightPurple;
 
-            item.value = Item.sellPrice(gold: 3);
-            item.rare = ItemRarityID.LightPurple;
-
-            item.useAmmo = AmmoID.Bullet;
-            item.UseSound = SoundID.Item41;
-            item.shoot = ProjectileID.WoodenArrowFriendly;
-            item.shootSpeed = 12f;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-        }
-
-        /*public override void AddRecipes()
+			item.useAmmo = AmmoID.Bullet;
+			item.UseSound = SoundID.Item41;
+			item.shoot = ProjectileID.WoodenArrowFriendly;
+			item.shootSpeed = 12f;
+			item.useStyle = ItemUseStyleID.HoldingOut;
+		}
+		/*public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.IllegalGunParts);
@@ -48,5 +46,5 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}*/
-    }
+	}
 }

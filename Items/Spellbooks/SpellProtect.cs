@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,14 +30,14 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
 		public override bool CanUseItem(Player player)
 		{
-			int buff = mod.BuffType("Vulnerable");
+			int buff = ModContent.BuffType<Vulnerable>();
 			return !player.HasBuff(buff);
 		}
 
 		public override bool UseItem(Player player)
 		{
-			player.AddBuff(mod.BuffType("Protection"), 60 * 10);
-			player.AddBuff(mod.BuffType("Vulnerable"), 60 * 40);
+			player.AddBuff(ModContent.BuffType<Protection>(), 60 * 10);
+			player.AddBuff(ModContent.BuffType<Vulnerable>(), 60 * 40);
 
 			return base.UseItem(player);
 		}

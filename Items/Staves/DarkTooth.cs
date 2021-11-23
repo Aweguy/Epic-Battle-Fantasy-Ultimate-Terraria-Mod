@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -58,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Wood, 20);
             recipe.AddIngredient(ItemID.DarkShard, 10);
-            recipe.AddIngredient(mod.ItemType("DarkMatter"), 20);
+            recipe.AddIngredient(ModContent.ItemType<DarkMatter>(), 20);
             recipe.AddIngredient(ItemID.FragmentNebula);
             recipe.AddTile(TileID.DemonAltar);
             recipe.SetResult(this);
