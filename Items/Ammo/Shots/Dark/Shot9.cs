@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.knockBack = 1f;
             item.value = 10000;
             item.rare = ItemRarityID.LightPurple;
-            item.shoot = mod.ProjectileType("AntimatterShot");
+            item.shoot = ModContent.ProjectileType<AntimatterShot>();
             item.shootSpeed = 7f;
             item.ammo = mod.ItemType("Shot");
         }

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.knockBack = 0.5f;
             item.value = 10000;
             item.rare = ItemRarityID.LightPurple;
-            item.shoot = mod.ProjectileType("HellShot");
+            item.shoot = ModContent.ProjectileType<HellShot>();
             item.shootSpeed = 7.5f;
             item.ammo = mod.ItemType("Shot");
         }

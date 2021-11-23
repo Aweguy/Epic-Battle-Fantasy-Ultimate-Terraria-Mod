@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +22,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 			item.maxStack = 1;
 			item.value = 1000;
 			item.rare = ItemRarityID.LightRed;
-			item.shoot = mod.ProjectileType("FlameShot");
+			item.shoot = ModContent.ProjectileType<FlameShot>();
 			item.shootSpeed = 8f;
 			item.ammo = item.type;
 		}

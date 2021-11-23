@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.knockBack = 1f;
             item.value = 1000;
             item.rare = ItemRarityID.LightRed;
-            item.shoot = mod.ProjectileType("DarkShot");
+            item.shoot = ModContent.ProjectileType<DarkShot>();
             item.shootSpeed = 7f;
             item.ammo = ModContent.ItemType<Shot>();
         }

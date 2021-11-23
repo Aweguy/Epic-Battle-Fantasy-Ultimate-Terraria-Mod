@@ -44,13 +44,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 			projectile.usesLocalNPCImmunity = true;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
 			Explode();//Exploding after hitting an npc
 			FromNPC = true;
 		}
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (!HasGoneDown)
 			{
@@ -77,7 +77,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 				GlowmaskOpacity -= 255/100;
 
 				if (Main.GameUpdateCount % 2 == 0)
-                {
+				{
 					if (ShakeLeft)
 					{
 						projectile.Center -= new Vector2(-2, 0);
@@ -97,9 +97,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 			}
 
 			if(projectile.timeLeft < 3)//Exploding after some time after hitting the ground
-            {
+			{
 				Explode();
-            }
+			}
 
 			return false;
 		}
@@ -110,8 +110,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 			projectile.position = projectile.Center;
 
-            if (!HasGottenBig)
-            {
+			if (!HasGottenBig)
+			{
 				projectile.width += 200;
 				projectile.height += 200;
 
@@ -121,10 +121,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 			projectile.penetrate = -1;
 			projectile.Center = projectile.position;
 
-            if (FromNPC)
-            {
+			if (FromNPC)
+			{
 				projectile.Kill();
-            }
+			}
 
 		}
 
@@ -174,7 +174,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 			drawCacheProjsBehindNPCsAndTiles.Add(index);
 		}
 
-        public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D texture = mod.GetTexture("Projectiles/SpellProjectiles/Airstrikes/Bomb_Glowmask");
 

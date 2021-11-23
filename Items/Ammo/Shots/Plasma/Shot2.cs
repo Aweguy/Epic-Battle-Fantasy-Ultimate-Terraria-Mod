@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -25,7 +26,7 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             item.knockBack = 0.5f;
             item.value = 1000;
             item.rare = ItemRarityID.LightRed;
-            item.shoot = mod.ProjectileType("PlasmaShot");
+            item.shoot = ModContent.ProjectileType<PlasmaShot>();
             item.shootSpeed = 7f;
             item.ammo = ModContent.ItemType<Shot>();
         }

@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Minions;
+using EpicBattleFantasyUltimate.Projectiles.Explosions.Minions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -162,7 +163,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions
 
 				if (timer <= 0)
 				{
-					Projectile.NewProjectile(targetCenter.X, targetCenter.Y, 0, 0, mod.ProjectileType("AngelicMirrorExplosion"), projectile.damage, 0, projectile.owner, 0, 0);
+					Projectile.NewProjectile(targetCenter.X, targetCenter.Y, 0, 0, ModContent.ProjectileType<AngelicMirrorExplosion>(), projectile.damage, 0, projectile.owner, 0, 0);
 					timer = 60;
 				}
 

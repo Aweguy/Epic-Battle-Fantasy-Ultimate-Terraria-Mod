@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -45,13 +46,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
             {
                 Vector2 velocity = new Vector2(3, 0).RotatedBy(MathHelper.ToRadians(rotation));
 
-                Projectile.NewProjectile(projectile.Center, velocity, mod.ProjectileType("AntimatterSpawn"), projectile.damage, 0, projectile.owner, 0, 1);
+                Projectile.NewProjectile(projectile.Center, velocity, ModContent.ProjectileType<AntimatterSpawn>(), projectile.damage, 0, projectile.owner, 0, 1);
 
                 rotation += 16f;
 
                 Vector2 velocity2 = new Vector2(3, 0).RotatedBy(MathHelper.ToRadians(rotation2));
 
-                Projectile.NewProjectile(projectile.Center, velocity2, mod.ProjectileType("AntimatterSpawn"), projectile.damage, 0, projectile.owner, 0, 1);
+                Projectile.NewProjectile(projectile.Center, velocity2, ModContent.ProjectileType<AntimatterSpawn>(), projectile.damage, 0, projectile.owner, 0, 1);
 
                 rotation2 += 16f;
 
