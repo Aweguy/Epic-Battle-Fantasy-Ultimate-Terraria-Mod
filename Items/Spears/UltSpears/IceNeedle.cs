@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
         public override void SetDefaults()
         {
-            item.damage = 60;
+            item.damage = 30;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useAnimation = 20;
             item.useTime = 30;

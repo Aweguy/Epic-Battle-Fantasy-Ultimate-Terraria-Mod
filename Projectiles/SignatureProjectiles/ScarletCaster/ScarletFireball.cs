@@ -21,7 +21,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCast
             projectile.penetrate = 1;
             projectile.magic = true;
             projectile.knockBack = 1f;
-            projectile.arrow = true;
             projectile.timeLeft = 1000;
         }
 

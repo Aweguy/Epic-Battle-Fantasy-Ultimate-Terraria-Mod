@@ -14,19 +14,19 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Bows
 {
-    class AlchemistBow : EpicBow
+    class BlackWidow : EpicBow
     {
         public override void SetSafeStaticDefaults()
         {
-            DisplayName.SetDefault("Alchemist's Bow");
+            DisplayName.SetDefault("Black Widow");
             Tooltip.SetDefault("An unusual weapon that selects and shoots random arrows each volley.");
         }
 
         public override void SetSafeDefaults()
         {
-            BowProj = ModContent.ProjectileType<AlchemistBowProj>();
+            BowProj = ModContent.ProjectileType<BlackWidowProj>();
 
-            item.width = 26;
+            item.width = 32;
             item.height = 70;
 
             item.damage = 30;

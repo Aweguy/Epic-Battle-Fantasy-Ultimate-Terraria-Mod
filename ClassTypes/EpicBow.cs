@@ -39,6 +39,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
             item.noUseGraphic = true;
             item.ranged = true;
             item.channel = true;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.useAmmo = AmmoID.Arrow;
             item.shoot = BowProj;
         }

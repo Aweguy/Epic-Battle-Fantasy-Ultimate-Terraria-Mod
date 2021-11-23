@@ -1,5 +1,6 @@
 ﻿#region Using
 
+using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -56,7 +57,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("HellfireExplosion"), 70, 0, projectile.owner);
+            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<HellfireExplosion>(), 70, 0, projectile.owner);
         }
     }
 }

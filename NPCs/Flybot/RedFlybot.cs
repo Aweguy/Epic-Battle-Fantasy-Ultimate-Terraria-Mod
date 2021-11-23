@@ -78,14 +78,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 			if (npc.direction == -1 && npc.velocity.X > -4f)
 			{
-				npc.velocity.X = npc.velocity.X - 0.1f;
+				npc.velocity.X -= 0.1f;
 				if (npc.velocity.X > 4f)
 				{
-					npc.velocity.X = npc.velocity.X - 0.1f;
+					npc.velocity.X -= 0.1f;
 				}
 				else if (npc.velocity.X > 0f)
 				{
-					npc.velocity.X = npc.velocity.X + 0.05f;
+					npc.velocity.X += 0.05f;
 				}
 				if (npc.velocity.X < -4f)
 				{
@@ -94,14 +94,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			}
 			else if (npc.direction == 1 && npc.velocity.X < 4f)
 			{
-				npc.velocity.X = npc.velocity.X + 0.1f;
+				npc.velocity.X += 0.1f;
 				if (npc.velocity.X < -4f)
 				{
-					npc.velocity.X = npc.velocity.X + 0.1f;
+					npc.velocity.X += 0.1f;
 				}
 				else if (npc.velocity.X < 0f)
 				{
-					npc.velocity.X = npc.velocity.X - 0.05f;
+					npc.velocity.X -= 0.05f;
 				}
 				if (npc.velocity.X > 4f)
 				{
@@ -110,14 +110,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			}
 			if (npc.directionY == -1 && (double)npc.velocity.Y > -1.5)
 			{
-				npc.velocity.Y = npc.velocity.Y - 0.04f;
+				npc.velocity.Y -= 0.04f;
 				if ((double)npc.velocity.Y > 1.5)
 				{
-					npc.velocity.Y = npc.velocity.Y - 0.05f;
+					npc.velocity.Y -= 0.05f;
 				}
 				else if (npc.velocity.Y > 0f)
 				{
-					npc.velocity.Y = npc.velocity.Y + 0.03f;
+					npc.velocity.Y += 0.03f;
 				}
 				if ((double)npc.velocity.Y < -1.5)
 				{
@@ -126,14 +126,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			}
 			else if (npc.directionY == 1 && (double)npc.velocity.Y < 1.5)
 			{
-				npc.velocity.Y = npc.velocity.Y + 0.04f;
+				npc.velocity.Y += 0.04f;
 				if ((double)npc.velocity.Y < -1.5)
 				{
-					npc.velocity.Y = npc.velocity.Y + 0.05f;
+					npc.velocity.Y += 0.05f;
 				}
 				else if (npc.velocity.Y < 0f)
 				{
-					npc.velocity.Y = npc.velocity.Y - 0.03f;
+					npc.velocity.Y -= 0.03f;
 				}
 				if ((double)npc.velocity.Y > 1.5)
 				{
@@ -145,9 +145,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			{
 				if (npc.velocity.Y > 0f)
 				{
-					npc.velocity.Y = npc.velocity.Y * 0.95f;
+					npc.velocity.Y *= 0.95f;
 				}
-				npc.velocity.Y = npc.velocity.Y - 0.5f;
+				npc.velocity.Y -= 0.5f;
 				if (npc.velocity.Y < -4f)
 				{
 					npc.velocity.Y = -4f;
@@ -177,23 +177,23 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 				{
 					if (npc.velocity.Y < num208)
 					{
-						npc.velocity.Y = npc.velocity.Y + num206;
+						npc.velocity.Y += num206;
 					}
 				}
 				else if (npc.velocity.Y > 0f - num208)
 				{
-					npc.velocity.Y = npc.velocity.Y - num206;
+					npc.velocity.Y -= num206;
 				}
 				if (npc.ai[2] < -150f || npc.ai[2] > 150f)
 				{
 					if (npc.velocity.X < num207)
 					{
-						npc.velocity.X = npc.velocity.X + num205;
+						npc.velocity.X += num205;
 					}
 				}
 				else if (npc.velocity.X > 0f - num207)
 				{
-					npc.velocity.X = npc.velocity.X - num205;
+					npc.velocity.X -= num205;
 				}
 				if (npc.ai[2] > 300f)
 				{

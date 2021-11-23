@@ -1,5 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Dusts;
 using EpicBattleFantasyUltimate.HelperClasses;
+using EpicBattleFantasyUltimate.Projectiles.BowProjectiles;
+using EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,7 +25,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public float Radd;
 		public bool runOnce = true;
 		public Projectile arrow = null;
-		public float speed;//Speed of the arrows will be set in the safe defaults of each bow projectile.
+		public float speed;
+		public float speedMultiplier;//Speed multiplier of the arrows will be set in the safe defaults of each bow projectile.
 		public float velocity;//The velocity multiplier of the arrows will be set in the defaults of each bow projectile.
 		public int maxTime;//The max charge time will be set in the safe defaults of each bow projectile
 		public int weaponDamage;//The weapon damage will be set in the safe defaults of each bow projectile
@@ -43,6 +46,9 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 		}
 		public virtual void SafeKill()
+		{
+		}
+		public virtual void SafePreAI()
 		{
 		}
 		#endregion
@@ -67,10 +73,10 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public override bool PreAI()
 		{
 			Player player = Main.player[projectile.owner];
-			//if (runOnce)
-			//{
-			//runOnce = false;
-			//}
+			if (runOnce)
+			{
+			runOnce = false;
+			}
 			projectile.timeLeft = 2;
 
 			var modPlayer = player.GetModPlayer<EpicPlayer>();
@@ -150,6 +156,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 				if (timer == 0)
 				{
 					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
+
+					if(projectile.type == ModContent.ProjectileType<SharangaProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
+					{
+						Ammo = ModContent.ProjectileType<SharangaArrow>();
+					}
 					if (Main.netMode != NetmodeID.Server)
 					{
 						arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];

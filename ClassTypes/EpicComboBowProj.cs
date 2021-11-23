@@ -1,5 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Dusts;
 using EpicBattleFantasyUltimate.HelperClasses;
+using EpicBattleFantasyUltimate.Projectiles.BowProjectiles;
+using EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,6 +18,9 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
 	public abstract class EpicComboBowProj : ModProjectile
 	{
+
+		public static List<int> RandomArrows = new List<int>();
+
 		#region Variables
 		public int timer = 0;//The current charge value
 		public float direction;
@@ -23,7 +28,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public float Radd;
 		public bool runOnce = true;
 		public Projectile arrow = null;
-		public float speed;//Speed of the arrows will be set in the safe defaults of each bow projectile.
+		public float speed;
+		public float speedMultiplier;//Speed multiplier of the arrows will be set in the safe defaults of each bow projectile.
 		public float velocity;//The velocity multiplier of the arrows will be set in the defaults of each bow projectile.
 		public int maxTime;//The max charge time will be set in the safe defaults of each bow projectile
 		public int ArrowVolleyNum;//The number of arrows shot at the initial volley will be set in the safe defaults of each bow projectile.
@@ -64,22 +70,42 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			projectile.hide = false;
 			projectile.ranged = true;
 			projectile.ignoreWater = true;
+			
 		}
 
 		public override bool PreAI()
 		{
 			Player player = Main.player[projectile.owner];
-			//if (runOnce)
-			//{
-			//runOnce = false;
-			//}
+			if (runOnce)
+			{
+				if(projectile.type == ModContent.ProjectileType<AlchemistBowProj>())
+				{
+					for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
+					{
+						Projectile projectile1 = new Projectile();
+						projectile1.SetDefaults(i);
+						if ((projectile1.arrow && projectile1.modProjectile is null) || (projectile1.arrow && projectile1.modProjectile is ModProjectile modProj && modProj.mod == mod) )
+						{
+							RandomArrows.Add(i);
+						}
+					}
+				}
+				runOnce = false;
+			}
 			projectile.timeLeft = 2;
 
 			var modPlayer = player.GetModPlayer<EpicPlayer>();
 			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
 
-			Ammo = AmmoID.Arrow;
+			if (projectile.type == ModContent.ProjectileType<AlchemistBowProj>())
+			{
+				Ammo = Main.rand.Next(RandomArrows.ToArray());
 
+			}
+			else
+			{
+				Ammo = AmmoID.Arrow;
+			}
 			weaponDamage += player.GetWeaponDamage(player.inventory[player.selectedItem]);
 			direction = (Main.MouseWorld - player.Center).ToRotation();
 			weaponKnockback = player.inventory[player.selectedItem].knockBack;
@@ -152,6 +178,10 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 				if (timer == 0)
 				{
 					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
+					if (projectile.type == ModContent.ProjectileType<BlackWidowProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
+					{
+						Ammo = ModContent.ProjectileType<SpiderArrow>();
+					}
 					if (Main.netMode != NetmodeID.Server)
 					{
 						arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
@@ -201,16 +231,24 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			arrow.velocity = (ProjectileExtensions.PolarVector(speed, projectile.rotation - (float)Math.PI / 2));
 			arrow.tileCollide = true;
 			arrow.noDropItem = true;
+			arrow.extraUpdates = 1;
 			arrow.friendly = true;
 
 			for (int i = 0; i <= ArrowVolleyNum; i++)
 			{
-				int arrow2 = Projectile.NewProjectile(projectile.Center, arrow.velocity.RotatedByRandom(0.2f), arrow.type, (int)(arrow.damage * DamageMultiplier), arrow.knockBack, projectile.owner);
+				int arrow2;
+				if (projectile.type == ModContent.ProjectileType<AlchemistBowProj>())
+				{
+					arrow2 = Projectile.NewProjectile(projectile.Center, arrow.velocity.RotatedByRandom(0.2f), Main.rand.Next(RandomArrows.ToArray()), (int)(arrow.damage * DamageMultiplier), arrow.knockBack, projectile.owner);
+				}
+				else
+				{
+					arrow2 = Projectile.NewProjectile(projectile.Center, arrow.velocity.RotatedByRandom(0.2f), arrow.type, (int)(arrow.damage * DamageMultiplier), arrow.knockBack, projectile.owner);
+
+				}
 				Main.projectile[arrow2].noDropItem = true;
+				Main.projectile[arrow2].extraUpdates = 1;
 			}
-			
-			
-			
 		}
 
 	}

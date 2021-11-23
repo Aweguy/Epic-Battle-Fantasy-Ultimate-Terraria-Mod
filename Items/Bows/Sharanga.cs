@@ -14,20 +14,20 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Bows
 {
-	class Juggernaut : EpicBow
+	class Sharanga : EpicBow
 	{
 		public override void SetSafeStaticDefaults()
 		{
-			DisplayName.SetDefault("Juggernaut");
+			DisplayName.SetDefault("Sharanga");
 			Tooltip.SetDefault("Heavy enough to block a blade.");
 		}
 
 		public override void SetSafeDefaults()
 		{
-			BowProj = ModContent.ProjectileType<JuggernautProj>();
+			BowProj = ModContent.ProjectileType<SharangaProj>();
 
-			item.width = 58;
-			item.height = 26;
+			item.width = 70;
+			item.height = 20;
 
 			item.damage = 50;
 			item.knockBack = 10;

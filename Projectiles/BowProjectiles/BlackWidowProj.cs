@@ -12,23 +12,21 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 {
-	class AlchemistBowProj : EpicComboBowProj
-	{
+    class BlackWidowProj : EpicComboBowProj
+    {
 		public override void SetSafeDefaults()
 		{
-			projectile.width = 58;
-			projectile.height = 28;
+			projectile.width = 70;
+			projectile.height = 32;
 
-			ArrowVolleyNum = 4;
-			velocity = 2f;
-			DamageMultiplier = 0.5f;
-			MinimumDrawTime = 20;
-			maxTime = 30;
-			weaponDamage = 10;
-			weaponKnockback = 5f;
+			ArrowVolleyNum = 5;
+			velocity = 1.5f;
+			DamageMultiplier = 0.6f;
+			MinimumDrawTime = 30;
+			maxTime = 50;
+			weaponDamage = 15;
+			weaponKnockback = 6f;
 		}
-
-		
 
 		/*public override void Kill(int timeLeft)
 		{

@@ -48,9 +48,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		public override void AI()
 		{
 			Player player = Main.player[npc.target]; //Target
-			int proj;
-			int proj2;
-
 			Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
 			#region Movement Direction
@@ -81,9 +78,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			Shooting(player);
 
-			spectimer--;
-
-			if(spectimer <= 0)
+			if(--spectimer <= 0)
             {
 				Fireballs();
 			}

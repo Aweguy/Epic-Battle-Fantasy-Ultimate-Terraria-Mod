@@ -141,10 +141,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
 			projectile.spriteDirection = projectile.direction;
 		}
-
-
-
-
-
 	}
 }

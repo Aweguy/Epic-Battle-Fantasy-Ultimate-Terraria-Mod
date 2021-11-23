@@ -30,7 +30,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.knockBack = 1f;
-            projectile.arrow = true;
 
             projectile.timeLeft = 51;
             projectile.tileCollide = false;
