@@ -9,8 +9,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
         private int ShootTimer = 60;//Determines when the cannon will shoot
         private int damage;//The damage of the projectiles
         private int ShotNum = 0;//Number of shots
-        private int ShootInterv = 30;//The interval between shots
-        private bool Shoot = false;//Determines if the cannon will shoot
         private float distance;// the distance of the player and the npc.
         private float rotDistance;//The distance between the player and the npc for the rotation of the cannon
         private float projectileSpeed = 10f;

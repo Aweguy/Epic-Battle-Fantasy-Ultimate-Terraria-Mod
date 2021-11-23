@@ -55,7 +55,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
                 check = true;
             }
 
-            if (stay == true && timer > 0 && !Return)
+            if (stay && timer > 0 && !Return)
             {
                 projectile.velocity = Vector2.Zero;
                 timer--;

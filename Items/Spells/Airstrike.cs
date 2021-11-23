@@ -11,13 +11,10 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 	{
 		private float offsetX = 20f;
 
-		private int ThreeBombsDelay = 0;
-		private int BombDelay = 0;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Airstrike");
-			Tooltip.SetDefault("Bombs away!!!!\nLeft click to quickly drop bombs down");
+			Tooltip.SetDefault("Bombs away!!!!\nLeft click to quickly drop bombs down, right click to drop 3 weaker bombs at once.");
 		}
 
 		public override void SetDefaults()
@@ -40,13 +37,12 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
 		}
 
-        public override bool AltFunctionUse(Player player)
-        {
+		public override bool AltFunctionUse(Player player)
+		{
 			return true;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
+		}
+		public override bool CanUseItem(Player player)
+		{
 			if (player.altFunctionUse == 2)
 			{
 				item.useTime = 40;
@@ -66,21 +62,15 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 				item.shootSpeed = 10f;
 				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
 			}
-
-
 			return base.CanUseItem(player);
-        }
+		}
+		#region Shoot
 
-
-        #region Shoot
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 
 			if (player.altFunctionUse == 2)
 			{
-				
-                
 					for (int i = 0; i <= 2; i++)
 					{
 						Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX + Main.rand.NextFloat(-100f, 100f), (float)Main.mouseY);
@@ -109,14 +99,9 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 						Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, 30, knockBack, player.whoAmI, 0f, ceilingLimit);
 
 					}
-					
-				
-				
 			}
 			else
 			{
-				
-				
 					Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
 					float ceilingLimit = target.Y;
 					if (ceilingLimit > player.Center.Y - 200f)
@@ -141,19 +126,15 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 					speedX = heading.X;
 					speedY = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
 					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, 60, knockBack, player.whoAmI, 0f, ceilingLimit);
-
-					BombDelay = 0;
-
-				
 			}
 
 			return false;
 		}
 
-        #endregion Shoot
+		#endregion Shoot
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.IllegalGunParts);
 			recipe.AddIngredient(ModContent.ItemType<P2Processor>(),5);
@@ -162,7 +143,5 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
-
-    }
+	}
 }

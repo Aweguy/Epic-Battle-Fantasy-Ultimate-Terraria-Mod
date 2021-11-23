@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -40,16 +41,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			npc.TargetClosest(true);
 
-			BleepTimer--;
-
-			CannonSpawning(npc);
-			movement(npc);
-			Bleep(npc);
+			CannonSpawning();//Cannon spawn, only runs once the flybot spawns
+			movement();//Movement code from the bat
+			Bleep();//Bleeping sound of the flybot
 		}
 
 		#region movement
 
-		private void movement(NPC npc)
+		private void movement()
 		{
 			if (npc.collideX)
 			{
@@ -206,7 +205,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		#region Cannon Spawning
 
-		private void CannonSpawning(NPC npc)
+		private void CannonSpawning()
 		{
 			if (!CannonSpawn2)
 			{
@@ -263,9 +262,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		#endregion FindFrame
 
-		private void Bleep(NPC npc)
+		private void Bleep()
 		{
-			if (BleepTimer <= 0)
+			if (--BleepTimer <= 0)
 			{
 				if (Main.rand.NextFloat() < .1f)
 				{
@@ -303,7 +302,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode == true && spawnInfo.player.ZoneDesert)
+			if (Main.hardMode && spawnInfo.player.ZoneDesert)
 			{
 				return 0.03f;
 			}
@@ -317,17 +316,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (Main.rand.NextFloat() < .33f)
 			{
-				Item.NewItem(npc.getRect(), mod.ItemType("P2Processor"), 1);
+				Item.NewItem(npc.getRect(), ModContent.ItemType<P2Processor>(), 1);
 			}
-
-			if (Main.rand.NextFloat() < .01f)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("DarkMatter"), 1);
-			}
-
 			if (Main.rand.NextFloat() < .10f)
 			{
-				Item.NewItem(npc.getRect(), mod.ItemType("SteelPlate"), 1);
+				Item.NewItem(npc.getRect(), ModContent.ItemType<SteelPlate>(), 1);
 			}
 		}
 

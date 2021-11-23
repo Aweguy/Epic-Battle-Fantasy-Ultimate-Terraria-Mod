@@ -12,9 +12,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		private int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
 		private int spectimer = 60 * 5;//Defines when the fireballs will start spawning
 		private int spintimer = 25; //A timer that sets wthe interval between the orbiting fireballs.
-		private int fireballs = 3;//The number of the fireballs.
 		private int shootTimer = 60; //The timer that sets the shoot bool to false again.
-		private float FireVel = 3f;//The velocity of the fireballs when launched.
 		private bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
 		private int currentFireballs = 0;
 		private readonly int maxFireballs = 3;
@@ -151,7 +149,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			#region Logic Control
 
-			if (shoot == true) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
+			if (shoot) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
 			{
 				shootTimer--;
 			}
@@ -163,7 +161,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				shootTimer = 60; //Resets the timer to 60 ticks (1 second)
 			}
 
-			if (shoot == true) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
+			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
 			{
 				npc.velocity.X *= 0.9f;
 			}
@@ -176,7 +174,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode == true && spawnInfo.player.ZoneUnderworldHeight)
+			if (Main.hardMode && spawnInfo.player.ZoneUnderworldHeight)
 			{
 				return 0.03f;
 			}

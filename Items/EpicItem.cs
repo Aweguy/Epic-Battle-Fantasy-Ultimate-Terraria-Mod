@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs;
+using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items
@@ -11,13 +13,13 @@ namespace EpicBattleFantasyUltimate.Items
         {
             #region Overheat
 
-            if (item.type == mod.ItemType("Shot9") || item.type == mod.ItemType("Shot8") || item.type == mod.ItemType("Shot7"))
+            if (type == ModContent.ItemType<Shot9>() || type ==  ModContent.ItemType<Shot8>() || type == ModContent.ItemType<Shot7>())
             {
-                player.AddBuff(mod.BuffType("Overheat"), 60 * 4);
+                player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 4);
             }
-            else if (item.type == mod.ItemType("Shot6") || item.type == mod.ItemType("Shot4"))
+            else if (type == ModContent.ItemType<Shot6>() || type == ModContent.ItemType<Shot4>())
             {
-                player.AddBuff(mod.BuffType("Overheat"), 60 * 2);
+                player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 2);
             }
 
             #endregion Overheat

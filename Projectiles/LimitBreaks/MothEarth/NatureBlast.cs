@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         {
             if (projectile.frame >= 23)
             {
-                if (projectile.tileCollide == true)
+                if (projectile.tileCollide)
                 {
                     Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 

@@ -505,7 +505,7 @@ namespace EpicBattleFantasyUltimate
             }
             else if (CursedStacks >= 5)
             {
-                if (CursedAlphaCheck == true)
+                if (CursedAlphaCheck)
                 {
                     CursedAlpha -= .05f;
                 }
@@ -620,14 +620,14 @@ namespace EpicBattleFantasyUltimate
 
             dps += damage;
 
-            if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true && player.HasItem(mod.ItemType("CrystalRevolver")))
+            if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal && player.HasItem(mod.ItemType("CrystalRevolver")))
             {
                 player.statLife += dps / 2;
                 player.HealEffect(dps / 2);
 
                 heal = false;
             }
-            else if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal == true)
+            else if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal)
             {
                 player.statLife += dps / 4;
                 player.HealEffect(dps / 4);

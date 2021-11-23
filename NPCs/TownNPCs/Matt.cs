@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Items.Consumables;
+﻿using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+using EpicBattleFantasyUltimate.Items.Consumables;
 using EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,7 +44,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 			npc.height = 50;
 			npc.aiStyle = 7;
 			npc.damage = 30;
-			npc.defense = 51;
+			npc.defense = 25;
 			npc.lifeMax = 750;
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
@@ -53,7 +54,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override string GetChat()
 		{
-			switch (Main.rand.Next(8))
+			switch (Main.rand.Next(9))
 			{
 				case 0:
 					return "Have you ever tried Sandworm? It goes great with these Bad Mushrooms I found...why are you looking at me like that?";
@@ -77,7 +78,10 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 					return "Lance is currently out on a ''recon mission'', which means he's not prepared to make social contact. So I'm marketing his technologic thingamajigs instead of him for the time being.";
 
 				case 7:
-					return "“It's not easy for me to find the code either!";
+					return "It's not easy for me to find the code either!";
+
+				case 8:
+					return "I got some gifts for you, from Anna. But since she's not here to give them herself you must pay me. What? I gotta earn a living somehow";
 
 				default:
 					return "It’s important to know what you want in life. Like food, shiny things, and fuzzy blue cats to pet.";
@@ -86,44 +90,44 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot>());
 			shop.item[nextSlot].shopCustomPrice = 10000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot2"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot2>());
 			shop.item[nextSlot].shopCustomPrice = 10000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot3"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot3>());
 			shop.item[nextSlot].shopCustomPrice = 10000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot4"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot4>());
 			shop.item[nextSlot].shopCustomPrice = 2500;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot5"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot5>());
 			shop.item[nextSlot].shopCustomPrice = 2500;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot6"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot6>());
 			shop.item[nextSlot].shopCustomPrice = 2500;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot7"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot7>());
 			shop.item[nextSlot].shopCustomPrice = 5000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot8"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot8>());
 			shop.item[nextSlot].shopCustomPrice = 5000;
 			nextSlot++;
 
-			shop.item[nextSlot].SetDefaults(mod.ItemType("Shot9"));
+			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot9>());
 			shop.item[nextSlot].shopCustomPrice = 5000;
 			nextSlot++;
 
-            if (Main.hardMode)
-            {
+			if (Main.hardMode)
+			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<ChilliPepper>());
 				shop.item[nextSlot].shopCustomPrice = 1500000;
 				nextSlot++;
@@ -181,7 +185,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
 		{
-			if (NPC.downedBoss1)
+			if (NPC.downedBoss1)//If EoC is killed
 			{
 				return true;
 			}
@@ -247,7 +251,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)
 		{
-			item = Main.itemTexture[mod.ItemType("HeavensGate")];
+			item = Main.itemTexture[ModContent.ItemType<HeavensGate>()];
 		}
 
 		#endregion Npc Attack

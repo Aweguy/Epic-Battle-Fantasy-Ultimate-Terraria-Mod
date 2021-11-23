@@ -45,10 +45,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         public override void AI()
         {
             Player player = Main.player[npc.target]; //Target
-            int proj;
-            int proj2;
-            int proj3;
-
             Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
             #region Movement Direction
@@ -79,6 +75,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
             #region Shooting
 
+
+            #endregion Shooting
+
+        }
+
+        private void Shooting(NPC npc, Player player)
+        {
             timer--;
 
             if (timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
@@ -86,57 +89,40 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 shoot = true;
             }
 
-            if (timer <= 0) //If timer is 0 or less it shoots.
+            if (player.statLife > 0)
             {
-                if (player.statLife > 0)
+                if (timer <= 0) //If timer is 0 or less it shoots.
                 {
+
                     if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
                     {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X + 22f, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
                     else if (npc.direction == -1)
                     {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X - 31f, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
+
+                    timer = 120; //Resetting the timer to 120 ticks (2 seconds).
                 }
 
-                timer = 120; //Resetting the timer to 120 ticks (2 seconds).
-            }
+                timer2--; // Same logic as the first timer.
 
-            timer2--; // Same logic as the first timer.
-
-            if (timer2 <= 0)
-            {
-                if (player.statLife > 0)
+                if (timer2 <= 0)
                 {
+
                     if (npc.direction == 1)
                     {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y - 2f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
                     else if (npc.direction == -1)
                     {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X - 22f, npc.Center.Y - 2f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 17, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
+
+                    timer2 = 120;
                 }
-
-                timer2 = 120;
             }
-
-            timer3--;
-
-            if (timer3 <= 0)
-            {
-                if (player.statLife > 0)
-                {
-                    proj3 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
-                }
-
-                timer3 = 360;
-            }
-
-            #endregion Shooting
-
-            #region Logic Control
 
             if (shoot == true) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
             {
@@ -155,14 +141,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 npc.velocity.X *= 0.9f;
             }
 
-            #endregion Logic Control
+            #region little fireball
+            timer3--;
+
+            if (timer3 <= 0)
+            {
+                if (player.statLife > 0)
+                {
+                    Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
+                }
+
+                timer3 = 360;
+            }
+            #endregion
         }
 
         #endregion AI
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode == true && spawnInfo.player.ZoneDesert)
+            if (Main.hardMode && spawnInfo.player.ZoneDesert)
             {
                 return 0.03f;
             }

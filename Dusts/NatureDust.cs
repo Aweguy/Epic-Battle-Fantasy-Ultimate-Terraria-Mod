@@ -14,8 +14,6 @@ namespace EpicBattleFantasyUltimate.Dusts
             return mod.Properties.Autoload;
         }
 
-        private float DustScale;
-
         /*public override void SetDefaults()
         {
             updateType = 124;

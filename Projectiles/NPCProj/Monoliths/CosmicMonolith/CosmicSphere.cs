@@ -22,11 +22,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		}
 
 		private bool collision = false;
-
-
 		private float BlastVel = 14f;
 		private bool Veloc = false;
-		Vector2 target;
 
 		public override bool CanDamage()
 	=> projectile.frame >= 22;
@@ -47,7 +44,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		{
 			if (projectile.frame >= 22)
 			{
-				if (projectile.tileCollide == true)
+				if (projectile.tileCollide)
 				{
 					Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 

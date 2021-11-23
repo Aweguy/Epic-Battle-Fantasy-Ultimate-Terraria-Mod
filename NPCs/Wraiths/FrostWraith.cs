@@ -48,9 +48,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         public override void AI()
         {
             Player player = Main.player[npc.target]; //Target
-            int proj;
-            int proj2;
-
             Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.FrostHydra, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
 
             #region Movement Direction
@@ -81,6 +78,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
             #region Shooting
 
+            Shooting(player);
             icetimer--;
 
             if (icetimer <= 0)
@@ -88,54 +86,56 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 Icicles(npc);
             }
 
-            timer--;
 
-            if (timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
+            #endregion Shooting
+
+        }
+
+        #endregion AI
+
+        private void Shooting(Player player)
+        {
+            
+
+            if (--timer == 60) //Here the shoot bool becomes true, 60 ticks before it shoots
             {
                 shoot = true;
             }
 
-            if (timer <= 0) //If timer is 0 or less it shoots.
+            if (player.statLife > 0)
             {
-                if (player.statLife > 0)
+                if (timer <= 0) //If timer is 0 or less it shoots.
                 {
+
                     if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
                     {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("FrostBoneShot"), 20, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<FrostBoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
                     else if (npc.direction == -1)
                     {
-                        proj = Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("FrostBoneShot"), 20, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<FrostBoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
+
+                    timer = 120; //Resetting the timer to 120 ticks (2 seconds).
                 }
 
-                timer = 120; //Resetting the timer to 120 ticks (2 seconds).
-            }
-
-            timer2--; // Same logic as the first timer.
-
-            if (timer2 <= 0)
-            {
-                if (player.statLife > 0)
+                if (--timer2 <= 0)
                 {
+
                     if (npc.direction == 1)
                     {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("FrostBoneShot"), 20, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<FrostBoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
                     else if (npc.direction == -1)
                     {
-                        proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("FrostBoneShot"), 20, 2, Main.myPlayer, 0, 1);
+                        Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<FrostBoneShot>(), 30, 2, Main.myPlayer, 0, 1);
                     }
-                }
 
-                timer2 = 120;
+                    timer2 = 120;
+                }
             }
 
-            #endregion Shooting
-
-            #region Logic Control
-
-            if (shoot == true) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
+            if (shoot) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
             {
                 shootTimer--;
             }
@@ -147,15 +147,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
                 shootTimer = 60; //Resets the timer to 60 ticks (1 second)
             }
 
-            if (shoot == true) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
+            if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
             {
                 npc.velocity.X *= 0.9f;
             }
 
-            #endregion Logic Control
         }
-
-        #endregion AI
 
         private void Icicles(NPC npc)
         {
@@ -183,7 +180,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode == true && spawnInfo.player.ZoneSnow)
+            if (Main.hardMode && spawnInfo.player.ZoneSnow)
             {
                 return 0.03f;
             }

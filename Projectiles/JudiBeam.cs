@@ -38,9 +38,6 @@ namespace EpicBattleFantasyUltimate.Projectiles
 			set => projectile.localAI[0] = value;
 		}
 
-
-		float BeamAlpha = 10f;
-
 		// Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
 		public bool IsAtMaxCharge => Charge == MAX_CHARGE;
 

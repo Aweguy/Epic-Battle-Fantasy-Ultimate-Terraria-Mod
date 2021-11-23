@@ -153,7 +153,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 			}
 			else if (CursedStacks >= 5)
 			{
-				if (CursedAlphaCheck == true)
+				if (CursedAlphaCheck)
 				{
 					CursedAlpha -= 10;
 				}
@@ -183,7 +183,7 @@ namespace EpicBattleFantasyUltimate.NPCs
 		{
 			#region Feral Bleed Effects
 
-			if (RBleed == true)
+			if (RBleed)
 			{
 				if (npc.lifeRegen > 0)
 				{

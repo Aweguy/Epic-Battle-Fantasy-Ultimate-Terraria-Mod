@@ -92,7 +92,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			#region Shooting
 
-			if (attack == true)
+			if (attack)
 			{
 				timer--;
 			}
@@ -119,7 +119,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				timer = 120; //Resetting the timer to 120 ticks (2 seconds).
 			}
 
-			if (attack == true)
+			if (attack)
 			{
 				timer2--; // Same logic as the first timer.
 			}
@@ -145,7 +145,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			#endregion
 			#region Special Attack
 
-			if (special == true)
+			if (special)
 			{
 				specialTimer--;
 
@@ -168,7 +168,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			#region Attack Logic
 
-			if (shoot == true) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
+			if (shoot) //If the shoot bool is true, then redcue the shoot timer otherwise do nothing.
 			{
 				shootTimer--;
 			}
@@ -180,7 +180,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				shootTimer = 60; //Resets the timer to 60 ticks (1 second)
 			}
 
-			if (shoot == true) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
+			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
 			{
 				npc.velocity.X *= 0.9f;
 			}
@@ -232,7 +232,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			Player player = Main.player[Main.myPlayer];
 
-			if (Main.hardMode == true && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)) && !spawnInfo.invasion)
+			if (Main.hardMode && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)) && !spawnInfo.invasion)
 			{
 				return 0.03f;
 			}

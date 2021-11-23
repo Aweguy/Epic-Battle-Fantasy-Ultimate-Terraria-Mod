@@ -207,11 +207,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 			#endregion Find target
 
 			#region Movement
-
-			// Default movement parameters (here for attacking)
-			float speed = 10f;
-			float inertia = 10f;
-
 			if (foundTarget)
 			{
 				// Minion has a target: attack (here, fly towards the enemy)
@@ -236,19 +231,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 			}
 			else
 			{
-				// Minion doesn't have a target: return to player and idle
-				if (distanceToIdlePosition > 600f)
-				{
-					// Speed up the minion if it's away from the player
-					speed = 12f;
-					inertia = 60f;
-				}
-				else
-				{
-					// Slow down the minion if closer to the player
-					speed = 4f;
-					inertia = 80f;
-				}
 				if (distanceToIdlePosition > 20f)
 				{
 					// The immediate range around the player (when it passively floats about)

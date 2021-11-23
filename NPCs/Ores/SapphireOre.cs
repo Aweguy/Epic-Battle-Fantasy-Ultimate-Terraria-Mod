@@ -18,7 +18,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			Main.npcFrameCount[npc.type] = 6;
 		}
 
-		bool Channeling = false;
+		//bool Channeling = false;
 
 		public override void SetSafeDefaults()
 		{

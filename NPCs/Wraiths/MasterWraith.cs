@@ -27,7 +27,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		private int currentFireballs = 0;
 		private readonly int maxFireballs = 11;
 
-		private int LeafStartTimer = 240;//The timer that determines when the Leaves will be shot
 		private int LeafTimer = 10;//The interval between Special shots.
 		private int LeafEndStacks = 0;//The stacks that will define when the Wraith will stop the special attack
 

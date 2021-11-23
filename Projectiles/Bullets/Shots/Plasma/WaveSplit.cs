@@ -53,7 +53,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
                 Death = true;
             }
 
-            if (Death == true)
+            if (Death)
             {
                 DeathTimer--;
             }

@@ -2,13 +2,13 @@
 using Terraria;
 using Terraria.ID;
 using EpicBattleFantasyUltimate.HelperClasses;
+using Terraria.ModLoader;
+using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
 {
     public class FieldShot : Terraria.ModLoader.ModProjectile
     {
-
-        float rotation = 0;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Field Shot");
@@ -51,7 +51,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             Main.PlaySound(SoundID.Item10, projectile.position);
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("PlasmaField"), projectile.damage, 0, projectile.owner);
+            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<PlasmaField>(), projectile.damage, 0, projectile.owner);
         }
     }
 }
