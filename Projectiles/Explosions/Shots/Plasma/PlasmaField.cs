@@ -70,11 +70,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 			{
 				for (int i = 0; i <= NumberOfBullets; i++)
 				{
-					Vector2 velocity = Vector2.One.RotatedBy(rotation) * 6;
+					Vector2 velocity = Vector2.One.RotatedBy(rotation * 0.0174533);
 
-					Vector2 SpawnPos = projectile.Center + Vector2.One.RotatedBy(rotation) * 100;
+					Vector2 SpawnPos = projectile.Center + velocity * 100f;
 
-					Projectile.NewProjectile(SpawnPos, velocity, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+					Projectile.NewProjectile(SpawnPos, velocity * 6f, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
 
 					rotation += 360 / NumberOfBullets;
 				}

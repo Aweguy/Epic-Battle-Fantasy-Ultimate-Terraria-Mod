@@ -29,21 +29,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			projectile.melee = true;
 
 			projectile.knockBack = 7f;
-			drawOffsetX = 0;
+
+			projectile.localNPCHitCooldown = -1;
+			projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-			Main.PlaySound(SoundID.Item10, projectile.position);
 		}
 
 		public override void AI()
 		{
-			
-
 			projectile.tileCollide = true;
-
 			float velXMult = 1f;
 			projectile.velocity.X *= velXMult;
 
@@ -62,6 +60,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 					{
 						projectile.frame = 1;
 					}
+					DustAI();
 					Lighting.AddLight(projectile.Center, new Vector3(255, 165, 0)/255f);//Orange lighting coming from the center of the projectile.
 				}
 				Homing();
@@ -72,11 +71,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			}
 
 			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90);
+			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
 			projectile.spriteDirection = projectile.direction;
-
 		}
 
+		private void DustAI()
+		{
+			for (int i = 0; i <= 2; i++)
+			{
+				Dust.NewDust(projectile.position, projectile.width / 2, projectile.height / 2, DustID.Fire);
+			}
+		}
 		private void Homing()
 		{
 			Vector2 prey;

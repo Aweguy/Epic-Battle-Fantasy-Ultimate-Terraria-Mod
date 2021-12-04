@@ -38,7 +38,6 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords
 			item.shootSpeed = 12f;
 			item.shoot = ModContent.ProjectileType<LightBlade>();
 		}
-
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 Velocity = new Vector2(speedX, speedY);

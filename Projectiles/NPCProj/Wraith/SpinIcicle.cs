@@ -17,7 +17,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Icicle");
 			Main.projFrames[projectile.type] = 4;
 		}
 
@@ -106,7 +105,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 			}
 		}
 
-		/*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D texture = Main.projectileTexture[projectile.type];
 
@@ -115,9 +114,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 			return false;
 		}*/
 
-		#region Networking
+        #region Networking
 
-		public override void SendExtraAI(BinaryWriter writer)
+        public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(OrbitTimer);
 		}

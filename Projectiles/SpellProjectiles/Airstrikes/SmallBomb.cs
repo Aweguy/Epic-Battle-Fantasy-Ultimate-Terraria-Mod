@@ -46,8 +46,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			Explode();
 			FromNPC = true;
+			Explode();
 		}
         public override bool OnTileCollide(Vector2 oldVelocity)
 		{
@@ -126,7 +126,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		public override void Kill(int timeLeft)
 		{
-
 			// Play explosion sound
 			Main.PlaySound(SoundID.Item15, projectile.position);
 			// Smoke Dust spawn

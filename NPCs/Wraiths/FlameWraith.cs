@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
+﻿using EpicBattleFantasyUltimate.Items.Materials;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -186,11 +187,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void NPCLoot()
 		{
-			Item.NewItem(npc.getRect(), mod.ItemType("Wool"), 1);
+			Item.NewItem(npc.getRect(), ModContent.ItemType<Wool>(), 1);
 
 			if (Main.rand.NextFloat() < .10f)
 			{
-				Item.NewItem(npc.getRect(), mod.ItemType("SilkScrap"), Main.rand.Next(2) + 1);
+				Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), Main.rand.Next(2) + 1);
 			}
 		}
 

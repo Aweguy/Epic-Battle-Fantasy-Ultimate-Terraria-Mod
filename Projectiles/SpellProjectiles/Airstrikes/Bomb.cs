@@ -46,10 +46,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Explode();//Exploding after hitting an npc
 			FromNPC = true;
+			Explode();//Exploding after hitting an npc
 		}
-
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (!HasGoneDown)

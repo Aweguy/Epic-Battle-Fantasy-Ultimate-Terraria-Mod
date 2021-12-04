@@ -1,24 +1,27 @@
-﻿#region
-
-using EpicBattleFantasyUltimate.HelperClasses;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-#endregion
 
 namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 {
-	public class LightBlade : ModProjectile
+	class LightBladeMini : ModProjectile
 	{
-		float SpawnDistanceFromClick;
+		float SpawnDistanceFromTarget;
 		bool DistanceSet = false;
 		bool Stop = false;
 		Vector2 SpawnPosition;
-		Vector2 OldMouseWorld;
+		Vector2 OldTargetPosition;
+		Vector2 MoveSpeed;
 
+		Projectile Father;
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[projectile.type] = 11;
@@ -42,7 +45,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 			projectile.scale = 1.3f;
 		}
-
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if(Father.localAI[0] <= 4f)
+            {
+				
+				projectile.localAI[0] = Father.localAI[0];
+				projectile.localAI[0]++;
+				projectile.localAI[1]++;
+				if(projectile.localAI[1] <= 1)
+                {
+					float rotation = Main.rand.NextFloat(360);
+					Vector2 Velocity = projectile.velocity.RotatedBy(rotation * 0.0174533f);
+					Projectile.NewProjectile(target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, projectile.knockBack, projectile.owner, target.whoAmI, projectile.whoAmI);
+				}
+			}
+		}
 		public override void Kill(int timeLeft)
 		{
 			Vector2 DustPosition = projectile.position;
@@ -62,13 +80,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			float rotation = Main.rand.NextFloat(360);
-			Vector2 Velocity = projectile.velocity.RotatedBy(rotation * 0.0174533f);
-			Projectile.NewProjectile(target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage / 5, projectile.knockBack, projectile.owner, target.whoAmI, projectile.whoAmI);
-		}
-
 		public override bool CanDamage() //If it's not fully form, do not damage
 		{
 			if (projectile.frame == 4)
@@ -83,16 +94,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override bool PreAI()
 		{
+			NPC target = Main.npc[(int)projectile.ai[0]];
+			Father = Main.projectile[(int)projectile.ai[1]];
 			if (!DistanceSet)//Setting the distance of the projectile from the cursor
 			{
-				SpawnPosition = Main.MouseWorld - Vector2.Normalize(new Vector2(projectile.ai[0], projectile.ai[1])) * 80f;
 
-				SpawnDistanceFromClick = Vector2.Distance(SpawnPosition, Main.MouseWorld);
-				OldMouseWorld = Main.MouseWorld;
+				SpawnPosition = target.Center - Vector2.Normalize(projectile.velocity) * 80f;
+
+				SpawnDistanceFromTarget = Vector2.Distance(SpawnPosition, target.Center);
+				OldTargetPosition = target.Center;
 				DistanceSet = true;
+				MoveSpeed = projectile.velocity;
 			}
 
-			Vector2 MoveSpeed = new Vector2(projectile.ai[0], projectile.ai[1]);
 			//Change the 5 to determine how much dust will spawn. lower for more, higher for less
 			if (Main.rand.Next(3) == 0)
 			{
@@ -100,9 +114,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 				Main.dust[dust].velocity.X *= 0.4f;
 			}
 
-			#region animation and more
-			if (!Stop)
-			{
+            #region animation and more
+            if (!Stop)
+            {
 				if (++projectile.frameCounter > 2)
 				{
 					projectile.frameCounter = 0;
@@ -116,7 +130,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 						projectile.velocity = MoveSpeed;
 						Stop = true;
 					}
-				   
 					else if (projectile.frame > 4)
 					{
 						projectile.velocity = Vector2.Zero;
@@ -127,9 +140,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 						}
 					}
 				}
+
 			}
 
-			if (Stop && Vector2.Distance(OldMouseWorld, projectile.Center) >= SpawnDistanceFromClick * 2f)
+			if (Stop && Vector2.Distance(OldTargetPosition, projectile.Center) >= SpawnDistanceFromTarget * 2f)
 			{
 				Stop = false;
 			}

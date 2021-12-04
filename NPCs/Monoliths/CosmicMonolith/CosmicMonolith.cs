@@ -91,10 +91,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.spriteDirection = target.Center.X > npc.Center.X ? -1 : 1;
 		}
 
-		public override void AI()
-		{
-		}
-
 		public override bool PreAI()
 		{
 			npc.TargetClosest(true);
@@ -175,8 +171,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			return true;
 		}
 
-		private void RippleEffect()
-        {
+		private void RippleEffect()//The constant ripple effect around the monolith
+		{
 			if (npc.localAI[0] == 0)
 			{
 				npc.localAI[0] = 1;
@@ -195,7 +191,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		}
 
-		private void Illusions()
+		private void Illusions()//Spawning the Illusions
 		{
 			if (NPC.CountNPCS(ModContent.NPCType<CosmicIllusion>()) < 2)
 			{

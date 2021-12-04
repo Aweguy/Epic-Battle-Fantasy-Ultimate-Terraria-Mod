@@ -46,7 +46,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			Bleep();//Bleeping sound of the flybot
 		}
 
-		#region movement
+
+		#region movementaaa
 
 		private void movement()
 		{
