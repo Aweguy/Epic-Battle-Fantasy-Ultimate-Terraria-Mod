@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith;
+using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -96,12 +97,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			npc.TargetClosest(true);
 
 			Player player = Main.player[npc.target];
-
+			float DistanceFromPlayer = Vector2.Distance(npc.Center, player.Center);//Player viscinity teleportation.
+			
 			Direction(player);//Direction of the monolith towards the player.
 
 			RippleEffect();
 
-			Illusions();//Spawning the illusions
+			//Illusions();//Spawning the illusions
 			
 			if(AIState == MonolithState.Nothing)//If it does nothing it teleports behind the player when within range and if the player looks at it.
 			{
@@ -113,9 +115,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					AttackChosen = true;
 				}
 
-				/*float DistanceFromPlayer = Vector2.Distance(npc.Center, player.Center);//Player viscinity teleportation.
-				if(DistanceFromPlayer <= 16 * 30)
+				if (DistanceFromPlayer > 16 * 50)
 				{
+					AIState = MonolithState.Teleport;
+				}
+
+				/*{
 					if (player.direction == 1 && npc.direction == -1)
 					{
 						Teleportation();
@@ -125,7 +130,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 						Teleportation();
 					}
 				}*/
-				
 			}
 
 			if (AIState == MonolithState.Teleport)//The monolith teleports. After the teleport it'll attack.
@@ -165,7 +169,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				}
 				else if (AtState == AttackState.DarkBolt)//Homing dark bolt attack.
 				{
-					DarkBolt(player);
+					//DarkBolt(player);
+					Laser(player);
 				}
 			}
 			return true;
@@ -199,14 +204,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 		}
 
-
-		private void DarkBolt(Player target)//The code that shoots the dark bolt 
-		{
-			Projectile.NewProjectile(new Vector2(npc.Center.X - 50, npc.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, npc.whoAmI, 0);
-
-			AIState = MonolithState.Nothing;
-			AttackChosen = false;
-		}
 
 		private void Teleportation()
 		{
@@ -281,7 +278,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					int k = Main.rand.Next(pX - rand, pX + rand);
 					for (int j = Main.rand.Next(pY - rand, pY + rand); j < pY + rand; ++j)
 					{
-						
+
 						if ((j < pY - 4 || j > pY + 4 || (k < pX - 4 || k > pX + 4)) && (j < y - 1 || j > y + 1 || (k < x - 1 || k > x + 1)) && Main.tile[k, j].nactive())
 						{
 							bool teleport = true;
@@ -295,16 +292,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 								spawned = false;
 								break;
 							}
-						}	
+						}
 					}
 				}
 				npc.netUpdate = true;
-				}
+			}
 		}
 
 		private void CosmicSphere()//The cosmic bouncy  sphere attack code
 		{
-			
 			if(CosmicSphereCirclesCurrent <= CosmicSphereCirclesMax)
 			{	
 				if (++AttackTimer > 20)
@@ -327,10 +323,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				AttackChosen = false;
 				AIState = MonolithState.Nothing;
 			}
+		}
+		private void DarkBolt(Player target)//The code that shoots the dark bolt 
+		{
+			Projectile.NewProjectile(new Vector2(npc.Center.X - 50, npc.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, npc.whoAmI, 0);
 
+			AIState = MonolithState.Nothing;
+			AttackChosen = false;
 		}
 
-		private void Slam(Player target)//The slam melee attack of the monolith
+		private void Slam(Player player)//The slam melee attack of the monolith
 		{
 			AttackTimer++;
 			if (AttackTimer >= 90)//Resetting the variables shortly after slaming
@@ -347,12 +349,36 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				{
 					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, target.whoAmI);//teleportation cheaty effect for the slam attack
 				}*/
-				npc.Center = new Vector2(target.Center.X,target.Center.Y - 150);//Positioning over the player's head.
+				npc.Center = new Vector2(player.Center.X,player.Center.Y - 150);//Positioning over the player's head.
 			}
 			else if (AttackTimer > 30)
 			{
 				npc.velocity.Y = 10f;//Slaming downwards
 			}
+		}
+
+		private void Laser(Player player)
+		{
+			if(++AttackTimer == 1)
+			{
+				int num233 = (int)((float)player.Center.X) / 16;
+				int num234 = (int)((float)player.Center.Y) / 16;
+				if (player.gravDir == -1f)
+				{
+					num234 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)player.Center.Y) / 16;
+				}
+				for (; num234 < Main.maxTilesY && Main.tile[num233, num234] != null && !WorldGen.SolidTile2(num233, num234) && Main.tile[num233 - 1, num234] != null && !WorldGen.SolidTile2(num233 - 1, num234) && Main.tile[num233 + 1, num234] != null && !WorldGen.SolidTile2(num233 + 1, num234); num234++)
+				{
+				}
+				Projectile.NewProjectile(new Vector2((float)player.Center.X, (float)(num234 * 16)), new Vector2(0, -1), ModContent.ProjectileType<Doomsday>(), npc.damage, 10f, Main.myPlayer, ai1: npc.whoAmI);
+			}
+			else if (AttackTimer > 120)
+			{
+				AttackTimer = 0;
+				AIState = MonolithState.Nothing;
+				AttackChosen = false;
+			}
+
 		}
 
 		public override void FindFrame(int frameHeight)//Glowmask and npc animation 
@@ -361,7 +387,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			{
 				GlowmaskTimer = 0;
 				if (++GlowmaskFrame >= 13)
+				{
 					GlowmaskFrame = 0;
+				}
 			}
 		}
 

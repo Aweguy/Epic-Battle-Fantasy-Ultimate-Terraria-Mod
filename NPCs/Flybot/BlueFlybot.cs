@@ -1,13 +1,19 @@
 ﻿using EpicBattleFantasyUltimate.Items.Materials;
-using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot;
+using EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
-	public class RedFlybot : ModNPC
+	class BlueFlybot : ModNPC
 	{
 		private int BleepTimer = 20;//Determines when the check for the Bleep sound will happen
 		private bool CannonSpawn2 = false;
@@ -15,8 +21,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Red Flybot");
-			Main.npcFrameCount[npc.type] = 3;
+			DisplayName.SetDefault("Blue Flybot");
+			//Main.npcFrameCount[npc.type] = 3;
 		}
 
 		public override void SetDefaults()
@@ -210,13 +216,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (!CannonSpawn2)
 			{
-				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonBehind>(), 0, 0, Main.myPlayer, npc.whoAmI);
+				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonBehind>(), 0, 0, Main.myPlayer, npc.whoAmI);
 
 				CannonSpawn2 = true;
 			}
 			if (!CannonSpawn1)
 			{
-				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonFront>(), 0, 0, Main.myPlayer, npc.whoAmI);
+				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonFront>(), 0, 0, Main.myPlayer, npc.whoAmI);
 
 				CannonSpawn1 = true;
 			}
@@ -275,7 +281,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			}
 		}
 
-		public override bool CheckDead()
+		/*public override bool CheckDead()
 		{
 			Vector2 gorevel;
 
@@ -298,7 +304,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			int a = Projectile.NewProjectile(npc.Center, npc.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
 
 			return true;
-		}
+		}*/
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{

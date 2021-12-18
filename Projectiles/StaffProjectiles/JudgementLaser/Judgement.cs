@@ -63,7 +63,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 		{
 			DisplayName.SetDefault("Judgement");
 		}
-
 		public override void SetDefaults()
 		{
 			projectile.width = 0;
@@ -81,8 +80,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			projectile.usesLocalNPCImmunity = true;
 
 		}
-
-		
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
@@ -212,7 +209,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			UpdatePlayer(player);
 			ChargeLaser(player);
 
-			SetLaserPosition(player);
+			SetLaserPosition();
 			SpawnDusts(player);
 			CastLights();
 		}
@@ -340,7 +337,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 		 * Sets the end of the laser position based on where it collides with something
 		 */
 
-		private void SetLaserPosition(Player player)
+		private void SetLaserPosition()
 		{
 			for (Distance = MOVE_DISTANCE; Distance <= 2500f; Distance += 1f)
 			{

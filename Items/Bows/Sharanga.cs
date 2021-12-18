@@ -26,8 +26,8 @@ namespace EpicBattleFantasyUltimate.Items.Bows
 		{
 			BowProj = ModContent.ProjectileType<SharangaProj>();
 
-			item.width = 70;
-			item.height = 20;
+			item.width = 20;
+			item.height = 70;
 
 			item.damage = 55;
 			item.knockBack = 10;

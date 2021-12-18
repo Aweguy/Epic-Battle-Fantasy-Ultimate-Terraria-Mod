@@ -26,6 +26,8 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 			item.noMelee = true;
 			LimitCost = 25;
 
+			item.rare = ItemRarityID.Orange;
+
 			item.useTime = 1;
 			item.useAnimation = 1;
 			item.useStyle = ItemUseStyleID.HoldingOut;

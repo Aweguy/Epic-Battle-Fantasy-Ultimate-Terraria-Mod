@@ -66,7 +66,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 		{
 			float rotation = Main.rand.NextFloat(360);
 			Vector2 Velocity = projectile.velocity.RotatedBy(rotation * 0.0174533f);
-			Projectile.NewProjectile(target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage / 5, projectile.knockBack, projectile.owner, target.whoAmI, projectile.whoAmI);
+			Projectile.NewProjectile(target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, projectile.knockBack, projectile.owner, target.whoAmI, projectile.whoAmI);
 		}
 
 		public override bool CanDamage() //If it's not fully form, do not damage
