@@ -4,31 +4,31 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
-    public class BlessedBuff : ModBuff
-    {
-        public override void SetDefaults()
-        {
-            DisplayName.SetDefault("Blessed");
-            Description.SetDefault("You have been granted status immunity, Godcat be praised!");
-        }
+	public class BlessedBuff : ModBuff
+	{
+		public override void SetDefaults()
+		{
+			DisplayName.SetDefault("Blessed");
+			Description.SetDefault("You have been granted status immunity, Godcat be praised!");
+		}
 
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.GetModPlayer<EpicPlayer>().numberOfDrawableBuffs++;
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.GetModPlayer<EpicPlayer>().numberOfDrawableBuffs++;
 
-            player.GetModPlayer<EpicPlayer>().Blessed = true;
+			player.GetModPlayer<EpicPlayer>().Blessed = true;
 
-            for (int j = 0; j < BuffLoader.BuffCount; ++j)
-            {
-                if (Main.debuff[j])
-                {
+			for (int j = 0; j < BuffLoader.BuffCount; ++j)
+			{
+				if (Main.debuff[j])
+				{
 
-                    if(j != ModContent.BuffType<BurntMouth>() && j != ModContent.BuffType<Overheat>())
-                    {
-                        player.buffImmune[j] = true;
-                    }
-                }
-            }
-        }
-    }
+					if(j != ModContent.BuffType<BurntMouth>() && j != ModContent.BuffType<Overheat>())
+					{
+						player.buffImmune[j] = true;
+					}
+				}
+			}
+		}
+	}
 }

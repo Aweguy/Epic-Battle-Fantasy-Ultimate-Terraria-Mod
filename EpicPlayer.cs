@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
+using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers;
 using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
 using EpicBattleFantasyUltimate.NPCs.Ores;
@@ -135,6 +136,13 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion Shadow
 
+		#region Doomed Variables
+
+		public bool Doom = false;
+		int DoomBuff;
+
+		#endregion
+
 		#region Tired Variables
 
 		public bool Tired = true;
@@ -226,6 +234,7 @@ namespace EpicBattleFantasyUltimate
 
 				#endregion Sapphire Explosion Knockback
 			}
+
 
 			return true;
 		}
@@ -419,6 +428,14 @@ namespace EpicBattleFantasyUltimate
 			Tryforce = false;
 
 			#endregion Tryforce
+
+			#region Doomed Reset
+			if (!Doom)
+			{
+				DoomBuff = 0;
+			}
+			Doom = false;
+			#endregion
 		}
 
 		#endregion ResetEffects
@@ -720,6 +737,26 @@ namespace EpicBattleFantasyUltimate
 			{
 				LimitCurrent = 0;
 			}
+
+			#region Doom Damage
+			if (Doom)
+			{
+				
+				for (int j = 0; j < Player.MaxBuffs; ++j)
+                {
+					if(player.buffType[j] == ModContent.BuffType<Doomed>())
+                    {
+						DoomBuff = j;
+                    }
+                }
+				if(player.buffTime[DoomBuff] <= 10)
+                {
+					player.Hurt(PlayerDeathReason.ByCustomReason("DEATH!!!!!!!!!!!!!!!!!!!!!!!!!!!"), player.statLifeMax2 * 999, 0, true, false, true);
+				}
+			}
+
+			#endregion
+
 		}
 
 		#endregion PostUpdate
@@ -932,6 +969,17 @@ namespace EpicBattleFantasyUltimate
 			{
 				// Do drawing.
 				Texture2D texture = mod.GetTexture("Buffs/Buffs/BlessedEffect");
+
+				Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
+				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
+				Main.playerDrawData.Add(data);
+
+				drawX += drawableBuffOffset;
+			}
+
+			if (modPlayer.Doom)
+			{
+				Texture2D texture = mod.GetTexture("Buffs/Debuffs/DoomEffect");
 
 				Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);

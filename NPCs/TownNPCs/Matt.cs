@@ -1,6 +1,6 @@
 ﻿using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using EpicBattleFantasyUltimate.Items.Consumables;
-using EpicBattleFantasyUltimate.Items.Weapons.Swords.UltSwords;
+using EpicBattleFantasyUltimate.Items.Weapons.Swords;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
