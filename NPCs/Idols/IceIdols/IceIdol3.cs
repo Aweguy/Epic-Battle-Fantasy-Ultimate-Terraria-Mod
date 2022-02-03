@@ -96,7 +96,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 if (Main.rand.NextFloat() < .1f)
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
                     if (Main.rand.NextFloat() < .1f)
                     {
@@ -117,7 +118,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 else
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -5f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
                     if (!Left && Right && !Spin)
                     {
@@ -147,7 +149,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
                 if (IceTimer <= 0)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.3f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolMagic").WithPitchVariance(.2f).WithVolume(.3f), npc.position);
 
                     if (Spin)
                     {

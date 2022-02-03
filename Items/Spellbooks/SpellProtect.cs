@@ -25,7 +25,10 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 			item.rare = ItemRarityID.Yellow;
 			item.value = Item.sellPrice(silver: 50);
 			item.useTurn = true;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);
+			if (!Main.dedServ)
+            {
+				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);
+			}
 		}
 
 		public override bool CanUseItem(Player player)

@@ -34,7 +34,8 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 			item.noMelee = true;
 			item.magic = true;
 			item.autoReuse = true;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
+			if (!Main.dedServ)
+				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -51,7 +52,8 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 				item.mana = 30;
 				item.shoot = ModContent.ProjectileType<SmallBomb>();
 				item.shootSpeed = 16f;
-				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
+				if (!Main.dedServ)
+					item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
 			}
 			else
 			{
@@ -60,7 +62,8 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 				item.mana = 10;
 				item.shoot = ModContent.ProjectileType<Bomb>();
 				item.shootSpeed = 10f;
-				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
+				if (!Main.dedServ)
+					item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Airstrike").WithVolume(.5f);
 			}
 			return base.CanUseItem(player);
 		}

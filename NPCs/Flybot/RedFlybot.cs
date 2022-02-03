@@ -266,12 +266,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (--BleepTimer <= 0)
 			{
-				if (Main.rand.NextFloat() < .1f)
-				{
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
-				}
+                if (Main.rand.NextFloat() < .1f && !Main.dedServ)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
+                }
 
-				BleepTimer = 20;
+                BleepTimer = 20;
 			}
 		}
 

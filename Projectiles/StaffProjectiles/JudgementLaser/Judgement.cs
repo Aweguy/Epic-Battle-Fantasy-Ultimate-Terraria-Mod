@@ -252,7 +252,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 			if (timer2 == 40)
 			{
-				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Spells/Judgement").WithPitchVariance(1f).WithVolume(.2f), projectile.position);
+				if (!Main.dedServ)
+					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Spells/Judgement").WithPitchVariance(1f).WithVolume(.2f), projectile.position);
 
 				for (int i = 0; i < 85; ++i)
 				{

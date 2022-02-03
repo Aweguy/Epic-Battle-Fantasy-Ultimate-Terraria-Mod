@@ -73,8 +73,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public override void SetDefaults()
 		{
 			SetSafeDefaults();
-
-			npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
+			if (!Main.dedServ)
+				npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
 
 			if(Main.rand.NextFloat(1f) < 0.1f)//Determining whether the ore will have an aura
 			{
@@ -253,7 +253,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 
 			}
-
 
 			if (State == OreState.Chase)//Logic control for when to switch states from chasing to dashing.
 			{

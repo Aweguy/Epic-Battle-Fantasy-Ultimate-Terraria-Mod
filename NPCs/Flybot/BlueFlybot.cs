@@ -22,7 +22,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blue Flybot");
-			//Main.npcFrameCount[npc.type] = 3;
+			Main.npcFrameCount[npc.type] = 2;
 		}
 
 		public override void SetDefaults()
@@ -234,7 +234,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		private int Frame1 = 0;
 		private int Frame2 = 1;
-		private int Frame3 = 2;
 
 		public override void FindFrame(int frameHeight)
 		{
@@ -246,10 +245,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			else if (npc.frameCounter < 20)
 			{
 				npc.frame.Y = Frame2 * frameHeight;
-			}
-			else if (npc.frameCounter < 30)
-			{
-				npc.frame.Y = Frame3 * frameHeight;
 			}
 			else
 			{
@@ -272,12 +267,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (--BleepTimer <= 0)
 			{
-				if (Main.rand.NextFloat() < .1f)
-				{
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
-				}
+                if (Main.rand.NextFloat() < .1f && !Main.dedServ)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
+                }
 
-				BleepTimer = 20;
+                BleepTimer = 20;
 			}
 		}
 

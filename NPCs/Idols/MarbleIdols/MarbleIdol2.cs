@@ -30,8 +30,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 
             npc.aiStyle = -1;
             npc.noGravity = false;
-
-            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/MarbleIdolHurt");
+            if (!Main.dedServ)
+                npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/MarbleIdolHurt");
 
             if (Main.hardMode)
             {
@@ -88,7 +88,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 if (Main.rand.NextFloat() < .1f)
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
                     if (!Left && Right && !Spin)
                     {
@@ -104,7 +105,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 else
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -5f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(.7f), npc.position);
 
                     if (!Left && Right && !Spin)
                     {

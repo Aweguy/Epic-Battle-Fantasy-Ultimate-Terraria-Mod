@@ -29,8 +29,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 
             npc.aiStyle = -1;
             npc.noGravity = false;
-
-            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/WoodIdolHit");
+            if (!Main.dedServ)
+                npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/WoodIdolHit");
 
             if (Main.hardMode)
             {
@@ -98,7 +98,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 if (Main.rand.NextFloat() < .1f)
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -10f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump").WithPitchVariance(.7f), npc.position);
 
                     if (!Left && Right && !Spin)
                     {
@@ -114,7 +115,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 else
                 {
                     npc.velocity = new Vector2(npc.velocity.X, -5f);
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(.7f), npc.position);
+                    if (!Main.dedServ)
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(.7f), npc.position);
 
                     if (!Left && Right && !Spin)
                     {

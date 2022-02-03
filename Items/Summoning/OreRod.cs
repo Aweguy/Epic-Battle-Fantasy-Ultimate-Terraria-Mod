@@ -1,4 +1,4 @@
-﻿/*using EpicBattleFantasyUltimate.Buffs.Minions;
+﻿using EpicBattleFantasyUltimate.Buffs.Minions;
 using EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -53,4 +53,4 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
             return true;
         }
     }
-}*/
+}

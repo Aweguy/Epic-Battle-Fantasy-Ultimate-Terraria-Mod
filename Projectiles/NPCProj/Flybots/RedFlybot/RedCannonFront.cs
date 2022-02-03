@@ -60,7 +60,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
                 projectile.Kill();
             }
 
-            ShootTimer--;
+            if(Collision.CanHitLine(projectile.position, projectile.width, projectile.height, target.position, target.width, target.height))
+            {
+                ShootTimer--;
+            }
+            
 
             if (ShootTimer <= 0 && ShotNum < 3)
             {

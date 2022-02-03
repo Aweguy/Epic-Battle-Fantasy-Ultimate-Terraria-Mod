@@ -40,6 +40,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 			projectile.ranged = true;
 			projectile.knockBack = 1f;
 			projectile.tileCollide = false;
+			//drawOriginOffsetY = -8;
 		}
 
 		public override void AI()
@@ -70,46 +71,29 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 
 			ShootTimer--;
 
-			if (ShootTimer <= 0 && ShotNum < 3)
+			if (ShootTimer <= 0 && ShotNum < 10)
 			{
-				if (ShotNum < 2)
-				{
-					projectileSpeed = 10f;
-					distance = (target.position - npc.position).Length();
+				
+				projectileSpeed = 11f;
+				distance = (target.position - npc.position).Length();
 
-					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
-					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
+				modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
+				projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center).RotatedBy(Main.rand.NextFloat(-0.3f, 0.3f)) * projectileSpeed;
 
-					damage = 30;
-				}
-				else if (ShotNum == 2)
-				{
-					projectileSpeed = 20f;
-					distance = (target.position - npc.position).Length();
-
-					modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
-					projectileVelocity = Vector2.Normalize(modifiedTargetPosition - npc.Center) * projectileSpeed;
-
-					damage = 60;
-				}
+				damage = 10;
+				
 
 				ShotNum++;
 
-				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
-				Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeShot").WithPitchVariance(.2f).WithVolume(.5f), projectile.position);
+				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<BlueBubble>(), damage, 10, Main.myPlayer, 0, 1);
 
-				if (ShotNum < 2)
+				if (ShotNum < 10)
 				{
-					ShootTimer = 35;
-				}
-				else if (ShotNum == 2)
-				{
-					ShootTimer = 70;
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/SnipeTarget").WithPitchVariance(.2f).WithVolume(.7f), projectile.position);
+					ShootTimer = 10;
 				}
 				else
 				{
-					ShootTimer = 300;
+					ShootTimer = 450;
 					ShotNum = 0;
 				}
 			}
