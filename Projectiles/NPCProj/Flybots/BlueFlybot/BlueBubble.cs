@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 			if (projectile.timeLeft > 60 * 4)
 			{
 				projectile.velocity.X *= 0.99f;
-				projectile.velocity.Y -= 0.01f;
+				projectile.velocity.Y -= 0.005f;
 			}
 			else if(projectile.timeLeft < 60 * 4 && projectile.timeLeft > 5)
 			{

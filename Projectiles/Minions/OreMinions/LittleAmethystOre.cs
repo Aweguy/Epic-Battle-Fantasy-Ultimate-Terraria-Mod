@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 		public override void SetSafeDefaults()
 		{
 			projectile.width = 40;
-			projectile.height = 40;	
+			projectile.height = 40;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

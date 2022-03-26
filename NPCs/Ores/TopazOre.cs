@@ -35,8 +35,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             npc.noTileCollide = true;
             npc.aiStyle = -1;
 
-            Aura = 2;
-
             Explosion = ModContent.ProjectileType<TopazExplosion>();
 
             MoveSpeedMultval = 12f;

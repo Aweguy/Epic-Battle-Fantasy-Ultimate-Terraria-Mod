@@ -35,7 +35,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
             npc.noTileCollide = true;
             npc.aiStyle = -1;
 
-            Aura = 3;
             Explosion = ModContent.ProjectileType<RubyExplosion>();
 
             MoveSpeedMultval = 7f;

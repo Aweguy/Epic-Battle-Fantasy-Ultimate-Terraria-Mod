@@ -74,7 +74,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 			if (ShootTimer <= 0 && ShotNum < 10)
 			{
 				
-				projectileSpeed = 11f;
+				projectileSpeed = 12f;
 				distance = (target.position - npc.position).Length();
 
 				modifiedTargetPosition = target.Center + target.velocity * (distance / projectileSpeed);
@@ -82,7 +82,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 
 				damage = 10;
 				
-
 				ShotNum++;
 
 				Projectile.NewProjectile(projectile.Center, projectileVelocity, ModContent.ProjectileType<BlueBubble>(), damage, 10, Main.myPlayer, 0, 1);

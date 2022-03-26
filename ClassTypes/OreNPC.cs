@@ -55,10 +55,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		public int StunDuration;//The duration of the stun when the ore hits the player
 
-		public bool HasAura = false;//Whether the ore will have an aura
-
-		public int Aura = 0;//What aura the ore has.
-
 		public int HealTimer = 60;//When the npc will be healed from the Quartz ore's aura
 		public bool SpedUp = false;//Whether the npc has sped up or not from the Topza ore's aura
 		public bool DamUp = false;//Whether the npc has buffed damage from the Amethyst ore's aura
@@ -76,10 +72,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			if (!Main.dedServ)
 				npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
 
-			if(Main.rand.NextFloat(1f) < 0.1f)//Determining whether the ore will have an aura
-			{
-				HasAura = true;
-			}
 			//Setting the ores to be immune
 			npc.lavaImmune = true;//Making the ores immune to lava
 			npc.trapImmune = true;//Making the ores immune to traps
@@ -182,7 +174,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
-
 		}
 
 		public override bool PreAI()
@@ -191,11 +182,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 			Direction(npc);
 			MovementAndDash(npc, player);
-
-			if (HasAura)
-			{
-				Auras();
-			}
 
 			return true;
 		}
@@ -236,8 +222,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		private void MovementAndDash(NPC npc, Player player)
 		{
-
-
 			npc.TargetClosest(true);
 
 			if (!Dashing && State != OreState.Stunned)//This boolean shows when the ore is actually dashing. We check if it's not true so it only chases the player while not dashing
@@ -301,14 +285,10 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 							State = OreState.Chase;//Back to player chasing state
 						}
 					}
-
 				}
 			}
 			else if (State == OreState.Stunned)//If the ore is stunned
 			{
-
-
-
 				AttackTimer++;
 
 				if (npc.collideX)//Rolling code and velocity.
@@ -322,7 +302,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
 
-
 				if (AttackTimer >= 60 * StunDuration)//Reset the ore
 				{
 					AttackTimer = 0;
@@ -330,58 +309,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					npc.noGravity = true;
 					npc.noTileCollide = true;
 
-
 					State = OreState.Chase;
 				}
-
 			}
-
 		}
 
-		private void Auras()
-		{
-			for (int i = 0; i < Main.maxNPCs; i++)
-			{
-				NPC npcIndex = Main.npc[i];
-
-				if (npcIndex.active)
-				{
-					float distance = Vector2.Distance(npc.Center, npcIndex.Center);//Calculating the distance
-
-					if (distance <= 80f)
-					{
-						if (Aura == 1 && npcIndex.life < npcIndex.lifeMax)//The buff aura for the quartz ore
-						{
-							if(--HealTimer == 0)
-							{
-								npcIndex.life += 10;
-								if (npcIndex.life >= npcIndex.lifeMax)
-								{
-									npcIndex.life = npcIndex.lifeMax;
-								}
-								HealTimer = 60;
-							}
-						}
-						if (Aura == 2 && !SpedUp)//The buff aura for the Topaz Ore
-						{
-							npcIndex.velocity *= 1.5f;
-							SpedUp = true;
-						}
-						if (Aura == 3 && !DamUp)//The buff aura for the Ruby Ore
-						{
-							npcIndex.damage += (int)(npcIndex.defDamage * 0.2f);
-							DamUp = true;
-						}
-						if (Aura == 4 && !DefUp)//The buff aura for the Peridot Ore
-						{
-							npcIndex.defense += (int)(npcIndex.defDefense * 0.2f);
-							DefUp = true;
-						}
-					}
-				}
-			}
-
-		}
 		public override bool CanHitPlayer(Player target, ref int cooldownSlot)//Whether the ore can hit or not the player. Using it to make the ores not hit the player while stunned
 		{
 			if (!CanHit)
@@ -427,18 +359,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			SafeNPCLoot();
 			if (EpicWorld.OreEvent)
 			{
-				if (HasAura)
-				{
-					EpicWorld.OreKills += 2;
-
-				}
-				else
-				{
-					EpicWorld.OreKills += 1;
-
-				}
+				EpicWorld.OreKills += 1;
 			}
-
 		}
 	}
 }
