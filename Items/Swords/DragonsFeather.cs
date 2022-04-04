@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class DragonsFeather : ModItem
 	{
@@ -14,20 +14,19 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.damage = 50;
-			item.melee = true;
-			item.width = 48;
-			item.height = 48;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 50f;
-			item.value = Item.sellPrice(gold: 7);
-			item.rare = ItemRarityID.Cyan;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.useTurn = true;
+			Item.damage = 50;
+			Item.DamageType = DamageClass.Melee;;
+			Item.width = 48;
+			Item.height = 48;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 50f;
+			Item.value = Item.sellPrice(gold: 7);
+			Item.rare = ItemRarityID.Cyan;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.useTurn = true;
 		}
-
 	}
 }

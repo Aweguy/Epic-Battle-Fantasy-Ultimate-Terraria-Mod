@@ -23,22 +23,22 @@ namespace EpicBattleFantasyUltimate.Items.Spears.Throwable
 
 		public override void SetDefaults()
 		{
-			item.width = item.height = 72;
+			Item.width = Item.height = 72;
 
-			item.damage = 40;
-			item.knockBack = 1f;
-			item.melee = true;
+			Item.damage = 40;
+			Item.knockBack = 1f;
+			Item.DamageType = DamageClass.Melee;;
 
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.SwingThrow;
 
-			item.rare = ItemRarityID.LightPurple;
+			Item.rare = ItemRarityID.LightPurple;
 
-			item.shoot = ModContent.ProjectileType<IceNeedleProj>();
-			item.shootSpeed = 16f;
+			Item.shoot = ModContent.ProjectileType<IceNeedleProj>();
+			Item.shootSpeed = 16f;
 
-			item.noUseGraphic = true;
+			Item.noUseGraphic = true;
 
 		}
 

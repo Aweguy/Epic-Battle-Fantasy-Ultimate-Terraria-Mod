@@ -15,17 +15,17 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.useStyle = ItemUseStyleID.EatingUsing;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.useTurn = true;
-			item.maxStack = 30;
-			item.consumable = true;
-			item.UseSound = SoundID.Item2;
-			item.buffType = ModContent.BuffType<SugarRush>();
-			item.buffTime = 6000;
+			Item.width = 24;
+			Item.height = 24;
+			Item.useStyle = ItemUseStyleID.EatFood;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.useTurn = true;
+			Item.maxStack = 30;
+			Item.consumable = true;
+			Item.UseSound = SoundID.Item2;
+			Item.buffType = ModContent.BuffType<SugarRush>();
+			Item.buffTime = 6000;
 		}
 
 		public override bool CanUseItem(Player player)

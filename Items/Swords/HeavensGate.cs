@@ -3,10 +3,11 @@ using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using EpicBattleFantasyUltimate.Projectiles.SwordProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class HeavensGate : ModItem
 	{
@@ -18,37 +19,37 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.width = 64;
-			item.height = 64;
+			Item.width = 64;
+			Item.height = 64;
 
-			item.damage = 50;
-			item.knockBack = 8f;
-			item.melee = true;
+			Item.damage = 50;
+			Item.knockBack = 8f;
+			Item.DamageType = DamageClass.Melee;;
 
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.autoReuse = true;
-			item.channel = true;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.autoReuse = true;
+			Item.channel = true;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
 
-			item.shootSpeed = 12f;
-			item.shoot = ModContent.ProjectileType<LightBlade>();
+			Item.shootSpeed = 12f;
+			Item.shoot = ModContent.ProjectileType<LightBlade>();
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 Velocity = new Vector2(speedX, speedY);
+		
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			Vector2 VelocityManual = new Vector2(velocity.X, velocity.Y);
 
-			Projectile.NewProjectile(Main.MouseWorld - (Vector2.Normalize(Velocity) * 80f), Vector2.Zero, type, damage, knockBack, player.whoAmI,speedX,speedY);
+			Projectile.NewProjectile(source, Main.MouseWorld - (Vector2.Normalize(VelocityManual) * 80f), Vector2.Zero, type, damage, knockback, player.whoAmI, velocity.X, velocity.Y);
 
 			return false;
-		}
+        }
 
-
-		public override void MeleeEffects(Player player, Rectangle hitbox)
+        public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.Next(3) == 0)
 			{

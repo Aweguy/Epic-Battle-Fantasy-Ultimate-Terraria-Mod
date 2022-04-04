@@ -1,8 +1,11 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
     public class Avenger : ModItem
     {
@@ -16,26 +19,21 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
         public override void SetDefaults()
         {
-            item.damage = 5;
-            item.knockBack = 5f;
-            item.melee = true;
+            Item.damage = 5;
+            Item.knockBack = 5f;
+            Item.DamageType = DamageClass.Melee;
 
-            item.width = 64;
-            item.height = 64;
+            Item.width = 64;
+            Item.height = 64;
 
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 40;
-            item.useAnimation = 40;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
 
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Red;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-        }
-
-        public override bool UseItem(Player player)
-        {
-            return true;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Red;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
         }
 
         public override void HoldItem(Player player)
@@ -45,7 +43,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
             if (player.statLife < player.statLifeMax)
             {
-                item.damage = 1 + (int)(missHP / 2);
+                Item.damage = 1 + (int)(missHP / 2);
             }
         }
     }

@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
     public partial class LauncherProjectile : GlobalProjectile
     {

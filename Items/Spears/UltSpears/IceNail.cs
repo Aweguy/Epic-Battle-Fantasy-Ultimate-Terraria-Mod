@@ -18,18 +18,18 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
 		public override void SetDefaults()
 		{
-			item.damage = 30;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useAnimation = 20;
-			item.useTime = 30;
-			item.shootSpeed = 3.7f;
-			item.knockBack = 6.5f;
-			item.width = 32;
-			item.height = 32;
-			item.scale = 1f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(gold: 10);
-			item.melee = true;
+			Item.damage = 30;
+			Item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.useAnimation = 20;
+			Item.useTime = 30;
+			Item.shootSpeed = 3.7f;
+			Item.knockBack = 6.5f;
+			Item.width = 32;
+			Item.height = 32;
+			Item.scale = 1f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.DamageType = DamageClass.Melee;;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
@@ -42,7 +42,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
 		public override void UseStyle(Player player)
 		{
-			player.itemLocation = player.Center + new Vector2(0, 3);
+			player.ItemLocation = player.Center + new Vector2(0, 3);
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -53,41 +53,41 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 		{
 			if (player.altFunctionUse == 2)
 			{
-				item.damage = 60;
-				item.useStyle = ItemUseStyleID.HoldingOut;
-				item.useAnimation = 20;
-				item.useTime = 30;
-				item.shootSpeed = 3.7f;
-				item.knockBack = 6.5f;
-				item.width = 32;
-				item.height = 32;
-				item.scale = 1f;
-				item.rare = ItemRarityID.Pink;
-				item.value = Item.sellPrice(gold: 10);
-				item.melee = true;
-				item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-				item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-				item.shoot = mod.ProjectileType("IceNeedleProj");
-				item.autoReuse = false;
+				Item.damage = 60;
+				Item.useStyle = ItemUseStyleID.HoldingOut;
+				Item.useAnimation = 20;
+				Item.useTime = 30;
+				Item.shootSpeed = 3.7f;
+				Item.knockBack = 6.5f;
+				Item.width = 32;
+				Item.height = 32;
+				Item.scale = 1f;
+				Item.rare = ItemRarityID.Pink;
+				Item.value = Item.sellPrice(gold: 10);
+				Item.DamageType = DamageClass.Melee;;
+				Item.noMelee = true; // Important because the spear is actually a projectile instead of an Item. This prevents the melee hitbox of this Item.
+				Item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this Item.
+				Item.shoot = mod.ProjectileType("IceNeedleProj");
+				Item.autoReuse = false;
 			}
 			else
 			{
-				item.damage = 60;
-				item.useStyle = ItemUseStyleID.SwingThrow;
-				item.useAnimation = 20;
-				item.useTime = 30;
-				item.shootSpeed = 3.7f;
-				item.knockBack = 6.5f;
-				item.width = 32;
-				item.height = 32;
-				item.scale = 1f;
-				item.rare = ItemRarityID.Pink;
-				item.value = Item.sellPrice(gold: 10);
-				item.melee = true;
-				item.noMelee = false; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-				item.noUseGraphic = false; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-				item.shoot = ProjectileID.None;
-				item.autoReuse = true;
+				Item.damage = 60;
+				Item.useStyle = ItemUseStyleID.SwingThrow;
+				Item.useAnimation = 20;
+				Item.useTime = 30;
+				Item.shootSpeed = 3.7f;
+				Item.knockBack = 6.5f;
+				Item.width = 32;
+				Item.height = 32;
+				Item.scale = 1f;
+				Item.rare = ItemRarityID.Pink;
+				Item.value = Item.sellPrice(gold: 10);
+				Item.DamageType = DamageClass.Melee;;
+				Item.noMelee = false; // Important because the spear is actually a projectile instead of an Item. This prevents the melee hitbox of this Item.
+				Item.noUseGraphic = false; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this Item.
+				Item.shoot = ProjectileID.None;
+				Item.autoReuse = true;
 			}
 			return player.ownedProjectileCounts[ModContent.ProjectileType<IceNailProj>()] < 1;
 		}

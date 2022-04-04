@@ -2,10 +2,11 @@
 using EpicBattleFantasyUltimate.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
 	public class SuperSnipeZX : EpicLauncher
 	{
@@ -16,25 +17,25 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void SetSafeDefaults()
 		{
-			item.width = 134;
-			item.height = 56;
+			Item.width = 134;
+			Item.height = 56;
 
-			item.useTime = 50;
-			item.useAnimation = 50;
+			Item.useTime = 50;
+			Item.useAnimation = 50;
 
-			item.damage = 97;
-			item.crit = 10;
-			item.noMelee = true;
+			Item.damage = 97;
+			Item.crit = 10;
+			Item.noMelee = true;
 
-			item.value = Item.sellPrice(gold: 2);
-			item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(gold: 2);
+			Item.rare = ItemRarityID.Yellow;
 
-			item.UseSound = SoundID.Item40;
-			item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item40;
+			Item.shootSpeed = 12f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
 			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
 			muzzleOffset += new Vector2(0, -14f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -49,13 +50,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IllegalGunParts);
-			recipe.AddIngredient(ModContent.ItemType<P2Processor>(), 4);
-			recipe.AddIngredient(ModContent.ItemType<GlassShard>(), 50);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IllegalGunParts)
+				.AddIngredient(ModContent.ItemType<P2Processor>(), 5)
+				.AddIngredient(ModContent.ItemType<GlassShard>(), 50)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

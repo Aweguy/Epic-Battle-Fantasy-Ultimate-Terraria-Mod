@@ -14,23 +14,22 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 
 		public override void SetDefaults()
 		{
-			item.width = 48;
-			item.height = 48;
+			Item.width = 48;
+			Item.height = 48;
 
-			item.value = Item.sellPrice(silver: 10);
-			item.rare = ItemRarityID.Yellow;
-			item.maxStack = 999;
-			item.scale = 0.8f;
+			Item.value = Item.sellPrice(silver: 10);
+			Item.rare = ItemRarityID.Yellow;
+			Item.maxStack = 999;
+			Item.scale = 0.8f;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Sapphire, 10);
-			recipe.AddIngredient(ModContent.ItemType<SolidWater>(), 15);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.Sapphire, 10)
+				.AddIngredient(ModContent.ItemType<SolidWater>(),15)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

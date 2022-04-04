@@ -36,10 +36,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		}
 
 		public bool Dashing = false;
-		public int DashCharge = 300;//How much the ore has charged to dash
-		public float DashRange = 300f;//The dash range
-		public float DashVelocity = 10f;//The speed of the ore when it dashes
-		public int DashDuration = 60 * 2;//The duration of the dash
+
+		public int DashCharge;//How much the ore has charged to dash
+		public float DashRange;//The dash range
+		public float DashVelocity;//The speed of the ore when it dashes
+		public int DashDuration;//The duration of the dash
 
 		public bool CanHit = true;
 
@@ -81,6 +82,14 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			CanHit = false;
+
+			if (Dashing)
+            {
+				State = OreState.Chase;
+				Dashing = false;
+			}
+			
+
 		}
 
 		public override bool? CanHitNPC(NPC target)
@@ -263,7 +272,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		   
 			// Default movement parameters (here for attacking)
 			float speed = 8f;
-			float inertia = 20f;
+			float inertia = 10f;
+
 			if(!Dashing)
 			{
 				if (foundTarget)
@@ -286,13 +296,13 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					{
 						// Speed up the minion if it's away from the player
 						speed = 12f;
-						inertia = 60f;
+						inertia = 600f;
 					}
 					else
 					{
 						// Slow down the minion if closer to the player
 						speed = 4f;
-						inertia = 80f;
+						inertia = 800f;
 					}
 
 					if (distanceToIdlePosition > 20f)
@@ -333,13 +343,10 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					}
 					else if (AttackTimer == DashCharge)
 					{
+						Dashing = true;//Setting this to true since it's actually dashing
 						projectile.velocity = Vector2.Normalize(targetCenter - projectile.Center) * DashVelocity;//the speed that the ore will dash towards the player
 
-
 						AttackTimer++;
-
-						Dashing = true;//Setting this to true since it's actually dashing
-
 					}
 					else if (AttackTimer > DashCharge)
 					{

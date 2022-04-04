@@ -3,10 +3,11 @@ using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
 	public class SubZero : EpicLauncher
 	{
@@ -17,27 +18,26 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void SetSafeDefaults()
 		{
-			item.width = 100;
-			item.height = 56;
+			Item.width = 100;
+			Item.height = 56;
 
-			item.useTime = 60;
-			item.useAnimation = 60;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
 
-			item.damage = 60;
-			item.crit = 2;
-			item.ranged = true;
-			item.noMelee = true;
+			Item.damage = 60;
+			Item.crit = 2;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Purple;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Purple;
 
-			item.UseSound = SoundID.Item38;
-			item.shootSpeed = 14f;
+			Item.UseSound = SoundID.Item38;
+			Item.shootSpeed = 14f;
 		}
-
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 34f;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 34f;
 			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
 			muzzleOffset += new Vector2(0, -9f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -46,20 +46,20 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 			}
 			return true;
 		}
+
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-32, -9);
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-			recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 5);
-			recipe.AddIngredient(ModContent.ItemType<SolidWater>(), 4);
-			recipe.AddIngredient(ItemID.IceBlock, 100);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IllegalGunParts, 3)
+				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 5)
+				.AddIngredient(ModContent.ItemType<SolidWater>(), 10)
+				.AddIngredient(ItemID.IceBlock, 100)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

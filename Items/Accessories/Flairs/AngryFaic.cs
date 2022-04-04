@@ -16,20 +16,17 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.rare = ItemRarityID.LightPurple;
-            item.accessory = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.accessory = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statDefense += 2;
-            player.magicCrit += 8;
-            player.meleeCrit += 8;
-            player.rangedCrit += 8;
-            player.thrownCrit += 8;
-            player.allDamage += 0.08f;
+            player.GetCritChance(DamageClass.Generic) += 8;
+            player.GetDamage(DamageClass.Generic) += 0.08f;
             player.aggro += 450;
 
 
@@ -39,16 +36,14 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         {
             return rand.Next(new int[] { PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick, PrefixID.Violent, PrefixID.Warding, PrefixID.Hard, PrefixID.Guarding, PrefixID.Armored, PrefixID.Precise, PrefixID.Jagged, PrefixID.Spiked, PrefixID.Angry, PrefixID.Brisk, PrefixID.Fleeting, PrefixID.Hasty, PrefixID.Wild, PrefixID.Rash, PrefixID.Intrepid, PrefixID.Arcane });
         }
-
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SoulofNight, 10);
-            recipe.AddIngredient(ItemID.HellstoneBar, 5);
-            recipe.AddIngredient(mod.ItemType("TargetBadge"));
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.SoulBottleNight, 10)
+                .AddIngredient(ItemID.HellstoneBar, 5)
+                .AddIngredient(ModContent.ItemType<TargetBadge>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
         }
     }
 }

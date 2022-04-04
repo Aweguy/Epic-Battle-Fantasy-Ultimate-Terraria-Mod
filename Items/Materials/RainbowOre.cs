@@ -13,16 +13,15 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		}
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 16;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.HoldingUp;
+			Item.width = 16;
+			Item.height = 16;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
 
-			item.value = Item.sellPrice(gold: 1);
-			item.rare = ItemRarityID.Yellow;
-			item.maxStack = 99;
-			item.consumable = true;
+			Item.value = Item.sellPrice(gold: 1);
+			Item.rare = ItemRarityID.Yellow;
+			Item.maxStack = 99;
+			Item.consumable = true;
 		}
 	}
 }

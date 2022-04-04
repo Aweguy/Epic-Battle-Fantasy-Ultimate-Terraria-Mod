@@ -1,7 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
 using EpicBattleFantasyUltimate.Buffs.Debuffs;
-using EpicBattleFantasyUltimate.Items.Weapons.Guns.Revolvers;
-using EpicBattleFantasyUltimate.Items.Weapons.Launchers;
+using EpicBattleFantasyUltimate.Items.Revolvers;
+using EpicBattleFantasyUltimate.Items.Launchers;
 using EpicBattleFantasyUltimate.NPCs.Ores;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;

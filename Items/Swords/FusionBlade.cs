@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class FusionBlade : ModItem
 	{
@@ -16,26 +16,26 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.damage = 59;
-			item.melee = true;
-			item.width = 54;
-			item.height = 60;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 8f;
-			item.value = Item.sellPrice(gold: 4);
-			item.rare = ItemRarityID.Cyan;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.shootSpeed = 5f;
-			item.shoot = ModContent.ProjectileType<BulletBob>();
+			Item.damage = 59;
+			Item.DamageType = DamageClass.Melee;;
+			Item.width = 54;
+			Item.height = 60;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 8f;
+			Item.value = Item.sellPrice(gold: 4);
+			Item.rare = ItemRarityID.Cyan;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.shootSpeed = 5f;
+			Item.shoot = ModContent.ProjectileType<BulletBob>();
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.Next(3) == 0)
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Fire);
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Firefly);
 		}
 
 	}

@@ -1,6 +1,8 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 {
@@ -14,16 +16,16 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.accessory = true;
-            item.rare = ItemRarityID.LightPurple;
+            Item.width = 32;
+            Item.height = 32;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.LightPurple;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statDefense += 4;
-            player.rangedDamage += 0.1f;
+            player.GetDamage(DamageClass.Generic) += 0.1f;
         }
     }
 }

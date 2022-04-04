@@ -13,150 +13,124 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 
 		public override void SetDefaults()
 		{
-			item.width = 10;
-			item.height = 10;
+			Item.width = 10;
+			Item.height = 10;
 
-			item.rare = ItemRarityID.Green;
-			item.maxStack = 9999;
+			Item.rare = ItemRarityID.Green;
+			Item.maxStack = 9999;
 		}
-
-		#region AddRecipes
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Glass);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 6);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.Glass)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassWall, 4);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 10);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.GlassWall,4)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassPlatform, 4);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 10);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.GlassPlatform, 2)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassBathtub);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
+			CreateRecipe(100)
+				.AddIngredient(ItemID.GlassBathtub)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassBed);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 25);
-			recipe.AddRecipe();
+			CreateRecipe(25)
+				.AddIngredient(ItemID.GlassBed)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassBookcase);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 25);
-			recipe.AddRecipe();
+			CreateRecipe(30)
+				.AddIngredient(ItemID.GlassBookcase)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassBowl);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 5);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.GlassBowl)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassCandelabra);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 5);
-			recipe.AddRecipe();
+			CreateRecipe(10)
+				.AddIngredient(ItemID.GlassCandelabra)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassCandle);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 10);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.GlassCandle)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassChair);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 15);
-			recipe.AddRecipe();
+			CreateRecipe(15)
+				.AddIngredient(ItemID.GlassChair)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassChandelier);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 25);
-			recipe.AddRecipe();
+			CreateRecipe(25)
+				.AddIngredient(ItemID.GlassChandelier)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassChest);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 30);
-			recipe.AddRecipe();
+			CreateRecipe(30)
+				.AddIngredient(ItemID.GlassChest)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassClock);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 10);
-			recipe.AddRecipe();
+			CreateRecipe(10)
+				.AddIngredient(ItemID.GlassClock)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassDoor);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 30);
-			recipe.AddRecipe();
+			CreateRecipe(30)
+				.AddIngredient(ItemID.GlassDoor)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassDresser);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 40);
-			recipe.AddRecipe();
+			CreateRecipe(40)
+				.AddIngredient(ItemID.GlassDresser)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassKiln);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 20);
-			recipe.AddRecipe();
+			CreateRecipe(20)
+				.AddIngredient(ItemID.GlassKiln)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassLamp);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 10);
-			recipe.AddRecipe();
+			CreateRecipe(10)
+				.AddIngredient(ItemID.GlassLamp)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassLantern);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 5);
-			recipe.AddRecipe();
+			CreateRecipe(6)
+				.AddIngredient(ItemID.GlassLantern)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassPiano);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 50);
-			recipe.AddRecipe();
+			CreateRecipe(50)
+				.AddIngredient(ItemID.GlassPiano)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassSink);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 20);
-			recipe.AddRecipe();
+			CreateRecipe(20)
+				.AddIngredient(ItemID.GlassSink)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassSofa);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
+			CreateRecipe(50)
+				.AddIngredient(ItemID.GlassSofa)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GlassTable);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 35);
-			recipe.AddRecipe();
+			CreateRecipe(36)
+				.AddIngredient(ItemID.GlassTable)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
-
-		#endregion AddRecipes
 	}
 }

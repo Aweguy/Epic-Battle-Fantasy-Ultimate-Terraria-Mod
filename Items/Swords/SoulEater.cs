@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class SoulEater : ModItem
 	{
@@ -14,24 +14,24 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.damage = 150;
-			item.melee = true;
-			item.width = 64;
-			item.height = 64;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 9f;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.scale = 1.15f;
+			Item.damage = 150;
+			Item.DamageType = DamageClass.Melee;;
+			Item.width = 64;
+			Item.height = 64;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 9f;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.scale = 1.15f;
 		}
 
 		public override void HoldItem(Player player)
 		{
-			player.allDamage += 0.8f;
+			player.GetDamage(DamageClass.Generic) += 0.8f;
 			player.statDefense /= (int)2f;
 		}
 	}

@@ -13,20 +13,21 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		}
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
+			Item.width = 32;
+			Item.height = 32;
 
-			item.value = Item.sellPrice(copper: 50);
-			item.rare = ItemRarityID.LightRed;
-			item.maxStack = 999;
+			Item.value = Item.sellPrice(copper: 50);
+			Item.rare = ItemRarityID.LightRed;
+			Item.maxStack = 999;
 		}
+
+
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("IronBar", 10);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup("EpicBattleFantasyUltimate: IronBar", 10)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

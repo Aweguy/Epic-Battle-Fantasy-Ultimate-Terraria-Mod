@@ -18,10 +18,10 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 19;
-            item.accessory = true;
-            item.rare = ItemRarityID.Yellow;
+            Item.width = 20;
+            Item.height = 19;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -41,16 +41,14 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         {
             return rand.Next(new int[] { PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick, PrefixID.Violent, PrefixID.Warding, PrefixID.Hard, PrefixID.Guarding, PrefixID.Armored, PrefixID.Precise, PrefixID.Jagged, PrefixID.Spiked, PrefixID.Angry, PrefixID.Brisk, PrefixID.Fleeting, PrefixID.Hasty, PrefixID.Wild, PrefixID.Rash, PrefixID.Intrepid, PrefixID.Arcane });
         }
-
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.RegenerationPotion, 30);
-            recipe.AddIngredient(ItemID.LifeCrystal, 2);
-            recipe.AddIngredient(ItemID.PixieDust, 5);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.RegenerationPotion, 3)
+                .AddIngredient(ItemID.LifeCrystal, 5)
+                .AddIngredient(ItemID.PixieDust, 10)
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
         }
     }
 }

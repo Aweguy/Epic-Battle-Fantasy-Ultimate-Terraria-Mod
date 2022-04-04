@@ -28,6 +28,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 		{
 			projectile.width = 40;
 			projectile.height = 40;
+
+			DashCharge = 120;
+			DashRange = 300f;
+			DashVelocity = 12f;
+			DashDuration = 60 * 5;
+
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

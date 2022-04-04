@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class Berzerker : ModItem
 	{
@@ -16,42 +16,42 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.width = 64;
-			item.height = 64;
+			Item.width = 64;
+			Item.height = 64;
 
-			item.damage = 150;
-			item.useAnimation = 40;
-			item.useTime = 40;
-			item.knockBack = 16f;
+			Item.damage = 150;
+			Item.useAnimation = 40;
+			Item.useTime = 40;
+			Item.knockBack = 16f;
 
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 1, 0, 0);
-			item.melee = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.DamageType = DamageClass.Melee;
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player Player)
 		{
 			if (Main.rand.NextFloat(1f) > 0.4f)
 			{
-				player.AddBuff(ModContent.BuffType<Tired>(), 60 * 5);
+				Player.AddBuff(ModContent.BuffType<Tired>(), 60 * 5);
 			}
 			return true;
 		}
 
-		public override void HoldItem(Player player)
+		public override void HoldItem(Player Player)
 		{
-			BerzerkerDash dashPlayer = player.GetModPlayer<BerzerkerDash>();
+			BerzerkerDash dashPlayer = Player.GetModPlayer<BerzerkerDash>();
 			//If the dash is not active, immediately return so we don't do any of the logic for it
 			if (!dashPlayer.DashActive)
 				return;
 
 			if (dashPlayer.DashTimer == BerzerkerDash.MAX_DASH_TIMER)
 			{
-				Vector2 newVelocity = player.velocity;
+				Vector2 newVelocity = Player.velocity;
 
 				//Only apply the dash velocity if our current speed in the wanted direction is less than DashVelocity
-				if ((dashPlayer.DashDir == BerzerkerDash.DashUp && player.velocity.Y > -dashPlayer.DashVelocity) || (dashPlayer.DashDir == BerzerkerDash.DashDown && player.velocity.Y < dashPlayer.DashVelocity))
+				if ((dashPlayer.DashDir == BerzerkerDash.DashUp && Player.velocity.Y > -dashPlayer.DashVelocity) || (dashPlayer.DashDir == BerzerkerDash.DashDown && Player.velocity.Y < dashPlayer.DashVelocity))
 				{
 					//Y-velocity is set here
 					//If the direction requested was DashUp, then we adjust the velocity to make the dash appear "faster" due to gravity being immediately in effect
@@ -59,31 +59,31 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 					float dashDirection = dashPlayer.DashDir == BerzerkerDash.DashDown ? 1 : -1.3f;
 					newVelocity.Y = dashDirection * dashPlayer.DashVelocity;
 				}
-				else if ((dashPlayer.DashDir == BerzerkerDash.DashLeft && player.velocity.X > -dashPlayer.DashVelocity) || (dashPlayer.DashDir == BerzerkerDash.DashRight && player.velocity.X < dashPlayer.DashVelocity))
+				else if ((dashPlayer.DashDir == BerzerkerDash.DashLeft && Player.velocity.X > -dashPlayer.DashVelocity) || (dashPlayer.DashDir == BerzerkerDash.DashRight && Player.velocity.X < dashPlayer.DashVelocity))
 				{
 					//X-velocity is set here
 					int dashDirection = dashPlayer.DashDir == BerzerkerDash.DashRight ? 1 : -1;
 					newVelocity.X = dashDirection * dashPlayer.DashVelocity;
 				}
 
-				player.AddBuff(ModContent.BuffType<Tired>(), 60 * 5);//Applying the Tired debuff once.
+				Player.AddBuff(ModContent.BuffType<Tired>(), 60 * 5);//Applying the Tired debuff once.
 
-				float TiredDebuff = 1f - player.GetModPlayer<EpicPlayer>().TiredStacks * 0.2f;
+				float TiredDebuff = 1f - Player.GetModPlayer<EpicPlayer>().TiredStacks * 0.2f;
 
-				if (player.HasBuff(ModContent.BuffType<Tired>()))
+				if (Player.HasBuff(ModContent.BuffType<Tired>()))
 				{
-					if (player.GetModPlayer<EpicPlayer>().TiredStacks < 5)//Each stack of tired waekens the dash by 20%
+					if (Player.GetModPlayer<EpicPlayer>().TiredStacks < 5)//Each stack of tired waekens the dash by 20%
 					{
-						player.velocity = newVelocity * TiredDebuff;
+						Player.velocity = newVelocity * TiredDebuff;
 					}
 					else//Essentially manually clamping
 					{
-						player.velocity = newVelocity * 0.33f;//Dash cap
+						Player.velocity = newVelocity * 0.33f;//Dash cap
 					}
 				}
 				else
 				{
-					player.velocity = newVelocity;
+					Player.velocity = newVelocity;
 				}
 			}
 
@@ -111,7 +111,7 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 		public static readonly int DashRight = 2;
 		public static readonly int DashLeft = 3;
 
-		//The direction the player is currently dashing towards.  Defaults to -1 if no dash is ocurring.
+		//The direction the Player is currently dashing towards.  Defaults to -1 if no dash is ocurring.
 		public float DashDir = -1;
 
 		//The fields related to the dash accessory
@@ -131,19 +131,19 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void ResetEffects()
 		{
-			//if player is on mount or dash is used, don't dash.
-			if (player.mount.Active || DashActive)
+			//if Player is on mount or dash is used, don't dash.
+			if (Player.mount.Active || DashActive)
 				return;
 
-			if (player.HeldItem.type == ModContent.ItemType<Berzerker>())
+			if (Player.HeldItem.type == ModContent.ItemType<Berzerker>())
 			{
-				if (player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
+				if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
 					DashDir = DashDown;
-				else if (player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
+				else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[DashUp] < 15)
 					DashDir = DashUp;
-				else if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+				else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
 					DashDir = DashRight;
-				else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+				else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
 					DashDir = DashLeft;
 				else
 					return;  //No dash was activated, return

@@ -26,18 +26,18 @@ namespace EpicBattleFantasyUltimate.Items.Bows
         {
             BowProj = ModContent.ProjectileType<RegalTurtleProj>();
 
-            item.width = 26;
-            item.height = 66;
+            Item.width = 26;
+            Item.height = 66;
 
-            item.damage = 45;
-            item.knockBack = 5;
+            Item.damage = 45;
+            Item.knockBack = 5;
 
-            item.useAnimation = 20;
-            item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
 
-            item.shootSpeed = 10f;
-            item.value = 150000;
-            item.rare = ItemRarityID.Orange;
+            Item.shootSpeed = 10f;
+            Item.value = 150000;
+            Item.rare = ItemRarityID.Orange;
         }
 
         /*public override void AddRecipes()

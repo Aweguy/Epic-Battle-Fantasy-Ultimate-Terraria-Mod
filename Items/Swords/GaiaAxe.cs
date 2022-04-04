@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class GaiaAxe : ModItem
 	{
@@ -15,21 +15,21 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.width = 72;
-			item.height = 72;
+			Item.width = 72;
+			Item.height = 72;
 
-			item.damage = 130;
-			item.knockBack = 5f;
-			item.melee = true;
+			Item.damage = 130;
+			Item.knockBack = 5f;
+			Item.DamageType = DamageClass.Melee;
 
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.UseSound = SoundID.Item1;
-			item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.UseSound = SoundID.Item1;
+			Item.useStyle = ItemUseStyleID.Swing;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.autoReuse = true;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Red;
+			Item.autoReuse = true;
 		}
 	}
 }

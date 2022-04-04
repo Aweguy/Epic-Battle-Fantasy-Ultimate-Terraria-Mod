@@ -1,9 +1,11 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
 	public class SpineSnapper : EpicLauncher
 	{ 
@@ -14,26 +16,26 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void SetSafeDefaults()
 		{
-			item.width = 112;
-			item.height = 56;
+			Item.width = 112;
+			Item.height = 56;
 
-			item.useTime = 40;
-			item.useAnimation = 40;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 
-			item.damage = 50;
-			item.crit = 3;
-			item.melee = true;
-			item.noMelee = true;
+			Item.damage = 50;
+			Item.crit = 3;
+			Item.DamageType = DamageClass.Melee;
+			Item.noMelee = true;
 
-			item.value = Item.sellPrice(gold: 2);
-			item.rare = ItemRarityID.Purple;
+			Item.value = Item.sellPrice(gold: 2);
+			Item.rare = ItemRarityID.Purple;
 
-			item.UseSound = SoundID.Item38;
-			item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item38;
+			Item.shootSpeed = 12f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 34f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 34f;
 			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
 			muzzleOffset += new Vector2(0, -10.5f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))

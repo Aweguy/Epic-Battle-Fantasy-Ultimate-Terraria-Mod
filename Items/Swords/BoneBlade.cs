@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class BoneBlade : ModItem
 	{
@@ -15,19 +15,19 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.damage = 45;
-			item.melee = true;
-			item.width = 64;
-			item.height = 64;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 2f;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.useTurn = true;
+			Item.damage = 45;
+			Item.DamageType = DamageClass.Melee;;
+			Item.width = 64;
+			Item.height = 64;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 2f;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.useTurn = true;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

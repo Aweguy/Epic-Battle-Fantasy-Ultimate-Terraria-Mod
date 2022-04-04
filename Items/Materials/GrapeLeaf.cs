@@ -13,11 +13,11 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		}
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(copper: 10);
-			item.maxStack = 999;
-			item.rare = ItemRarityID.Green;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(copper: 10);
+			Item.maxStack = 999;
+			Item.rare = ItemRarityID.Green;
 		}
 	}
 }

@@ -17,19 +17,19 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
 
 		public override void SetSafeDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.useStyle = ItemUseStyleID.EatingUsing;
-			item.useTime = 1;
-			item.useAnimation = 1;
-			item.useTurn = true;
+			Item.width = 24;
+			Item.height = 24;
+			Item.useStyle = ItemUseStyleID.EatFood;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.useTurn = true;
 
-			item.maxStack = 30;
-			item.consumable = true;
-			item.UseSound = SoundID.Item2;
+			Item.maxStack = 30;
+			Item.consumable = true;
+			Item.UseSound = SoundID.Item2;
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			var epicPlayer = EpicPlayer.ModPlayer(player);
 

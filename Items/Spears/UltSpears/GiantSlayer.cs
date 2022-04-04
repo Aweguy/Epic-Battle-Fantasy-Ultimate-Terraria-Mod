@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Projectiles.SpearProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,21 +17,21 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
 		public override void SetDefaults()
 		{
-			item.damage = 40;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 50;
-			item.useTime = 70;
-			item.shootSpeed = 3.7f;
-			item.knockBack = 6.5f;
-			item.width = 32;
-			item.height = 32;
-			item.scale = 0.7f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(gold: 10);
-			item.melee = true;
-			item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-			item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-			item.shoot = ModContent.ProjectileType<GiantSlayerProj>();
+			Item.damage = 40;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useAnimation = 50;
+			Item.useTime = 70;
+			Item.shootSpeed = 3.7f;
+			Item.knockBack = 6.5f;
+			Item.width = 32;
+			Item.height = 32;
+			Item.scale = 0.7f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.DamageType = DamageClass.Melee;;
+			Item.noMelee = true; // Important because the spear is actually a projectile instead of an Item. This prevents the melee hitbox of this Item.
+			Item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this Item.
+			Item.shoot = ModContent.ProjectileType<GiantSlayerProj>();
 		}
 
 
@@ -39,9 +40,9 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 			player.armorPenetration += 100;
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 25f;
 			if (Collision.CanHit(position, 100000000, 100000000, position + muzzleOffset, 0, 0))
 			{
 				position += muzzleOffset;

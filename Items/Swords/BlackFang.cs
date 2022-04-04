@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
     public class BlackFang : ModItem
     {
@@ -14,18 +14,18 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
         public override void SetDefaults()
         {
-            item.damage = 40;
-            item.melee = true;
-            item.width = 64;
-            item.height = 64;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 25;
-            item.useAnimation = 25;
-            item.knockBack = 2f;
-            item.value = Item.sellPrice(gold: 5);
-            item.rare = ItemRarityID.Cyan;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
+            Item.damage = 40;
+            Item.DamageType = DamageClass.Melee;;
+            Item.width = 64;
+            Item.height = 64;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
+            Item.knockBack = 2f;
+            Item.value = Item.sellPrice(gold: 5);
+            Item.rare = ItemRarityID.Cyan;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

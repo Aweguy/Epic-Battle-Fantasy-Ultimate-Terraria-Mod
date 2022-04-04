@@ -16,11 +16,11 @@ namespace EpicBattleFantasyUltimate.Items.Accessories
 
         public override void SetDefaults()
         {
-            item.width = 23;
-            item.height = 32;
-            item.defense = 65;
-            item.accessory = true;
-            item.rare = ItemRarityID.Purple;
+            Item.width = 23;
+            Item.height = 32;
+            Item.defense = 65;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Purple;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

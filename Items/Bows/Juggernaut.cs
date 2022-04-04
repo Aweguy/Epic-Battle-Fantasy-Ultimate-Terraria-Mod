@@ -26,18 +26,18 @@ namespace EpicBattleFantasyUltimate.Items.Bows
 		{
 			BowProj = ModContent.ProjectileType<JuggernautProj>();
 
-			item.width = 58;
-			item.height = 26;
+			Item.width = 58;
+			Item.height = 26;
 
-			item.damage = 60;
-			item.knockBack = 10;
+			Item.damage = 60;
+			Item.knockBack = 10;
 
-			item.useAnimation = 30;
-			item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
 
-			item.shootSpeed = 20f;
-			item.value = 150000;
-			item.rare = ItemRarityID.Orange;
+			Item.shootSpeed = 20f;
+			Item.value = 150000;
+			Item.rare = ItemRarityID.Orange;
 		}
 	}
 }

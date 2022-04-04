@@ -3,10 +3,11 @@ using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
 	public class HellfireShotgun : EpicLauncher
 	{
@@ -17,26 +18,26 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void SetSafeDefaults()
 		{
-			item.width = 110;
-			item.height = 56;
+			Item.width = 110;
+			Item.height = 56;
 
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.reuseDelay = 100;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.reuseDelay = 100;
 
-			item.damage = 35;
-			item.ranged = true;
-			item.noMelee = true;
+			Item.damage = 35;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Purple;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Purple;
 
-			item.UseSound = SoundID.Item36;
-			item.shootSpeed = 7f;
+			Item.UseSound = SoundID.Item36;
+			Item.shootSpeed = 7f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
 			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
 			muzzleOffset += new Vector2(0, -9f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -46,11 +47,11 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 
 			float numberProjectiles = 5; // 5 shots
 			float rotation = MathHelper.ToRadians(45); //30 degrees spread
-			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
+			position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 40f;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .75f; // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .75f; // Watch out for dividing by 0 if there is only 1 projectile.
+				Projectile.NewProjectile(source,position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
 			}
 			return false;
 		}
@@ -60,14 +61,13 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-			recipe.AddIngredient(ModContent.ItemType<LeckoBrick>(), 3);
-			recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 2);
-			recipe.AddIngredient(ItemID.HellstoneBar, 20);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IllegalGunParts, 3)
+				.AddIngredient(ModContent.ItemType<LeckoBrick>(), 4)
+				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 5)
+				.AddIngredient(ItemID.HellstoneBar,20)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

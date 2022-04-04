@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
+namespace EpicBattleFantasyUltimate.Items.Swords
 {
 	public class Inferno : ModItem
 	{
@@ -16,25 +16,25 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Swords
 
 		public override void SetDefaults()
 		{
-			item.damage = 67;
-			item.melee = true;
-			item.width = 48;
-			item.height = 48;
-			item.useTime = 22;
-			item.useAnimation = 22;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 6f;
-			item.value = Item.sellPrice(gold: 1);
-			item.rare = ItemRarityID.Lime;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
+			Item.damage = 67;
+			Item.DamageType = DamageClass.Melee;;
+			Item.width = 48;
+			Item.height = 48;
+			Item.useTime = 22;
+			Item.useAnimation = 22;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 6f;
+			Item.value = Item.sellPrice(gold: 1);
+			Item.rare = ItemRarityID.Lime;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.NextBool(3))
 			{
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Fire);
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Firefly);
 			}
 		}
 

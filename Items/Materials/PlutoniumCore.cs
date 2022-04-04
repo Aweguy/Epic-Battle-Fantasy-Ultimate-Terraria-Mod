@@ -9,15 +9,15 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Plutonium Core");
-			Tooltip.SetDefault("A well regulated energy source that you really shouldn't be carrying in your backpack.\nUsed in powerful Thunder items.");
+			Tooltip.SetDefault("A well regulated energy source that you really shouldn't be carrying in your backpack.\nUsed in powerful Thunder Items.");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.value = Item.sellPrice(silver: 10);
-			item.rare = ItemRarityID.Purple;
-			item.maxStack = 999;
+			Item.width = 24;
+			Item.height = 24;
+			Item.value = Item.sellPrice(silver: 10);
+			Item.rare = ItemRarityID.Purple;
+			Item.maxStack = 999;
 		}
 	}
 }

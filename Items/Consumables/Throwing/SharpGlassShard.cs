@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
+using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Projectiles.Thrown;
 using Terraria;
 using Terraria.ID;
@@ -16,39 +17,38 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Throwing
 
 		public override void SetDefaults()
 		{
-			item.damage = 30;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.ranged = true;
+			Item.damage = 30;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.DamageType = DamageClass.Ranged;
 
-			item.width = 10;
-			item.height = 10;
+			Item.width = 10;
+			Item.height = 10;
 
-			item.rare = -12;
-			item.maxStack = 9999;
+			Item.rare = -12;
+			Item.maxStack = 9999;
 
-			item.shoot = ModContent.ProjectileType<GlassShardProjectile>();
-			item.shootSpeed = 20f;
-			item.autoReuse = true;
-			item.useTurn = true;
-			item.UseSound = SoundID.Item1;
+			Item.shoot = ModContent.ProjectileType<GlassShardProjectile>();
+			Item.shootSpeed = 20f;
+			Item.autoReuse = true;
+			Item.useTurn = true;
+			Item.UseSound = SoundID.Item1;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
 		{
 			target.AddBuff(ModContent.BuffType<RampantBleed>(), 60 * 10);
 		}
-
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("GlassShard"), 100);
-			recipe.AddIngredient(ItemID.SoulofMight, 2);
-			recipe.AddTile(TileID.AlchemyTable);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
+			CreateRecipe(100)
+				.AddIngredient(ItemID.IllegalGunParts, 3)
+				.AddIngredient(ModContent.ItemType<GlassShard>(), 100)
+				.AddIngredient(ItemID.SoulofMight, 2)
+				.AddTile(TileID.AlchemyTable)
+				.Register();
 		}
 	}
 }

@@ -22,18 +22,18 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		public OreState State
 		{
-			get => (OreState)npc.ai[0];
-			set => npc.ai[0] = (float)value;
+			get => (OreState)NPC.ai[0];
+			set => NPC.ai[0] = (float)value;
 		}
 		public float Attack
 		{
-			get => npc.ai[1];
-			set => npc.ai[1] = value;
+			get => NPC.ai[1];
+			set => NPC.ai[1] = value;
 		}
 		public float AttackTimer
 		{
-			get => npc.ai[2];
-			set => npc.ai[2] = value;
+			get => NPC.ai[2];
+			set => NPC.ai[2] = value;
 		}
 
 		public bool CanHit = true;
@@ -55,10 +55,10 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 		public int StunDuration;//The duration of the stun when the ore hits the player
 
-		public int HealTimer = 60;//When the npc will be healed from the Quartz ore's aura
-		public bool SpedUp = false;//Whether the npc has sped up or not from the Topza ore's aura
-		public bool DamUp = false;//Whether the npc has buffed damage from the Amethyst ore's aura
-		public bool DefUp = false;//Whether the npc has buffed defense from the Peridot ore's aura
+		public int HealTimer = 60;//When the NPC will be healed from the Quartz ore's aura
+		public bool SpedUp = false;//Whether the NPC has sped up or not from the Topza ore's aura
+		public bool DamUp = false;//Whether the NPC has buffed damage from the Amethyst ore's aura
+		public bool DefUp = false;//Whether the NPC has buffed defense from the Peridot ore's aura
 
 
 		public virtual void SetSafeDefaults()
@@ -70,14 +70,14 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			SetSafeDefaults();
 			if (!Main.dedServ)
-				npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/OreHit");
+				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/OreHit");
 
 			//Setting the ores to be immune
-			npc.lavaImmune = true;//Making the ores immune to lava
-			npc.trapImmune = true;//Making the ores immune to traps
-			npc.buffImmune[BuffID.Poisoned] = true;//Poison immunity
-			npc.buffImmune[BuffID.OnFire] = true;//Fire immunity
-			npc.buffImmune[BuffID.Venom] = true;//Venom immunity
+			NPC.lavaImmune = true;//Making the ores immune to lava
+			NPC.trapImmune = true;//Making the ores immune to traps
+			NPC.buffImmune[BuffID.Poisoned] = true;//Poison immunity
+			NPC.buffImmune[BuffID.OnFire] = true;//Fire immunity
+			NPC.buffImmune[BuffID.Venom] = true;//Venom immunity
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -90,8 +90,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				State = OreState.Stunned;//it gets stunned
 
-				npc.noGravity = false;//and has some various effects applied to it
-				npc.noTileCollide = false;
+				NPC.noGravity = false;//and has some various effects applied to it
+				NPC.noTileCollide = false;
 
 
 				Dashing = false;//and we reset the Dashing variable
@@ -104,22 +104,22 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 			#region Death Check
 
-			if (npc.life >= npc.lifeMax * 0.40)
+			if (NPC.life >= NPC.lifeMax * 0.40)
 			{
 				if (Main.rand.NextFloat() < .1f)
 				{
 
-					npc.netUpdate = true;
+					NPC.netUpdate = true;
 
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
 
 					CheckDead();
 
-					npc.life = 0;
+					NPC.life = 0;
 				}
 				else
 				{
-					Vector2 relativePosition = npc.Center - target.Center;
+					Vector2 relativePosition = NPC.Center - target.Center;
 					float absRelativeRotation = Math.Abs(relativePosition.ToRotation());
 
 					bool leftRightCollision = false;
@@ -133,11 +133,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					{
 						if (leftRightCollision)
 						{
-							npc.velocity.X *= -2;
+							NPC.velocity.X *= -2;
 						}
 						else
 						{
-							npc.velocity.Y *= -2;
+							NPC.velocity.Y *= -2;
 						}
 
 					}
@@ -145,22 +145,22 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					{
 						if (leftRightCollision)
 						{
-							npc.velocity.X *= -0.8f;
+							NPC.velocity.X *= -0.8f;
 						}
 						else
 						{
-							npc.velocity.Y *= -0.8f;
+							NPC.velocity.Y *= -0.8f;
 						}
 					}
 				}
 			}
 			else
 			{
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, Explosion, 40, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion, 40, 5f, Main.myPlayer, 0, 1);
 
 				CheckDead();
 
-				npc.life = 0;
+				NPC.life = 0;
 			}
 
 			#endregion Death Check
@@ -172,68 +172,68 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			for (int i = 0; i <= 4; i++)
 			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 		}
 
 		public override bool PreAI()
 		{
-			Player player = Main.player[npc.target];
+			Player player = Main.player[NPC.target];
 
-			Direction(npc);
-			MovementAndDash(npc, player);
+			Direction(NPC);
+			MovementAndDash(NPC, player);
 
 			return true;
 		}
 
-		private void Direction(NPC npc)
+		private void Direction(NPC NPC)
 		{
-			if (npc.velocity.X > 0f) // npc is the code that makes the sprite turn. npcd on the vanilla one.
+			if (NPC.velocity.X > 0f) // NPC is the code that makes the sprite turn. NPCd on the vanilla one.
 			{
-				npc.direction = 1;
+				NPC.direction = 1;
 			}
-			else if (npc.velocity.X < 0f)
+			else if (NPC.velocity.X < 0f)
 			{
-				npc.direction = -1;
+				NPC.direction = -1;
 			}
-			else if (npc.velocity.X == 0)
+			else if (NPC.velocity.X == 0)
 			{
-				npc.direction = npc.oldDirection;
+				NPC.direction = NPC.oldDirection;
 			}
 
-			if (npc.direction == 1)
+			if (NPC.direction == 1)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 				if (State != OreState.Stunned)
 				{
-					npc.rotation = MathHelper.ToRadians(0);//Resetting the ores' rotation to normal
+					NPC.rotation = MathHelper.ToRadians(0);//Resetting the ores' rotation to normal
 				}
 			}
-			else if (npc.direction == -1)
+			else if (NPC.direction == -1)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 
 				if (State != OreState.Stunned)
 				{
-					npc.rotation = MathHelper.ToRadians(0);
+					NPC.rotation = MathHelper.ToRadians(0);
 				}
 			}
 		}
 
-		private void MovementAndDash(NPC npc, Player player)
+		private void MovementAndDash(NPC NPC, Player player)
 		{
-			npc.TargetClosest(true);
+			NPC.TargetClosest(true);
 
 			if (!Dashing && State != OreState.Stunned)//This boolean shows when the ore is actually dashing. We check if it's not true so it only chases the player while not dashing
 			{
-				Vector2 target = player.Center - npc.Center;
+				Vector2 target = player.Center - NPC.Center;
 				float num1276 = target.Length();
 				float MoveSpeedMult = MoveSpeedMultval; //How fast it moves and turns. A multiplier maybe?
 				MoveSpeedMult += num1276 / SpeedBalance; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-				int MoveSpeedBal = MoveSpeedBalval; //npc does the same as the above.... I do not understand.
+				int MoveSpeedBal = MoveSpeedBalval; //NPC does the same as the above.... I do not understand.
 				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
 				target *= MoveSpeedMult;
-				npc.velocity = (npc.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
+				NPC.velocity = (NPC.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
 
 
 			}
@@ -247,20 +247,20 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 					State = OreState.Dash;
 
-					npc.netUpdate = true;
+					NPC.netUpdate = true;
 				}
 
 			}
 			else if (State == OreState.Dash)//if the state of the ore is for dashing, then run this code.
 			{
-				if ((Vector2.Distance(player.Center, npc.Center) <= 16 * DashDistance && AttackTimer < DashCharge))//Range control for the charging.
+				if ((Vector2.Distance(player.Center, NPC.Center) <= 16 * DashDistance && AttackTimer < DashCharge))//Range control for the charging.
 				{
 					AttackTimer++;
-					npc.velocity *= 0.95f;//the slow down during the charge
+					NPC.velocity *= 0.95f;//the slow down during the charge
 				}
 				else if (AttackTimer == DashCharge)
 				{
-					npc.velocity = Vector2.Normalize(player.Center - npc.Center) * DashVelocity;//the speed that the ore will dash towards the player
+					NPC.velocity = Vector2.Normalize(player.Center - NPC.Center) * DashVelocity;//the speed that the ore will dash towards the player
 
 
 					AttackTimer++;
@@ -276,7 +276,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					{
 						AttackTimer = 0;
 
-						npc.velocity *= 0.25f;
+						NPC.velocity *= 0.25f;
 
 						if (++Attack >= 1)//resetting every variable related to the dash
 						{
@@ -291,23 +291,23 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				AttackTimer++;
 
-				if (npc.collideX)//Rolling code and velocity.
+				if (NPC.collideX)//Rolling code and velocity.
 				{
-					npc.velocity.X = -(npc.velocity.X * 0.5f);
+					NPC.velocity.X = -(NPC.velocity.X * 0.5f);
 				}
-				if (npc.collideY)
+				if (NPC.collideY)
 				{
-					npc.velocity.Y = -(npc.velocity.Y * 0.5f);
+					NPC.velocity.Y = -(NPC.velocity.Y * 0.5f);
 				}
 
-				npc.rotation += MathHelper.ToRadians(2) * npc.velocity.X;
+				NPC.rotation += MathHelper.ToRadians(2) * NPC.velocity.X;
 
 				if (AttackTimer >= 60 * StunDuration)//Reset the ore
 				{
 					AttackTimer = 0;
 
-					npc.noGravity = true;
-					npc.noTileCollide = true;
+					NPC.noGravity = true;
+					NPC.noTileCollide = true;
 
 					State = OreState.Chase;
 				}
@@ -318,7 +318,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			if (!CanHit)
 			{
-				if (npc.Hitbox.Intersects(target.Hitbox))
+				if (NPC.Hitbox.Intersects(target.Hitbox))
 				{
 					return false;
 				}
@@ -334,7 +334,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				return 35f;
 			}
-			else if (spawnInfo.player.ZoneRockLayerHeight)
+			else if (spawnInfo.Player.ZoneRockLayerHeight)
 			{
 				return 0.02f;
 			}
@@ -344,19 +344,14 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			}
 		}
 
-		public virtual void SafeNPCLoot()
-		{
-
-		}
-
-		public override void NPCLoot()//Shared NPC loot.
+		
+		public override void OnKill()
 		{
 			if (Main.netMode == NetmodeID.Server)
 			{
 				NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
 			}
 
-			SafeNPCLoot();
 			if (EpicWorld.OreEvent)
 			{
 				EpicWorld.OreKills += 1;

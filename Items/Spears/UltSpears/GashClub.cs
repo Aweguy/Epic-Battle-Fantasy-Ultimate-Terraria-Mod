@@ -14,29 +14,29 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 		}
 		public override void SetDefaults()
 		{
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 10;
-			item.useTime = 10;
-			item.shootSpeed = 24f;
-			item.knockBack = 7f;
-			item.width = 16;
-			item.height = 16;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 1, 0, 0);
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.channel = true;
-			item.autoReuse = true;
-			item.melee = true;
-			item.damage = 40;
+			Item.useStyle = ItemUseStyleID.HoldingOut;
+			Item.useAnimation = 10;
+			Item.useTime = 10;
+			Item.shootSpeed = 24f;
+			Item.knockBack = 7f;
+			Item.width = 16;
+			Item.height = 16;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.channel = true;
+			Item.autoReuse = true;
+			Item.DamageType = DamageClass.Melee;;
+			Item.damage = 40;
 
-			item.UseSound = SoundID.DD2_MonkStaffSwing;
-			item.shoot = ModContent.ProjectileType<GashClubProj>();
+			Item.UseSound = SoundID.DD2_MonkStaffSwing;
+			Item.shoot = ModContent.ProjectileType<GashClubProj>();
 		}
 		public override bool CanUseItem(Player player)
 		{
-			// Ensures no more than one spear can be thrown out, use item when using autoReuse
-			return player.ownedProjectileCounts[item.shoot] < 1;
+			// Ensures no more than one spear can be thrown out, use Item when using autoReuse
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
 	}
 }

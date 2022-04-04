@@ -13,20 +13,19 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		}
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
+			Item.width = 32;
+			Item.height = 32;
 
-			item.value = Item.sellPrice(silver: 1);
-			item.rare = ItemRarityID.Purple;
-			item.maxStack = 999;
+			Item.value = Item.sellPrice(silver: 1);
+			Item.rare = ItemRarityID.Purple;
+			Item.maxStack = 999;
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IceBlock, 10);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IceBlock,10 )
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

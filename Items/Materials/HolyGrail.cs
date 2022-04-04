@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,25 +10,24 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Holy Grail");
-			Tooltip.SetDefault("A unique and mythical artifact sought by many. Now available in 5 packs!");
+			Tooltip.SetDefault("A unique and mythical artifact sought by many. Now available in packs of 5!");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 30;
+			Item.width = 30;
+			Item.height = 30;
 
-			item.value = Item.sellPrice(silver: 10);
-			item.rare = ItemRarityID.Purple;
-			item.maxStack = 99;
+			Item.value = Item.sellPrice(silver: 10);
+			Item.rare = ItemRarityID.Purple;
+			Item.maxStack = 99;
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Gold", 20);
-			recipe.AddIngredient(mod.ItemType("VolcanicRuby"), 3);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup("EpicBattleFantasyUltimate: GoldBar", 20)
+				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 4)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }

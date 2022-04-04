@@ -3,10 +3,11 @@ using EpicBattleFantasyUltimate.Items.Materials;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
+namespace EpicBattleFantasyUltimate.Items.Launchers
 {
 	public class VortexCannon : EpicLauncher
 	{
@@ -17,28 +18,28 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void SetSafeDefaults()
 		{
-			item.width = 84;
-			item.height = 54;
+			Item.width = 84;
+			Item.height = 54;
 
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.reuseDelay = 20;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.reuseDelay = 20;
 
-			item.damage = 89;
-			item.ranged = true;
-			item.noMelee = true;
+			Item.damage = 89;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
 
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Purple;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Purple;
 
-			item.UseSound = SoundID.Item38;
-			item.shootSpeed = 11f;
+			Item.UseSound = SoundID.Item38;
+			Item.shootSpeed = 11f;
 		}
 		public Projectile shot;
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 32f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 32f;
 			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
 			muzzleOffset += new Vector2(0, -6f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -46,8 +47,8 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 				position += muzzleOffset;
 			}
 
-			Vector2 trueSpeed = new Vector2(speedX, speedY);
-			shot = Main.projectile[Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
+			Vector2 trueSpeed = new Vector2(velocity.X, velocity.Y);
+			shot = Main.projectile[Projectile.NewProjectile(source,position, trueSpeed, type, damage, knockback, player.whoAmI)];
 			shot.GetGlobalProjectile<LauncherProjectile>().B4Homingshot = true;
 
 			return false;
@@ -58,13 +59,12 @@ namespace EpicBattleFantasyUltimate.Items.Weapons.Launchers
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IllegalGunParts, 3);
-			recipe.AddIngredient(ModContent.ItemType<P2Processor>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<SteelPlate>(), 15);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IllegalGunParts, 3)
+				.AddIngredient(ModContent.ItemType<P2Processor>(), 2)
+				.AddIngredient(ModContent.ItemType<SteelPlate>(), 15)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 	public partial class LauncherProjectile : GlobalProjectile

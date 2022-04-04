@@ -1,10 +1,13 @@
 ﻿using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Items.Materials.Gems;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Chat;
 
 namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 {
@@ -18,16 +21,16 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingUp;
+			Item.width = 24;
+			Item.height = 24;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.HoldUp;
 
-			item.value = Item.sellPrice(gold: 1);
-			item.rare = ItemRarityID.Purple;
-			item.maxStack = 99;
-			item.consumable = true;
+			Item.value = Item.sellPrice(gold: 1);
+			Item.rare = ItemRarityID.Purple;
+			Item.maxStack = 99;
+			Item.consumable = true;
 		}
 
 		public override bool CanUseItem(Player player)
@@ -35,13 +38,13 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 			return true;
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			string key = "Mods.EpicBattleFantasyUltimate.OreEventStart";
 			Color messageColor = Color.Orange;
 			if (Main.netMode == NetmodeID.Server) // Server
-			{
-				NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+			{ 
+				ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
 			}
 			else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
 			{
@@ -50,7 +53,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				Main.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, player.Center);
 				EpicWorld.OreEvent = true;
 			}
 
@@ -59,19 +62,17 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<CyclonicEmerald>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<PristineDiamond>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<AncientAmber>(), 2);
-			recipe.AddIngredient(ModContent.ItemType<DarkMatter>(), 20);
-			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.IllegalGunParts, 3)
+				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 2)
+				.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 2)
+				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 2)
+				.AddIngredient(ModContent.ItemType<CyclonicEmerald>(), 2)
+				.AddIngredient(ModContent.ItemType<PristineDiamond>(), 2)
+				.AddIngredient(ModContent.ItemType<AncientAmber>(), 2)
+				.AddIngredient(ModContent.ItemType<DarkMatter>(), 20)
+				.AddTile(TileID.DemonAltar)
+				.Register();
 		}
-
-
 	}
 }
