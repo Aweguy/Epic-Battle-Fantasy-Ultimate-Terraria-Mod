@@ -12,21 +12,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wraith Icicle");
-			Main.projFrames[projectile.type] = 4;
+			Main.projFrames[Projectile.type] = 4;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 5;
-			projectile.height = 5;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
+			Projectile.width = 5;
+			Projectile.height = 5;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
 
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -41,14 +40,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		{
 			if (!Frame)
 			{
-				projectile.frame = Main.rand.Next(0, 3);
+				Projectile.frame = Main.rand.Next(0, 3);
 
 				Frame = true;
 			}
 
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 		}
 	}
 }

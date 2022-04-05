@@ -15,36 +15,36 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 8;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = projectile.height = 64;
+            Projectile.width = Projectile.height = 64;
 
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
 
-            projectile.ranged = true;
-            projectile.tileCollide = false;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.tileCollide = false;
 
-            projectile.alpha = 1;
+            Projectile.alpha = 1;
 
 
-            projectile.localNPCHitCooldown = -1;
-            projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.usesLocalNPCImmunity = true;
 
         }
 
         public override bool PreAI()
         {
-            if (++projectile.frameCounter >= 2)
+            if (++Projectile.frameCounter >= 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 7)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 7)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
 

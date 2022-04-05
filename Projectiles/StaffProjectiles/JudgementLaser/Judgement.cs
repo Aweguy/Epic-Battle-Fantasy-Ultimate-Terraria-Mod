@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.GameContent;
 
 #endregion Using
 
@@ -28,15 +29,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 		public float Distance;
 
 		//{
-		//get => projectile.ai[0];
-		//set => projectile.ai[0] = value;
+		//get => Projectile.ai[0];
+		//set => Projectile.ai[0] = value;
 		//}
 
 		// The actual charge value is stored in the localAI0 field
 		public float Charge
 		{
-			get => projectile.localAI[0];
-			set => projectile.localAI[0] = value;
+			get => Projectile.localAI[0];
+			set => Projectile.localAI[0] = value;
 		}
 
 		public bool IsAtMaxCharge => Charge == MAX_CHARGE;
@@ -65,30 +66,29 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 0;
-			projectile.height = 0;
+			Projectile.width = 0;
+			Projectile.height = 0;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
 
-			projectile.timeLeft = 120 + (int)MAX_CHARGE;
-			projectile.magic = true;
-			projectile.hide = true;
+			Projectile.timeLeft = 120 + (int)MAX_CHARGE;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.hide = true;
 
-			projectile.localNPCHitCooldown = 3;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 3;
+			Projectile.usesLocalNPCImmunity = true;
 
 		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			if (!IsAtMaxCharge)//When it's not at max charge have a small laser beam
 			{
 				scaled = 1f;
 				MOVE_DISTANCE = 4f;
 			}
-			else if (IsAtMaxCharge && projectile.timeLeft <= 80)//if it's at max charge and some time has passed reduce its scale.
+			else if (IsAtMaxCharge && Projectile.timeLeft <= 80)//if it's at max charge and some time has passed reduce its scale.
 			{
 				scaled -= 0.06f;
 				MOVE_DISTANCE -= 0.24f;
@@ -110,14 +110,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			}
 			if (scaled <= 0f)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
-			DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], position, spriterotation, 10, projectile.damage, -1.57f, 1f * scaled, 1000f, Color.White, (int)MOVE_DISTANCE);
+			DrawLaser(Main.spriteBatch, TextureAssets.Projectile[Projectile.type].Value, position, spriterotation, 10, Projectile.damage, -1.57f, 1f * scaled, 1000f, Color.White, (int)MOVE_DISTANCE);
 			return false;
 		}
-
-
 		public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 2000f, Color color = default(Color), int transDist = 0)
 		{
 			float rot = unit.ToRotation() + rotation;
@@ -142,7 +140,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 				new Rectangle(0, 52, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);*/
 		}
 
-		// Change the way of collision check of the projectile
+		// Change the way of collision check of the Projectile
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			if (!IsAtMaxCharge)
@@ -160,14 +158,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Projectile.NewProjectile(target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), projectile.damage, 0, projectile.owner);
+			Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), Projectile.damage, 0, Projectile.owner);
 		}
 
 		public override void AI()
 		{
 			#region Ground Detection
 
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			if (timer == 0)
 			{
 				int num233 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
@@ -180,8 +178,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 				{
 				}
 
-				projectile.position = new Vector2((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16));
-				position = projectile.position;
+				Projectile.position = new Vector2((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16));
+				position = Projectile.position;
 				timer--;
 			}
 
@@ -189,7 +187,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 			#region Beam Shrinking
 
-			if (IsAtMaxCharge && projectile.timeLeft <= 80)
+			if (IsAtMaxCharge && Projectile.timeLeft <= 80)
 			{
 				beamWidth -= 0.5f;//reducing the hitbox.
 			}
@@ -253,7 +251,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			if (timer2 == 40)
 			{
 				if (!Main.dedServ)
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Spells/Judgement").WithPitchVariance(1f).WithVolume(.2f), projectile.position);
+					SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Spells/Judgement");
 
 				for (int i = 0; i < 85; ++i)
 				{
@@ -350,7 +348,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 						Distance -= 0f;
 						break;
 					}
-					else if (IsAtMaxCharge && projectile.timeLeft <= 80)
+					else if (IsAtMaxCharge && Projectile.timeLeft <= 80)
 					{
 						Distance -= 50f - offDistance;
 						offDistance += 0.6f;
@@ -382,17 +380,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		private void UpdatePlayer(Player player)
 		{
-			// Multiplayer support here, only run this code if the client running it is the owner of the projectile
-			if (projectile.owner == Main.myPlayer)
+			// Multiplayer support here, only run this code if the client running it is the owner of the Projectile
+			if (Projectile.owner == Main.myPlayer)
 			{
 				Vector2 diff = Main.MouseWorld - player.Center;
 				diff.Normalize();
-				projectile.velocity = diff;
-				projectile.direction = Main.MouseWorld.X > player.position.X ? 1 : -1;
-				projectile.netUpdate = true;
+				Projectile.velocity = diff;
+				Projectile.direction = Main.MouseWorld.X > player.position.X ? 1 : -1;
+				Projectile.netUpdate = true;
 			}
-			int dir = projectile.direction;
-			player.heldProj = projectile.whoAmI; // Update player's held projectile
+			int dir = Projectile.direction;
+			player.heldProj = Projectile.whoAmI; // Update player's held Projectile
 		}
 
 		private void CastLights()

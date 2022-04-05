@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using EpicBattleFantasyUltimate.HelperClasses;
 using Terraria.Enums;
+using Terraria.GameContent;
 
 namespace EpicBattleFantasyUltimate.Projectiles
 {
@@ -28,15 +29,15 @@ namespace EpicBattleFantasyUltimate.Projectiles
 		// By making a property to handle this it makes our life easier, and the accessibility more readable
 		public float Distance
 		{
-			get => projectile.localAI[1];
-			set => projectile.localAI[1] = value;
+			get => Projectile.localAI[1];
+			set => Projectile.localAI[1] = value;
 		}
 
 		// The actual charge value is stored in the localAI0 field
 		public float Charge
 		{
-			get => projectile.localAI[0];
-			set => projectile.localAI[0] = value;
+			get => Projectile.localAI[0];
+			set => Projectile.localAI[0] = value;
 		}
 
 		// Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
@@ -44,29 +45,30 @@ namespace EpicBattleFantasyUltimate.Projectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
-			projectile.magic = true;
-			projectile.hide = true;
+			Projectile.width = 10;
+			Projectile.height = 10;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.hide = true;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			return false;
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
-			NPC npc = Main.npc[(int)projectile.ai[1]];
+
+			NPC npc = Main.npc[(int)Projectile.ai[1]];
 			// We start drawing the laser if we have charged up
 			//if (IsAtMaxCharge)
 			//{
-			DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], npc.Center,
-				projectile.velocity, 10, projectile.damage, -1.57f, 1f, 1000f, Color.White, (int)MOVE_DISTANCE);
+			DrawLaser(Main.spriteBatch, TextureAssets.Projectile[Projectile.type].Value, npc.Center,
+				Projectile.velocity, 10, Projectile.damage, -1.57f, 1f, 1000f, Color.White, (int)MOVE_DISTANCE);
 			//}
 		}
 
@@ -94,14 +96,14 @@ namespace EpicBattleFantasyUltimate.Projectiles
 				new Rectangle(0, 52, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
 		}
 
-		// Change the way of collision check of the projectile
+		// Change the way of collision check of the Projectile
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			// We can only collide if we are at max charge, which is when the laser is actually fired
 			if (!IsAtMaxCharge) return false;
 
-			NPC npc = Main.npc[(int)projectile.ai[1]];
-			Vector2 unit = projectile.velocity;
+			NPC npc = Main.npc[(int)Projectile.ai[1]];
+			Vector2 unit = Projectile.velocity;
 			float point = 0f;
 			// Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
 			// It will look for collisions on the given line using AABB
@@ -109,12 +111,12 @@ namespace EpicBattleFantasyUltimate.Projectiles
 				npc.Center + unit * Distance, 22, ref point);
 		}
 
-		// The AI of the projectile
+		// The AI of the Projectile
 		public override void AI()
 		{
-			NPC npc = Main.npc[(int)projectile.ai[1]];
-			projectile.position = npc.Center + projectile.velocity * MOVE_DISTANCE;
-			projectile.timeLeft = 2;
+			NPC npc = Main.npc[(int)Projectile.ai[1]];
+			Projectile.position = npc.Center + Projectile.velocity * MOVE_DISTANCE;
+			Projectile.timeLeft = 2;
 
 			// By separating large AI into methods it becomes very easy to see the flow of the AI in a broader sense
 			// First we update player variables that are needed to channel the laser
@@ -135,18 +137,18 @@ namespace EpicBattleFantasyUltimate.Projectiles
 
 		private void SpawnDusts(NPC npc)
 		{
-			Vector2 unit = projectile.velocity * -1;
-			Vector2 dustPos = npc.Center + projectile.velocity * Distance;
+			Vector2 unit = Projectile.velocity * -1;
+			Vector2 dustPos = npc.Center + Projectile.velocity * Distance;
 
 			for (int i = 0; i < 2; ++i)
 			{
-				float num1 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1.0f : 1.0f) * 1.57f;
+				float num1 = Projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1.0f : 1.0f) * 1.57f;
 				float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
 				Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
 				Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, DustID.Electric, dustVel.X, dustVel.Y)];
 				dust.noGravity = true;
 				dust.scale = 1.2f;
-				dust = Dust.NewDustDirect(Main.player[projectile.owner].Center, 0, 0, DustID.Smoke,
+				dust = Dust.NewDustDirect(Main.player[Projectile.owner].Center, 0, 0, DustID.Smoke,
 					-unit.X * Distance, -unit.Y * Distance);
 				dust.fadeIn = 0f;
 				dust.noGravity = true;
@@ -156,13 +158,13 @@ namespace EpicBattleFantasyUltimate.Projectiles
 
 			if (Main.rand.NextBool(5))
 			{
-				Vector2 offset = projectile.velocity.RotatedBy(1.57f) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
+				Vector2 offset = Projectile.velocity.RotatedBy(1.57f) * ((float)Main.rand.NextDouble() - 0.5f) * Projectile.width;
 				Dust dust = Main.dust[Dust.NewDust(dustPos + offset - Vector2.One * 4f, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f)];
 				dust.velocity *= 0.5f;
 				dust.velocity.Y = -Math.Abs(dust.velocity.Y);
-				unit = dustPos - Main.player[projectile.owner].Center;
+				unit = dustPos - Main.player[Projectile.owner].Center;
 				unit.Normalize();
-				dust = Main.dust[Dust.NewDust(Main.player[projectile.owner].Center + 55 * unit, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f)];
+				dust = Main.dust[Dust.NewDust(Main.player[Projectile.owner].Center + 55 * unit, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f)];
 				dust.velocity = dust.velocity * 0.5f;
 				dust.velocity.Y = -Math.Abs(dust.velocity.Y);
 			}
@@ -175,7 +177,7 @@ namespace EpicBattleFantasyUltimate.Projectiles
 		{
 			for (Distance = MOVE_DISTANCE; Distance <= 2200f; Distance += 5f)
 			{
-				var start = npc.Center + projectile.velocity * Distance;
+				var start = npc.Center + Projectile.velocity * Distance;
 				if (!Collision.CanHit(npc.Center, 1, 1, start, 1, 1))
 				{
 					Distance -= 5f;
@@ -186,12 +188,12 @@ namespace EpicBattleFantasyUltimate.Projectiles
 
 		private void ChargeLaser(NPC npc)
 		{
-			// Kill the projectile if the player stops channeling
+			// Kill the Projectile if the player stops channeling
 			
 			
-				// Do we still have enough mana? If not, we kill the projectile because we cannot use it anymore
+				// Do we still have enough mana? If not, we kill the Projectile because we cannot use it anymore
 				
-				Vector2 offset = projectile.velocity;
+				Vector2 offset = Projectile.velocity;
 				offset *= MOVE_DISTANCE - 20;
 				Vector2 pos = npc.Center + offset - new Vector2(10, 10);
 				if (Charge < MAX_CHARGE)
@@ -200,12 +202,12 @@ namespace EpicBattleFantasyUltimate.Projectiles
 				}
 				int chargeFact = (int)(Charge / 20f);
 				Vector2 dustVelocity = Vector2.UnitX * 18f;
-				dustVelocity = dustVelocity.RotatedBy(projectile.rotation - 1.57f);
-				Vector2 spawnPos = projectile.Center + dustVelocity;
+				dustVelocity = dustVelocity.RotatedBy(Projectile.rotation - 1.57f);
+				Vector2 spawnPos = Projectile.Center + dustVelocity;
 				for (int k = 0; k < chargeFact + 1; k++)
 				{
 					Vector2 spawn = spawnPos + ((float)Main.rand.NextDouble() * 6.28f).ToRotationVector2() * (12f - chargeFact * 2);
-					Dust dust = Main.dust[Dust.NewDust(pos, 20, 20, DustID.Electric, projectile.velocity.X / 2f, projectile.velocity.Y / 2f)];
+					Dust dust = Main.dust[Dust.NewDust(pos, 20, 20, DustID.Electric, Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f)];
 					dust.velocity = Vector2.Normalize(spawnPos - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
 					dust.noGravity = true;
 					dust.scale = Main.rand.Next(10, 20) * 0.05f;
@@ -215,15 +217,15 @@ namespace EpicBattleFantasyUltimate.Projectiles
 
 		private void UpdatePlayer(NPC npc)
 		{
-			Player player = Main.player[(int)projectile.ai[0]];
-			// Multiplayer support here, only run this code if the client running it is the owner of the projectile
-			if (projectile.owner == Main.myPlayer)
+			Player player = Main.player[(int)Projectile.ai[0]];
+			// Multiplayer support here, only run this code if the client running it is the owner of the Projectile
+			if (Projectile.owner == Main.myPlayer)
 			{
 				Vector2 diff = player.Center - npc.Center;
 				diff.Normalize();
-				projectile.velocity = diff;
-				projectile.direction = player.Center.X > npc.position.X ? 1 : -1;
-				projectile.netUpdate = true;
+				Projectile.velocity = diff;
+				Projectile.direction = player.Center.X > npc.position.X ? 1 : -1;
+				Projectile.netUpdate = true;
 			}
 		}
 
@@ -231,7 +233,7 @@ namespace EpicBattleFantasyUltimate.Projectiles
 		{
 			// Cast a light along the line of the laser
 			DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
-			Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MOVE_DISTANCE), 26, DelegateMethods.CastLight);
+			Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * (Distance - MOVE_DISTANCE), 26, DelegateMethods.CastLight);
 		}
 
 		public override bool ShouldUpdatePosition() => false;
@@ -242,8 +244,8 @@ namespace EpicBattleFantasyUltimate.Projectiles
 		public override void CutTiles()
 		{
 			DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
-			Vector2 unit = projectile.velocity;
-			Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, (projectile.width + 16) * projectile.scale, DelegateMethods.CutTiles);
+			Vector2 unit = Projectile.velocity;
+			Utils.PlotTileLine(Projectile.Center, Projectile.Center + unit * Distance, (Projectile.width + 16) * Projectile.scale, DelegateMethods.CutTiles);
 		}
 	}
 }

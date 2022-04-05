@@ -16,25 +16,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 
         public override void SetStaticDefaults()
         {
-			Main.projFrames[projectile.type] = 6;
+			Main.projFrames[Projectile.type] = 6;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 44;
-			projectile.height = 104;
+			Projectile.width = 44;
+			Projectile.height = 104;
 
-			projectile.tileCollide = false;
+			Projectile.tileCollide = false;
 		}
 
 		public override bool PreAI()
 		{
-			if (++projectile.frameCounter >= 4)
+			if (++Projectile.frameCounter >= 4)
             {
-				projectile.frameCounter = 0;
-				if(++projectile.frame >= 6)
+				Projectile.frameCounter = 0;
+				if(++Projectile.frame >= 6)
                 {
-					projectile.Kill();
+					Projectile.Kill();
                 }
             }
 

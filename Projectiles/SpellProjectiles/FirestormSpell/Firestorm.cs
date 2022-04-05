@@ -17,23 +17,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fireball");
-			Main.projFrames[projectile.type] = 5;
+			Main.projFrames[Projectile.type] = 5;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
 
-			projectile.penetrate = -1;
-			projectile.magic = true;
-			projectile.knockBack = 1f;
+			Projectile.penetrate = -1;
+			Projectile.magic = true;
+			Projectile.knockBack = 1f;
 
-			projectile.timeLeft = 51;
-			projectile.tileCollide = false;
-			projectile.hide = true;
+			Projectile.timeLeft = 51;
+			Projectile.tileCollide = false;
+			Projectile.hide = true;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -46,7 +46,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
 		public override void AI()
 		{
-			projectile.damage = 0;
+			Projectile.damage = 0;
 
 			timer--;
 
@@ -59,23 +59,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
 				if (randomizer == 0)
 				{
-					int a = Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballSmall>(), 70, 0, projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballSmall>(), 70, 0, Projectile.owner);
 				}
 				else if (randomizer == 2)
 				{
-					int a = Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballMed>(), 70, 0, projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballMed>(), 70, 0, Projectile.owner);
 				}
 				else
 				{
-					int a = Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<Fireball>(), 70, 0, projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<Fireball>(), 70, 0, Projectile.owner);
 				}
 
 				timer = 5;
 			}
 		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
+        public override bool PreDraw(ref Color lightColor)
+        {
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 

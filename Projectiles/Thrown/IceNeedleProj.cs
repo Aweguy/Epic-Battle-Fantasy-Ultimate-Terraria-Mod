@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,20 +16,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = projectile.height = 26;
+			Projectile.width = Projectile.height = 26;
 
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 30;
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
-			aiType = ProjectileID.JavelinFriendly;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 30;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			AIType = ProjectileID.JavelinFriendly;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
+			SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0f);
 			return true;
 		}
 
@@ -36,27 +37,27 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 		{
 			int NumOfProjectiles = 9;
 			float projRotation = 0f;
-			#region projectile spawn
+			#region Projectile spawn
 			for (int p = 0; p <= NumOfProjectiles; p++)
 			{
-				Vector2 velocity = projectile.oldVelocity.RotatedBy(projRotation * 0.0174533f) * 0.5f;
+				Vector2 velocity = Projectile.oldVelocity.RotatedBy(projRotation * 0.0174533f) * 0.5f;
 
-				Projectile.NewProjectile(projectile.position, velocity, ModContent.ProjectileType<IceNeedleIcicle>(), projectile.damage / 2, projectile.knockBack, Main.myPlayer);
+				Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<IceNeedleIcicle>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
 
 				projRotation += 360 / NumOfProjectiles;
 			}
 			#endregion
 			#region dust spawn
-			Vector2 DustPosition = projectile.position;
-			Vector2 DustOldVelocity = projectile.oldVelocity;
+			Vector2 DustPosition = Projectile.position;
+			Vector2 DustOldVelocity = Projectile.oldVelocity;
 			DustOldVelocity.Normalize();
 			DustPosition += DustOldVelocity * 16f;
 			for (int i = 0; i < 30; i++)
 			{
-				int icy = Dust.NewDust(DustPosition, projectile.width, projectile.height, DustID.IceTorch, 0f, 0f, 0, default(Color), 1f);
-				Main.dust[icy].position = (Main.dust[icy].position + projectile.Center) / 2f;
+				int icy = Dust.NewDust(DustPosition, Projectile.width, Projectile.height, DustID.IceTorch, 0f, 0f, 0, default(Color), 1f);
+				Main.dust[icy].position = (Main.dust[icy].position + Projectile.Center) / 2f;
 				Dust dust = Main.dust[icy];
-				dust.velocity += projectile.oldVelocity * 0.6f;
+				dust.velocity += Projectile.oldVelocity * 0.6f;
 				dust = Main.dust[icy];
 				dust.velocity *= 0.5f;
 				Main.dust[icy].noGravity = true;
@@ -86,21 +87,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 		bool FrameFound;
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[projectile.type] = 3;
+			Main.projFrames[Projectile.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = projectile.height = 26;
+			Projectile.width = Projectile.height = 26;
 
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.melee = true;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			Projectile.DamageType = DamageClass.Melee;
 
-			projectile.timeLeft = 60 * 2;
+			Projectile.timeLeft = 60 * 2;
 
-			projectile.light = 1f;
-			projectile.tileCollide = false;
+			Projectile.light = 1f;
+			Projectile.tileCollide = false;
 		}
 
 		public override bool PreAI()
@@ -108,15 +109,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 			if (!FrameFound)//Setting the frame of the snowflake
 			{
 				FrameFound = true;
-				projectile.frame = Main.rand.Next(0, 2);
+				Projectile.frame = Main.rand.Next(0, 2);
 			}
-			if(Behave == Behaviour.Idle)//If the projectile is idle then slow down smoothly
+			if(Behave == Behaviour.Idle)//If the Projectile is idle then slow down smoothly
 			{
-				projectile.velocity *= 0.90f;
+				Projectile.velocity *= 0.90f;
 			}
 			else if (Behave == Behaviour.Chase)
 			{
-				projectile.timeLeft = projectile.timeLeft;
+				Projectile.timeLeft = Projectile.timeLeft;
 			}
 
 			FindTarget();//Finding target and chasing.
@@ -126,10 +127,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 		private void FindTarget()
 		{
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 			Vector2 move = Vector2.Zero;
 			float distance = 125f;
@@ -138,7 +139,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -152,8 +153,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 			{
 				Behave = Behaviour.Chase;
 				AdjustMagnitude(ref move);
-				projectile.velocity = (8 * projectile.velocity + move) / 11f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (8 * Projectile.velocity + move) / 11f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 			else
 			{
@@ -174,7 +175,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 		{
 			for(int i = 0; i <= 6; i++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.IceTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y);
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, Projectile.oldVelocity.X, Projectile.oldVelocity.Y);
 			}
 		}
 	}

@@ -18,44 +18,44 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("NatureBlast");
-			Main.projFrames[projectile.type] = 23;
+			Main.projFrames[Projectile.type] = 23;
 		}
 
 		private bool collision = false;
 		private float BlastVel = 14f;
 		private bool Veloc = false;
 
-		public override bool CanDamage()
-	=> projectile.frame >= 22;
+		public override bool? CanDamage()
+	=> Projectile.frame >= 22;
 
 		public override void SetDefaults()
 		{
-			projectile.width = 30;
-			projectile.height = 30;
-			projectile.aiStyle = -1;
-			projectile.friendly = false;
-			projectile.hostile = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 60 * 5;
-			projectile.tileCollide = false;
+			Projectile.width = 30;
+			Projectile.height = 30;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 60 * 5;
+			Projectile.tileCollide = false;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.frame >= 22)
+			if (Projectile.frame >= 22)
 			{
-				if (projectile.tileCollide)
+				if (Projectile.tileCollide)
 				{
-					Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+					Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-					if (projectile.velocity.X != oldVelocity.X)
+					if (Projectile.velocity.X != oldVelocity.X)
 					{
-						projectile.velocity.X = -oldVelocity.X;
+						Projectile.velocity.X = -oldVelocity.X;
 					}
 
-					if (projectile.velocity.Y != oldVelocity.Y)
+					if (Projectile.velocity.Y != oldVelocity.Y)
 					{
-						projectile.velocity.Y = -oldVelocity.Y;
+						Projectile.velocity.Y = -oldVelocity.Y;
 					}
 				}
 			}
@@ -64,33 +64,33 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 
 		public override void AI()
 		{
-			if (++projectile.frameCounter >= 5) //reducing the frame timer
+			if (++Projectile.frameCounter >= 5) //reducing the frame timer
 			{
-				projectile.frameCounter = 0; //resetting it
+				Projectile.frameCounter = 0; //resetting it
 
-				if (++projectile.frame >= 22) //Animation loop
+				if (++Projectile.frame >= 22) //Animation loop
 				{
-					projectile.frame = 22;
+					Projectile.frame = 22;
 				}
 			}
 
-			if (projectile.frame < 22) //Positioning and shooting control
+			if (Projectile.frame < 22) //Positioning and shooting control
 			{
 				Velocity();
 			}
 			else
 			{
-				if (!Collision.SolidCollision(projectile.position, projectile.width, projectile.height) && collision == false)
+				if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height) && collision == false)
 				{
-					projectile.tileCollide = true;
+					Projectile.tileCollide = true;
 
 					collision = true;
 				}
 
 				Dust dust;
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-				Vector2 position = projectile.position;
-				dust = Terraria.Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Demonite, 0f, 0f, 0, new Color(255, 255, 255), 0.5f);
+				Vector2 position = Projectile.position;
+				dust = Terraria.Dust.NewDustDirect(position, Projectile.width, Projectile.height, DustID.Demonite, 0f, 0f, 0, new Color(255, 255, 255), 0.5f);
 				dust.shader = GameShaders.Armor.GetSecondaryShader(56, Main.LocalPlayer);
 
 
@@ -103,20 +103,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		private void Velocity()
 		{
 
-			NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
-			float SphereRotation = projectile.ai[1];
+			NPC npc = Main.npc[(int)Projectile.ai[0]]; //Sets the npc that the Projectile is spawned and will orbit
+			float SphereRotation = Projectile.ai[1];
 
 			#region Positioning
 
-			if(projectile.frame < 22)
+			if (Projectile.frame < 22)
 			{
-				projectile.velocity *= 0.8f;
+				Projectile.velocity *= 0.8f;
 			}
-			else if(projectile.frame >= 22)
+			else if (Projectile.frame >= 22)
 			{
 				if (Veloc == false)//Making sure that this won't run more than once
 				{
-					projectile.velocity = new Vector2(1,0).RotatedBy(SphereRotation) * BlastVel;
+					Projectile.velocity = new Vector2(1, 0).RotatedBy(SphereRotation) * BlastVel;
 
 					Veloc = true;
 				}
@@ -129,13 +129,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 		{
 			if (Main.rand.NextFloat(2f) < 1f)
 			{
-				Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, DustID.GreenTorch, 0, 0, 0, default, 1);
+				Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, DustID.GreenTorch, 0, 0, 0, default, 1);
 			}
 		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			return this.DrawProjectileCentered(spriteBatch, lightColor);
+			return this.DrawProjectileCentered(Main.spriteBatch, lightColor);
 		}
 	}
 }

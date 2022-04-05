@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		// How many ticks it will orbit the npc.
 		private int OrbitTimer;
 
-		// The distance of the projectile from the npc that is spawned.
+		// The distance of the Projectile from the npc that is spawned.
 		private float Distance = 90;
 
 		// The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
@@ -25,21 +26,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spinning Fireball");
-			Main.projFrames[projectile.type] = 3;
+			Main.projFrames[Projectile.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = projectile.height = 48;
+			Projectile.width = Projectile.height = 48;
 
-			projectile.penetrate = 1;
-			projectile.timeLeft = 60 * 25;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 60 * 25;
 
-			projectile.ranged = true;
-			projectile.friendly = true;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
+			Projectile.friendly = true;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 
 			Orbit = false;
 		}
@@ -56,18 +56,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 			{
 				drawColor = Color.Red;
 			}
-			Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Fire, 0f, 0f, 0, drawColor, 0.8f);
+			Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Firefly, 0f, 0f, 0, drawColor, 0.8f);
 
-			NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
+			NPC npc = Main.npc[(int)Projectile.ai[0]]; //Sets the npc that the Projectile is spawned and will orbit
 
 			if (!npc.active)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			if (npc.life <= 0)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			if (Orbit == false)
@@ -75,7 +75,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 				// Again, networking compatibility.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					projectile.netUpdate = true;
+					Projectile.netUpdate = true;
 					OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
 				}
 
@@ -84,38 +84,38 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 			if (--OrbitTimer >= 0)
 			{
-				projectile.DoProjectile_OrbitPosition(npc.Center, Distance, MathHelper.PiOver2);
+				Projectile.DoProjectile_OrbitPosition(npc.Center, Distance, MathHelper.PiOver2);
 			}
 			else
 			{
 				if (!shoot)
 				{
-					projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the projectile.
-					projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
+					Projectile.velocity = Projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the Projectile.
+					Projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
 					shoot = true;
 				}
 			}
 
-			if (++projectile.frameCounter >= 6)
+			if (++Projectile.frameCounter >= 6)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame == 2)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame == 2)
 				{
-					projectile.frame = 0;
+					Projectile.frame = 0;
 				}
 			}
 
 			return (false);
 		}
+        public override bool PreDraw(ref Color lightColor)
+        {
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			Texture2D texture = Main.projectileTexture[projectile.type];
-
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 48, 48, 48), Color.White, projectile.rotation, new Vector2(24, 24), projectile.scale, SpriteEffects.None, 0);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 48, 48, 48), Color.White, Projectile.rotation, new Vector2(24, 24), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
 		}
+        
 
 		#region Networking
 

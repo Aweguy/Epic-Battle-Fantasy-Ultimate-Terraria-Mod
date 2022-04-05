@@ -3,6 +3,7 @@
 using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,23 +20,23 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 		public override void SetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 6;
+			Projectile.width = 6;
+			Projectile.height = 6;
 
-			projectile.penetrate = 8;
-			projectile.knockBack = 5f;
+			Projectile.penetrate = 8;
+			Projectile.knockBack = 5f;
 
-			projectile.ranged = true;
-			projectile.aiStyle = 2;
-			aiType = ProjectileID.ThrowingKnife;
-			projectile.penetrate = 1;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.aiStyle = 2;
+			AIType = ProjectileID.ThrowingKnife;
+			Projectile.penetrate = 1;
 
-			projectile.friendly = true;
-			projectile.scale = 0.5f;
-			drawOffsetX = -16;
+			Projectile.friendly = true;
+			Projectile.scale = 0.5f;
+			DrawOffsetX = -16;
 
-			drawOriginOffsetX = 8;
-			drawOriginOffsetY = -8;
+			DrawOriginOffsetX = 8;
+			DrawOriginOffsetY = -8;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -45,10 +46,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-			Main.PlaySound(2,(int)projectile.position.X,(int)projectile.position.Y,27,1,1); 
+			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+			SoundEngine.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,27,1,1); 
 
-			projectile.Kill();
+			Projectile.Kill();
 			return false;
 		}
 
@@ -58,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 			for (int i = 0; i <= 10; i++)
 			{
-				dust = Main.dust[Terraria.Dust.NewDust(projectile.Center, projectile.width, projectile.height, DustID.Glass, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
+				dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Glass, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
 			}
 		}
 	}

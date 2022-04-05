@@ -24,55 +24,55 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 		Projectile Father;
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[projectile.type] = 11;
+			Main.projFrames[Projectile.type] = 11;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
+			Projectile.width = 14;
+			Projectile.height = 14;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
 
-			projectile.knockBack = 7f;
-			projectile.light = 1f;
-			projectile.tileCollide = false;
+			Projectile.knockBack = 7f;
+			Projectile.light = 1f;
+			Projectile.tileCollide = false;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 
-			projectile.scale = 1.3f;
+			Projectile.scale = 1.3f;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			if(Father.localAI[0] <= 4f)
             {
 				
-				projectile.localAI[0] = Father.localAI[0];
-				projectile.localAI[0]++;
-				projectile.localAI[1]++;
-				if(projectile.localAI[1] <= 1)
+				Projectile.localAI[0] = Father.localAI[0];
+				Projectile.localAI[0]++;
+				Projectile.localAI[1]++;
+				if(Projectile.localAI[1] <= 1)
                 {
 					float rotation = Main.rand.NextFloat(360);
-					Vector2 Velocity = projectile.velocity.RotatedBy(rotation * 0.0174533f);
-					Projectile.NewProjectile(target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, projectile.knockBack, projectile.owner, target.whoAmI, projectile.whoAmI);
+					Vector2 Velocity = Projectile.velocity.RotatedBy(rotation * 0.0174533f);
+					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, Projectile.knockBack, Projectile.owner, target.whoAmI, Projectile.whoAmI);
 				}
 			}
 		}
 		public override void Kill(int timeLeft)
 		{
-			Vector2 DustPosition = projectile.position;
-			Vector2 DustOldVelocity = projectile.oldVelocity;
+			Vector2 DustPosition = Projectile.position;
+			Vector2 DustOldVelocity = Projectile.oldVelocity;
 			DustOldVelocity.Normalize();
 			DustPosition += DustOldVelocity * 16f;
 			for (int i = 0; i < 20; i++)
 			{
-				int Light = Dust.NewDust(DustPosition, projectile.width, projectile.height, DustID.AncientLight, 0f, 0f, 0, default(Color), 1f);
-				Main.dust[Light].position = (Main.dust[Light].position + projectile.Center) / 2f;
+				int Light = Dust.NewDust(DustPosition, Projectile.width, Projectile.height, DustID.AncientLight, 0f, 0f, 0, default(Color), 1f);
+				Main.dust[Light].position = (Main.dust[Light].position + Projectile.Center) / 2f;
 				Dust dust = Main.dust[Light];
-				dust.velocity += projectile.oldVelocity * 0.6f;
+				dust.velocity += Projectile.oldVelocity * 0.6f;
 				dust = Main.dust[Light];
 				dust.velocity *= 0.5f;
 				Main.dust[Light].noGravity = true;
@@ -80,9 +80,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			}
 		}
 
-		public override bool CanDamage() //If it's not fully form, do not damage
+		public override bool? CanDamage() //If it's not fully form, do not damage
 		{
-			if (projectile.frame == 4)
+			if (Projectile.frame == 4)
 			{
 				return true;
 			}
@@ -94,64 +94,64 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override bool PreAI()
 		{
-			NPC target = Main.npc[(int)projectile.ai[0]];
-			Father = Main.projectile[(int)projectile.ai[1]];
-			if (!DistanceSet)//Setting the distance of the projectile from the cursor
+			NPC target = Main.npc[(int)Projectile.ai[0]];
+			Father = Main.projectile[(int)Projectile.ai[1]];
+			if (!DistanceSet)//Setting the distance of the Projectile from the cursor
 			{
 
-				SpawnPosition = target.Center - Vector2.Normalize(projectile.velocity) * 80f;
+				SpawnPosition = target.Center - Vector2.Normalize(Projectile.velocity) * 80f;
 
 				SpawnDistanceFromTarget = Vector2.Distance(SpawnPosition, target.Center);
 				OldTargetPosition = target.Center;
 				DistanceSet = true;
-				MoveSpeed = projectile.velocity;
+				MoveSpeed = Projectile.velocity;
 			}
 
 			//Change the 5 to determine how much dust will spawn. lower for more, higher for less
 			if (Main.rand.Next(3) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.AncientLight);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.AncientLight);
 				Main.dust[dust].velocity.X *= 0.4f;
 			}
 
             #region animation and more
             if (!Stop)
             {
-				if (++projectile.frameCounter > 2)
+				if (++Projectile.frameCounter > 2)
 				{
-					projectile.frameCounter = 0;
+					Projectile.frameCounter = 0;
 
-					if (++projectile.frame <= 3)
+					if (++Projectile.frame <= 3)
 					{
-						projectile.velocity = Vector2.Zero;
+						Projectile.velocity = Vector2.Zero;
 					}
-					else if (projectile.frame == 4)
+					else if (Projectile.frame == 4)
 					{
-						projectile.velocity = MoveSpeed;
+						Projectile.velocity = MoveSpeed;
 						Stop = true;
 					}
-					else if (projectile.frame > 4)
+					else if (Projectile.frame > 4)
 					{
-						projectile.velocity = Vector2.Zero;
+						Projectile.velocity = Vector2.Zero;
 
-						if (projectile.frame == 11)
+						if (Projectile.frame == 11)
 						{
-							projectile.Kill();
+							Projectile.Kill();
 						}
 					}
 				}
 
 			}
 
-			if (Stop && Vector2.Distance(OldTargetPosition, projectile.Center) >= SpawnDistanceFromTarget * 2f)
+			if (Stop && Vector2.Distance(OldTargetPosition, Projectile.Center) >= SpawnDistanceFromTarget * 2f)
 			{
 				Stop = false;
 			}
 			#endregion
 
 			float velRotation = MoveSpeed.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 
 			return false;
 		}

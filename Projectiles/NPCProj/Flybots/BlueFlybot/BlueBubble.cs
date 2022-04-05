@@ -18,45 +18,44 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blue Bubble");
-			Main.projFrames[projectile.type] = 2;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.aiStyle = -1;
-			projectile.penetrate = -1;
-			projectile.ranged = true;
-			projectile.timeLeft = 60 * 7;
-			projectile.hostile = true;
-			projectile.tileCollide = false;
-			projectile.friendly = false;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.aiStyle = -1;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 60 * 7;
+			Projectile.hostile = true;
+			Projectile.tileCollide = false;
+			Projectile.friendly = false;
 		}
 
 		public override bool PreAI()
 		{
-			if (projectile.timeLeft > 60 * 4)
+			if (Projectile.timeLeft > 60 * 4)
 			{
-				projectile.velocity.X *= 0.99f;
-				projectile.velocity.Y -= 0.005f;
+				Projectile.velocity.X *= 0.99f;
+				Projectile.velocity.Y -= 0.005f;
 			}
-			else if(projectile.timeLeft < 60 * 4 && projectile.timeLeft > 5)
+			else if(Projectile.timeLeft < 60 * 4 && Projectile.timeLeft > 5)
 			{
-				projectile.velocity *= 0.95f;
+				Projectile.velocity *= 0.95f;
 			}
-			else if(projectile.timeLeft <= 5)
+			else if(Projectile.timeLeft <= 5)
 			{
                 if (!HasPopped)
                 {
 					for (int i = 0; i <= 20; i++)
 					{
-						Dust.NewDust(projectile.Center, 20, 20, ModContent.DustType<LittleBubble>(), 0, 0, 0, default, 1);
+						Dust.NewDust(Projectile.Center, 20, 20, ModContent.DustType<LittleBubble>(), 0, 0, 0, default, 1);
 					}
 					HasPopped = true;
 				}
-				projectile.velocity = Vector2.Zero;
-				projectile.frame = 1;
+				Projectile.velocity = Vector2.Zero;
+				Projectile.frame = 1;
 			}
 			return false;
 		}

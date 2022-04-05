@@ -10,25 +10,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[projectile.type] = 13;
+			Main.projFrames[Projectile.type] = 13;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 64;
-			projectile.height = 64;
-			projectile.aiStyle = -1;
+			Projectile.width = 64;
+			Projectile.height = 64;
+			Projectile.aiStyle = -1;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.magic = true;
-			projectile.knockBack = 1f;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.knockBack = 1f;
 
-			projectile.timeLeft = 100;
-			projectile.tileCollide = false;
+			Projectile.timeLeft = 100;
+			Projectile.tileCollide = false;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 
 		}
 
@@ -46,21 +46,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 			{
 				Dust dust;
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-				Vector2 position = projectile.position;
-				dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, new Color(255, 251, 0), 1.25f);
+				Vector2 position = Projectile.position;
+				dust = Dust.NewDustDirect(position, Projectile.width, Projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, new Color(255, 251, 0), 1.25f);
 			}
 
-			if (++projectile.frameCounter > 3)
+			if (++Projectile.frameCounter > 3)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 14)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= 14)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);

@@ -14,17 +14,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 		public override void SetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 6;
-			projectile.aiStyle = -1;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
-			projectile.timeLeft = 120;
+			Projectile.width = 6;
+			Projectile.height = 6;
+			Projectile.aiStyle = -1;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 120;
 			//drawOffsetX = -2;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
-			projectile.alpha = 100;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
+			Projectile.alpha = 100;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -34,9 +33,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 		public override void AI()
 		{
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 		}
 	}
 }

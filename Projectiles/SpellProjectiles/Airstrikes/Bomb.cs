@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using EpicBattleFantasyUltimate.HelperClasses;
+using Terraria.Audio;
 
 namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 {
@@ -26,22 +27,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
-			projectile.damage = 10;
-			projectile.knockBack = 1f;
-			projectile.tileCollide = true;
-			projectile.hide = true;
-			projectile.extraUpdates = 2;
-			drawOffsetX = -13;
-			drawOriginOffsetY = -4;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.damage = 10;
+			Projectile.knockBack = 1f;
+			Projectile.tileCollide = true;
+			Projectile.hide = true;
+			Projectile.extraUpdates = 2;
+			DrawOffsetX = -13;
+			DrawOriginOffsetY = -4;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -53,9 +54,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 		{
 			if (!HasGoneDown)
 			{
-				projectile.position += Vector2.Normalize(oldVelocity) * 15f;
-				projectile.velocity = Vector2.Zero;
-				projectile.timeLeft = 60;
+				Projectile.position += Vector2.Normalize(oldVelocity) * 15f;
+				Projectile.velocity = Vector2.Zero;
+				Projectile.timeLeft = 60;
 
 				HasGoneDown = true;
 			}
@@ -65,10 +66,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		public override bool PreAI()
 		{
-			if(projectile.timeLeft > 60)
+			if(Projectile.timeLeft > 60)
 			{
-				float velRotation = projectile.velocity.ToRotation();
-				projectile.rotation = velRotation;
+				float velRotation = Projectile.velocity.ToRotation();
+				Projectile.rotation = velRotation;
 			}
 
 			if (HasGoneDown)
@@ -79,7 +80,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 				{
 					if (ShakeLeft)
 					{
-						projectile.Center -= new Vector2(-2, 0);
+						Projectile.Center -= new Vector2(-2, 0);
 
 						ShakeLeft = false;
 						ShakeRight = true;
@@ -87,7 +88,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 					}
 					else if (ShakeRight)
 					{
-						projectile.Center -= new Vector2(2, 0);
+						Projectile.Center -= new Vector2(2, 0);
 
 						ShakeLeft = true;
 						ShakeRight = false;
@@ -95,7 +96,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 				}
 			}
 
-			if(projectile.timeLeft < 3)//Exploding after some time after hitting the ground
+			if(Projectile.timeLeft < 3)//Exploding after some time after hitting the ground
 			{
 				Explode();
 			}
@@ -105,24 +106,24 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		private void Explode()
 		{ 	
-			projectile.tileCollide = false;
+			Projectile.tileCollide = false;
 
-			projectile.position = projectile.Center;
+			Projectile.position = Projectile.Center;
 
 			if (!HasGottenBig)
 			{
-				projectile.width += 200;
-				projectile.height += 200;
+				Projectile.width += 200;
+				Projectile.height += 200;
 
 				HasGottenBig = true;
 			}
 
-			projectile.penetrate = -1;
-			projectile.Center = projectile.position;
+			Projectile.penetrate = -1;
+			Projectile.Center = Projectile.position;
 
 			if (FromNPC)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 		}
@@ -130,59 +131,56 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 		public override void Kill(int timeLeft)
 		{
 			// Play explosion sound
-			Main.PlaySound(SoundID.Item15, projectile.position);
+			SoundEngine.PlaySound(SoundID.Item15, Projectile.position);
 			// Smoke Dust spawn
 			for (int i = 0; i < 50; i++)
 			{
-				int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 0f, 0f, 100, default(Color), 2f);
+				int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[dustIndex].velocity *= 1.4f;
 			}
 			// Fire Dust spawn
 			for (int i = 0; i < 80; i++)
 			{
-				int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 3f);
+				int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Firefly, 0f, 0f, 100, default(Color), 3f);
 				Main.dust[dustIndex].noGravity = true;
 				Main.dust[dustIndex].velocity *= 5f;
-				dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Fire, 0f, 0f, 100, default(Color), 2f);
+				dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Firefly, 0f, 0f, 100, default(Color), 2f);
 				Main.dust[dustIndex].velocity *= 3f;
 			}
 			// Large Smoke Gore spawn
 			for (int g = 0; g < 2; g++)
 			{
-				int goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				int goreIndex = Gore.NewGore(new Vector2(Projectile.position.X + (float)(Projectile.width / 2) - 24f, Projectile.position.Y + (float)(Projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 				Main.gore[goreIndex].scale = 1.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				goreIndex = Gore.NewGore(new Vector2(Projectile.position.X + (float)(Projectile.width / 2) - 24f, Projectile.position.Y + (float)(Projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 				Main.gore[goreIndex].scale = 1.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				goreIndex = Gore.NewGore(new Vector2(Projectile.position.X + (float)(Projectile.width / 2) - 24f, Projectile.position.Y + (float)(Projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 				Main.gore[goreIndex].scale = 1.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				goreIndex = Gore.NewGore(new Vector2(Projectile.position.X + (float)(Projectile.width / 2) - 24f, Projectile.position.Y + (float)(Projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 				Main.gore[goreIndex].scale = 1.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
 			}
 		}
-
-		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
-		{
-			drawCacheProjsBehindNPCsAndTiles.Add(index);
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+			behindNPCsAndTiles.Add(index);
 		}
-
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			Texture2D texture = mod.GetTexture("Projectiles/SpellProjectiles/Airstrikes/Bomb_Glowmask");
+        public override void PostDraw(Color lightColor)
+        {
+			Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("Projectiles/SpellProjectiles/Airstrikes/Bomb_Glowmask");
 
 			if (HasGoneDown)
 			{
-				spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), new Color(255, 255, 255) * ((255 - GlowmaskOpacity) / 255f), projectile.rotation, texture.Size() / 2, projectile.scale, SpriteEffects.None, 0);
+				Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), new Color(255, 255, 255) * ((255 - GlowmaskOpacity) / 255f), Projectile.rotation, texture.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
 			}
 		}
-
 	}
 }

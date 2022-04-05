@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 {
-	public class MetalShot : ModProjectile
+    public class MetalShot : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,20 +15,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 		public override void SetDefaults()
 		{
-			projectile.width = 9;
-			projectile.height = 9;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
-			aiType = ProjectileID.Bullet;
-			projectile.timeLeft = 120;
-			drawOffsetX = -5;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
-			projectile.alpha = 50;
-			drawOffsetX = -5;
+			Projectile.width = 9;
+			Projectile.height = 9;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			AIType = ProjectileID.Bullet;
+			Projectile.timeLeft = 120;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
+			Projectile.alpha = 50;
+			DrawOffsetX = -5;
+			DrawOffsetX = -5;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -39,13 +38,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		public override void AI()
 		{
 			Dust dust;
-			dust = Dust.NewDustPerfect(projectile.position, 11, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
+			dust = Dust.NewDustPerfect(Projectile.position, 11, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 1f);
 			dust.noGravity = true;
 			dust.fadeIn = 0.1578947f;
 
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +12,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ruby Explosion");
-			Main.projFrames[projectile.type] = 8;
+			Main.projFrames[Projectile.type] = 8;
 		}
 
 		private int timer2 = 1;
@@ -21,17 +22,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 
 		public override void SetDefaults()
 		{
-			projectile.width = 64;
-			projectile.height = 64;
-			projectile.aiStyle = -1;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
-			projectile.friendly = false;
-			projectile.hostile = true;
-			projectile.alpha = 1;
-			baseWidth = projectile.width;
-			baseHeight = projectile.height;
-			projectile.scale = 1.5f;
+			Projectile.width = 64;
+			Projectile.height = 64;
+			Projectile.aiStyle = -1;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.alpha = 1;
+			baseWidth = Projectile.width;
+			baseHeight = Projectile.height;
+			Projectile.scale = 1.5f;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -41,7 +42,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 
 		public override void AI()
 		{
-			Vector2 oldSize = projectile.Size;
+			Vector2 oldSize = Projectile.Size;
 
 			timer2--;
 			shrink++;
@@ -49,48 +50,46 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 			{
 				if (shrink < 5)
 				{
-					projectile.scale += 0.1f;
+					Projectile.scale += 0.1f;
 
-					projectile.width = (int)(baseWidth * projectile.scale);
-					projectile.height = (int)(baseHeight * projectile.scale);
-					projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+					Projectile.width = (int)(baseWidth * Projectile.scale);
+					Projectile.height = (int)(baseHeight * Projectile.scale);
+					Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 
 					timer2 = 1;
 				}
 				else if (shrink >= 5)
 				{
-					projectile.scale -= 0.05f;
+					Projectile.scale -= 0.05f;
 
-					projectile.width = (int)(baseWidth * projectile.scale);
-					projectile.height = (int)(baseHeight * projectile.scale);
-					projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+					Projectile.width = (int)(baseWidth * Projectile.scale);
+					Projectile.height = (int)(baseHeight * Projectile.scale);
+					Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 
 					timer2 = 1;
 				}
 			}
 
-			if (++projectile.frameCounter >= 3)
+			if (++Projectile.frameCounter >= 3)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 7)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= 7)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			Texture2D texture = Main.projectileTexture[projectile.type];
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 64, 64, 64), Color.White, projectile.rotation, new Vector2(32, 32), projectile.scale, SpriteEffects.None, 0);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 64, 64, 64), Color.White, Projectile.rotation, new Vector2(32, 32), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
-
-			//return true;
 		}
 	}
 }

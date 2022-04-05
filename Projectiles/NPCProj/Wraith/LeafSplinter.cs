@@ -10,22 +10,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Leaf Splinter");
-			Main.projFrames[projectile.type] = 6;
+			Main.projFrames[Projectile.type] = 6;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 9;
-			projectile.height = 9;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
-			projectile.timeLeft = 600;
-			drawOffsetX = -2;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
+			Projectile.width = 9;
+			Projectile.height = 9;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 600;
+			DrawOffsetX = -2;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -35,16 +34,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 		public override void AI()
 		{
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 
-			if (++projectile.frameCounter >= 2)
+			if (++Projectile.frameCounter >= 2)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame == 6)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame == 6)
 				{
-					projectile.frame = 0;
+					Projectile.frame = 0;
 				}
 			}
 		}

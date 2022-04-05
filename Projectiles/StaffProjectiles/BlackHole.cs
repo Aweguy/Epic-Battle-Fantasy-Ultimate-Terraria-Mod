@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using EpicBattleFantasyUltimate.Buffs.Buffs;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 
 #endregion Using
 
@@ -27,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pulsar");
-			Main.projFrames[projectile.type] = 10;
+			Main.projFrames[Projectile.type] = 10;
 		}
 
 		private int baseWidth;
@@ -35,36 +36,36 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 128;
-			projectile.height = 128;
+			Projectile.width = 128;
+			Projectile.height = 128;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.magic = true;
-			projectile.knockBack = 1f;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.knockBack = 1f;
 
-			projectile.timeLeft = 60 * 100000;
-			projectile.tileCollide = false;
+			Projectile.timeLeft = 60 * 100000;
+			Projectile.tileCollide = false;
 
-			baseWidth = projectile.width;
-			baseHeight = projectile.height;
+			baseWidth = Projectile.width;
+			baseHeight = Projectile.height;
 		}
 
 		public override bool PreAI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
-			if (++projectile.frameCounter >= 5)//frame calculation for the animation
+			if (++Projectile.frameCounter >= 5)//frame calculation for the animation
 			{
-				projectile.frameCounter = 0;
+				Projectile.frameCounter = 0;
 
 				//Dust generation when it begins growing.
 
 				#region Start Dust
 
-				if (projectile.frame == 8)
+				if (Projectile.frame == 8)
 				{
-					Vector2 origin = new Vector2(projectile.Center.X, projectile.Center.Y);
+					Vector2 origin = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 
 					for (int i = 0; i < dustSpawnRate; i++)
 					{
@@ -80,7 +81,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 				#endregion Start Dust
 
-				if (++projectile.frame >= 10)
+				if (++Projectile.frame >= 10)
 				{
 					//passive dust spawning
 
@@ -92,13 +93,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 						drawColor = Color.Red;
 					}
 
-					Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, 0f, 0f, 0, drawColor, 1f);
+					Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 0, drawColor, 1f);
 
 					#endregion Dust Spawning
 
-					Vector2 oldSize = projectile.Size;
-					// In Multi Player (MP) This code only runs on the client of the projectile's owner, this is because it relies on mouse position, which isn't the same across all clients.
-					if (Main.myPlayer == projectile.owner && projectile.ai[0] == 0f)
+					Vector2 oldSize = Projectile.Size;
+					// In Multi Player (MP) This code only runs on the client of the Projectile's owner, this is because it relies on mouse position, which isn't the same across all clients.
+					if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 0f)
 					{
 						Movement(player);//The movement of the black hole
 
@@ -120,16 +121,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 							DustSucking();//Sucking dust
 						}
 						// If the player stops channeling, do something else.
-						else if (projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)//The damage when it ends
+						else if (Projectile.ai[0] == 0f || epicPlayer.LimitCurrent <= 0)//The damage when it ends
 						{
-							projectile.timeLeft = 1;
+							Projectile.timeLeft = 1;
 
 							Damage();//The method that calculates the damage
 						}
 					}
-					if (projectile.frame >= 16)
+					if (Projectile.frame >= 16)
 					{
-						projectile.frame = 10;
+						Projectile.frame = 10;
 					}
 				}
 			}
@@ -147,7 +148,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			}
 			else if (--DrainTimer <= 0 && player.GetModPlayer<EpicPlayer>().LimitCurrent <= 0)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 
 				DrainTimer = 60;
 			}
@@ -155,11 +156,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		//Movement of the black hole
 		private void Movement(Player player)
 		{
-			float maxDistance = 3f; // This also sets the maximun speed the projectile can reach while following the cursor.
-			Vector2 vectorToCursor = Main.MouseWorld - projectile.Center;
+			float maxDistance = 3f; // This also sets the maximun speed the Projectile can reach while following the cursor.
+			Vector2 vectorToCursor = Main.MouseWorld - Projectile.Center;
 			float distanceToCursor = vectorToCursor.Length();
 
-			// Here we can see that the speed of the projectile depends on the distance to the cursor.
+			// Here we can see that the speed of the Projectile depends on the distance to the cursor.
 			if (distanceToCursor > maxDistance)
 			{
 				distanceToCursor = maxDistance / distanceToCursor;
@@ -167,57 +168,57 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 			}
 
 			int velocityXBy1000 = (int)(vectorToCursor.X * 3f);
-			int oldVelocityXBy1000 = (int)(projectile.velocity.X * 3f);
+			int oldVelocityXBy1000 = (int)(Projectile.velocity.X * 3f);
 			int velocityYBy1000 = (int)(vectorToCursor.Y * 3f);
-			int oldVelocityYBy1000 = (int)(projectile.velocity.Y * 3f);
+			int oldVelocityYBy1000 = (int)(Projectile.velocity.Y * 3f);
 
-			// This code checks if the precious velocity of the projectile is different enough from its new velocity, and if it is, syncs it with the server and the other clients in MP.
+			// This code checks if the precious velocity of the Projectile is different enough from its new velocity, and if it is, syncs it with the server and the other clients in MP.
 			// We previously multiplied the speed by 1000, then casted it to int, this is to reduce its precision and prevent the speed from being synced too much.
 			if (velocityXBy1000 != oldVelocityXBy1000 || velocityYBy1000 != oldVelocityYBy1000)
 			{
-				projectile.netUpdate = true;
+				Projectile.netUpdate = true;
 			}
 
-			projectile.velocity = vectorToCursor;
+			Projectile.velocity = vectorToCursor;
 		}
 		//The growth rate of the black hole
 		private void Scaling(Player player, Vector2 oldSize)
 		{
 			if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
 			{
-				if (projectile.width <= 150)
+				if (Projectile.width <= 150)
 				{
-					projectile.scale += 0.2f;
+					Projectile.scale += 0.2f;
 				}
-				else if (projectile.width <= 325 && projectile.width > 150)
+				else if (Projectile.width <= 325 && Projectile.width > 150)
 				{
-					projectile.scale += 0.1f;
+					Projectile.scale += 0.1f;
 				}
 				else
 				{
-					projectile.scale += 0.05f;
+					Projectile.scale += 0.05f;
 				}
-				projectile.width = (int)(baseWidth * projectile.scale);
-				projectile.height = (int)(baseHeight * projectile.scale);
-				projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+				Projectile.width = (int)(baseWidth * Projectile.scale);
+				Projectile.height = (int)(baseHeight * Projectile.scale);
+				Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 			}
 			else
 			{
-				if (projectile.width <= 150)
+				if (Projectile.width <= 150)
 				{
-					projectile.scale += 0.1f;
+					Projectile.scale += 0.1f;
 				}
-				else if (projectile.width <= 325 && projectile.width > 150)
+				else if (Projectile.width <= 325 && Projectile.width > 150)
 				{
-					projectile.scale += 0.05f;
+					Projectile.scale += 0.05f;
 				}
 				else
 				{
-					projectile.scale += 0.025f;
+					Projectile.scale += 0.025f;
 				}
-				projectile.width = (int)(baseWidth * projectile.scale);
-				projectile.height = (int)(baseHeight * projectile.scale);
-				projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+				Projectile.width = (int)(baseWidth * Projectile.scale);
+				Projectile.height = (int)(baseHeight * Projectile.scale);
+				Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 			}
 		}
 		//NPC sucking
@@ -228,17 +229,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				NPC npc = Main.npc[i];
 				if (npc.active)
 				{
-					float between = Vector2.Distance(projectile.Center, npc.Center);//Calculating the distance
+					float between = Vector2.Distance(Projectile.Center, npc.Center);//Calculating the distance
 
 					if(between < 0.1f)
 					{
 						between = 0.1f;
 					}
-					gravMagnitude = (projectile.scale * 75) / between; //gravitaional pull equation
+					gravMagnitude = (Projectile.scale * 75) / between; //gravitaional pull equation
 
 					if (!npc.boss)
 					{
-						npc.velocity += npc.DirectionTo(projectile.Center) * gravMagnitude;//applying the gravitational pull force calculated above
+						npc.velocity += npc.DirectionTo(Projectile.Center) * gravMagnitude;//applying the gravitational pull force calculated above
 					}
 				}
 			}
@@ -248,18 +249,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 		{
 			if (player.active)
 			{
-				float between = Vector2.Distance(projectile.Center, player.Center);//Distance
+				float between = Vector2.Distance(Projectile.Center, player.Center);//Distance
 
 				if (between < 0.1f)
 				{
 					between = 0.1f;
 				}
-				if(between <= 50f * projectile.scale)
+				if(between <= 50f * Projectile.scale)
 				{
-					player.Hurt(PlayerDeathReason.ByCustomReason($"{player.name} was turned into particles!"), (int)(12 * projectile.scale), 0, true, false, false);// Damaging the player if too close to the black hole
+					player.Hurt(PlayerDeathReason.ByCustomReason($"{player.name} was turned into particles!"), (int)(12 * Projectile.scale), 0, true, false, false);// Damaging the player if too close to the black hole
 				}
-				gravMagnitude = (projectile.scale * 14) / between; //gravitaional pull equation
-				player.velocity += player.DirectionTo(projectile.Center) * gravMagnitude;//Final calculation
+				gravMagnitude = (Projectile.scale * 14) / between; //gravitaional pull equation
+				player.velocity += player.DirectionTo(Projectile.Center) * gravMagnitude;//Final calculation
 			}
 		}
 		//Gore Sucking
@@ -270,14 +271,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				Gore gore = Main.gore[i];
 				if (gore.active)
 				{
-					float between = Vector2.Distance(projectile.Center, gore.position);
+					float between = Vector2.Distance(Projectile.Center, gore.position);
 
 					if (between < 0.1f)
 					{
 						between = 0.1f;
 					}
-					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
-					gore.velocity -= Vector2.Normalize(gore.position - projectile.Center) * gravMagnitude;//Final Calculation
+					gravMagnitude = (Projectile.scale * 100) / between; //gravitaional pull equation
+					gore.velocity -= Vector2.Normalize(gore.position - Projectile.Center) * gravMagnitude;//Final Calculation
 				}
 			}
 		}
@@ -289,112 +290,112 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 				Dust dust = Main.dust[i];
 				if (dust.active)
 				{
-					float between = Vector2.Distance(projectile.Center, dust.position);
+					float between = Vector2.Distance(Projectile.Center, dust.position);
 
 					if (between < 0.1f)
 					{
 						between = 0.1f;
 					}
-					gravMagnitude = (projectile.scale * 100) / between; //gravitaional pull equation
-					dust.velocity -= Vector2.Normalize(dust.position - projectile.Center) * gravMagnitude;//Final Calculation
+					gravMagnitude = (Projectile.scale * 100) / between; //gravitaional pull equation
+					dust.velocity -= Vector2.Normalize(dust.position - Projectile.Center) * gravMagnitude;//Final Calculation
 				}
 			}
 		}
 		//Damage after it blows up
 		private void Damage()
 		{
-			projectile.tileCollide = false;
-			// Set to transparent. This projectile technically lives as  transparent for about 3 frames
-			// change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
-			projectile.position = projectile.Center;
-			//projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-			//projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-			if (projectile.width <= 150)
+			Projectile.tileCollide = false;
+			// Set to transparent. This Projectile technically lives as  transparent for about 3 frames
+			// change the hitbox size, centered about the original Projectile center. This makes the Projectile damage enemies during the explosion.
+			Projectile.position = Projectile.Center;
+			//Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+			if (Projectile.width <= 150)
 			{
-				projectile.width += 80;
-				projectile.height += 80;
-				projectile.damage = (80 + projectile.width) * 3;
+				Projectile.width += 80;
+				Projectile.height += 80;
+				Projectile.damage = (80 + Projectile.width) * 3;
 			}
-			else if (projectile.width <= 325 && projectile.width > 150)
+			else if (Projectile.width <= 325 && Projectile.width > 150)
 			{
-				projectile.width += 220;
-				projectile.height += 220;
-				projectile.damage = (220 + projectile.width) * 4;
+				Projectile.width += 220;
+				Projectile.height += 220;
+				Projectile.damage = (220 + Projectile.width) * 4;
 			}
 			else
 			{
-				projectile.width += 500;
-				projectile.height += 500;
-				projectile.damage = (700 + projectile.width) * 5;
+				Projectile.width += 500;
+				Projectile.height += 500;
+				Projectile.damage = (700 + Projectile.width) * 5;
 			}
-			projectile.Center = projectile.position;
-			//projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-			//projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+			Projectile.Center = Projectile.position;
+			//Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+			//Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 		}
-		//The dust when the projectile dies
+		//The dust when the Projectile dies
 		public override void Kill(int timeLeft)
 		{
 			
-			if (projectile.width <= 150)
+			if (Projectile.width <= 150)
 			{
 				for (int i = 0; i < 25; i++)
 				{
-					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1f);
+					int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1f);
 					Main.dust[dustIndex].noGravity = true;
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
-					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 1.25f);
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
+					dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 1.25f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
 				}
 			}
-			else if (projectile.width <= 325 && projectile.width > 150)
+			else if (Projectile.width <= 325 && Projectile.width > 150)
 			{
 				for (int i = 0; i < 50; i++)
 				{
-					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1.5f);
+					int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 1.5f);
 					Main.dust[dustIndex].noGravity = true;
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
-					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2f);
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
+					dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
 				}
 			}
 			else
 			{
 				for (int i = 0; i < 200; i++)
 				{
-					int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 2f);
+					int dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Red, 2f);
 					Main.dust[dustIndex].noGravity = true;
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
-					dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2.5f);
-					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - projectile.Center) * 10;
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
+					dustIndex = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 1f, 1f, 0, Color.Black, 2.5f);
+					Main.dust[dustIndex].velocity += Vector2.Normalize(Main.dust[dustIndex].position - Projectile.Center) * 10;
 				}
 			}
 
 			// Large Smoke Gore spawn
 			// reset size to normal width and height.
-			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+			Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+			Projectile.width = 10;
+			Projectile.height = 10;
+			Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+			Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 		}
-		//Code for making thte projectile animate while its position is centered
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		//Code for making thte Projectile animate while its position is centered
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D texture = Main.projectileTexture[projectile.type];
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
 			// This is where the magic happens.
 			int frameWidth = texture.Width / 2;
-			int frameHeight = texture.Height / Main.projFrames[projectile.type];
+			int frameHeight = texture.Height / Main.projFrames[Projectile.type];
 
-			int frameX = (int)(projectile.frame / Main.projFrames[projectile.type]) * frameWidth;
-			int frameY = (projectile.frame % Main.projFrames[projectile.type]) * frameHeight;
+			int frameX = (int)(Projectile.frame / Main.projFrames[Projectile.type]) * frameWidth;
+			int frameY = (Projectile.frame % Main.projFrames[Projectile.type]) * frameHeight;
 			Rectangle frame = new Rectangle(frameX, frameY, frameWidth, frameHeight);
 			// This is where the magic stops :(
 
 			Vector2 origin = frame.Size() / 2;
 
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, frame, lightColor, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, frame, lightColor, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
 
 			// Do not allow vanilla drawing code to execute.
 			return (false);

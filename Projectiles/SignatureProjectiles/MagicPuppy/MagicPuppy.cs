@@ -12,19 +12,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magic Puppy");
-            Main.projFrames[projectile.type] = 9;
+            Main.projFrames[Projectile.type] = 9;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 38;
-            projectile.height = 28;
-            projectile.aiStyle = ProjectileID.MiniMinotaur;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
-            projectile.tileCollide = true;
+            Projectile.width = 38;
+            Projectile.height = 28;
+            Projectile.aiStyle = ProjectileID.MiniMinotaur;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.damage = 0;
+            Projectile.knockBack = 1f;
+            Projectile.tileCollide = true;
 			aiType = 398;
         }
 
@@ -35,14 +35,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 
         public override bool PreAI()
         {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			return true;
 		}
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			EpicPlayer modPlayer = player.GetModPlayer<EpicPlayer>();
 
@@ -52,125 +52,125 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.MagicPuppy
 			}
 			if (modPlayer.MagicPuppyBuff)
 			{
-				projectile.timeLeft = 2;
+				Projectile.timeLeft = 2;
 
-				if ((double)projectile.velocity.X > 0.5)
+				if ((double)Projectile.velocity.X > 0.5)
 				{
-					projectile.spriteDirection = 1;
+					Projectile.spriteDirection = 1;
 				}
-				else if ((double)projectile.velocity.X < -0.5)
+				else if ((double)Projectile.velocity.X < -0.5)
 				{
-					projectile.spriteDirection = -1;
+					Projectile.spriteDirection = -1;
 				}
 
-				projectile.spriteDirection = projectile.direction;
+				Projectile.spriteDirection = Projectile.direction;
 
-				if (projectile.ai[1] > 0f)
+				if (Projectile.ai[1] > 0f)
 				{
-					if (projectile.localAI[1] == 0f)
+					if (Projectile.localAI[1] == 0f)
 					{
-						projectile.localAI[1] = 1f;
-						projectile.frame = 1;
+						Projectile.localAI[1] = 1f;
+						Projectile.frame = 1;
 					}
-					if (projectile.frame != 0)
+					if (Projectile.frame != 0)
 					{
-						projectile.frameCounter++;
-						if (projectile.frameCounter > 4)
+						Projectile.frameCounter++;
+						if (Projectile.frameCounter > 4)
 						{
-							projectile.frame++;
-							projectile.frameCounter = 0;
+							Projectile.frame++;
+							Projectile.frameCounter = 0;
 						}
-						if (projectile.frame == 4)
+						if (Projectile.frame == 4)
 						{
-							projectile.frame = 0;
+							Projectile.frame = 0;
 						}
 					}
 				}
-				else if (projectile.velocity.Y == 0f)
+				else if (Projectile.velocity.Y == 0f)
 				{
-					projectile.localAI[1] = 0f;
-					if (projectile.velocity.X == 0f)
+					Projectile.localAI[1] = 0f;
+					if (Projectile.velocity.X == 0f)
 					{
-						projectile.frame = 0;
-						projectile.frameCounter = 0;
+						Projectile.frame = 0;
+						Projectile.frameCounter = 0;
 					}
-					else if ((double)projectile.velocity.X < -0.8 || (double)projectile.velocity.X > 0.8)
+					else if ((double)Projectile.velocity.X < -0.8 || (double)Projectile.velocity.X > 0.8)
 					{
-						projectile.frameCounter += (int)Math.Abs(projectile.velocity.X);
-						projectile.frameCounter++;
-						if (projectile.frameCounter > 6)
+						Projectile.frameCounter += (int)Math.Abs(Projectile.velocity.X);
+						Projectile.frameCounter++;
+						if (Projectile.frameCounter > 6)
 						{
-							projectile.frame++;
-							projectile.frameCounter = 0;
+							Projectile.frame++;
+							Projectile.frameCounter = 0;
 						}
-						if (projectile.frame < 5)
+						if (Projectile.frame < 5)
 						{
-							projectile.frame = 5;
+							Projectile.frame = 5;
 						}
-						if (projectile.frame >= 11)
+						if (Projectile.frame >= 11)
 						{
-							projectile.frame = 5;
+							Projectile.frame = 5;
 						}
 					}
 					else
 					{
-						projectile.frame = 0;
-						projectile.frameCounter = 0;
+						Projectile.frame = 0;
+						Projectile.frameCounter = 0;
 					}
 				}
-				else if (projectile.velocity.Y < 0f)
+				else if (Projectile.velocity.Y < 0f)
 				{
-					projectile.frameCounter = 0;
-					projectile.frame = 4;
+					Projectile.frameCounter = 0;
+					Projectile.frame = 4;
 				}
-				else if (projectile.velocity.Y > 0f)
+				else if (Projectile.velocity.Y > 0f)
 				{
-					projectile.frameCounter = 0;
-					projectile.frame = 4;
+					Projectile.frameCounter = 0;
+					Projectile.frame = 4;
 				}
-				projectile.velocity.Y = projectile.velocity.Y + 0.4f;
-				if (projectile.velocity.Y > 10f)
+				Projectile.velocity.Y = Projectile.velocity.Y + 0.4f;
+				if (Projectile.velocity.Y > 10f)
 				{
-					projectile.velocity.Y = 10f;
+					Projectile.velocity.Y = 10f;
 				}
-				Vector2 velocity = projectile.velocity;
+				Vector2 velocity = Projectile.velocity;
 
-				if (projectile.velocity.Y == 0f)
+				if (Projectile.velocity.Y == 0f)
 				{
-					if (projectile.velocity.X == 0f)
+					if (Projectile.velocity.X == 0f)
 					{
-						projectile.frame = 0;
-						projectile.frameCounter = 0;
+						Projectile.frame = 0;
+						Projectile.frameCounter = 0;
 					}
-					else if ((double)projectile.velocity.X < -0.8 || (double)projectile.velocity.X > 0.8)
+					else if ((double)Projectile.velocity.X < -0.8 || (double)Projectile.velocity.X > 0.8)
 					{
-						projectile.frameCounter += (int)Math.Abs(projectile.velocity.X);
-						projectile.frameCounter++;
-						if (projectile.frameCounter > 6)
+						Projectile.frameCounter += (int)Math.Abs(Projectile.velocity.X);
+						Projectile.frameCounter++;
+						if (Projectile.frameCounter > 6)
 						{
-							projectile.frame++;
-							projectile.frameCounter = 0;
+							Projectile.frame++;
+							Projectile.frameCounter = 0;
 						}
-						if (projectile.frame >= 5)
+						if (Projectile.frame >= 5)
 						{
-							projectile.frame = 0;
+							Projectile.frame = 0;
 						}
 					}
 					else
 					{
-						projectile.frame = 0;
-						projectile.frameCounter = 0;
+						Projectile.frame = 0;
+						Projectile.frameCounter = 0;
 					}
 				}
-				else if (projectile.velocity.Y != 0f)
+				else if (Projectile.velocity.Y != 0f)
 				{
-					projectile.frameCounter = 0;
-					projectile.frame = 5;
+					Projectile.frameCounter = 0;
+					Projectile.frame = 5;
 				}
-				projectile.velocity.Y = projectile.velocity.Y + 0.4f;
-				if (projectile.velocity.Y > 10f)
+				Projectile.velocity.Y = Projectile.velocity.Y + 0.4f;
+				if (Projectile.velocity.Y > 10f)
 				{
-					projectile.velocity.Y = 10f;
+					Projectile.velocity.Y = 10f;
 				}
 			}
 		}

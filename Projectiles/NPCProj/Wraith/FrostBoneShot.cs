@@ -14,19 +14,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void SetDefaults()
         {
-            projectile.width = 18;
-            projectile.height = 18;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.ranged = true;
-            aiType = ProjectileID.Bullet;
-            projectile.timeLeft = 120;
-            drawOffsetX = -2;
-            projectile.hostile = true;
-            projectile.friendly = false;
-            projectile.tileCollide = false;
-            projectile.alpha = 100;
+            Projectile.width = 18;
+            Projectile.height = 18;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            AIType = ProjectileID.Bullet;
+            Projectile.timeLeft = 120;
+            DrawOffsetX = -2;
+            Projectile.hostile = true;
+            Projectile.friendly = false;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 100;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -36,11 +35,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         public override void AI()
         {
-            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.FrostHydra, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
+            Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.FrostHydra, 0f, 0f, 0, new Color(0, 255, 142), 0.4605263f);
 
-            float velRotation = projectile.velocity.ToRotation();
-            projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-            projectile.spriteDirection = projectile.direction;
+            float velRotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
         }
     }
 }

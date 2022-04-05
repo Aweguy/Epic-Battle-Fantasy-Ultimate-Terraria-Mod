@@ -15,71 +15,71 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[projectile.type] = 3;
+			Main.projFrames[Projectile.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 12;
-			projectile.height = 12;
+			Projectile.width = 12;
+			Projectile.height = 12;
 
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 100;
-			projectile.melee = true;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 100;
+			Projectile.DamageType = DamageClass.Melee;
 
-			projectile.knockBack = 7f;
+			Projectile.knockBack = 7f;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 		}
 
 		public override void AI()
 		{
-			projectile.tileCollide = true;
+			Projectile.tileCollide = true;
 			float velXMult = 1f;
-			projectile.velocity.X *= velXMult;
+			Projectile.velocity.X *= velXMult;
 
-			projectile.ai[0]++;
-			if (projectile.ai[0] == 30)
+			Projectile.ai[0]++;
+			if (Projectile.ai[0] == 30)
 			{
-				projectile.frame = 1;
-				projectile.velocity *= 4.3f;
+				Projectile.frame = 1;
+				Projectile.velocity *= 4.3f;
 			}
-			else if(projectile.ai[0] > 30)
+			else if(Projectile.ai[0] > 30)
 			{
-				if(++projectile.frameCounter >= 3)
+				if(++Projectile.frameCounter >= 3)
 				{
-					projectile.frame++;
-					if(projectile.frame > 2)
+					Projectile.frame++;
+					if(Projectile.frame > 2)
 					{
-						projectile.frame = 1;
+						Projectile.frame = 1;
 					}
 					DustAI();
-					Lighting.AddLight(projectile.Center, new Vector3(255, 165, 0)/255f);//Orange lighting coming from the center of the projectile.
+					Lighting.AddLight(Projectile.Center, new Vector3(255, 165, 0)/255f);//Orange lighting coming from the center of the Projectile.
 				}
 				Homing();
 			}
 			else
 			{
-				projectile.frame = 0;
+				Projectile.frame = 0;
 			}
 
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+			Projectile.spriteDirection = Projectile.direction;
 		}
 
 		private void DustAI()
 		{
 			for (int i = 0; i <= 2; i++)
 			{
-				Dust.NewDust(projectile.position, projectile.width / 2, projectile.height / 2, DustID.Fire);
+				Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height / 2, DustID.Firefly);
 			}
 		}
 		private void Homing()
@@ -88,20 +88,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			Vector2 possiblePrey;
 			float distance;
 			float maxDistance = 500f;
-			float chaseDirection = projectile.velocity.ToRotation();
+			float chaseDirection = Projectile.velocity.ToRotation();
 
 			possiblePrey = Main.MouseWorld;
-			distance = (Main.MouseWorld - projectile.Center).Length();
+			distance = (Main.MouseWorld - Projectile.Center).Length();
 
-				if (distance < maxDistance || !projectile.tileCollide)
+				if (distance < maxDistance || !Projectile.tileCollide)
 				{
 					prey = Main.MouseWorld;
 
-					chaseDirection = (projectile.Center - Main.MouseWorld).ToRotation() - (float)Math.PI;
-					maxDistance = (Main.MouseWorld - projectile.Center).Length();
+					chaseDirection = (Projectile.Center - Main.MouseWorld).ToRotation() - (float)Math.PI;
+					maxDistance = (Main.MouseWorld - Projectile.Center).Length();
 				}
-			float trueSpeed = projectile.velocity.Length();
-			float actDirection = projectile.velocity.ToRotation();
+			float trueSpeed = Projectile.velocity.Length();
+			float actDirection = Projectile.velocity.ToRotation();
 			int f = 1;
 
 			chaseDirection = new Vector2((float)Math.Cos(chaseDirection), (float)Math.Sin(chaseDirection)).ToRotation();
@@ -127,10 +127,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 				actDirection -= MathHelper.ToRadians(1) * f;
 			}
 			actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
-			projectile.velocity.X = (float)Math.Cos(actDirection) * trueSpeed;
-			projectile.velocity.Y = (float)Math.Sin(actDirection) * trueSpeed;
-			projectile.rotation = actDirection + (float)Math.PI / 3;
-			actDirection = projectile.velocity.ToRotation();
+			Projectile.velocity.X = (float)Math.Cos(actDirection) * trueSpeed;
+			Projectile.velocity.Y = (float)Math.Sin(actDirection) * trueSpeed;
+			Projectile.rotation = actDirection + (float)Math.PI / 3;
+			actDirection = Projectile.velocity.ToRotation();
 
 		}
 	}

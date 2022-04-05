@@ -10,28 +10,27 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 	public class SpinIcicle : ModProjectile
 	{
 		private int OrbitTimer;//How many ticks it will orbit the player
-		private float Distance = 240;//The distance of the projectile from the player target.
+		private float Distance = 240;//The distance of the Projectile from the player target.
 		private bool shoot = false;//The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
 		private bool Orbit = false;//Decides how many ticks each icicle will orbit the player.
 		private bool Frame = false;//The bool that determines the texture of the icicle
 
 		public override void SetStaticDefaults()
 		{
-			Main.projFrames[projectile.type] = 4;
+			Main.projFrames[Projectile.type] = 4;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 5;
-			projectile.height = 5;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged = true;
-			projectile.timeLeft = 60 * 25;
-			projectile.hostile = true;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
+			Projectile.width = 5;
+			Projectile.height = 5;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 60 * 25;
+			Projectile.hostile = true;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -47,16 +46,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 				drawColor = Color.Red;
 			}
 
-			NPC npc = Main.npc[(int)projectile.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
+			NPC npc = Main.npc[(int)Projectile.ai[0]]; //Sets the npc that the Projectile is spawned and will orbit
 
 			if (!npc.active)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			if (npc.life <= 0)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			if (Orbit == false)
@@ -64,7 +63,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 				// Again, networking compatibility.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					projectile.netUpdate = true;
+					Projectile.netUpdate = true;
 					OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
 				}
 
@@ -73,15 +72,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
 			if (--OrbitTimer >= 0)
 			{
-				projectile.DoProjectile_OrbitPosition(Main.player[npc.target].Center, Distance, MathHelper.PiOver2);
-				projectile.rotation = (projectile.Center - Main.player[npc.target].Center).ToRotation();
+				Projectile.DoProjectile_OrbitPosition(Main.player[npc.target].Center, Distance, MathHelper.PiOver2);
+				Projectile.rotation = (Projectile.Center - Main.player[npc.target].Center).ToRotation();
 			}
 			else
 			{
 				if (!shoot)
 				{
-					projectile.velocity = projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the projectile.
-					projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
+					Projectile.velocity = Projectile.DirectionTo(Main.player[npc.target].Center) * 10f;//sets the velocity of the Projectile.
+					Projectile.netUpdate = true; // Eldrazi: Multiplayer compatibility.
 					shoot = true;
 				}
 			}
@@ -99,7 +98,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 		{
 			if (!Frame)
 			{
-				projectile.frame = Main.rand.Next(0, 3);
+				Projectile.frame = Main.rand.Next(0, 3);
 
 				Frame = true;
 			}
@@ -107,9 +106,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 
         /*public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Texture2D texture = Main.projectileTexture[projectile.type];
+			Texture2D texture = Main.ProjectileTexture[Projectile.type];
 
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 48, 48, 48), Color.White, projectile.rotation, new Vector2(24, 24), projectile.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 48, 48, 48), Color.White, Projectile.rotation, new Vector2(24, 24), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
 		}*/

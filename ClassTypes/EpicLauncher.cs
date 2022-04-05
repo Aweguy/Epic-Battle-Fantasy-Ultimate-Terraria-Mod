@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Items.Ammo.Shots;
+﻿using EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs;
+using EpicBattleFantasyUltimate.Items.Ammo.Shots;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,8 +9,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
 	public abstract class EpicLauncher : ModItem
 	{
-		public override bool CloneNewInstances => true;
-
 		public virtual void SetSafeDefaults()
 		{
 		}
@@ -18,14 +17,14 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			SetSafeDefaults();
 
-			item.shoot = ProjectileID.PurificationPowder;
-			item.useAmmo = ItemType<Shot>();
-			item.useStyle = ItemUseStyleID.HoldingOut;
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.useAmmo = ItemType<Shot>();
+			Item.useStyle = ItemUseStyleID.Shoot;
 		}
 
 		public override bool CanUseItem(Player player)
 		{
-			int buff = mod.BuffType("Overheat");
+			int buff = ModContent.BuffType<Overheat>();
 			return !player.HasBuff(buff);
 		}
 	}

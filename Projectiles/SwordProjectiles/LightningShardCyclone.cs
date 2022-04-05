@@ -29,14 +29,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override void SetDefaults()
 		{
-			projectile.Size = new Vector2(104, 116);
-			projectile.friendly = true;
+			Projectile.Size = new Vector2(104, 116);
+			Projectile.friendly = true;
 
-			projectile.melee = true;
-			projectile.maxPenetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.maxPenetrate = -1;
 
-			projectile.tileCollide = false;
-			projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = -1;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -46,7 +46,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override void AI()
 		{
-			float between = Vector2.Distance(Main.player[projectile.owner].Center, projectile.Center);
+			float between = Vector2.Distance(Main.player[Projectile.owner].Center, Projectile.Center);
 
 			bool Return = between > returnDistance;
 
@@ -57,31 +57,31 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 			if (stay && timer > 0 && !Return)
 			{
-				projectile.velocity = Vector2.Zero;
+				Projectile.velocity = Vector2.Zero;
 				timer--;
-				projectile.ai[1] += 1f;
+				Projectile.ai[1] += 1f;
 			}
 			// JUST THROWN
-			else if (projectile.ai[0] == 0f)
+			else if (Projectile.ai[0] == 0f)
 			{
 				// INCREASE COUNTER
-				projectile.ai[1] += 1f;
-				projectile.velocity *= 0.96f;
+				Projectile.ai[1] += 1f;
+				Projectile.velocity *= 0.96f;
 				// CHANGE DIRECTION BASED ON VELOCITY
-				if (projectile.velocity.X > 0f)
+				if (Projectile.velocity.X > 0f)
 				{
-					projectile.spriteDirection = 1;
+					Projectile.spriteDirection = 1;
 				}
 				else
 				{
-					projectile.spriteDirection = -1;
+					Projectile.spriteDirection = -1;
 				}
 				// AFTER THE COUNTER HITS 50 START RETURN
-				if (projectile.ai[1] >= 50f)
+				if (Projectile.ai[1] >= 50f)
 				{
-					projectile.ai[0] = 1f;
-					projectile.ai[1] = 0f;
-					projectile.netUpdate = true;
+					Projectile.ai[0] = 1f;
+					Projectile.ai[1] = 0f;
+					Projectile.netUpdate = true;
 				}
 			}
 			else if (check) // RETURNING CODE
@@ -89,13 +89,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 				// SOMETHING TO DO WITH SPEED?
 
 				// POSITION STUFF
-				Vector2 vector63 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-				float ownerX = Main.player[projectile.owner].position.X + (float)(Main.player[projectile.owner].width / 2) - vector63.X;
-				float ownerY = Main.player[projectile.owner].position.Y + (float)(Main.player[projectile.owner].height / 2) - vector63.Y;
+				Vector2 vector63 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
+				float ownerX = Main.player[Projectile.owner].position.X + (float)(Main.player[Projectile.owner].width / 2) - vector63.X;
+				float ownerY = Main.player[Projectile.owner].position.Y + (float)(Main.player[Projectile.owner].height / 2) - vector63.Y;
 				float ownerRoot = (float)Math.Sqrt(ownerX * ownerX + ownerY * ownerY);
 				if (ownerRoot > 3000f)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 				num601 += 0.20f;
 				returnVel += 0.048f;
@@ -106,52 +106,52 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 				// HANDLE RETURN VELOCITY
 				// X
-				if (projectile.velocity.X < ownerX)
+				if (Projectile.velocity.X < ownerX)
 				{
-					projectile.velocity.X = projectile.velocity.X + returnVel;
-					if (projectile.velocity.X < 0f && ownerX > 0f)
+					Projectile.velocity.X = Projectile.velocity.X + returnVel;
+					if (Projectile.velocity.X < 0f && ownerX > 0f)
 					{
-						projectile.velocity.X = projectile.velocity.X + returnVel;
+						Projectile.velocity.X = Projectile.velocity.X + returnVel;
 					}
 				}
-				else if (projectile.velocity.X > ownerX)
+				else if (Projectile.velocity.X > ownerX)
 				{
-					projectile.velocity.X = projectile.velocity.X - returnVel;
-					if (projectile.velocity.X > 0f && ownerX < 0f)
+					Projectile.velocity.X = Projectile.velocity.X - returnVel;
+					if (Projectile.velocity.X > 0f && ownerX < 0f)
 					{
-						projectile.velocity.X = projectile.velocity.X - returnVel;
+						Projectile.velocity.X = Projectile.velocity.X - returnVel;
 					}
 				}
 				// Y
-				if (projectile.velocity.Y < ownerY)
+				if (Projectile.velocity.Y < ownerY)
 				{
-					projectile.velocity.Y = projectile.velocity.Y + returnVel;
-					if (projectile.velocity.Y < 0f && ownerY > 0f)
+					Projectile.velocity.Y = Projectile.velocity.Y + returnVel;
+					if (Projectile.velocity.Y < 0f && ownerY > 0f)
 					{
-						projectile.velocity.Y = projectile.velocity.Y + returnVel;
+						Projectile.velocity.Y = Projectile.velocity.Y + returnVel;
 					}
 				}
-				else if (projectile.velocity.Y > ownerY)
+				else if (Projectile.velocity.Y > ownerY)
 				{
-					projectile.velocity.Y = projectile.velocity.Y - returnVel;
-					if (projectile.velocity.Y > 0f && ownerY < 0f)
+					Projectile.velocity.Y = Projectile.velocity.Y - returnVel;
+					if (Projectile.velocity.Y > 0f && ownerY < 0f)
 					{
-						projectile.velocity.Y = projectile.velocity.Y - returnVel;
+						Projectile.velocity.Y = Projectile.velocity.Y - returnVel;
 					}
 				}
 				// CHECK IF COLLIDE WITH OWNER
-				if (Main.myPlayer == projectile.owner)
+				if (Main.myPlayer == Projectile.owner)
 				{
-					Rectangle rect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
-					Rectangle value12 = new Rectangle((int)Main.player[projectile.owner].position.X, (int)Main.player[projectile.owner].position.Y, Main.player[projectile.owner].width, Main.player[projectile.owner].height);
+					Rectangle rect = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
+					Rectangle value12 = new Rectangle((int)Main.player[Projectile.owner].position.X, (int)Main.player[Projectile.owner].position.Y, Main.player[Projectile.owner].width, Main.player[Projectile.owner].height);
 					if (rect.Intersects(value12))
 					{
-						projectile.Kill();
+						Projectile.Kill();
 					}
 				}
 			}
 			// ROTATION CODE
-			projectile.rotation += 0.4f;
+			Projectile.rotation += 0.4f;
 		}
 	}
 }
