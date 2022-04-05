@@ -23,21 +23,21 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 
         public override void SetDefaults()
         {
-			item.damage = 40;
-			item.noMelee = true;
-			item.magic = true;
-			item.channel = true; //Channel so that you can hold the weapon [Important]
-			item.mana = 5;
-			item.rare = ItemRarityID.Pink;
-			item.width = 28;
-			item.height = 30;
-			item.useTime = 20;
-			item.UseSound = SoundID.Item13;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.shootSpeed = 14f;
-			item.useAnimation = 20;
-			item.shoot = ModContent.ProjectileType<JudiBeam>();
-			item.value = Item.sellPrice(silver: 3);
+			Item.damage = 40;
+			Item.noMelee = true;
+			Item.DamageType = DamageClass.Magic;
+			Item.channel = true; //Channel so that you can hold the weapon [Important]
+			Item.mana = 5;
+			Item.rare = ItemRarityID.Pink;
+			Item.width = 28;
+			Item.height = 30;
+			Item.useTime = 20;
+			Item.UseSound = SoundID.Item13;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.shootSpeed = 14f;
+			Item.useAnimation = 20;
+			Item.shoot = ModContent.ProjectileType<JudiBeam>();
+			Item.value = Item.sellPrice(silver: 3);
 		}
     }
 }

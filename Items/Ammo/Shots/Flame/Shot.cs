@@ -15,16 +15,16 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 
 		public override void SetDefaults()
 		{
-			item.damage = 5;
-			item.ranged = true;
-			item.width = 12;
-			item.height = 12;
-			item.maxStack = 1;
-			item.value = 1000;
-			item.rare = ItemRarityID.LightRed;
-			item.shoot = ModContent.ProjectileType<FlameShot>();
-			item.shootSpeed = 8f;
-			item.ammo = item.type;
+			Item.damage = 5;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 12;
+			Item.height = 12;
+			Item.maxStack = 1;
+			Item.value = 1000;
+			Item.rare = ItemRarityID.LightRed;
+			Item.shoot = ModContent.ProjectileType<FlameShot>();
+			Item.shootSpeed = 8f;
+			Item.ammo = Item.type;
 		}
 
 	}

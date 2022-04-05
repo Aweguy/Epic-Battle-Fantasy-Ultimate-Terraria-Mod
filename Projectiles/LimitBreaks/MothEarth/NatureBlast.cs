@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("NatureBlast");
-            Main.projFrames[projectile.type] = 24;
+            Main.projFrames[Projectile.type] = 24;
         }
 
         private Vector2 SpawnPosition;
@@ -28,37 +28,37 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         private float BlastVel = 5f;
         private bool Veloc = false;
 
-        public override bool CanDamage()
-    => projectile.frame >= 23;
+        public override bool? CanDamage()
+    => Projectile.frame >= 23;
 
         public override void SetDefaults()
         {
-            projectile.width = 0;
-            projectile.height = 0;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 60 * 10;
-            projectile.tileCollide = false;
-            projectile.magic = true;
+            Projectile.width = 0;
+            Projectile.height = 0;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 60 * 10;
+            Projectile.tileCollide = false;
+            Projectile.DamageType = DamageClass.Magic;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (projectile.frame >= 23)
+            if (Projectile.frame >= 23)
             {
-                if (projectile.tileCollide)
+                if (Projectile.tileCollide)
                 {
-                    Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+                    Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-                    if (projectile.velocity.X != oldVelocity.X)
+                    if (Projectile.velocity.X != oldVelocity.X)
                     {
-                        projectile.velocity.X = -oldVelocity.X;
+                        Projectile.velocity.X = -oldVelocity.X;
                     }
 
-                    if (projectile.velocity.Y != oldVelocity.Y)
+                    if (Projectile.velocity.Y != oldVelocity.Y)
                     {
-                        projectile.velocity.Y = -oldVelocity.Y;
+                        Projectile.velocity.Y = -oldVelocity.Y;
                     }
                 }
             }
@@ -67,25 +67,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 5) //reducing the frame timer
+            if (++Projectile.frameCounter >= 5) //reducing the frame timer
             {
-                projectile.frameCounter = 0; //resetting it
+                Projectile.frameCounter = 0; //resetting it
 
-                if (++projectile.frame >= 24) //Animation loop
+                if (++Projectile.frame >= 24) //Animation loop
                 {
-                    projectile.frame = 23;
+                    Projectile.frame = 23;
                 }
             }
 
-            if (projectile.frame < 23) //Positioning and shooting control
+            if (Projectile.frame < 23) //Positioning and shooting control
             {
                 Positioning();
             }
             else
             {
-                if (!Collision.SolidCollision(projectile.position, projectile.width, projectile.height) && collision == false)
+                if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height) && collision == false)
                 {
-                    projectile.tileCollide = true;
+                    Projectile.tileCollide = true;
 
                     collision = true;
                 }
@@ -106,7 +106,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             if (PositionCheck == false)
             {
-                origin = new Vector2(projectile.ai[0], projectile.ai[1]);
+                origin = new Vector2(Projectile.ai[0], Projectile.ai[1]);
 
                 rotation = Main.rand.NextFloat() * (float)Math.PI * 2; //random angle
 
@@ -121,15 +121,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
             #region Positioning
 
-            if (projectile.frame < 23)//While the projectile is forming it will stay on the screen position it spawned
+            if (Projectile.frame < 23)//While the Projectile is forming it will stay on the screen position it spawned
             {
-                projectile.position = CachedPosition + Main.screenPosition;
+                Projectile.position = CachedPosition + Main.screenPosition;
             }
             else
             {
                 if (Veloc == false)//Making sure that this won't run more than once
                 {
-                    projectile.velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * BlastVel;
+                    Projectile.velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * BlastVel;
 
                     Veloc = true;
                 }
@@ -142,7 +142,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         {
             if (Main.rand.NextFloat(2f) < 1f)
             {
-                Dust.NewDustDirect(projectile.Center, projectile.width, projectile.height, DustID.GreenTorch, 0, 0, 0, default, 1);
+                Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, DustID.GreenTorch, 0, 0, 0, default, 1);
             }
         }
 
@@ -150,7 +150,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
         {
             for (int i = 0; i < 255; ++i) //looping through the players
             {
-                if (Main.player[i].active && !Main.player[i].dead && projectile.Hitbox.Intersects(Main.player[i].Hitbox)) //checking if the player is alive and if the hitbox touches the player's
+                if (Main.player[i].active && !Main.player[i].dead && Projectile.Hitbox.Intersects(Main.player[i].Hitbox)) //checking if the player is alive and if the hitbox touches the player's
                 {
                     Player player = Main.player[i];
 
@@ -174,7 +174,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                     }
 
                     // Heal the player.
-                    projectile.Kill();
+                    Projectile.Kill();
                     break;
                 }
             }
@@ -182,14 +182,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         private void gravity()
         {
-            projectile.velocity.Y += 0.3f; //gravity
+            Projectile.velocity.Y += 0.3f; //gravity
 
-            projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -16, 16);
+            Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, -16, 16);
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            return this.DrawProjectileCentered(spriteBatch, lightColor);
+            return this.DrawProjectileCentered(Main.spriteBatch, lightColor);
         }
+        
     }
 }

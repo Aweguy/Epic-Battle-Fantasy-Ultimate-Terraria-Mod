@@ -16,19 +16,19 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 
         public override void SetSafeDefaults()
         {
-            item.width = 10;
-            item.height = 10;
+            Item.width = 10;
+            Item.height = 10;
 
             LimitCost = 100;
 
-            item.useTime = 50;
-            item.useAnimation = 50;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
 
-            item.useTurn = true;
-            item.noMelee = true;
-            item.value = Item.sellPrice(platinum: 1);
+            Item.useTurn = true;
+            Item.noMelee = true;
+            Item.value = Item.sellPrice(platinum: 1);
 
-            item.rare = ItemRarityID.Expert;
+            Item.rare = ItemRarityID.Expert;
         }
 
         public override bool UseItem(Player player)

@@ -5,31 +5,23 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items
 {
-    public class EpicItem : GlobalItem
-    {
-        #region PickAmmo
+	public class EpicItem : GlobalItem
+	{
+		#region PickAmmo
+		public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+		{
+			#region Overheat
 
-        /*public override void PickAmmo(Item item, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            
-        }*/
-
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-        {
-            #region Overheat
-
-            if (ammo.type == ModContent.ItemType<Shot9>() || ammo.type == ModContent.ItemType<Shot8>() || ammo.type == ModContent.ItemType<Shot7>())
-            {
-                player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 4);
-            }
-            else if (ammo.type == ModContent.ItemType<Shot6>() || ammo.type == ModContent.ItemType<Shot4>())
-            {
-                player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 2);
-            }
-
-            #endregion Overheat
-        }
-
-        #endregion PickAmmo
-    }
+			if (ammo.type == ModContent.ItemType<Shot9>() || ammo.type == ModContent.ItemType<Shot8>() || ammo.type == ModContent.ItemType<Shot7>())
+			{
+				player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 4);
+			}
+			else if (ammo.type == ModContent.ItemType<Shot6>() || ammo.type == ModContent.ItemType<Shot4>())
+			{
+				player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 2);
+			}
+			#endregion Overheat
+		}
+		#endregion PickAmmo
+	}
 }

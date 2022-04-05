@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,24 +18,23 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 
         public override void SetDefaults()
         {
-            item.damage = 0;
-            item.width = 40;
-            item.height = 40;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 50;
-            item.useAnimation = 50;
-            item.mana = 10;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(platinum: 1);
-            item.useTurn = true;
-            item.shoot = ModContent.ProjectileType<BlackHole>();
-            item.shootSpeed = 0f;
-            item.noMelee = true;
-            item.magic = true;
-            item.channel = true;
+            Item.damage = 0;
+            Item.width = 40;
+            Item.height = 40;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
+            Item.mana = 10;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(platinum: 1);
+            Item.useTurn = true;
+            Item.shoot = ModContent.ProjectileType<BlackHole>();
+            Item.shootSpeed = 0f;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Magic;
+            Item.channel = true;
         }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             position = Main.MouseWorld;
             return true;
@@ -53,17 +53,15 @@ namespace EpicBattleFantasyUltimate.Items.Staves
                 Dust.NewDustDirect(player.position, player.width, player.height, 302, 0f, 0f, 0, drawColor, 1f);
             }
         }
-
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Wood, 20);
-            recipe.AddIngredient(ItemID.DarkShard, 10);
-            recipe.AddIngredient(ModContent.ItemType<DarkMatter>(), 20);
-            recipe.AddIngredient(ItemID.FragmentNebula);
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.Wood, 20)
+                .AddIngredient(ItemID.DarkShard, 15)
+                .AddIngredient(ModContent.ItemType<DarkMatter>(), 50)
+                .AddIngredient(ItemID.FragmentNebula, 10)
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
     }
 }

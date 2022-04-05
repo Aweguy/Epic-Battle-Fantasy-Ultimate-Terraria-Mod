@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,46 +12,45 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Surge Shot");
-            Main.projFrames[projectile.type] = 10;
+            Main.projFrames[Projectile.type] = 10;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 6;
-            projectile.height = 6;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.ranged = true;
-            projectile.damage = 10;
-            projectile.knockBack = 1f;
-            aiType = ProjectileID.Bullet;
+            Projectile.width = 6;
+            Projectile.height = 6;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.damage = 10;
+            Projectile.knockBack = 1f;
             //drawOffsetX = -9;
         }
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 7)
+            if (++Projectile.frameCounter >= 7)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 10)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 10)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
 
-            float velRotation = projectile.velocity.ToRotation();
-            projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-            projectile.spriteDirection = projectile.direction;
+            float velRotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
         }
 
         public override void Kill(int timeLeft)
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("SurgeFissure"), 70, 0, projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<SurgeFissure>(), 70, 0, Projectile.owner);
         }
     }
 }

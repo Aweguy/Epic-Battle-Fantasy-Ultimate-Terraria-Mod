@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
@@ -10,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Plasma Explosion");
-			Main.projFrames[projectile.type] = 8;
+			Main.projFrames[Projectile.type] = 8;
 		}
 
 		private int timer2 = 1;
@@ -20,25 +21,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 
 		public override void SetDefaults()
 		{
-			projectile.width = 64;
-			projectile.height = 64;
-			projectile.aiStyle = -1;
+			Projectile.width = 64;
+			Projectile.height = 64;
+			Projectile.aiStyle = -1;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.ranged = true;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Ranged;
 
-			projectile.tileCollide = false;
-			baseWidth = projectile.width;
-			baseHeight = projectile.height;
+			Projectile.tileCollide = false;
+			baseWidth = Projectile.width;
+			baseHeight = Projectile.height;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void AI()
 		{
-			Vector2 oldSize = projectile.Size;
+			Vector2 oldSize = Projectile.Size;
 
 			timer2--;
 			shrink++;
@@ -46,48 +47,46 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 			{
 				if (shrink < 5)
 				{
-					projectile.scale += 0.1f;
+					Projectile.scale += 0.1f;
 
-					projectile.width = (int)(baseWidth * projectile.scale);
-					projectile.height = (int)(baseHeight * projectile.scale);
-					projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+					Projectile.width = (int)(baseWidth * Projectile.scale);
+					Projectile.height = (int)(baseHeight * Projectile.scale);
+					Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 
 					timer2 = 1;
 				}
 				else if (shrink >= 5)
 				{
-					projectile.scale -= 0.05f;
+					Projectile.scale -= 0.05f;
 
-					projectile.width = (int)(baseWidth * projectile.scale);
-					projectile.height = (int)(baseHeight * projectile.scale);
-					projectile.position = projectile.position - (projectile.Size - oldSize) / 2f;
+					Projectile.width = (int)(baseWidth * Projectile.scale);
+					Projectile.height = (int)(baseHeight * Projectile.scale);
+					Projectile.position = Projectile.position - (Projectile.Size - oldSize) / 2f;
 
 					timer2 = 1;
 				}
 			}
 
-			if (++projectile.frameCounter >= 3)
+			if (++Projectile.frameCounter >= 3)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 7)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= 7)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			Texture2D texture = Main.projectileTexture[projectile.type];
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 64, 64, 64), Color.White, projectile.rotation, new Vector2(32, 32), projectile.scale, SpriteEffects.None, 0);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 64, 64, 64), Color.White, Projectile.rotation, new Vector2(32, 32), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
-
-			//return true;
 		}
 	}
 }

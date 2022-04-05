@@ -12,23 +12,23 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Hellfire Canisters");
             Tooltip.SetDefault("Makes foes dance between scorching lead raindrops.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 2));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 2));
         }
 
         public override void SetDefaults()
         {
-            item.damage = 15;
-            item.ranged = true;
-            item.consumable = true;
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.knockBack = 0.5f;
-            item.value = 10000;
-            item.rare = ItemRarityID.LightPurple;
-            item.shoot = ModContent.ProjectileType<HellShot>();
-            item.shootSpeed = 7.5f;
-            item.ammo = mod.ItemType("Shot");
+            Item.damage = 15;
+            Item.DamageType = DamageClass.Ranged;
+            Item.consumable = true;
+            Item.width = 12;
+            Item.height = 12;
+            Item.maxStack = 999;
+            Item.knockBack = 0.5f;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.shoot = ModContent.ProjectileType<HellShot>();
+            Item.shootSpeed = 7.5f;
+             Item.ammo = ModContent.ItemType<Shot>();
         }
 
     }

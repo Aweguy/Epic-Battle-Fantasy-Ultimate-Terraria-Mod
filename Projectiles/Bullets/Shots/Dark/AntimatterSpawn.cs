@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,34 +11,33 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Antimatter Spawn");
-            Main.projFrames[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 6;
-            projectile.height = 6;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.ranged = true;
-            projectile.knockBack = 1f;
-            projectile.timeLeft = 25;
-            aiType = ProjectileID.Bullet;
+            Projectile.width = 6;
+            Projectile.height = 6;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.knockBack = 1f;
+            Projectile.timeLeft = 25;
         }
 
         public override void AI()
         {
-            float velRotation = projectile.velocity.ToRotation();
-            projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-            projectile.spriteDirection = projectile.direction;
+            float velRotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
 
-            if (++projectile.frameCounter >= 4)
+            if (++Projectile.frameCounter >= 4)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 2)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 2)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
         }
@@ -45,9 +45,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
         public override void Kill(int timeLeft)
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("AntimatterExplosion"), projectile.damage / 4, 0, projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AntimatterExplosion>(), Projectile.damage / 4, 0, Projectile.owner);
         }
     }
 }

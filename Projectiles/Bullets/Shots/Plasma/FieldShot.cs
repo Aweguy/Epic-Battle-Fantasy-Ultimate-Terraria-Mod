@@ -4,6 +4,7 @@ using Terraria.ID;
 using EpicBattleFantasyUltimate.HelperClasses;
 using Terraria.ModLoader;
 using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma;
+using Terraria.Audio;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
 {
@@ -12,35 +13,35 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Field Shot");
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 3;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.ranged = true;
-            projectile.knockBack = 1f;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.knockBack = 1f;
         }
 
         public override void AI()
         {
 
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
-            float velRotation = projectile.velocity.ToRotation();
-            projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-            projectile.spriteDirection = projectile.direction;
+            float velRotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
 
-            if (++projectile.frameCounter >= 1)
+            if (++Projectile.frameCounter >= 1)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 3)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
         }
@@ -48,10 +49,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
         public override void Kill(int timeLeft)
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center); ;
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<PlasmaField>(), projectile.damage, 0, projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<PlasmaField>(), Projectile.damage, 0, Projectile.owner);
         }
     }
 }

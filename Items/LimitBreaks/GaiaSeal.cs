@@ -19,24 +19,24 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 
 		public override void SetSafeDefaults()
 		{
-			item.width = 34;
-			item.height = 30;
+			Item.width = 34;
+			Item.height = 30;
 
-			item.damage = 100;
-			item.magic = true;
-			//item.mana = 100;
+			Item.damage = 100;
+			Item.DamageType = DamageClass.Magic;
+			//Item.mana = 100;
 			LimitCost = 100;
-			item.buffType = ModContent.BuffType<BlessedBuff>();
-			item.buffTime = 60 * 60;
+			Item.buffType = ModContent.BuffType<BlessedBuff>();
+			Item.buffTime = 60 * 60;
 
-			item.shoot = ModContent.ProjectileType<MotherEarth>();
-			item.shootSpeed = 0f;
+			Item.shoot = ModContent.ProjectileType<MotherEarth>();
+			Item.shootSpeed = 0f;
 
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
 
-			//item.channel = true; //Channel so that you can held the weapon [Important]
+			//Item.channel = true; //Channel so that you can held the weapon [Important]
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -48,14 +48,14 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 		{
 			//Rainbow Line
 
-			var line = new TooltipLine(mod, "Gaia's Seal", "LIMIT BREAK!!!")
+			var line = new TooltipLine(Mod, "Gaia's Seal", "LIMIT BREAK!!!")
 			{
-				overrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
+				OverrideColor = new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)
 			};
 			tooltips.Add(line);
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			for (int i = 0; i < Player.MaxBuffs; ++i)
 			{
@@ -81,7 +81,7 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 
 				if (player.whoAmI == Main.myPlayer)
 				{
-					player.ApplyDamageToNPC(Main.npc[i], item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+					player.ApplyDamageToNPC(Main.npc[i], Item.damage + (100 * EpicWorld.bossesDefeated), 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
 				}
 			}
 
@@ -95,7 +95,7 @@ namespace EpicBattleFantasyUltimate.Items.LimitBreaks
 
 		/*public override void HoldItem(Player player)
 		{
-			item.damage = 100 + (100 * EpicWorld.bossesDefeated);
+			Item.damage = 100 + (100 * EpicWorld.bossesDefeated);
 		}*/
 	}
 }

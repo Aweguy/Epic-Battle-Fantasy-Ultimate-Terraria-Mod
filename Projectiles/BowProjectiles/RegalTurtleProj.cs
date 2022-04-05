@@ -16,8 +16,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
     {
         public override void SetSafeDefaults()
         {
-            projectile.width = 66;
-            projectile.height = 26;
+            Projectile.width = 66;
+            Projectile.height = 26;
 
             velocity = 1f;
             maxTime = 70;

@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,28 +18,27 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 
 		public override void SetSafeDefaults()
 		{
-			item.width = 90;
-			item.height = 90;
+			Item.width = 90;
+			Item.height = 90;
 
-			item.damage = 100;
-			item.magic = true;
-			//item.mana = 100;
-			item.noMelee = true;
+			Item.damage = 100;
+			Item.DamageType = DamageClass.Magic;
+			//Item.mana = 100;
+			Item.noMelee = true;
 			LimitCost = 25;
 
-			item.rare = ItemRarityID.Orange;
+			Item.rare = ItemRarityID.Orange;
 
-			item.useTime = 1;
-			item.useAnimation = 1;
-			item.useStyle = ItemUseStyleID.HoldingOut;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.useStyle = ItemUseStyleID.Shoot;
 
-			//item.channel = true; //Channel so that you can held the weapon [Important]
+			//Item.channel = true; //Channel so that you can held the weapon [Important]
 
-			item.shoot = ModContent.ProjectileType<Judgement>();
-			item.shootSpeed = 1f;
+			Item.shoot = ModContent.ProjectileType<Judgement>();
+			Item.shootSpeed = 1f;
 		}
-
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			int num233 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
 			int num234 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
@@ -49,11 +49,10 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 			for (; num234 < Main.maxTilesY && Main.tile[num233, num234] != null && !WorldGen.SolidTile2(num233, num234) && Main.tile[num233 - 1, num234] != null && !WorldGen.SolidTile2(num233 - 1, num234) && Main.tile[num233 + 1, num234] != null && !WorldGen.SolidTile2(num233 + 1, num234); num234++)
 			{
 			}
-			Projectile.NewProjectile((float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>(), item.damage, 0f, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source, (float)Main.mouseX + Main.screenPosition.X, (float)(num234 * 16), 0f, 0f, ModContent.ProjectileType<Judgement>(), Item.damage, 0f, player.whoAmI, 0f, 0f);
 
 			return true;
 		}
-
 		public override bool CanUseItem(Player player)
 		{
 			return player.ownedProjectileCounts[ModContent.ProjectileType<Judgement>()] < 1 && base.CanUseItem(player);

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 {
@@ -15,33 +16,33 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = projectile.height = 10;
+			Projectile.width = Projectile.height = 10;
 
-			projectile.penetrate = -1;
-			projectile.ranged = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Ranged;
 
-			projectile.friendly = true;
-			projectile.arrow = true;
+			Projectile.friendly = true;
+			Projectile.arrow = true;
 		}
 
 		public override bool PreAI()
 		{
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90);
+			Projectile.spriteDirection = Projectile.direction;
 
 			return false;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(SoundID.Dig, projectile.position);
+			SoundEngine.PlaySound(SoundID.Dig,Projectile.Center);
 			return true;
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 		}
 	}
 }

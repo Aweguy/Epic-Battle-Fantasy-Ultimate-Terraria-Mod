@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,32 +16,32 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = projectile.height = 10;
+			Projectile.width = Projectile.height = 10;
 
-			projectile.aiStyle = ProjectileID.WoodenArrowFriendly;
-			projectile.ranged = true;
-			projectile.arrow = true;
+			Projectile.aiStyle = ProjectileID.WoodenArrowFriendly;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.arrow = true;
 		}
 
 		public override bool PreAI()
 		{
-			float velRotation = projectile.velocity.ToRotation();
-			projectile.rotation = velRotation + MathHelper.ToRadians(90);
-			projectile.spriteDirection = projectile.direction;
+			float velRotation = Projectile.velocity.ToRotation();
+			Projectile.rotation = velRotation + MathHelper.ToRadians(90);
+			Projectile.spriteDirection = Projectile.direction;
 
 			return true;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(SoundID.Dig, projectile.position);
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 			return true;
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-			Projectile.NewProjectile(projectile.Center, Vector2.Zero, ProjectileID.BabySpider, (int)projectile.damage / 2, projectile.knockBack, projectile.owner);
+			Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.BabySpider, (int)Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 		}
 	}
 }

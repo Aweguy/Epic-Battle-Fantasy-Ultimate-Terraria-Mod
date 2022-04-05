@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,36 +13,36 @@ namespace EpicBattleFantasyUltimate.Items.SignatureItems
 		{
 			DisplayName.SetDefault("Scarlet Caster");
 			Tooltip.SetDefault("A torch-like staff that shoots two fireballs and a seeking firebat\n[c/FF0000:By Nab]");
-			Item.staff[item.type] = true;
+			Item.staff[Item.type] = true;
 		}
 		public override void SetDefaults()
 		{
-			item.width = 40;
-			item.height = 40;
-			item.damage = 67;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.mana = 10;
-			item.noMelee = true;
-			item.magic = true;
-			item.autoReuse = true;
-			item.rare = -12;
-			item.shoot = mod.ProjectileType("ScarletFireball");
-			item.shootSpeed = 9.6f;
+			Item.width = 40;
+			Item.height = 40;
+			Item.damage = 67;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.mana = 10;
+			Item.noMelee = true;
+			Item.DamageType = DamageClass.Magic;
+			Item.autoReuse = true;
+			Item.rare = -12;
+			Item.shoot = ModContent.ProjectileType<ScarletFireball>();
+			Item.shootSpeed = 9.6f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<HellwingV2>(), damage, knockBack, player.whoAmI, 0f, 0f);
+			Projectile.NewProjectile(source,position, velocity, ModContent.ProjectileType<HellwingV2>(), damage, knockback, player.whoAmI, 0f, 0f);
 
 			int degrees = Main.rand.Next(10);
 			float numberProjectiles = 2; // 2 shots
 			float rotation = MathHelper.ToRadians(10); //10 degrees spread
-			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
+			position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .75f; // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<ScarletFireball>(), damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .75f; // Watch out for dividing by 0 if there is only 1 projectile.
+				Projectile.NewProjectile(source,position, perturbedSpeed, ModContent.ProjectileType<ScarletFireball>(), damage, knockback, player.whoAmI);
 			}
 			return false;
 		}

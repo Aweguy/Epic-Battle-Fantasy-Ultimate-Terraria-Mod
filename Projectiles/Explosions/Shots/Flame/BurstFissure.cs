@@ -13,25 +13,25 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Burst Fissure");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 100;
-            projectile.height = 100;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.magic = true;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
-            projectile.timeLeft = 140;
-            projectile.tileCollide = false;
-            projectile.alpha = 255;
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.damage = 0;
+            Projectile.knockBack = 1f;
+            Projectile.timeLeft = 140;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 255;
 
-            projectile.localNPCHitCooldown = -1;
-            projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.usesLocalNPCImmunity = true;
 
         }
 
@@ -54,22 +54,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             {
                 float X = Main.rand.NextFloat(-100f, 100f);
                 float Y = Main.rand.NextFloat(-100f, 100f);
-                int a = Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FlameBurstExplosion>(), 70, 0, projectile.owner);
+                int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FlameBurstExplosion>(), 70, 0, Projectile.owner);
 
                 timer = 14;
             }
 
-            if (++projectile.frameCounter >= 5)
+            if (++Projectile.frameCounter >= 5)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 4)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
         }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,23 +12,23 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Plasmacross Clip");
             Tooltip.SetDefault("Creates a massive blast of plasma to ensure foes are cooked evenly");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 20));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 20));
         }
 
         public override void SetDefaults()
         {
-            item.damage = 4;
-            item.ranged = true;
-            item.consumable = true;
-            item.width = 10;
-            item.height = 10;
-            item.maxStack = 999;
-            item.knockBack = 0.5f;
-            item.value = 1000;
-            item.rare = ItemRarityID.LightRed;
-            item.shoot = mod.ProjectileType("FieldShot");
-            item.shootSpeed = 7f;
-            item.ammo = mod.ItemType("Shot");
+            Item.damage = 4;
+            Item.DamageType = DamageClass.Ranged;
+            Item.consumable = true;
+            Item.width = 10;
+            Item.height = 10;
+            Item.maxStack = 999;
+            Item.knockBack = 0.5f;
+            Item.value = 1000;
+            Item.rare = ItemRarityID.LightRed;
+            Item.shoot = ModContent.ProjectileType<FieldShot>();
+            Item.shootSpeed = 7f;
+            Item.ammo = ModContent.ItemType<Shot>();
         }
 
     }

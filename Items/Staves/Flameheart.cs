@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,24 +18,24 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 
 		public override void SetSafeDefaults()
 		{
-			item.damage = 70;
-			item.width = 40;
-			item.height = 40;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 30;
-			item.useAnimation = 30;
+			Item.damage = 70;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
 			LimitCost = 1;
-			item.rare = ItemRarityID.LightPurple;
-			item.useTurn = true;
-			item.shoot = ModContent.ProjectileType<Fireball>();
-			item.shootSpeed = 0f;
-			item.noMelee = true;
-			item.magic = true;
-			item.value = Item.sellPrice(silver: 10);
+			Item.rare = ItemRarityID.LightPurple;
+			Item.useTurn = true;
+			Item.shoot = ModContent.ProjectileType<Fireball>();
+			Item.shootSpeed = 0f;
+			Item.noMelee = true;
+			Item.DamageType = DamageClass.Magic;
+			Item.value = Item.sellPrice(silver: 10);
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
 			position = Main.MouseWorld;
 
 			return true;
@@ -49,32 +50,30 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 		{
 			if (player.altFunctionUse == 2)
 			{
-				item.useTime = 100;
-				item.useAnimation = 100;
+				Item.useTime = 100;
+				Item.useAnimation = 100;
 				LimitCost = 5;
-				item.shoot = ModContent.ProjectileType<Firestorm>();
-				item.shootSpeed = 0f;
+				Item.shoot = ModContent.ProjectileType<Firestorm>();
+				Item.shootSpeed = 0f;
 			}
 			else
 			{
-				item.useTime = 30;
-				item.useAnimation = 30;
+				Item.useTime = 30;
+				Item.useAnimation = 30;
 				LimitCost = 1;
-				item.shoot = ModContent.ProjectileType<Fireball>();
-				item.shootSpeed = 0f;
+				Item.shoot = ModContent.ProjectileType<Fireball>();
+				Item.shootSpeed = 0f;
 			}
 
 			return base.CanUseItem(player);
 		}
-
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LivingFireBlock, 100);
-			recipe.AddIngredient(ItemID.Book);
-			recipe.AddTile(TileID.Bookcases);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.LivingFireBlock, 100)
+				.AddIngredient(ItemID.Wood, 10)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }

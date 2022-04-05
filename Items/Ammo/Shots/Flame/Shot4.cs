@@ -13,23 +13,23 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
         {
             DisplayName.SetDefault("Burst Shells");
             Tooltip.SetDefault("A bullet that explodes into more bullets, popular among spin-off lovers.");
-            Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
         }
 
         public override void SetDefaults()
         {
-            item.damage = 10;
-            item.ranged = true;
-            item.consumable = true;
-            item.width = 12;
-            item.height = 12;
-            item.maxStack = 999;
-            item.knockBack = 0.5f;
-            item.value = 10000;
-            item.rare = ItemRarityID.LightPurple;
-            item.shoot = ModContent.ProjectileType<BurstShot>();
-            item.shootSpeed = 7.5f;
-            item.ammo = mod.ItemType("Shot");
+            Item.damage = 10;
+            Item.DamageType = DamageClass.Ranged;
+            Item.consumable = true;
+            Item.width = 12;
+            Item.height = 12;
+            Item.maxStack = 999;
+            Item.knockBack = 0.5f;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.LightPurple;
+            Item.shoot = ModContent.ProjectileType<BurstShot>();
+            Item.shootSpeed = 7.5f;
+             Item.ammo = ModContent.ItemType<Shot>();
         }
 
     }

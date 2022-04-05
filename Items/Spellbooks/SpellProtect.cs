@@ -16,18 +16,18 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
 		public override void SetDefaults()
 		{
-			item.width = 28;
-			item.height = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 100;
-			item.useAnimation = 10;
-			item.mana = 5;
-			item.rare = ItemRarityID.Yellow;
-			item.value = Item.sellPrice(silver: 50);
-			item.useTurn = true;
+			Item.width = 28;
+			Item.height = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 100;
+			Item.useAnimation = 10;
+			Item.mana = 5;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(silver: 50);
+			Item.useTurn = true;
 			if (!Main.dedServ)
-            {
-				item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);
+			{
+				Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 			return !player.HasBuff(buff);
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			player.AddBuff(ModContent.BuffType<Protection>(), 60 * 10);
 			player.AddBuff(ModContent.BuffType<Vulnerable>(), 60 * 40);

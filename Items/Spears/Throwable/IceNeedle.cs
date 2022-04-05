@@ -31,7 +31,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.Throwable
 
 			Item.useTime = 30;
 			Item.useAnimation = 30;
-			Item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.useStyle = ItemUseStyleID.Swing;
 
 			Item.rare = ItemRarityID.LightPurple;
 

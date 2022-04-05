@@ -21,42 +21,40 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
 		public override void SetDefaults()
 		{
-			projectile.width = 1;
-			projectile.height = 1;
+			Projectile.width = 1;
+			Projectile.height = 1;
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.magic = true;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
 
-			projectile.tileCollide = false;
+			Projectile.timeLeft = 180;
 
-			projectile.timeLeft = 180;
-
-			projectile.alpha = 255;
-			projectile.hide = true;
+			Projectile.alpha = 255;
+			Projectile.hide = true;
 		}
 
 		public override bool PreAI()
 		{
-			float ParentCenterX = projectile.ai[0];
-			float ParentCenterY = projectile.ai[1];
+			float ParentCenterX = Projectile.ai[0];
+			float ParentCenterY = Projectile.ai[1];
 
-			projectile.Center = new Vector2(ParentCenterX, ParentCenterY);
+			Projectile.Center = new Vector2(ParentCenterX, ParentCenterY);
 
-			if (projectile.localAI[0] == 0)
+			if (Projectile.localAI[0] == 0)
 			{
-				projectile.localAI[0] = 1; // Set state to exploded
+				Projectile.localAI[0] = 1; // Set state to exploded
 				
 
 				if (Main.netMode != NetmodeID.Server && !Filters.Scene["Shockwave"].IsActive())
 				{
-					Filters.Scene.Activate("Shockwave", projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(projectile.Center);
+					Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
 				}
 			}
 
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
 			{
-				float progress = (180f - projectile.timeLeft) / 60f;
+				float progress = (180f - Projectile.timeLeft) / 60f;
 				Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
 			}
 

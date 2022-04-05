@@ -16,16 +16,16 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
 		public override void SetDefaults()
 		{
-			item.width = 28;
-			item.height = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 100;
-			item.useAnimation = 10;
-			item.mana = 5;
-			item.value = Item.sellPrice(silver: 60);
-			item.rare = ItemRarityID.Yellow;
-			item.useTurn = true;
-			item.UseSound = SoundID.Item29;
+			Item.width = 28;
+			Item.height = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 100;
+			Item.useAnimation = 10;
+			Item.mana = 5;
+			Item.value = Item.sellPrice(silver: 60);
+			Item.rare = ItemRarityID.Yellow;
+			Item.useTurn = true;
+			Item.UseSound = SoundID.Item29;
 		}
 
 		public override bool CanUseItem(Player player)
@@ -34,7 +34,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 			return !player.HasBuff(buff);
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			player.AddBuff(ModContent.BuffType<HasteBuff>(), 60 * 10);
 			player.AddBuff(ModContent.BuffType<Exhaustion>(), 60 * 60);

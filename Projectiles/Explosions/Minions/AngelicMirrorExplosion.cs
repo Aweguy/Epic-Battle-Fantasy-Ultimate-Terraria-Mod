@@ -8,32 +8,32 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angelic Explosion");
-            Main.projFrames[projectile.type] = 9;
+            Main.projFrames[Projectile.type] = 9;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 64;
-            projectile.height = 64;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.ranged = true;
-            projectile.knockBack = 1f;
-            projectile.tileCollide = false;
-            projectile.alpha = 64;
+            Projectile.width = 64;
+            Projectile.height = 64;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Summon;
+            Projectile.knockBack = 1f;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 64;
         }
 
         public override void AI()
         {
-            projectile.alpha += 10;
+            Projectile.alpha += 10;
 
-            if (++projectile.frameCounter >= 2)
+            if (++Projectile.frameCounter >= 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 8)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 8)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
         }

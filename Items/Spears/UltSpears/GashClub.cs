@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 		}
 		public override void SetDefaults()
 		{
-			Item.useStyle = ItemUseStyleID.HoldingOut;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.useAnimation = 10;
 			Item.useTime = 10;
 			Item.shootSpeed = 24f;

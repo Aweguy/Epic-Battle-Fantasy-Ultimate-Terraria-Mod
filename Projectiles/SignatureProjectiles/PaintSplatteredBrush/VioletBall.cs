@@ -11,13 +11,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
 
         public override void SetDefaults()
         {
-            projectile.width = 5;
-            projectile.height = 5;
-            projectile.ranged = true;
-            projectile.aiStyle = 2;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.tileCollide = true;
+            Projectile.width = 5;
+            Projectile.height = 5;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.aiStyle = 2;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.tileCollide = true;
         }
     }
 }

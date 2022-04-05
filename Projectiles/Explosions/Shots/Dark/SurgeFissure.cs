@@ -13,21 +13,21 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Surge Fissure");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 100;
-            projectile.height = 100;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.damage = 0;
-            projectile.knockBack = 1f;
-            projectile.timeLeft = 35;
-            projectile.tileCollide = false;
-            projectile.alpha = 255;
+            Projectile.width = 100;
+            Projectile.height = 100;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.damage = 0;
+            Projectile.knockBack = 1f;
+            Projectile.timeLeft = 35;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 255;
         }
 
         public override void AI()
@@ -42,27 +42,26 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 
                 if (choose == 0)
                 {
-                    Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion>(), 70, 0, projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion>(), 70, 0, Projectile.owner);
                 }
                 else if (choose == 1)
                 {
-                    Projectile.NewProjectile(projectile.Center.X + X, projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion2>(), 70, 0, projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion2>(), 70, 0, Projectile.owner);
                 }
 
                 timer = 5;
             }
 
-            if (++projectile.frameCounter >= 5)
+            if (++Projectile.frameCounter >= 5)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 4)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
         }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);

@@ -8,34 +8,34 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Antimatter Explosion");
-            Main.projFrames[projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 8;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 32;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.ranged = true;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Ranged;
 
-            projectile.tileCollide = false;
-            projectile.alpha = 1;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 1;
 
-            projectile.localNPCHitCooldown = -1;
-            projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
+            Projectile.usesLocalNPCImmunity = true;
         }
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 2)
+            if (++Projectile.frameCounter >= 2)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame == 7)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame == 7)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
         }

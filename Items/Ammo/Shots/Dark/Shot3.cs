@@ -16,18 +16,18 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 
         public override void SetDefaults()
         {
-            item.damage = 10;
-            item.ranged = true;
-            item.width = 20;
-            item.height = 20;
-            item.maxStack = 1;
-            item.crit = 4;
-            item.knockBack = 1f;
-            item.value = 1000;
-            item.rare = ItemRarityID.LightRed;
-            item.shoot = ModContent.ProjectileType<DarkShot>();
-            item.shootSpeed = 7f;
-            item.ammo = ModContent.ItemType<Shot>();
+            Item.damage = 10;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 20;
+            Item.height = 20;
+            Item.maxStack = 1;
+            Item.crit = 4;
+            Item.knockBack = 1f;
+            Item.value = 1000;
+            Item.rare = ItemRarityID.LightRed;
+            Item.shoot = ModContent.ProjectileType<DarkShot>();
+            Item.shootSpeed = 7f;
+            Item.ammo = ModContent.ItemType<Shot>();
         }
 
     }

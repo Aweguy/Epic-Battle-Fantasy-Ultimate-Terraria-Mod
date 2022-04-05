@@ -21,13 +21,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 		public override void SetSafeStaticDefaults()
 		{
 			DisplayName.SetDefault("Little Amethyst Ore");
-			Main.projFrames[projectile.type] = 6;
+			Main.projFrames[Projectile.type] = 6;
 		}
 
 		public override void SetSafeDefaults()
 		{
-			projectile.width = 40;
-			projectile.height = 40;
+			Projectile.width = 40;
+			Projectile.height = 40;
 
 			DashCharge = 120;
 			DashRange = 300f;
@@ -38,9 +38,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			 target.immune[projectile.owner] = 5;
+			 target.immune[Projectile.owner] = 5;
 
-			Vector2 relativePosition = projectile.Center - target.Center;
+			Vector2 relativePosition = Projectile.Center - target.Center;
 			float absRelativeRotation = Math.Abs(relativePosition.ToRotation());
 
 			bool leftRightCollision = false;
@@ -53,11 +53,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 
 			if (leftRightCollision)
 			{
-				projectile.velocity.X *= -1.5f;
+				Projectile.velocity.X *= -1.5f;
 			}
 			else
 			{
-				projectile.velocity.Y *= -1.5f;
+				Projectile.velocity.Y *= -1.5f;
 			}
 		}
 
@@ -71,18 +71,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 			#region Animation and visuals
 
 			// So it will lean slightly towards the direction it's moving
-			projectile.rotation = projectile.velocity.X * 0.05f;
+			Projectile.rotation = Projectile.velocity.X * 0.05f;
 
-			if (++projectile.frameCounter >= 5)
+			if (++Projectile.frameCounter >= 5)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame == 5)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame == 5)
 				{
-					projectile.frame = 0;
+					Projectile.frame = 0;
 				}
 			}
 			// Some visuals here
-			Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
+			Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
 
 			#endregion Animation and visuals
 		}

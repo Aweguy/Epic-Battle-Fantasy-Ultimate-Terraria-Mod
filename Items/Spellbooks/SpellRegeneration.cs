@@ -16,16 +16,16 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
 		public override void SetDefaults()
 		{
-			item.width = 28;
-			item.height = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 100;
-			item.useAnimation = 10;
-			item.mana = 25;
-			item.rare = ItemRarityID.Yellow;
-			item.value = Item.sellPrice(silver: 50);
-			item.useTurn = true;
-			item.value = Item.sellPrice(gold: 10);
+			Item.width = 28;
+			Item.height = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 100;
+			Item.useAnimation = 10;
+			Item.mana = 25;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(silver: 50);
+			Item.useTurn = true;
+			Item.value = Item.sellPrice(gold: 10);
 		}
 
 		public override bool CanUseItem(Player player)
@@ -34,22 +34,20 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 			return !player.HasBuff(buff);
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			player.AddBuff(ModContent.BuffType<Regeneration>(), 60 * 10);
 			player.AddBuff(ModContent.BuffType<RegenerationSated>(), 60 * 30);
 
 			return base.UseItem(player);
 		}
-
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.RegenerationPotion, 250);
-			recipe.AddIngredient(ItemID.Book);
-			recipe.AddTile(TileID.Bookcases);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.RegenerationPotion, 250)
+				.AddIngredient(ItemID.Book)
+				.AddTile(TileID.Bookcases)
+				.Register();
 		}
 	}
 }

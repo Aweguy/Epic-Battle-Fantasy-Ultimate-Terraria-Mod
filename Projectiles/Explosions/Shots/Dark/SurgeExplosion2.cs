@@ -8,29 +8,29 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Surge Explosion");
-            Main.projFrames[projectile.type] = 14;
+            Main.projFrames[Projectile.type] = 14;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 32;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.tileCollide = false;
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
 
-            projectile.usesLocalNPCImmunity = true;
+            Projectile.usesLocalNPCImmunity = true;
         }
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 4)
+            if (++Projectile.frameCounter >= 4)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 12)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 12)
                 {
-                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 		public override void SetDefaults()
 		{
 			Item.damage = 30;
-			Item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useAnimation = 20;
 			Item.useTime = 30;
 			Item.shootSpeed = 3.7f;
@@ -40,9 +40,9 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 			}
 		}
 
-		public override void UseStyle(Player player)
-		{
-			player.ItemLocation = player.Center + new Vector2(0, 3);
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+			player.itemLocation = player.Center + new Vector2(0, 3);
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -54,7 +54,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 			if (player.altFunctionUse == 2)
 			{
 				Item.damage = 60;
-				Item.useStyle = ItemUseStyleID.HoldingOut;
+				Item.useStyle = ItemUseStyleID.Shoot;
 				Item.useAnimation = 20;
 				Item.useTime = 30;
 				Item.shootSpeed = 3.7f;
@@ -67,13 +67,13 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 				Item.DamageType = DamageClass.Melee;;
 				Item.noMelee = true; // Important because the spear is actually a projectile instead of an Item. This prevents the melee hitbox of this Item.
 				Item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this Item.
-				Item.shoot = mod.ProjectileType("IceNeedleProj");
+				Item.shoot = ModContent.ProjectileType<IceNailProj>();
 				Item.autoReuse = false;
 			}
 			else
 			{
 				Item.damage = 60;
-				Item.useStyle = ItemUseStyleID.SwingThrow;
+				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useAnimation = 20;
 				Item.useTime = 30;
 				Item.shootSpeed = 3.7f;
@@ -94,13 +94,12 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<SolidWater>(), 10);
-			recipe.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 10);
-			recipe.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 10);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<SolidWater>(), 10)
+				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 10)
+				.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 10)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

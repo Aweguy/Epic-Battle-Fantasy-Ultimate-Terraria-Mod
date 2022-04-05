@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
@@ -15,53 +16,53 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Plasma Field");
-			Main.projFrames[projectile.type] = 13;
+			Main.projFrames[Projectile.type] = 13;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 64;
-			projectile.height = 64;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.ranged = true;
-			projectile.damage = 100;
-			projectile.knockBack = 1f;
-			projectile.tileCollide = false;
-			projectile.scale = 5f;
+			Projectile.width = 64;
+			Projectile.height = 64;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.damage = 100;
+			Projectile.knockBack = 1f;
+			Projectile.tileCollide = false;
+			Projectile.scale = 5f;
 		}
 
 		public override void AI()
 		{
-			Shooting(projectile);
+			Shooting(Projectile);
 
 			#region Frame Changing
 
-			projectile.frameCounter += 1;
-			if (projectile.frameCounter > 2)
+			Projectile.frameCounter += 1;
+			if (Projectile.frameCounter > 2)
 			{
-				projectile.frame++;
-				projectile.frameCounter = 0;
-				if (projectile.frame >= 9 && projectile.ai[0] < 3)
+				Projectile.frame++;
+				Projectile.frameCounter = 0;
+				if (Projectile.frame >= 9 && Projectile.ai[0] < 3)
 				{
-					projectile.frame = 2;
-					projectile.ai[0]++;
-					if (projectile.ai[0] >= 3)
+					Projectile.frame = 2;
+					Projectile.ai[0]++;
+					if (Projectile.ai[0] >= 3)
 					{
-						projectile.frame = 10;
+						Projectile.frame = 10;
 					}
 				}
-				if (projectile.frame >= 12)
+				if (Projectile.frame >= 12)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 
 			#endregion Frame Changing
 		}
 
-		private void Shooting(Projectile projectile)
+		private void Shooting(Projectile Projectile)
 		{
 			rotation = 0;
 			WaveTimer--;
@@ -72,9 +73,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 				{
 					Vector2 velocity = Vector2.One.RotatedBy(rotation * 0.0174533);
 
-					Vector2 SpawnPos = projectile.Center + velocity * 100f;
+					Vector2 SpawnPos = Projectile.Center + velocity * 100f;
 
-					Projectile.NewProjectile(SpawnPos, velocity * 6f, ModContent.ProjectileType<FieldWave>(), projectile.damage, 0, Main.myPlayer);
+					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), SpawnPos, velocity * 6f, ModContent.ProjectileType<FieldWave>(), Projectile.damage, 0, Main.myPlayer);
 
 					rotation += 360 / NumberOfBullets;
 				}
@@ -85,18 +86,16 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 			}
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			Texture2D texture = Main.projectileTexture[projectile.type];
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
 
-			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * 64, 64, 64), Color.White, projectile.rotation, new Vector2(32, 32), projectile.scale, SpriteEffects.None, 0);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 64, 64, 64), Color.White, Projectile.rotation, new Vector2(32, 32), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
-
-			//return true;
 		}
 	}
 }

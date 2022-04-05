@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,15 +16,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
 
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 12;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.ranged = true;
-            projectile.damage = 10;
-            projectile.knockBack = 1f;
-            aiType = ProjectileID.Bullet;
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.damage = 10;
+            Projectile.knockBack = 1f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -34,20 +35,20 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Fire
         {
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 
-            Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 0, new Color(255, 201, 0), 1f);
+            Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Pixie, 0f, 0f, 0, new Color(255, 201, 0), 1f);
 
-            float velRotation = projectile.velocity.ToRotation();
-            projectile.rotation = velRotation + MathHelper.ToRadians(90f);
-            projectile.spriteDirection = projectile.direction;
+            float velRotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = velRotation + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
         }
 
         public override void Kill(int timeLeft)
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
-            Main.PlaySound(SoundID.Item10, projectile.position);
+            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("FlameExplosion"), 30, 0, projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<FlameExplosion>(), 30, 0, Projectile.owner);
         }
     }
 }

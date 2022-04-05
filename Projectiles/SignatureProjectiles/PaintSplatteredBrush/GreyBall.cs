@@ -12,18 +12,18 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
 
         public override void SetDefaults()
         {
-            projectile.width = 5;
-            projectile.height = 5;
-            projectile.ranged = true;
-            projectile.aiStyle = 2;
-            projectile.friendly = true;
-            projectile.penetrate = 1;
-            projectile.tileCollide = true;
+            Projectile.width = 5;
+            Projectile.height = 5;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.aiStyle = 2;
+            Projectile.friendly = true;
+            Projectile.penetrate = 1;
+            Projectile.tileCollide = true;
         }
 
         public override void Kill(int timeLeft)
         {
-            int a = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<GreyExplosion>(), projectile.damage, projectile.knockBack, projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<GreyExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
     }
 }

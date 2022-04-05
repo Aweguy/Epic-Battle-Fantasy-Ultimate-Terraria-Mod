@@ -8,33 +8,33 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellfire Explosion");
-			Main.projFrames[projectile.type] = 8;
+			Main.projFrames[Projectile.type] = 8;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 32;
-			projectile.height = 32;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
+			Projectile.width = 32;
+			Projectile.height = 32;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
 
-			projectile.penetrate = -1;
-			projectile.knockBack = 1f;
-			projectile.tileCollide = false;
-			projectile.alpha = 1;
+			Projectile.penetrate = -1;
+			Projectile.knockBack = 1f;
+			Projectile.tileCollide = false;
+			Projectile.alpha = 1;
 
-			projectile.localNPCHitCooldown = -1;
-			projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = -1;
+			Projectile.usesLocalNPCImmunity = true;
 		}
 
 		public override void AI()
 		{
-			if (++projectile.frameCounter >= 1)
+			if (++Projectile.frameCounter >= 1)
 			{
-				projectile.frameCounter = 0;
-				if (++projectile.frame >= 7)
+				Projectile.frameCounter = 0;
+				if (++Projectile.frame >= 7)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
