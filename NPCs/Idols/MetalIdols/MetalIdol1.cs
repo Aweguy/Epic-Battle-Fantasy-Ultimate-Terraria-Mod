@@ -25,45 +25,45 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
 
         public override void SetDefaults()
         {
-            npc.width = 36;
-            npc.height = 48;
+            NPC.width = 36;
+            NPC.height = 48;
 
-            npc.lifeMax = 95;
-            npc.damage = 16;
-            npc.defense = 5;
-            npc.lifeRegen = 4;
-            npc.value = 50;
+            NPC.lifeMax = 95;
+            NPC.damage = 16;
+            NPC.defense = 5;
+            NPC.lifeRegen = 4;
+            NPC.value = 50;
 
-            npc.aiStyle = -1;
-            npc.noGravity = false;
+            NPC.aiStyle = -1;
+            NPC.noGravity = false;
             if (!Main.dedServ)
-                npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/MetalIdolHit");
+                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/MetalIdolHit");
 
             if (Main.hardMode)
             {
-                npc.lifeMax *= 2;
-                npc.damage *= 2;
-                npc.defense *= 2;
+                NPC.lifeMax *= 2;
+                NPC.damage *= 2;
+                NPC.defense *= 2;
             }
         }
 
         public override bool PreAI()
         {
 
-            Rotation(npc);
-            MovementSpeed(npc);
-            Jumping(npc);
+            Rotation(NPC);
+            MovementSpeed(NPC);
+            Jumping(NPC);
 
-            npc.spriteDirection = npc.direction;
+            NPC.spriteDirection = NPC.direction;
 
             return false;
         }
 
-        private void MovementSpeed(NPC npc)
+        private void MovementSpeed(NPC NPC)
         {
-            npc.TargetClosest(true);
+            NPC.TargetClosest(true);
 
-            Vector2 target = Main.player[npc.target].Center - npc.Center;
+            Vector2 target = Main.player[NPC.target].Center - NPC.Center;
 
             if (Spin)
             {
@@ -74,7 +74,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
-                npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
             }
             else
             {
@@ -85,26 +85,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
-                npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
             }
         }
 
 
        
 
-        private void Jumping(NPC npc)
+        private void Jumping(NPC NPC)
         {
 
-            Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.ai[0], ref npc.ai[1]);
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.ai[0], ref NPC.ai[1]);
 
 
-            if (npc.collideY)
+            if (NPC.collideY)
             {
                 if (Main.rand.NextFloat() < .1f)
                 {
-                    npc.velocity = new Vector2(npc.velocity.X, -10f);
+                    NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump2").WithPitchVariance(.7f), npc.position);
+                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump2");
 
                     if (!Left && Right && !Spin)
                     {
@@ -119,9 +119,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 }
                 else
                 {
-                    npc.velocity = new Vector2(npc.velocity.X, -5f);
+                    NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump1").WithPitchVariance(.7f), npc.position);
+                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump1");
 
                     if (!Left && Right && !Spin)
                     {
@@ -138,24 +138,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
         }
 
 
-        private void Rotation(NPC npc)
+        private void Rotation(NPC NPC)
         {
             if (Right && !Spin)
             {
-                npc.rotation += MathHelper.ToRadians(1);
+                NPC.rotation += MathHelper.ToRadians(1);
 
-                npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
             }
             else if (Left && !Spin)
             {
-                npc.rotation -= MathHelper.ToRadians(1);
+                NPC.rotation -= MathHelper.ToRadians(1);
 
-                npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
             }
 
-            if (npc.life <= npc.lifeMax * .25f)
+            if (NPC.life <= NPC.lifeMax * .25f)
             {
-                npc.rotation += MathHelper.ToRadians(30) * npc.spriteDirection;
+                NPC.rotation += MathHelper.ToRadians(30) * NPC.spriteDirection;
                 Spin = true;
             }
         }

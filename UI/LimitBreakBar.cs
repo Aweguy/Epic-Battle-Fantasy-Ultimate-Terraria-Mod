@@ -15,6 +15,7 @@ namespace EpicBattleFantasyUltimate.UI
         private UIImage barFrame;
         private Color gradientA;
         private Color gradientB;
+        private Texture2D BarFilling;
 
         public override void OnInitialize()
         {
@@ -26,7 +27,7 @@ namespace EpicBattleFantasyUltimate.UI
             area.Width.Set(182, 0f);
             area.Height.Set(60, 0f);
 
-            barFrame = new UIImage(ModContent.GetTexture("EpicBattleFantasyUltimate/UI/LimitBreakFrame"));
+            barFrame = new UIImage(ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/UI/LimitBreakFrame"));
             barFrame.Left.Set(22, 0f);
             barFrame.Top.Set(0, 0f);
             barFrame.Width.Set(138, 0f);
@@ -57,6 +58,7 @@ namespace EpicBattleFantasyUltimate.UI
             var epicPlayer = EpicPlayer.ModPlayer(Main.LocalPlayer);
             float quotient = (float)epicPlayer.LimitCurrent / epicPlayer.MaxLimit2;
 
+            BarFilling = (Texture2D)ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/UI/LimitBreakBarFilling");
             Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
             hitbox.X += 12;
             hitbox.Width -= 24;
@@ -69,7 +71,7 @@ namespace EpicBattleFantasyUltimate.UI
             for (int i = 0; i < steps; i++)
             {
                 float percent = (float)i / (right - left);
-                spriteBatch.Draw(Main.magicPixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
+                spriteBatch.Draw(BarFilling, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
             }
         }
 

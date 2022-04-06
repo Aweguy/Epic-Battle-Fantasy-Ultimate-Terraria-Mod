@@ -6,12 +6,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
 	public class Cursed : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cursed");
 			Description.SetDefault("What a horrible night to have a defense penalty!");
 			Main.debuff[Type] = true;
-			canBeCleared = false;
 		}
 
 		public override void Update(NPC npc, ref int buffIndex)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,41 +19,41 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 
         public override void SetDefaults()
         {
-            npc.width = 36;
-            npc.height = 48;
+            NPC.width = 36;
+            NPC.height = 48;
 
-            npc.lifeMax = 200;
-            npc.damage = 8;
-            npc.defense = 20;
-            npc.lifeRegen = 4;
-            npc.value = 50;
+            NPC.lifeMax = 200;
+            NPC.damage = 8;
+            NPC.defense = 20;
+            NPC.lifeRegen = 4;
+            NPC.value = 50;
 
-            npc.aiStyle = -1;
-            npc.noGravity = false;
+            NPC.aiStyle = -1;
+            NPC.noGravity = false;
             if (!Main.dedServ)
-                npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/NPCHit/StoneIdolHit");
+                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/StoneIdolHit");
 
             if (Main.hardMode)
             {
-                npc.lifeMax *= 3;
-                npc.defense *= 2;
+                NPC.lifeMax *= 3;
+                NPC.defense *= 2;
             }
         }
 
         public override void AI()
         {
-            Rotation(npc);
-            MovementSpeed(npc);
-            Jumping(npc);
+            Rotation(NPC);
+            MovementSpeed(NPC);
+            Jumping(NPC);
 
-            npc.spriteDirection = npc.direction;
+            NPC.spriteDirection = NPC.direction;
         }
 
-        private void MovementSpeed(NPC npc)
+        private void MovementSpeed(NPC NPC)
         {
-            npc.TargetClosest(true);
+            NPC.TargetClosest(true);
 
-            Vector2 target = Main.player[npc.target].Center - npc.Center;
+            Vector2 target = Main.player[NPC.target].Center - NPC.Center;
 
             if (Spin)
             {
@@ -63,7 +64,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
-                npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
             }
             else
             {
@@ -74,21 +75,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
                 target *= MoveSpeedMult;
 
-                npc.velocity.X = (npc.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
             }
         }
 
-        private void Jumping(NPC npc)
+        private void Jumping(NPC NPC)
         {
-            Collision.StepUp(ref npc.position, ref npc.velocity, npc.width, npc.height, ref npc.ai[0], ref npc.ai[1]);
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.ai[0], ref NPC.ai[1]);
 
-            if (npc.collideY)
+            if (NPC.collideY)
             {
                 if (Main.rand.NextFloat() < .1f)
                 {
-                    npc.velocity = new Vector2(npc.velocity.X, -10f);
+                    NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump").WithPitchVariance(.7f), npc.position);
+                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/WoodenIdols/StoneIdolJump");
 
                     if (!Left && Right && !Spin)
                     {
@@ -103,9 +104,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 }
                 else
                 {
-                    npc.velocity = new Vector2(npc.velocity.X, -5f);
+                    NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(.7f), npc.position);
+                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump");
 
                     if (!Left && Right && !Spin)
                     {
@@ -121,24 +122,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             }
         }
 
-        private void Rotation(NPC npc)
+        private void Rotation(NPC NPC)
         {
             if (Right && !Spin)
             {
-                npc.rotation += MathHelper.ToRadians(1);
+                NPC.rotation += MathHelper.ToRadians(1);
 
-                npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
             }
             else if (Left && !Spin)
             {
-                npc.rotation -= MathHelper.ToRadians(1);
+                NPC.rotation -= MathHelper.ToRadians(1);
 
-                npc.rotation = MathHelper.Clamp(npc.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
             }
 
-            if (npc.life <= npc.lifeMax * .25f)
+            if (NPC.life <= NPC.lifeMax * .25f)
             {
-                npc.rotation += MathHelper.ToRadians(30) * npc.spriteDirection;
+                NPC.rotation += MathHelper.ToRadians(30) * NPC.spriteDirection;
                 Spin = true;
             }
         }
@@ -147,21 +148,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
         {
             for (int i = 0; i <= 5; i++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
         }
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/StoneIdols/StoneIdol1_Gore1"), 1f);
-            int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/StoneIdols/StoneIdol1_Gore2"), 1f);
-            int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/StoneIdols/StoneIdol1_Gore3"), 1f);
-            int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Idols/StoneIdols/StoneIdol1_Gore4"), 1f);
-            int goreIndex5 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Idols/StoneIdols/StoneIdol1_Gore5"), 1f);
+            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("StoneIdol1_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("StoneIdol1_Gore2").Type, 1f);
+            int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("StoneIdol1_Gore3").Type, 1f);
+            int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("StoneIdol1_Gore4").Type, 1f);
+            int goreIndex5 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("StoneIdol1_Gore5").Type, 1f);
 
             for (int i = 0; i <= 20; i++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
 
             return true;
@@ -169,7 +170,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.player.ZoneDesert || spawnInfo.player.ZoneUndergroundDesert)
+            if (Main.hardMode && spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert)
             {
                 return .2f;
             }
@@ -179,9 +180,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 
         #region NPCLoot
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            Item.NewItem(npc.getRect(), ItemID.StoneBlock, 3);
+            npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock));
         }
 
         #endregion NPCLoot

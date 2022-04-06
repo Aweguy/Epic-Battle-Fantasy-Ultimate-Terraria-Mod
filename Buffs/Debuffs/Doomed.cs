@@ -14,12 +14,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
 	class Doomed : ModBuff
 	{
-			public override void SetDefaults()
+			public override void SetStaticDefaults()
 			{
 				DisplayName.SetDefault("Doomed");
 				Description.SetDefault("HAPPY DOOMED YEAR :D!!!");
 				Main.debuff[Type] = false;
-				canBeCleared = false;
 			}
 
 		public override void Update(Player player, ref int buffIndex)

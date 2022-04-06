@@ -6,19 +6,9 @@ namespace EpicBattleFantasyUltimate.Dusts
 {
     public class LightFeather : ModDust
     {
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "EpicBattleFantasyUltimate/Dusts/LightFeather";
-            return mod.Properties.Autoload;
-        }
-
-        public override void SetDefaults()
-        {
-            updateType = 226;
-        }
-
         public override void OnSpawn(Dust dust)
         {
+            UpdateType = 226;
             dust.frame = new Rectangle(0, 0, 32, 32);
             dust.alpha = 0;
         }

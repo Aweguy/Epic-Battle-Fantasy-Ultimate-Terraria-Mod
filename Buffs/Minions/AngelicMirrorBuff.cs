@@ -7,7 +7,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Minions
 {
     public class AngelicMirrorBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Angelic Mirror");
             Description.SetDefault("An Angelic Mirror will fight with you. Providing help in fights, a little mana regeneration\nand a slight defense boost.");

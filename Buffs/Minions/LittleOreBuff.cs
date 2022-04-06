@@ -8,7 +8,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Minions
 {
 	public class LittleOreBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Little Ores");
 			Description.SetDefault("Little Ores fight with you. Watch out for the fireworks");

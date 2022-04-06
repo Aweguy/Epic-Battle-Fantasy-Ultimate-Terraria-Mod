@@ -8,17 +8,6 @@ namespace EpicBattleFantasyUltimate.Dusts
     {
         private int lifetime = 60;
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "EpicBattleFantasyUltimate/Dusts/NatureDust";
-            return mod.Properties.Autoload;
-        }
-
-        /*public override void SetDefaults()
-        {
-            updateType = 124;
-        }*/
-
         public override void OnSpawn(Dust dust)
         {
             dust.frame = new Rectangle(0, 0, 15, 15);

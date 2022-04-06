@@ -6,12 +6,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class Weaken : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Weakened");
             Description.SetDefault("Your strength ebbs...");
             Main.debuff[Type] = true;
-            canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

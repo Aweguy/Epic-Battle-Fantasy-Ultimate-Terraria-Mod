@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.NPCs.Ores;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +15,7 @@ namespace EpicBattleFantasyUltimate
 
             #region Zircon Spawn
 
-            if (Main.tile[i, j].type == TileID.IceBlock)
+            if (Main.tile[i, j].TileType == TileID.IceBlock)
             {
                 if (Main.rand.NextFloat() < .001)
                 {
@@ -22,7 +23,7 @@ namespace EpicBattleFantasyUltimate
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
 
-                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+                    int npcIndex = NPC.NewNPC(new EntitySource_TileBreak(i, j), (int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
                 }
             }
 
@@ -30,13 +31,15 @@ namespace EpicBattleFantasyUltimate
 
             #region Peridot Spawn
 
-            if (Main.tile[i, j].type == TileID.Emerald)
+            if (Main.tile[i, j].TileType == TileID.Emerald)
             {
                 if (Main.rand.NextFloat() < .01)
                 {
                     int npcToSpawn = ModContent.NPCType<PeridotOre>();
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
+
+                    int npcIndex = NPC.NewNPC(new EntitySource_TileBreak(i, j), (int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
                 }
             }
 
@@ -44,7 +47,7 @@ namespace EpicBattleFantasyUltimate
 
             #region Quartz Spawn
 
-            if (Main.tile[i, j].type == TileID.Diamond)
+            if (Main.tile[i, j].TileType == TileID.Diamond)
             {
                 if (Main.rand.NextFloat() < .01)
                 {
@@ -52,7 +55,7 @@ namespace EpicBattleFantasyUltimate
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
 
-                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+                    int npcIndex = NPC.NewNPC(new EntitySource_TileBreak(i, j),(int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
                 }
             }
 
@@ -60,7 +63,7 @@ namespace EpicBattleFantasyUltimate
 
             #region Ruby Spawn
 
-            if (Main.tile[i, j].type == TileID.Ruby)
+            if (Main.tile[i, j].TileType == TileID.Ruby)
             {
                 if (Main.rand.NextFloat() < .01)
                 {
@@ -68,7 +71,7 @@ namespace EpicBattleFantasyUltimate
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
 
-                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+                    int npcIndex = NPC.NewNPC(new EntitySource_TileBreak(i, j),(int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
                 }
             }
 
@@ -76,7 +79,7 @@ namespace EpicBattleFantasyUltimate
 
             #region Amethyst Spawn
 
-            if (Main.tile[i, j].type == TileID.Amethyst)
+            if (Main.tile[i, j].TileType == TileID.Amethyst)
             {
                 if (Main.rand.NextFloat() < .01)
                 {
@@ -84,7 +87,7 @@ namespace EpicBattleFantasyUltimate
 
                     Vector2 spawnPos = new Vector2(i * 16, j * 16);
 
-                    int npcIndex = NPC.NewNPC((int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
+                    int npcIndex = NPC.NewNPC(new EntitySource_TileBreak(i, j),(int)(spawnPos.X), (int)(spawnPos.Y), npcToSpawn, 0, 0f, 0f, 0f, 0f, 255);
                 }
             }
 

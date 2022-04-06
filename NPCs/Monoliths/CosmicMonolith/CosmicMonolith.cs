@@ -284,7 +284,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 							bool teleport = true;
 							if (Main.tile[k, j - 1].LiquidType == LiquidID.Lava)
 								teleport = false;
-							if (teleport && Main.tileSolid[(int)Main.tile[k, j].BlockType] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
+							if (teleport && Main.tileSolid[(int)Main.tile[k, j].TileType] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
 							{
 								NPC.ai[2] = (float)k;
 								NPC.ai[3] = (float)j;

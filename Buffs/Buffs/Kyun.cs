@@ -7,7 +7,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
     {
         private bool initial = true;
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Kyun");
         }
@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
             player.manaRegen += 25;
             player.statDefense += 20;
             player.endurance += 10;
-            player.allDamage += 0.75f;
+            player.GetDamage(DamageClass.Generic) += 0.75f;
         }
     }
 }

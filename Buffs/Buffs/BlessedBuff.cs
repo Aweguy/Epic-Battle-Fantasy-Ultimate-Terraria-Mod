@@ -6,8 +6,8 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
 	public class BlessedBuff : ModBuff
 	{
-		public override void SetDefaults()
-		{
+        public override void SetStaticDefaults()
+        {
 			DisplayName.SetDefault("Blessed");
 			Description.SetDefault("You have been granted status immunity, Godcat be praised!");
 		}

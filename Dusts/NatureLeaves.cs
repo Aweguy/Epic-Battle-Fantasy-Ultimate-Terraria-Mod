@@ -7,19 +7,6 @@ namespace EpicBattleFantasyUltimate.Dusts
     public class NatureLeaves : ModDust
     {
         private int lifetime;
-
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "EpicBattleFantasyUltimate/Dusts/NatureLeaves";
-            return mod.Properties.Autoload;
-        }
-
-
-        /*public override void SetDefaults()
-        {
-            updateType = 124;
-        }*/
-
         public override void OnSpawn(Dust dust)
         {
             dust.frame = new Rectangle(0, 0, 24, 24);

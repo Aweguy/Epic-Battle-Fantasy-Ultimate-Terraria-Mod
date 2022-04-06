@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Pets
 {
 	public class MagicPuppyBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Magic Puppy");
 			Description.SetDefault("A magic puppy is following you");

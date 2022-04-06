@@ -6,12 +6,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class RampantBleed : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rampant Bleeding");
             Description.SetDefault("Paper cuts deeper...");
             Main.debuff[Type] = true;
-            canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

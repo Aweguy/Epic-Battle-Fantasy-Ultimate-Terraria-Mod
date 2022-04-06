@@ -8,10 +8,11 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
+using Terraria.Chat;
 
 namespace EpicBattleFantasyUltimate
 {
-    public class EpicWorld : ModWorld
+    public class EpicWorld : ModSystem
     {
         public static bool OreEvent = false;
 
@@ -31,7 +32,7 @@ namespace EpicBattleFantasyUltimate
 
         public static int downedWraithTimes;
 
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             downedOres = false;
 
@@ -40,9 +41,18 @@ namespace EpicBattleFantasyUltimate
             bossesDefeated = 0;
         }
 
-        public override TagCompound Save()
+        public override void OnWorldUnload()
         {
-            return new TagCompound
+            downedOres = false;
+
+            downedOresHard = false;
+
+            bossesDefeated = 0;
+        }
+
+        public override void SaveWorldData(TagCompound tag)
+        {
+            new TagCompound
             {
                 {"downedOres", downedOres},
                 {"downedOresHard", downedOresHard},
@@ -50,7 +60,7 @@ namespace EpicBattleFantasyUltimate
             };
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadWorldData(TagCompound tag)
         {
             downedOres = tag.GetBool("downedOres");
             downedOresHard = tag.GetBool("downedOresHard");
@@ -68,7 +78,7 @@ namespace EpicBattleFantasyUltimate
             writer.Write(flags);
             writer.Write(OreKills);
         }
-
+        
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
@@ -80,7 +90,7 @@ namespace EpicBattleFantasyUltimate
             OreKills = reader.ReadInt32();
         }
 
-        public override void PreUpdate()
+        public override void PreUpdateInvasions()
         {
             #region Ore Event
 
@@ -99,7 +109,7 @@ namespace EpicBattleFantasyUltimate
                     Color messageColor = Color.Orange;
                     if (Main.netMode == NetmodeID.Server) // Server
                     {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
                     }
                     else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
                     {
@@ -120,7 +130,7 @@ namespace EpicBattleFantasyUltimate
                     Color messageColor = Color.Orange;
                     if (Main.netMode == NetmodeID.Server) // Server
                     {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
                     }
                     else if (Main.netMode == NetmodeID.SinglePlayer) // Single Player
                     {
@@ -133,15 +143,8 @@ namespace EpicBattleFantasyUltimate
             #endregion Ore Event
         }
 
-        #region PostWorldGen
-
         public override void PostWorldGen()
         {
-            #region Sky Chests
-
-
-            #endregion Sky Chests
-
             #region Ice Chests
 
             int[] itemsToPlaceInIceChests = { ItemType<SpellHaste>() };
@@ -150,7 +153,7 @@ namespace EpicBattleFantasyUltimate
             {
                 Chest chest = Main.chest[chestIndex];
                 // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                if (Main.rand.NextFloat() < .33f && chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
+                if (Main.rand.NextFloat() < .33f && chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -175,7 +178,7 @@ namespace EpicBattleFantasyUltimate
             {
                 Chest chest = Main.chest[chestIndex];
                 // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                if (Main.rand.NextFloat() < .33f && chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36)
+                if (Main.rand.NextFloat() < .33f && chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -225,7 +228,7 @@ namespace EpicBattleFantasyUltimate
             {
                 Chest chest = Main.chest[chestIndex];
                 // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                if (Main.rand.NextFloat() < .50f && chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 51 * 36)
+                if (Main.rand.NextFloat() < .50f && chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 51 * 36)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -242,7 +245,5 @@ namespace EpicBattleFantasyUltimate
 
             #endregion Marble Chests
         }
-
-        #endregion PostWorldGen
     }
 }

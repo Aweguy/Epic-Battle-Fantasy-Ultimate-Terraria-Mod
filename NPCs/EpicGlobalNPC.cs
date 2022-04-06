@@ -1,8 +1,10 @@
 ﻿using EpicBattleFantasyUltimate.Items.Consumables;
+using EpicBattleFantasyUltimate.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -232,24 +234,19 @@ namespace EpicBattleFantasyUltimate.NPCs
 
 		#region NPCLoot
 
-		public override void NPCLoot(NPC npc)
+		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
 			#region if boss
 
 			if (npc.boss)
 			{
-				Item.NewItem(npc.getRect(), mod.ItemType("DarkMatter"), Main.rand.Next(2) + 1);
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DarkMatter>(),1,1,3));
 
-				#region unique boss count
+                #region unique boss count
 
-				//unique boss count
+                //unique boss count
 
-				if (NPC.killCount[npc.type] <= 0)
-				{
-					EpicWorld.bossesDefeated++;
-				}
-
-				/*for (int i = 0; i < NPCLoader.NPCCount; ++i)
+                /*for (int i = 0; i < NPCLoader.NPCCount; ++i)
 				{
 					npc.SetDefaults(i);
 
@@ -258,16 +255,23 @@ namespace EpicBattleFantasyUltimate.NPCs
 						EpicWorld.bossesDefeated++;
 					}
 				}*/
+                #endregion
+            }
+            #endregion
+        }
+        #endregion NPCLoot
 
-				#endregion unique boss count
+        public override void OnKill(NPC npc)
+        {
+            if (npc.boss)
+            {
+				if (NPC.killCount[npc.type] <= 0)
+				{
+					EpicWorld.bossesDefeated++;
+				}
 			}
-
-			#endregion if boss
-		}
-
-		#endregion NPCLoot
-
-		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
 			if (EpicWorld.OreEvent)
 			{
@@ -275,8 +279,6 @@ namespace EpicBattleFantasyUltimate.NPCs
 				spawnRate *= (int)0.7f;
 			}
 		}
-
-		#region DrawEffects
 
 		public override void DrawEffects(NPC npc, ref Color drawColor)
 		{
@@ -324,15 +326,11 @@ namespace EpicBattleFantasyUltimate.NPCs
 			#endregion Electrified Dust
 		}
 
-		#endregion DrawEffects
-
-		#region PostDraw
-
-		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
-		{
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
 			if (Cursed)
 			{
-				Texture2D tex = mod.GetTexture("Buffs/Debuffs/CursedEffect");
+				Texture2D tex = ModContent.Request<Texture2D>("Buffs/Debuffs/CursedEffect").Value;
 				Vector2 drawOrigin = new Vector2(tex.Width * 0.5f, tex.Height * 0.5f);
 
 				Vector2 drawPos = npc.Center - new Vector2(0, 15 + npc.height / 2) - Main.screenPosition;
@@ -340,7 +338,5 @@ namespace EpicBattleFantasyUltimate.NPCs
 				spriteBatch.Draw(tex, drawPos, new Rectangle(0, 0, tex.Width, tex.Height), new Color(255, 255, 255, CursedAlpha), 0, drawOrigin, 1, SpriteEffects.None, 0f);
 			}
 		}
-
-		#endregion PostDraw
 	}
 }

@@ -17,19 +17,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
+using EpicBattleFantasyUltimate.Items.Swords;
+using EpicBattleFantasyUltimate.Items.Accessories;
 
 namespace EpicBattleFantasyUltimate
 {
 	public class EpicPlayer : ModPlayer
 	{
-		#region Flair Slot Items
-
-		Item item1 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[0].Item;
-		Item item2 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[1].Item;
-		Item item3 => EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots[2].Item;
-
-		#endregion Flair Slot Items
-
 		#region Attack Speed Multiplier Vars
 
 		private float multiplier = 0f;
@@ -44,9 +38,9 @@ namespace EpicBattleFantasyUltimate
 
 		public static readonly Color GetLimit = Color.OrangeRed;
 
-		public static EpicPlayer ModPlayer(Player player)
+		public static EpicPlayer ModPlayer(Player Player)
 		{
-			return player.GetModPlayer<EpicPlayer>();
+			return Player.GetModPlayer<EpicPlayer>();
 		}
 
 		//Limit
@@ -67,61 +61,11 @@ namespace EpicBattleFantasyUltimate
 			MaxLimit2 = MaxLimit;
 		}
 
-		public override void OnEnterWorld(Player player)
+		public override void OnEnterWorld(Player Player)
 		{
 		}
 
 		#endregion Limit Break
-
-		#region Save/Load
-
-		public override TagCompound Save()
-		{
-			TagCompound tc = new TagCompound()
-			{
-			{"LimitPoints", LimitCurrent },
-			};
-
-			for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
-			{
-				if (EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item == null)
-				{
-					tc.Add("flairSlot_" + i, string.Empty);
-				}
-				else
-				{
-					tc.Add("flairSlot_" + i, ItemIO.ToBase64(EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item));
-				}
-			}
-
-			return (tc);
-		}
-
-		public override void Load(TagCompound tc)
-		{
-			LimitCurrent = tc.GetInt("LimitPoints");
-
-			if (EpicBattleFantasyUltimate.instance == null)
-			{
-				return;
-			}
-
-			for (int i = 0; i < EpicBattleFantasyUltimate.instance?.SlotUI.FlairSlots.Length; ++i)
-			{
-				string flairSlotData = tc.GetString("flairSlot_" + i);
-
-				if (!string.IsNullOrWhiteSpace(flairSlotData))
-				{
-					EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = ItemIO.FromBase64(flairSlotData);
-				}
-				else
-				{
-					EpicBattleFantasyUltimate.instance.SlotUI.FlairSlots[i].Item = new Item();
-				}
-			}
-		}
-
-		#endregion Save/Load
 
 		#region Overhead Buff Drawing
 
@@ -195,15 +139,13 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion Blessed Variables
 
-		#region OnHitByNPC
-
 		public override void OnHitByNPC(NPC npc, int damage, bool crit)
 		{
 			#region OreImmunity
 
 			if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
 			{
-				player.immune = false;
+				Player.immune = false;
 			}
 
 			#endregion OreImmunity
@@ -217,8 +159,6 @@ namespace EpicBattleFantasyUltimate
 			#endregion Limit Generation
 		}
 
-		#endregion OnHitByNPC
-
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
 			if (damageSource.SourceProjectileIndex > -1)
@@ -227,9 +167,9 @@ namespace EpicBattleFantasyUltimate
 
 				if (damageSource.SourceProjectileType == ModContent.ProjectileType<SapphireExplosion>())
 				{
-					Vector2 hitDir = Vector2.Normalize(player.position - Main.projectile[damageSource.SourceProjectileIndex].Center);
+					Vector2 hitDir = Vector2.Normalize(Player.position - Main.projectile[damageSource.SourceProjectileIndex].Center);
 
-					player.velocity = hitDir * 16f; // Strong knockback.
+					Player.velocity = hitDir * 16f; // Strong knockback.
 				}
 
 				#endregion Sapphire Explosion Knockback
@@ -250,11 +190,11 @@ namespace EpicBattleFantasyUltimate
 
 		private void LimitGenerationNPC(NPC npc, int damage, bool crit)
 		{
-			float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+			float HpLost = ((float)damage / (float)Player.statLifeMax2) * 100f;
 
 			// Generates a value between 0.75-1.25 based on current life.
 			// Lower value if more life left.
-			float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
+			float HpModifier = 1.25f - (float)Player.statLife / (float)Player.statLifeMax * 0.5f;
 
 			// Generates:
 			// 0.0:1.0 + 0.0:0.25
@@ -280,11 +220,11 @@ namespace EpicBattleFantasyUltimate
 
 		private void LimitGenerationProj(Projectile proj, int damage, bool crit)
 		{
-			float HpLost = ((float)damage / (float)player.statLifeMax2) * 100f;
+			float HpLost = ((float)damage / (float)Player.statLifeMax2) * 100f;
 
 			// Generates a value between 0.75-1.25 based on current life.
 			// Lower value if more life left.
-			float HpModifier = 1.25f - (float)player.statLife / (float)player.statLifeMax * 0.5f;
+			float HpModifier = 1.25f - (float)Player.statLife / (float)Player.statLifeMax * 0.5f;
 
 			// Generates:
 			// 0.0:1.0 + 0.0:0.25
@@ -310,31 +250,23 @@ namespace EpicBattleFantasyUltimate
 
 		public void LimitEffect(int healAmount, bool broadcast = true)
 		{
-			CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.OrangeRed, healAmount);
-			if (broadcast && Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer)
+			CombatText.NewText(new Rectangle((int)Player.position.X, (int)Player.position.Y, Player.width, Player.height), Color.OrangeRed, healAmount);
+			if (broadcast && Main.netMode == NetmodeID.MultiplayerClient && Player.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(MessageID.HealEffect, -1, -1, null, player.whoAmI, healAmount);
+				NetMessage.SendData(MessageID.PlayerHeal, -1, -1, null, Player.whoAmI, healAmount);
 			}
-		}
-
-		public override void LoadLegacy(BinaryReader reader)
-		{
-			int _ = reader.ReadInt32();
-			LimitCurrent = reader.ReadInt32();
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
-			ModPacket packet = mod.GetPacket();
+			ModPacket packet = Mod.GetPacket();
 			packet.Write((byte)EpicMessageType.EpicPlayerSyncPlayer);
-			packet.Write((byte)player.whoAmI);
+			packet.Write((byte)Player.whoAmI);
 			packet.Write(LimitCurrent);
 			packet.Send(toWho, fromWho);
 		}
 
 		#endregion Limit Hooks
-
-		#region ModifyHitNPC
 
 		public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
@@ -354,10 +286,6 @@ namespace EpicBattleFantasyUltimate
 			#endregion Weakened Weakening
 		}
 
-		#endregion ModifyHitNPC
-
-		#region ResetEffects
-
 		public override void ResetEffects()
 		{
 			#region Rampant Bleed Reset
@@ -373,7 +301,7 @@ namespace EpicBattleFantasyUltimate
 
 			#region Shadow Blaster Effect
 
-			if (player.HeldItem.type != mod.ItemType("ShadowBlasterGun"))
+			if (Player.HeldItem.type != ModContent.ItemType<ShadowBlasterGun>())
 			{
 				shadow = false;
 			}
@@ -438,38 +366,30 @@ namespace EpicBattleFantasyUltimate
 			#endregion
 		}
 
-		#endregion ResetEffects
-
-		#region UpdateBadLifeRegen
-
 		public override void UpdateBadLifeRegen()
 		{
 			#region Rampant Bleed Effects
 
 			if (RBleed)
 			{
-				if (player.lifeRegen > 0)
+				if (Player.lifeRegen > 0)
 				{
-					player.lifeRegen = 0;
+					Player.lifeRegen = 0;
 				}
 
-				player.lifeRegenTime = 0;
+				Player.lifeRegenTime = 0;
 				// lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-				player.lifeRegen -= RBleedStacks;
+				Player.lifeRegen -= RBleedStacks;
 			}
 
 			#endregion Rampant Bleed Effects
 		}
 
-		#endregion UpdateBadLifeRegen
-
-		#region PostUpdateBuffs
-
 		public override void PostUpdateBuffs()
 		{
 			#region Sugar Rush Jump Height
 
-			if (player.HasBuff(mod.BuffType("SugarRush")))
+			if (Player.HasBuff(ModContent.BuffType<SugarRush>()))
 			{
 				Player.jumpHeight += 7;
 				Player.jumpSpeed += 0.3f;
@@ -485,16 +405,16 @@ namespace EpicBattleFantasyUltimate
 				{
 					CursedMult = 0.1 * CursedStacks;
 					CursedDefense = 1 - CursedMult;
-					player.statDefense = (int)(player.statDefense * CursedDefense);
+					Player.statDefense = (int)(Player.statDefense * CursedDefense);
 				}
 				else
 				{
-					player.statDefense = (int)(player.statDefense * 0.5);
+					Player.statDefense = (int)(Player.statDefense * 0.5);
 				}
 			}
 			else
 			{
-				player.statDefense = player.statDefense;
+				Player.statDefense = Player.statDefense;
 			}
 
 			if (CursedStacks == 1)
@@ -535,39 +455,13 @@ namespace EpicBattleFantasyUltimate
 			}
 
 			#endregion Cursed Effects
-
-			#region Flair Slots
-
-			// Check to see if the item EXISTS.
-			if (item1 != null && !item1.IsAir)
-			{
-				item1.modItem.UpdateAccessory(player, false);
-			}
-
-			// Check to see if the item EXISTS.
-			if (item2 != null && !item2.IsAir)
-			{
-				item2.modItem.UpdateAccessory(player, false);
-			}
-
-			// Check to see if the item EXISTS.
-			if (item3 != null && !item3.IsAir)
-			{
-				item3.modItem.UpdateAccessory(player, false);
-			}
-
-			#endregion Flair Slots
 		}
-
-		#endregion PostUpdateBuffs
-
-		#region UseTimeMultiplier
 
 		public override float UseTimeMultiplier(Item item)
 		{
 			#region Haste and Infuriated speed effects
 
-			if (player.HasBuff(ModContent.BuffType<HasteBuff>()))
+			if (Player.HasBuff(ModContent.BuffType<HasteBuff>()))
 			{
 				Haste = 1f;
 			}
@@ -575,7 +469,7 @@ namespace EpicBattleFantasyUltimate
 			{
 				Haste = 0f;
 			}
-			if (player.HasBuff(ModContent.BuffType<Infuriated>()))
+			if (Player.HasBuff(ModContent.BuffType<Infuriated>()))
 			{
 				Infuriated = 2f;
 			}
@@ -600,27 +494,21 @@ namespace EpicBattleFantasyUltimate
 			return multiplier;
 		}
 
-		#endregion UseTimeMultiplier
-
-		#region OnHitNPCWithProj
-
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
 		{
-			#region Crystal Healing
-
 			#region Crystal Revolver Healing
 
-			if (player.HeldItem.type == ModContent.ItemType<CrystalRevolver>() && player.statLife < player.statLifeMax)
+			if (Player.HeldItem.type == ModContent.ItemType<CrystalRevolver>() && Player.statLife < Player.statLifeMax)
 			{
-				if (player.HasItem(ModContent.ItemType<CrystalRevolver>()) && player.HasItem(ModContent.ItemType<CrystalWing>()))
+				if (Player.HasItem(ModContent.ItemType<CrystalRevolver>()) && Player.HasItem(ModContent.ItemType<CrystalWing>()))
 				{
-					player.statLife += 6;
-					player.HealEffect(6);
+					Player.statLife += 6;
+					Player.HealEffect(6);
 				}
 				else
 				{
-					player.statLife += 3;
-					player.HealEffect(3);
+					Player.statLife += 3;
+					Player.HealEffect(3);
 				}
 			}
 
@@ -630,32 +518,30 @@ namespace EpicBattleFantasyUltimate
 
 			dps += damage;
 
-			if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal && player.HasItem(mod.ItemType("CrystalRevolver")))
+			if (Player.HeldItem.type == ModContent.ItemType<CrystalWing>() && Player.statLife < Player.statLifeMax && dps > 100 && heal && Player.HasItem(ModContent.ItemType<CrystalRevolver>()))
 			{
-				player.statLife += dps / 2;
-				player.HealEffect(dps / 2);
+				Player.statLife += dps / 2;
+				Player.HealEffect(dps / 2);
 
 				heal = false;
 			}
-			else if (player.HeldItem.type == mod.ItemType("CrystalWing") && player.statLife < player.statLifeMax && dps > 100 && heal)
+			else if (Player.HeldItem.type == ModContent.ItemType<CrystalWing>() && Player.statLife < Player.statLifeMax && dps > 100 && heal)
 			{
-				player.statLife += dps / 4;
-				player.HealEffect(dps / 4);
+				Player.statLife += dps / 4;
+				Player.HealEffect(dps / 4);
 
 				heal = false;
 			}
 
 			#endregion Crystal Wing Healing
 
-			#endregion Crystal Healing
-
 			#region Vortex Implosion
 
 			#region Vortex Cannon implosion mechanic
 
-			if (player.HeldItem.type == mod.ItemType("VortexCannon"))
+			if (Player.HeldItem.type == ModContent.ItemType<VortexCannon>())
 			{
-				if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
+				if (Player.HasItem(ModContent.ItemType<VortexCannon>()) && Player.HasItem(ModContent.ItemType<VortexRevolver>()))
 				{
 					target.velocity = target.DirectionTo(proj.Center) * 40;
 				}
@@ -669,9 +555,9 @@ namespace EpicBattleFantasyUltimate
 
 			#region Vortex Revolver Inverted Knockback
 
-			if (player.HeldItem.type == mod.ItemType("VortexRevolver"))
+			if (Player.HeldItem.type == ModContent.ItemType<VortexRevolver>())
 			{
-				if (player.HasItem(mod.ItemType("VortexCannon")) && player.HasItem(mod.ItemType("VortexRevolver")))
+				if (Player.HasItem(ModContent.ItemType<VortexCannon>()) && Player.HasItem(ModContent.ItemType<VortexRevolver>()))
 				{
 					target.velocity = target.DirectionTo(proj.Center) * 10;
 				}
@@ -687,9 +573,9 @@ namespace EpicBattleFantasyUltimate
 
 			#region Hellfire AddBuff
 
-			if (player.HeldItem.type == mod.ItemType("HellfireRevolver") || player.HeldItem.type == mod.ItemType("HellfireShotgun"))
+			if (Player.HeldItem.type == ModContent.ItemType<HellfireRevolver>() || Player.HeldItem.type == ModContent.ItemType<HellfireShotgun>())
 			{
-				if (player.HasItem(mod.ItemType("HellfireRevolver")) && player.HasItem(mod.ItemType("HellfireShotgun")))
+				if (Player.HasItem(ModContent.ItemType<HellfireRevolver>()) && Player.HasItem(ModContent.ItemType<HellfireShotgun>()))
 				{
 					target.AddBuff(BuffID.OnFire, 300);
 				}
@@ -701,10 +587,6 @@ namespace EpicBattleFantasyUltimate
 
 			#endregion Hellfire AddBuff
 		}
-
-		#endregion OnHitNPCWithProj
-
-		#region PostUpdate
 
 		public override void PostUpdate()
 		{
@@ -743,15 +625,15 @@ namespace EpicBattleFantasyUltimate
 			{
 				
 				for (int j = 0; j < Player.MaxBuffs; ++j)
-                {
-					if(player.buffType[j] == ModContent.BuffType<Doomed>())
-                    {
+				{
+					if(Player.buffType[j] == ModContent.BuffType<Doomed>())
+					{
 						DoomBuff = j;
-                    }
-                }
-				if(player.buffTime[DoomBuff] <= 10)
-                {
-					player.Hurt(PlayerDeathReason.ByCustomReason("DEATH!!!!!!!!!!!!!!!!!!!!!!!!!!!"), player.statLifeMax2 * 999, 0, true, false, true);
+					}
+				}
+				if(Player.buffTime[DoomBuff] <= 10)
+				{
+					Player.Hurt(PlayerDeathReason.ByCustomReason("DEATH!!!!!!!!!!!!!!!!!!!!!!!!!!!"), Player.statLifeMax2 * 999, 0, true, false, true);
 				}
 			}
 
@@ -759,16 +641,12 @@ namespace EpicBattleFantasyUltimate
 
 		}
 
-		#endregion PostUpdate
-
-		#region PreUpdate
-
 		public override void PreUpdate()
 		{
 
 			#region Shadow Blaster Effect
 
-			if (player.HasItem(mod.ItemType("ShadowBlaster")) && player.HeldItem.type == mod.ItemType("ShadowBlasterGun"))
+			if (Player.HasItem(ModContent.ItemType<ShadowBlaster>()) && Player.HeldItem.type == ModContent.ItemType<ShadowBlasterGun>())
 			{
 				shadow = true;
 			}
@@ -782,63 +660,59 @@ namespace EpicBattleFantasyUltimate
 			#endregion Limit Stuff
 		}
 
-		#endregion PreUpdate
-
-		#region PostUpdateRunSpeeds
-
 		public override void PostUpdateRunSpeeds()
 		{
 			#region Thunder Core Speed
 
-			if (player.HeldItem.type == mod.ItemType("ThunderCore") && player.HasItem(mod.ItemType("ThunderCoreGun")))
+			if (Player.HeldItem.type == ModContent.ItemType<ThunderCore>() && Player.HasItem(ModContent.ItemType<ThunderCoreGun>()))
 			{
-				player.maxRunSpeed += 1.2f;
-				player.moveSpeed += 1.2f;
-				player.accRunSpeed += 1.2f;
+				Player.maxRunSpeed += 1.2f;
+				Player.moveSpeed += 1.2f;
+				Player.accRunSpeed += 1.2f;
 			}
 
 			#endregion Thunder Core Speed
 
 			#region Dragon's Feather Speed
 
-			if (player.HeldItem.type == mod.ItemType("DragonsFeather"))
+			if (Player.HeldItem.type == ModContent.ItemType<DragonsFeather>())
 			{
-				player.maxRunSpeed += 1.5f;
-				player.moveSpeed += 1.5f;
-				player.accRunSpeed += 1.5f;
+				Player.maxRunSpeed += 1.5f;
+				Player.moveSpeed += 1.5f;
+				Player.accRunSpeed += 1.5f;
 			}
 
 			#endregion Dragon's Feather Speed
 
 			#region Haste Speed
 
-			if (player.HasBuff(mod.BuffType("HasteBuff")))
+			if (Player.HasBuff(ModContent.BuffType<HasteBuff>()))
 			{
-				player.maxRunSpeed += 2f;
-				player.accRunSpeed += 2f;
-				player.moveSpeed += 2f;
+				Player.maxRunSpeed += 2f;
+				Player.accRunSpeed += 2f;
+				Player.moveSpeed += 2f;
 			}
 
 			#endregion Haste Speed
 
 			#region Sugar Rush Speed
 
-			if (player.HasBuff(mod.BuffType("SugarRush")))
+			if (Player.HasBuff(ModContent.BuffType<SugarRush>()))
 			{
-				player.maxRunSpeed += 2f;
-				player.moveSpeed += 1f;
+				Player.maxRunSpeed += 2f;
+				Player.moveSpeed += 1f;
 			}
 
 			#endregion Sugar Rush Speed
 
 			#region King's Guard Shield Speed
 
-			for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+			for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
 			{
-				if (player.armor[i].type == mod.ItemType("KingsGuardShield"))
+				if (Player.armor[i].type == ModContent.ItemType<KingsGuardShield>())
 				{
-					player.maxRunSpeed *= 0.70f;
-					player.accRunSpeed *= 0.70f;
+					Player.maxRunSpeed *= 0.70f;
+					Player.accRunSpeed *= 0.70f;
 				}
 			}
 
@@ -852,15 +726,15 @@ namespace EpicBattleFantasyUltimate
 
 				if (TiredStacks < 5)
 				{
-					player.maxRunSpeed *= (1f - TiredPower);
-					player.accRunSpeed *= (1f - TiredPower);
-					player.moveSpeed *= (1f - TiredPower);
+					Player.maxRunSpeed *= (1f - TiredPower);
+					Player.accRunSpeed *= (1f - TiredPower);
+					Player.moveSpeed *= (1f - TiredPower);
 				}
 				else if (TiredStacks >= 5)
 				{
-					player.maxRunSpeed *= 0.5f;
-					player.accRunSpeed *= 0.5f;
-					player.moveSpeed *= 0.5f;
+					Player.maxRunSpeed *= 0.5f;
+					Player.accRunSpeed *= 0.5f;
+					Player.moveSpeed *= 0.5f;
 				}
 			}
 
@@ -868,25 +742,21 @@ namespace EpicBattleFantasyUltimate
 
 			#region Heaven's speed
 
-			if (player.HasBuff(ModContent.BuffType<Kyun>()))
+			if (Player.HasBuff(ModContent.BuffType<Kyun>()))
 			{
-				player.maxRunSpeed += 1.5f;
-				player.accRunSpeed += 1.5f;
-				player.moveSpeed += 1.5f;
+				Player.maxRunSpeed += 1.5f;
+				Player.accRunSpeed += 1.5f;
+				Player.moveSpeed += 1.5f;
 			}
 
 			#endregion Heaven's speed
 		}
 
-		#endregion PostUpdateRunSpeeds
-
-		#region GetWeaponCrit
-
-		public override void GetWeaponCrit(Item item, ref int crit)
+		public override void ModifyWeaponCrit(Item item, ref int crit)
 		{
 			#region Gungnir Crit
 
-			if (player.HasItem(mod.ItemType("GungnirRifle")) && player.HasItem(mod.ItemType("GungnirRevolver")) && (player.HeldItem.type == mod.ItemType("GungnirRifle") || player.HeldItem.type == mod.ItemType("GungnirRevolver")))
+			if (Player.HasItem(ModContent.ItemType<GungnirRifle>()) && Player.HasItem(ModContent.ItemType<GungnirRevolver>()) && (Player.HeldItem.type == ModContent.ItemType<GungnirRifle>() || Player.HeldItem.type == ModContent.ItemType<GungnirRevolver>()))
 			{
 				crit += 15;
 			}
@@ -894,11 +764,7 @@ namespace EpicBattleFantasyUltimate
 			#endregion Gungnir Crit
 		}
 
-		#endregion GetWeaponCrit
-
-		#region DrawEffects
-
-		public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
 		{
 			#region Rampant Bleeding Dust
 
@@ -908,38 +774,36 @@ namespace EpicBattleFantasyUltimate
 				{
 					if (Main.rand.NextFloat() <= .1f)
 					{
-						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(Player.position - new Vector2(2f, 2f), Player.width, Player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 5 && RBleedStacks <= 10)
 				{
 					if (Main.rand.NextFloat() <= .2f)
 					{
-						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(Player.position - new Vector2(2f, 2f), Player.width, Player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 10 && RBleedStacks <= 20)
 				{
 					if (Main.rand.NextFloat() <= .4f)
 					{
-						Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+						Dust.NewDustDirect(Player.position - new Vector2(2f, 2f), Player.width, Player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 					}
 				}
 				else if (RBleedStacks > 20)
 				{
-					Dust.NewDustDirect(player.position - new Vector2(2f, 2f), player.width, player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
+					Dust.NewDustDirect(Player.position - new Vector2(2f, 2f), Player.width, Player.height, DustID.Blood, 0f, 0f, 0, new Color(255, 255, 255), 1f);
 				}
 			}
 
 			#endregion Rampant Bleeding Dust
-
 		}
 
-		#endregion DrawEffects
 
 		#region ModifyDrawLayers
 
-		public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
+		/*public static readonly PlayerLayer MiscEffects = new PlayerLayer("EpicBattleFantasyUltimate", "MiscEffects", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
 		{
 			if (drawInfo.shadow != 0f)
 			{
@@ -960,7 +824,7 @@ namespace EpicBattleFantasyUltimate
 
 				Color alpha = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha * modPlayer.CursedAlpha, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
-				Main.playerDrawData.Add(data);
+				Main.PlayerDrawData.Add(data);
 
 				drawX += drawableBuffOffset;
 			}
@@ -972,7 +836,7 @@ namespace EpicBattleFantasyUltimate
 
 				Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
-				Main.playerDrawData.Add(data);
+				Main.PlayerDrawData.Add(data);
 
 				drawX += drawableBuffOffset;
 			}
@@ -983,32 +847,19 @@ namespace EpicBattleFantasyUltimate
 
 				Color alpha2 = Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f), (int)((drawInfo.position.Y - 4f - texture.Height / 2f) / 16f));
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY - 5), null, alpha2 * 1f, 0f, new Vector2(texture.Width / 2, texture.Height), 1f, SpriteEffects.None, 0);
-				Main.playerDrawData.Add(data);
+				Main.PlayerDrawData.Add(data);
 
 				drawX += drawableBuffOffset;
 			}
 		});
-
-		public override void ModifyDrawLayers(List<PlayerLayer> layers)
+		public override void ModifyDrawLayerOrdering(IDictionary<PlayerDrawLayer, PlayerDrawLayer.Position> positions)
 		{
-			if (player.HeldItem.modItem is Items.SignatureItems.PaintSplatteredBrush) PlayerLayer.HeldItem.visible = false;
-
-			Action<PlayerDrawInfo> layerTarget = DrawGlowmasks; //the Action<T> of our layer. This is the delegate which will actually do the drawing of the layer.
-			PlayerLayer layer = new PlayerLayer("ExampleSwordLayer", "Sword Glowmask", layerTarget); //Instantiate a new instance of PlayerLayer to insert into the list
-			layers.Insert(layers.IndexOf(layers.FirstOrDefault(n => n.Name == "Arms")), layer); //Insert the layer at the appropriate index.
-
-			if (player.statLife > 0)
+			if (Player.statLife > 0)
 			{
 				MiscEffects.visible = true;
 				layers.Add(MiscEffects);
 			}
-
-			void DrawGlowmasks(PlayerDrawInfo info)
-			{
-				if (info.drawPlayer.HeldItem.modItem is Items.IPlayerLayerDrawable) (info.drawPlayer.HeldItem.modItem as Items.IPlayerLayerDrawable).DrawGlowmask(info);
-			}
-		}
-
+		}*/
 		#endregion ModifyDrawLayers
 	}
 }

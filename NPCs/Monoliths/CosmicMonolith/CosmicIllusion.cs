@@ -61,8 +61,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		private int GlowmaskFrame = 0;
 		private int GlowmaskTimer = 0;
 
-		private NPC fatherNPC;//the creator of this npc
-		private bool FatherHP = false;//whether the npc has gotten the hp of the creator of this npc.
+		private NPC fatherNPC;//the creator of this NPC
+		private bool FatherHP = false;//whether the NPC has gotten the hp of the creator of this NPC.
 
 		public override void SetStaticDefaults()
 		{
@@ -71,45 +71,45 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		public override void SetDefaults()
 		{
-			npc.height = 100;
-			npc.width = 30;
+			NPC.height = 100;
+			NPC.width = 30;
 
-			npc.lifeMax = 10000;
-			npc.defense = 60;
+			NPC.lifeMax = 10000;
+			NPC.defense = 60;
 
-			npc.alpha = 120;
+			NPC.alpha = 120;
 
-			npc.knockBackResist = -1;
-			npc.aiStyle = -1;
-			npc.noGravity = true;
+			NPC.knockBackResist = -1;
+			NPC.aiStyle = -1;
+			NPC.noGravity = true;
 			AIState = MonolithState.Teleport;
 		}
 
 		private void Direction(Player target)
 		{
-			npc.spriteDirection = target.Center.X > npc.Center.X ? -1 : 1;
+			NPC.spriteDirection = target.Center.X > NPC.Center.X ? -1 : 1;
 		}
 
 
 		public override bool PreAI()
 		{
 			#region Father NPC hp
-			fatherNPC = Main.npc[(int)npc.ai[1]];
+			fatherNPC = Main.npc[(int)NPC.ai[1]];
 			if (!FatherHP)
 			{
-				npc.life = fatherNPC.life / 2;
+				NPC.life = fatherNPC.life / 2;
 				FatherHP = true;
 			}
-			#endregion//Setting the initial hp of the npc as the father npc's half current hp.
+			#endregion//Setting the initial hp of the NPC as the father NPC's half current hp.
 			#region Father NPC death
 			if (!fatherNPC.active)
 			{
 				CheckDead();
-				npc.life = 0;
+				NPC.life = 0;
 			}
 			#endregion
-			npc.TargetClosest(true);
-			Player player = Main.player[npc.target];
+			NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
 			Direction(player);//Direction of the monolith towards the player.
 			
 			if(AIState == MonolithState.Nothing)//If it does nothing it teleports behind the player when within range and if the player looks at it.
@@ -122,14 +122,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					AttackChosen = true;
 				}
 
-				/*float DistanceFromPlayer = Vector2.Distance(npc.Center, player.Center);//Player viscinity teleportation.
+				/*float DistanceFromPlayer = Vector2.Distance(NPC.Center, player.Center);//Player viscinity teleportation.
 				if(DistanceFromPlayer <= 16 * 30)
 				{
-					if (player.direction == 1 && npc.direction == -1)
+					if (player.direction == 1 && NPC.direction == -1)
 					{
 						Teleportation();
 					}
-					else if (player.direction == -1 && npc.direction == 1)
+					else if (player.direction == -1 && NPC.direction == 1)
 					{
 						Teleportation();
 					}
@@ -182,7 +182,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
 		{
-			Projectile.NewProjectile(new Vector2(npc.Center.X - 50, npc.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 0, 0, Main.myPlayer, npc.whoAmI, 0);
+			Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 0, 0, Main.myPlayer, NPC.whoAmI, 0);
 
 			AIState = MonolithState.Nothing;
 			AttackChosen = false;
@@ -190,43 +190,43 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		private void Teleportation()
 		{
-			npc.TargetClosest(true);
+			NPC.TargetClosest(true);
 			spawned = true;
-			Player player = Main.player[npc.target];
-			npc.netUpdate = true;
-			if ((double)player.position.X > (double)npc.position.X) npc.spriteDirection = 1;
-			else if ((double)player.position.X < (double)npc.position.X) npc.spriteDirection = -1;
-			npc.TargetClosest(true);
-			npc.velocity.X = npc.velocity.X * 0.93f;
-			npc.velocity.X = 0.0f;
-			npc.velocity.Y = 5.0f;
+			Player player = Main.player[NPC.target];
+			NPC.netUpdate = true;
+			if ((double)player.position.X > (double)NPC.position.X) NPC.spriteDirection = 1;
+			else if ((double)player.position.X < (double)NPC.position.X) NPC.spriteDirection = -1;
+			NPC.TargetClosest(true);
+			NPC.velocity.X = NPC.velocity.X * 0.93f;
+			NPC.velocity.X = 0.0f;
+			NPC.velocity.Y = 5.0f;
 
-			if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1) npc.velocity.X = 0.0f;
+			if ((double)NPC.velocity.X > -0.1 && (double)NPC.velocity.X < 0.1) NPC.velocity.X = 0.0f;
 
 			if (teleports <= 10)//If it's teleported less than 10 times keep teleporting
 			{
-				if (spawned && (double)npc.ai[0] == 0.0) npc.ai[0] = 500f;
+				if (spawned && (double)NPC.ai[0] == 0.0) NPC.ai[0] = 500f;
 
 				if (teleports == 0 )//Initial teleportation cheaty effect
 				{
-					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 
-				if ((double)npc.ai[2] != 0.0 && (double)npc.ai[3] != 0.0)
+				if ((double)NPC.ai[2] != 0.0 && (double)NPC.ai[3] != 0.0)
 				{
 
-					npc.position.X = (float)((double)npc.ai[2] * 16.0 - (double)(npc.width / 2) + 8.0);
-					npc.position.Y = npc.ai[3] * 16f - (float)npc.height;
-					npc.velocity.X = 0.0f;
-					npc.velocity.Y = 0.0f;
-					npc.ai[2] = 0.0f;
-					npc.ai[3] = 0.0f;
+					NPC.position.X = (float)((double)NPC.ai[2] * 16.0 - (double)(NPC.width / 2) + 8.0);
+					NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
+					NPC.velocity.X = 0.0f;
+					NPC.velocity.Y = 0.0f;
+					NPC.ai[2] = 0.0f;
+					NPC.ai[3] = 0.0f;
 					teleports++;
 				}
 
 				if(teleports == 11)//ending teleportation cheaty effect
 				{
-					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 			}
 			else//Resetting the variables and passing to the attack state.
@@ -235,20 +235,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				teleports = 0;
 			}
 
-			++npc.ai[0];
+			++NPC.ai[0];
 			
 			int spawn = Main.rand.Next(1, 1);//How fast the monolith teleports
-			if ((int)npc.ai[0] >= spawn)
+			if ((int)NPC.ai[0] >= spawn)
 			{
-				npc.ai[0] = 1.0f;
+				NPC.ai[0] = 1.0f;
 				int pX = (int)player.position.X / 16;
 				int pY = (int)player.position.Y / 16;
-				int x = (int)npc.position.X / 16;
-				int y = (int)npc.position.Y / 16;
+				int x = (int)NPC.position.X / 16;
+				int y = (int)NPC.position.Y / 16;
 				int rand = 40;
 				int distance = 0;
 				bool checkDistance = false;
-				if ((double)Math.Abs(npc.position.X - player.position.X) + (double)Math.Abs(npc.position.Y - player.position.Y) > 2000)
+				if ((double)Math.Abs(NPC.position.X - player.position.X) + (double)Math.Abs(NPC.position.Y - player.position.Y) > 2000)
 				{
 					distance = 500;
 					checkDistance = true;
@@ -262,15 +262,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					for (int j = Main.rand.Next(pY - rand, pY + rand); j < pY + rand; ++j)
 					{
 						
-						if ((j < pY - 4 || j > pY + 4 || (k < pX - 4 || k > pX + 4)) && (j < y - 1 || j > y + 1 || (k < x - 1 || k > x + 1)) && Main.tile[k, j].nactive())
+						if ((j < pY - 4 || j > pY + 4 || (k < pX - 4 || k > pX + 4)) && (j < y - 1 || j > y + 1 || (k < x - 1 || k > x + 1)) && Main.tile[k, j].IsActuated)
 						{
 							bool teleport = true;
-							if (Main.tile[k, j - 1].lava())
+							if (Main.tile[k, j - 1].LiquidType == LiquidID.Lava)
 								teleport = false;
-							if (teleport && Main.tileSolid[(int)Main.tile[k, j].type] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
+							if (teleport && Main.tileSolid[(int)Main.tile[k, j].TileType] && !Collision.SolidTiles(k - 1, k + 1, j - 4, j - 1))
 							{
-								npc.ai[2] = (float)k;
-								npc.ai[3] = (float)j;
+								NPC.ai[2] = (float)k;
+								NPC.ai[3] = (float)j;
 								checkDistance = true;
 								spawned = false;
 								break;
@@ -278,7 +278,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 						}	
 					}
 				}
-				npc.netUpdate = true;
+				NPC.netUpdate = true;
 				}
 		}
 
@@ -293,7 +293,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					{
 						CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
 
-						Projectile.NewProjectile(CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 0, 0, Main.myPlayer, npc.whoAmI, CosmicSphereRotation);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 0, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
 					}
 					AttackTimer = 0;
 					CosmicSphereCirclesCurrent++;
@@ -324,17 +324,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			{
 				/*if(AttackTimer == 1)
 				{
-					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, target.whoAmI);//teleportation cheaty effect for the slam attack
+					Projectile.NewProjectile(NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, target.whoAmI);//teleportation cheaty effect for the slam attack
 				}*/
-				npc.Center = new Vector2(target.Center.X,target.Center.Y - 150);//Positioning over the player's head.
+				NPC.Center = new Vector2(target.Center.X,target.Center.Y - 150);//Positioning over the player's head.
 			}
 			else if (AttackTimer > 30)
 			{
-				npc.velocity.Y = 10f;//Slaming downwards
+				NPC.velocity.Y = 10f;//Slaming downwards
 			}
 		}
 
-		public override void FindFrame(int frameHeight)//Glowmask and npc animation 
+		public override void FindFrame(int frameHeight)//Glowmask and NPC animation 
 		{
 			if (++GlowmaskTimer >= 5)
 			{
@@ -344,17 +344,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			#region GlowMask
 			SpriteEffects spriteEffects = SpriteEffects.None;
 
-			if (npc.direction == -1)
+			if (NPC.direction == -1)
 			{
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 
-			Texture2D glowmask = mod.GetTexture("NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
+			Texture2D glowmask = (Texture2D)ModContent.Request<Texture2D>("NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
 
 			int frameHeight = glowmask.Height / 13;
 
@@ -364,9 +364,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 			Vector2 origin = sourceRectangle.Size() / 2f;
 
-			origin.X = (float)(npc.spriteDirection == 1 ? sourceRectangle.Width - 20 : 20);
+			origin.X = (float)(NPC.spriteDirection == 1 ? sourceRectangle.Width - 20 : 20);
 
-			Main.spriteBatch.Draw(glowmask, npc.Center - Main.screenPosition, sourceRectangle, Color.White, npc.rotation, origin, npc.scale, spriteEffects, 0f);
+			Main.spriteBatch.Draw(glowmask, NPC.Center - Main.screenPosition, sourceRectangle, Color.White, NPC.rotation, origin, NPC.scale, spriteEffects, 0f);
 			#endregion//Drawing the Glowmask
 		}
 

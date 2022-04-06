@@ -5,7 +5,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
     public class HasteBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Haste");
             Description.SetDefault("You are sped up by magical energies.");

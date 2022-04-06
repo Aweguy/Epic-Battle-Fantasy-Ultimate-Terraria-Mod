@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,30 +23,30 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blue Flybot");
-			Main.npcFrameCount[npc.type] = 2;
+			Main.npcFrameCount[NPC.type] = 2;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 68;
-			npc.height = 54;
+			NPC.width = 68;
+			NPC.height = 54;
 
-			npc.lifeMax = 300;
-			npc.damage = 25;
-			npc.defense = 30;
-			npc.value = 100;
+			NPC.lifeMax = 300;
+			NPC.damage = 25;
+			NPC.defense = 30;
+			NPC.value = 100;
 
-			npc.noGravity = true;
+			NPC.noGravity = true;
 
-			npc.HitSound = SoundID.NPCHit4;
+			NPC.HitSound = SoundID.NPCHit4;
 
-			npc.noTileCollide = false;
-			npc.aiStyle = -1;
+			NPC.noTileCollide = false;
+			NPC.aiStyle = -1;
 		}
 
 		public override void AI()
 		{
-			npc.TargetClosest(true);
+			NPC.TargetClosest(true);
 
 			CannonSpawning();//Cannon spawn, only runs once the flybot spawns
 			movement();//Movement code from the bat
@@ -57,153 +58,153 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		private void movement()
 		{
-			if (npc.collideX)
+			if (NPC.collideX)
 			{
-				npc.velocity.X = npc.oldVelocity.X * -0.5f;
-				if (npc.direction == -1 && npc.velocity.X > 0f && npc.velocity.X < 2f)
+				NPC.velocity.X = NPC.oldVelocity.X * -0.5f;
+				if (NPC.direction == -1 && NPC.velocity.X > 0f && NPC.velocity.X < 2f)
 				{
-					npc.velocity.X = 2f;
+					NPC.velocity.X = 2f;
 				}
-				if (npc.direction == 1 && npc.velocity.X < 0f && npc.velocity.X > -2f)
+				if (NPC.direction == 1 && NPC.velocity.X < 0f && NPC.velocity.X > -2f)
 				{
-					npc.velocity.X = -2f;
+					NPC.velocity.X = -2f;
 				}
 			}
-			if (npc.collideY)
+			if (NPC.collideY)
 			{
-				npc.velocity.Y = npc.oldVelocity.Y * -0.5f;
-				if (npc.velocity.Y > 0f && npc.velocity.Y < 1f)
+				NPC.velocity.Y = NPC.oldVelocity.Y * -0.5f;
+				if (NPC.velocity.Y > 0f && NPC.velocity.Y < 1f)
 				{
-					npc.velocity.Y = 1f;
+					NPC.velocity.Y = 1f;
 				}
-				if (npc.velocity.Y < 0f && npc.velocity.Y > -1f)
+				if (NPC.velocity.Y < 0f && NPC.velocity.Y > -1f)
 				{
-					npc.velocity.Y = -1f;
-				}
-			}
-
-			if (npc.direction == -1 && npc.velocity.X > -4f)
-			{
-				npc.velocity.X -= 0.1f;
-				if (npc.velocity.X > 4f)
-				{
-					npc.velocity.X -= 0.1f;
-				}
-				else if (npc.velocity.X > 0f)
-				{
-					npc.velocity.X += 0.05f;
-				}
-				if (npc.velocity.X < -4f)
-				{
-					npc.velocity.X = -4f;
-				}
-			}
-			else if (npc.direction == 1 && npc.velocity.X < 4f)
-			{
-				npc.velocity.X += 0.1f;
-				if (npc.velocity.X < -4f)
-				{
-					npc.velocity.X += 0.1f;
-				}
-				else if (npc.velocity.X < 0f)
-				{
-					npc.velocity.X -= 0.05f;
-				}
-				if (npc.velocity.X > 4f)
-				{
-					npc.velocity.X = 4f;
-				}
-			}
-			if (npc.directionY == -1 && (double)npc.velocity.Y > -1.5)
-			{
-				npc.velocity.Y -= 0.04f;
-				if ((double)npc.velocity.Y > 1.5)
-				{
-					npc.velocity.Y -= 0.05f;
-				}
-				else if (npc.velocity.Y > 0f)
-				{
-					npc.velocity.Y += 0.03f;
-				}
-				if ((double)npc.velocity.Y < -1.5)
-				{
-					npc.velocity.Y = -1.5f;
-				}
-			}
-			else if (npc.directionY == 1 && (double)npc.velocity.Y < 1.5)
-			{
-				npc.velocity.Y += 0.04f;
-				if ((double)npc.velocity.Y < -1.5)
-				{
-					npc.velocity.Y += 0.05f;
-				}
-				else if (npc.velocity.Y < 0f)
-				{
-					npc.velocity.Y -= 0.03f;
-				}
-				if ((double)npc.velocity.Y > 1.5)
-				{
-					npc.velocity.Y = 1.5f;
+					NPC.velocity.Y = -1f;
 				}
 			}
 
-			if (npc.wet)
+			if (NPC.direction == -1 && NPC.velocity.X > -4f)
 			{
-				if (npc.velocity.Y > 0f)
+				NPC.velocity.X -= 0.1f;
+				if (NPC.velocity.X > 4f)
 				{
-					npc.velocity.Y *= 0.95f;
+					NPC.velocity.X -= 0.1f;
 				}
-				npc.velocity.Y -= 0.5f;
-				if (npc.velocity.Y < -4f)
+				else if (NPC.velocity.X > 0f)
 				{
-					npc.velocity.Y = -4f;
+					NPC.velocity.X += 0.05f;
 				}
-				npc.TargetClosest(true);
+				if (NPC.velocity.X < -4f)
+				{
+					NPC.velocity.X = -4f;
+				}
+			}
+			else if (NPC.direction == 1 && NPC.velocity.X < 4f)
+			{
+				NPC.velocity.X += 0.1f;
+				if (NPC.velocity.X < -4f)
+				{
+					NPC.velocity.X += 0.1f;
+				}
+				else if (NPC.velocity.X < 0f)
+				{
+					NPC.velocity.X -= 0.05f;
+				}
+				if (NPC.velocity.X > 4f)
+				{
+					NPC.velocity.X = 4f;
+				}
+			}
+			if (NPC.directionY == -1 && (double)NPC.velocity.Y > -1.5)
+			{
+				NPC.velocity.Y -= 0.04f;
+				if ((double)NPC.velocity.Y > 1.5)
+				{
+					NPC.velocity.Y -= 0.05f;
+				}
+				else if (NPC.velocity.Y > 0f)
+				{
+					NPC.velocity.Y += 0.03f;
+				}
+				if ((double)NPC.velocity.Y < -1.5)
+				{
+					NPC.velocity.Y = -1.5f;
+				}
+			}
+			else if (NPC.directionY == 1 && (double)NPC.velocity.Y < 1.5)
+			{
+				NPC.velocity.Y += 0.04f;
+				if ((double)NPC.velocity.Y < -1.5)
+				{
+					NPC.velocity.Y += 0.05f;
+				}
+				else if (NPC.velocity.Y < 0f)
+				{
+					NPC.velocity.Y -= 0.03f;
+				}
+				if ((double)NPC.velocity.Y > 1.5)
+				{
+					NPC.velocity.Y = 1.5f;
+				}
 			}
 
-			npc.ai[1] += 1f;
-
-			if (npc.ai[1] > 200f)
+			if (NPC.wet)
 			{
-				if (!Main.player[npc.target].wet && Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+				if (NPC.velocity.Y > 0f)
 				{
-					npc.ai[1] = 0f;
+					NPC.velocity.Y *= 0.95f;
+				}
+				NPC.velocity.Y -= 0.5f;
+				if (NPC.velocity.Y < -4f)
+				{
+					NPC.velocity.Y = -4f;
+				}
+				NPC.TargetClosest(true);
+			}
+
+			NPC.ai[1] += 1f;
+
+			if (NPC.ai[1] > 200f)
+			{
+				if (!Main.player[NPC.target].wet && Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
+				{
+					NPC.ai[1] = 0f;
 				}
 				float num205 = 0.2f;
 				float num206 = 0.1f;
 				float num207 = 4f;
 				float num208 = 1.5f;
 
-				if (npc.ai[1] > 1000f)
+				if (NPC.ai[1] > 1000f)
 				{
-					npc.ai[1] = 0f;
+					NPC.ai[1] = 0f;
 				}
-				npc.ai[2] = 1f;
-				if (npc.ai[2] > 0f)
+				NPC.ai[2] = 1f;
+				if (NPC.ai[2] > 0f)
 				{
-					if (npc.velocity.Y < num208)
+					if (NPC.velocity.Y < num208)
 					{
-						npc.velocity.Y += num206;
+						NPC.velocity.Y += num206;
 					}
 				}
-				else if (npc.velocity.Y > 0f - num208)
+				else if (NPC.velocity.Y > 0f - num208)
 				{
-					npc.velocity.Y -= num206;
+					NPC.velocity.Y -= num206;
 				}
-				if (npc.ai[2] < -150f || npc.ai[2] > 150f)
+				if (NPC.ai[2] < -150f || NPC.ai[2] > 150f)
 				{
-					if (npc.velocity.X < num207)
+					if (NPC.velocity.X < num207)
 					{
-						npc.velocity.X += num205;
+						NPC.velocity.X += num205;
 					}
 				}
-				else if (npc.velocity.X > 0f - num207)
+				else if (NPC.velocity.X > 0f - num207)
 				{
-					npc.velocity.X -= num205;
+					NPC.velocity.X -= num205;
 				}
-				if (npc.ai[2] > 300f)
+				if (NPC.ai[2] > 300f)
 				{
-					npc.ai[2] = -300f;
+					NPC.ai[2] = -300f;
 				}
 			}
 		}
@@ -216,13 +217,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (!CannonSpawn2)
 			{
-				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonBehind>(), 0, 0, Main.myPlayer, npc.whoAmI);
+				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonBehind>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn2 = true;
 			}
 			if (!CannonSpawn1)
 			{
-				Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonFront>(), 0, 0, Main.myPlayer, npc.whoAmI);
+				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonFront>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn1 = true;
 			}
@@ -237,28 +238,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		public override void FindFrame(int frameHeight)
 		{
-			npc.frameCounter++;
-			if (npc.frameCounter < 10)
+			NPC.frameCounter++;
+			if (NPC.frameCounter < 10)
 			{
-				npc.frame.Y = Frame1 * frameHeight;
+				NPC.frame.Y = Frame1 * frameHeight;
 			}
-			else if (npc.frameCounter < 20)
+			else if (NPC.frameCounter < 20)
 			{
-				npc.frame.Y = Frame2 * frameHeight;
+				NPC.frame.Y = Frame2 * frameHeight;
 			}
 			else
 			{
-				npc.frameCounter = 0;
+				NPC.frameCounter = 0;
 			}
-			if (npc.velocity.X > 0f)
+			if (NPC.velocity.X > 0f)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			}
-			if (npc.velocity.X < 0f)
+			if (NPC.velocity.X < 0f)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 			}
-			npc.rotation = npc.velocity.X * 0.1f;
+			NPC.rotation = NPC.velocity.X * 0.1f;
 		}
 
 		#endregion FindFrame
@@ -269,7 +270,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 			{
 				if (Main.rand.NextFloat() < .1f && !Main.dedServ)
 				{
-					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flybots/FlybotBleep").WithPitchVariance(.2f).WithVolume(.6f), npc.position);
+					SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Flybots/FlybotBleep");
 				}
 
 				BleepTimer = 20;
@@ -280,51 +281,49 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			Vector2 gorevel;
 
-			if (npc.velocity.Y > 0f)
+			if (NPC.velocity.Y > 0f)
 			{
-				gorevel = new Vector2(npc.velocity.X / 3f, (npc.velocity.Y * 8f) * -1);
+				gorevel = new Vector2(NPC.velocity.X / 3f, (NPC.velocity.Y * 8f) * -1);
 			}
 			else
 			{
-				gorevel = new Vector2(npc.velocity.X / 3f, npc.velocity.Y * 8f);
+				gorevel = new Vector2(NPC.velocity.X / 3f, NPC.velocity.Y * 8f);
 			}
 
-			int goreIndex = Gore.NewGore(npc.position, gorevel, mod.GetGoreSlot("Gores/Flybots/RedFlybot/RedHelix"), 1f);
+			int goreIndex = Gore.NewGore(NPC.position, gorevel, mod.GetGoreSlot("Gores/Flybots/RedFlybot/RedHelix"), 1f);
 
 			for (int i = 0; i <= 20; i++)
 			{
-				Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Fire, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
-			int a = Projectile.NewProjectile(npc.Center, npc.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(npc.spriteDirection), 0);
+			int a = Projectile.NewProjectile(NPC.Center, NPC.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
 			return true;
 		}*/
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.player.ZoneBeach)
+			if (Main.hardMode && spawnInfo.Player.ZoneBeach)
 			{
 				return 0.03f;
 			}
 
 			return 0f;
 		}
-
 		#region NPCLoot
 
-		public override void NPCLoot()
-		{
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
 			if (Main.rand.NextFloat() < .33f)
 			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<P2Processor>(), 1);
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SteelPlate>(), Main.rand.Next(2) + 1));
 			}
 			if (Main.rand.NextFloat() < .10f)
 			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<SteelPlate>(), 1);
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<P2Processor>(), Main.rand.Next(2) + 1));
 			}
 		}
-
 		#endregion NPCLoot
 	}
 }

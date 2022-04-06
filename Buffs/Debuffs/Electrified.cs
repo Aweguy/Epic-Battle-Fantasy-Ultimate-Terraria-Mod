@@ -6,11 +6,10 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class Electrified : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Electrified");
             Main.debuff[Type] = true;
-            canBeCleared = false;
         }
 
         public override void Update(NPC npc, ref int buffIndex)

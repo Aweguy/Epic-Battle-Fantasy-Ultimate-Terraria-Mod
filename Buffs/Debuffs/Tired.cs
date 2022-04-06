@@ -5,12 +5,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs
 {
     public class Tired : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tired");
             Description.SetDefault("Your joints feel stiff and slow.");
             Main.debuff[Type] = true;
-            canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

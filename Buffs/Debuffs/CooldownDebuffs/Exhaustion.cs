@@ -5,12 +5,11 @@ namespace EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs
 {
     public class Exhaustion : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Exhaustion");
             Description.SetDefault("The player is exhausted and cannot use the Haste Spell.");
             Main.debuff[Type] = true;
-            canBeCleared = false;
         }
     }
 }

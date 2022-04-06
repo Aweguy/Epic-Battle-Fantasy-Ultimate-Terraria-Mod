@@ -62,7 +62,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tileCut[(int)Main.tile[i, j].BlockType] && WorldGen.CanCutTile(i, j, TileCuttingContext.AttackProjectile))
+					if (Main.tile[i, j] != null && Main.tileCut[(int)Main.tile[i, j].TileType] && WorldGen.CanCutTile(i, j, TileCuttingContext.AttackProjectile))
 					{
 						WorldGen.KillTile(i, j, false, false, false);
 						if (Main.netMode != NetmodeID.SinglePlayer)

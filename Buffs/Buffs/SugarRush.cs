@@ -5,13 +5,12 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
     public class SugarRush : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sugar Rush");
             Description.SetDefault("You want more cake!\n You move and attack faster, resist attacks and have increased life and mana regeneration.\nAlso it increases you maximum health by 50.");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

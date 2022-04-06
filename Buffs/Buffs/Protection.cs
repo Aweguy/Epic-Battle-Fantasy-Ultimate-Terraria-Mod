@@ -5,7 +5,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 {
     public class Protection : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Protection");
             Description.SetDefault("Blocks a quarter of damage taken, no Defend needed!");

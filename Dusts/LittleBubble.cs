@@ -16,17 +16,6 @@ namespace EpicBattleFantasyUltimate.Dusts
 	{
 		private int lifetime = 60;
 
-		public override bool Autoload(ref string name, ref string texture)
-		{
-			texture = "EpicBattleFantasyUltimate/Dusts/LittleBubble";
-			return mod.Properties.Autoload;
-		}
-
-		/*public override void SetDefaults()
-		{
-			updateType = 124;
-		}*/
-
 		public override void OnSpawn(Dust dust)
 		{
 			dust.frame = new Rectangle(0, 0, 12, 12);
@@ -53,7 +42,5 @@ namespace EpicBattleFantasyUltimate.Dusts
 
 			return base.Update(dust);
 		}
-
-
 	}
 }

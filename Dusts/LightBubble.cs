@@ -16,19 +16,10 @@ namespace EpicBattleFantasyUltimate.Dusts
         // Write a bit of code that sets the Start X position at the start of the AI.
         public int startX = 0;
 
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = "EpicBattleFantasyUltimate/Dusts/LightBubble";
-            return mod.Properties.Autoload;
-        }
-
-        public override void SetDefaults()
-        {
-            updateType = 226;
-        }
-
+       
         public override void OnSpawn(Dust dust)
         {
+            UpdateType = 226;
             startX = 10;
 
             dust.frame = new Rectangle(0, 0, 24, 24);
