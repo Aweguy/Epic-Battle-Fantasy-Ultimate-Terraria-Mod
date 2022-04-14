@@ -354,7 +354,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 
-			Texture2D glowmask = (Texture2D)ModContent.Request<Texture2D>("NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
+			Texture2D glowmask = (Texture2D)ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/NPCs/Monoliths/CosmicMonolith/CosmicMonolith_Glowmask");
 
 			int frameHeight = glowmask.Height / 13;
 

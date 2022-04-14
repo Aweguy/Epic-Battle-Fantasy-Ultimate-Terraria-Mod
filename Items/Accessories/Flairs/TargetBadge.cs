@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AbyssalSapphire>())
 				.AddIngredient(ModContent.ItemType<VolcanicRuby>())
-				.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 10)
+				.AddRecipeGroup("SilverBar", 10)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}

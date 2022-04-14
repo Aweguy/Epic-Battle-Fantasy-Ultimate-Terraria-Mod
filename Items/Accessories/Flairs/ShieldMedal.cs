@@ -35,8 +35,8 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.HallowedBar, 10)
-				.AddRecipeGroup("EpicBattleFantasyUltimate:Titanium", 5)
-				.AddRecipeGroup("EpicBattleFantasyUltimate:GoldBar", 15)
+				.AddRecipeGroup("TitaniumBar", 5)
+				.AddRecipeGroup("GoldBar", 15)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}

@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+      "projectUniqueName": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
       "projectName": "EpicBattleFantasyUltimate",
-      "projectPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+      "projectPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
       "packagesPath": "C:\\Users\\irene\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\EpicBattleFantasyUltimate\\obj\\",
+      "outputPath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EpicBattleFantasyUltimate\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\irene\\AppData\\Roaming\\NuGet\\NuGet.Config",

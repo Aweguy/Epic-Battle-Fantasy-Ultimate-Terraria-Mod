@@ -4,9 +4,9 @@ using EpicBattleFantasyUltimate.Buffs.Debuffs;
 using EpicBattleFantasyUltimate.NPCs.Wraiths;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatteredBrush;
-using EpicBattleFantasyUltimate.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -22,8 +22,8 @@ namespace EpicBattleFantasyUltimate
 {
 	public class EpicBattleFantasyUltimate : Mod
 	{
-		private UserInterface _LimitBreakBarUI;
-		internal LimitBreakBar LimitBreakBar;
+		//private UserInterface _LimitBreakBarUI;
+		//internal LimitBreakBar LimitBreakBar;
 
 		public static List<int> thrownProjectiles = new List<int>();
 
@@ -67,35 +67,35 @@ namespace EpicBattleFantasyUltimate
 				ItemID.GoldBar,
 				ItemID.PlatinumBar
 			});
-			RecipeGroup.RegisterGroup("EpicBattleFantasyUltimate:GoldBar", GoldBar);
+			RecipeGroup.RegisterGroup("GoldBar", GoldBar);
 
 			RecipeGroup group2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Titanium Bar", new int[]
 			{
 				ItemID.TitaniumBar,
 				ItemID.AdamantiteBar
 			});
-			RecipeGroup.RegisterGroup("EpicBattleFantasyUltimate:Titanium", group2);
+			RecipeGroup.RegisterGroup("TitaniumBar", group2);
 
 			RecipeGroup group3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Silver Bar", new int[]
 			{
 				ItemID.SilverBar,
 				ItemID.TungstenBar
 			});
-			RecipeGroup.RegisterGroup("EpicBattleFantasyUltimate:Silver", group3);
+			RecipeGroup.RegisterGroup("SilverBar", group3);
 
 			RecipeGroup group4 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Palladium Bar", new int[]
 {
 				ItemID.PalladiumBar,
 				ItemID.CobaltBar
 });
-			RecipeGroup.RegisterGroup("EpicBattleFantasyUltimate:Palladium", group4);
+			RecipeGroup.RegisterGroup("PalladiumBar", group4);
 
 			RecipeGroup group5 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Bar", new int[]
 {
 				ItemID.CrimtaneBar,
 				ItemID.DemoniteBar
 });
-			RecipeGroup.RegisterGroup("EpicBattleFantasyUltimate:Evil", group5);
+			RecipeGroup.RegisterGroup("EvilBar", group5);
 		}
 
 		#region UI
@@ -106,7 +106,7 @@ namespace EpicBattleFantasyUltimate
 
 			if (Main.netMode != NetmodeID.Server)
 			{
-				Ref<Effect> screenRef = new Ref<Effect>((Effect)this.Assets.Request<Effect>("Assets/Effects/ShockwaveEffect")); // The path to the compiled shader file.
+				Ref<Effect> screenRef = new Ref<Effect>(this.Assets.Request<Effect>("Assets/Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
 				Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
 				Filters.Scene["Shockwave"].Load();
 				Filters.Scene["ShockwaveMonolith"] = new Filter(new ScreenShaderData(screenRef, "Shockwave"), EffectPriority.VeryHigh);
@@ -114,12 +114,12 @@ namespace EpicBattleFantasyUltimate
 			}
 
 			// you can only display the ui to the local player -- prevent an error message!
-			if (!Main.dedServ)
+			/*if (!Main.dedServ)
 			{
 				LimitBreakBar = new LimitBreakBar();
 				_LimitBreakBarUI = new UserInterface();
 				_LimitBreakBarUI.SetState(LimitBreakBar);
-			}
+			}*/
 
 			#region OreEvent
 			ModTranslation text = LocalizationLoader.CreateTranslation(this, "OresDefeat");

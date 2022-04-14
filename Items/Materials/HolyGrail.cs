@@ -24,7 +24,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddRecipeGroup("EpicBattleFantasyUltimate: GoldBar", 20)
+				.AddRecipeGroup("GoldBar", 20)
 				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 4)
 				.AddTile(TileID.Anvils)
 				.Register();

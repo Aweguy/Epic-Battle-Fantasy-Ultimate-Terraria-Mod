@@ -1,4 +1,5 @@
 ﻿using EpicBattleFantasyUltimate.ClassTypes;
+using EpicBattleFantasyUltimate.Items.Bows;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,21 +27,30 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            timer--;
-            if (timer == 0)
+            if (player.HasItem(ModContent.ItemType<GaiasGift>()))
             {
-                int regen = (player.statLifeMax2 / 100) * 5;
-                player.statLife += regen;
-                player.HealEffect(regen);
-                timer = 60 * 10;
+                if (--timer == 0)
+                {
+                    int regen = (player.statLifeMax2 / 100) * 10;
+                    player.statLife += regen;
+                    player.HealEffect(regen);
+                    timer = 60 * 10;
+                }
+                player.lifeRegen += 8;
             }
-            player.lifeRegen += 5;
+            else
+            {
+                if (--timer == 0)
+                {
+                    int regen = (player.statLifeMax2 / 100) * 5;
+                    player.statLife += regen;
+                    player.HealEffect(regen);
+                    timer = 60 * 10;
+                }
+                player.lifeRegen += 5;
+            }
         }
 
-        public override int ChoosePrefix(UnifiedRandom rand)
-        {
-            return rand.Next(new int[] { PrefixID.Arcane, PrefixID.Lucky, PrefixID.Menacing, PrefixID.Quick, PrefixID.Violent, PrefixID.Warding, PrefixID.Hard, PrefixID.Guarding, PrefixID.Armored, PrefixID.Precise, PrefixID.Jagged, PrefixID.Spiked, PrefixID.Angry, PrefixID.Brisk, PrefixID.Fleeting, PrefixID.Hasty, PrefixID.Wild, PrefixID.Rash, PrefixID.Intrepid, PrefixID.Arcane });
-        }
         public override void AddRecipes()
         {
             CreateRecipe()

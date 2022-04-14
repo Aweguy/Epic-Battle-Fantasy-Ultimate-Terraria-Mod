@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override void SetDefaults()
 		{
-			Projectile.Size = new Vector2(104, 116);
+			Projectile.Size = new Vector2(52, 52);
 			Projectile.friendly = true;
 
 			Projectile.DamageType = DamageClass.Melee;

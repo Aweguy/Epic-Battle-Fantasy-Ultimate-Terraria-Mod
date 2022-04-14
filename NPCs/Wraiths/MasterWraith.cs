@@ -6,6 +6,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -59,22 +60,22 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void SetDefaults()
 		{
-			npc.CloneDefaults(NPCID.Wraith);
-			npc.width = (int)(72 * 0.8);
-			npc.height = (int)(96 * 0.8);
+			NPC.CloneDefaults(NPCID.Wraith);
+			NPC.width = (int)(72 * 0.8);
+			NPC.height = (int)(96 * 0.8);
 
-			npc.lifeMax = 6000;
-			npc.damage = 150;
-			npc.defense = 60;
-			npc.lifeRegen = 4;
-			npc.alpha = 100;
-			npc.knockBackResist = -1f;
+			NPC.lifeMax = 6000;
+			NPC.damage = 150;
+			NPC.defense = 60;
+			NPC.lifeRegen = 4;
+			NPC.alpha = 100;
+			NPC.knockBackResist = -1f;
 
-			npc.value = 100000;
+			NPC.value = 100000;
 
-			//npc.aiStyle = 22;
-			aiType = NPCID.Wraith;
-			npc.noTileCollide = true;
+			//NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
+			NPC.noTileCollide = true;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -86,16 +87,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			#region Attack AI
 
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 
-			if (npc.life <= (int)(npc.lifeMax * 0.5f))
+			if (NPC.life <= (int)(NPC.lifeMax * 0.5f))
 			{
 				Enraged = true;
 			}
 
-			Blink(npc, player);
+			Blink(NPC, player);
 
-			MovementDirection(npc);
+			MovementDirection(NPC);
 
 			if (!Enraged)
 			{
@@ -111,54 +112,54 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				if (ChoiceTimer <= 0 && Choice == 0)
 				{
-					Choice = Choosing(npc);
+					Choice = Choosing(NPC);
 				}
 
 				if (SpecChoiceTimer <= 0 && SpecChoice == 0)
 				{
-					SpecChoice = SpecChoosing(npc);
+					SpecChoice = SpecChoosing(NPC);
 				}
 
 				if (!Blinking && player.statLife > 0)
 				{
-					Shooting(npc);
+					Shooting(NPC);
 
 					if (SpecChoice == 1)
 					{
-						Fireballs(npc);
+						Fireballs(NPC);
 					}
 					else if (SpecChoice == 2)
 					{
-						Icicles(npc);
+						Icicles(NPC);
 					}
 					else if (SpecChoice == 3)
 					{
-						Curse(npc);
+						Curse(NPC);
 					}
 					else if (SpecChoice == 4)
 					{
-						Sawblade(npc);
+						Sawblade(NPC);
 					}
 
-						SparkBall(npc);
-						Leaves(npc);
+						SparkBall(NPC);
+						Leaves(NPC);
 				}
 			}
 			else if (Enraged)
 			{
-				Shooting(npc);
-				Fireballs(npc);
-				Sawblade(npc);
-				Icicles(npc);
-				Leaves(npc);
-				Curse(npc);
-				SparkBall(npc);
+				Shooting(NPC);
+				Fireballs(NPC);
+				Sawblade(NPC);
+				Icicles(NPC);
+				Leaves(NPC);
+				Curse(NPC);
+				SparkBall(NPC);
 			}
 
 			#endregion Attack AI
 		}
 
-		private void Blink(NPC npc, Player player)
+		private void Blink(NPC NPC, Player player)
 		{
 			if (Enraged)
 			{
@@ -175,28 +176,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				if (!Blinked)
 				{
-					npc.alpha += 2;
+					NPC.alpha += 2;
 				}
 
-				if (npc.alpha >= 255)
+				if (NPC.alpha >= 255)
 				{
 					if (!Blinked)
 					{
 						int SpawnChoice = Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithSummoning.ToArray()); //The Wraith that will be spawned based on the List
 
-						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawning the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawning the Wraith
 
-						npc.position = new Vector2(player.Center.X + Main.rand.Next(-1000, 1000) * player.direction, player.Center.Y - Main.rand.Next(100, 300));//Blinking
+						NPC.position = new Vector2(player.Center.X + Main.rand.Next(-1000, 1000) * player.direction, player.Center.Y - Main.rand.Next(100, 300));//Blinking
 					}
 
 					Blinked = true;
 				}
 
-				if (Blinked && npc.alpha > 100)
+				if (Blinked && NPC.alpha > 100)
 				{
-					npc.alpha -= 2;
+					NPC.alpha -= 2;
 
-					if (npc.alpha <= 100)
+					if (NPC.alpha <= 100)
 					{
 						Blinked = false;
 						Blinking = false;
@@ -206,52 +207,52 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			}
 		}
 
-		private void MovementDirection(NPC npc)
+		private void MovementDirection(NPC NPC)
 		{
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (NPC.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
-				npc.direction = 1;
+				NPC.direction = 1;
 			}
-			else if (npc.velocity.X < 0f)
+			else if (NPC.velocity.X < 0f)
 			{
-				npc.direction = -1;
+				NPC.direction = -1;
 			}
-			else if (npc.velocity.X == 0)
+			else if (NPC.velocity.X == 0)
 			{
-				npc.direction = npc.oldDirection;
+				NPC.direction = NPC.oldDirection;
 			}
 
-			if (npc.direction == 1)
+			if (NPC.direction == 1)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			}
-			else if (npc.direction == -1)
+			else if (NPC.direction == -1)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 			}
 		}
 
-		private void Shooting(NPC npc)
+		private void Shooting(NPC NPC)
 		{
 			Spiketimer--;
 			Spiketimer2--;
 
 			if (Spiketimer <= 60)
 			{
-				npc.velocity.X *= 0.9f;
+				NPC.velocity.X *= 0.9f;
 			}
 
 			if (Spiketimer <= 0)
 			{
 				int Shot = Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithBasic.ToArray());
 
-				if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
+				if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 				{
-					int proj = Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
-				else if (npc.direction == -1)
+				else if (NPC.direction == -1)
 				{
-					int proj = Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 
 				Spiketimer = 120;
@@ -261,13 +262,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				int Shot = Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithBasic.ToArray());
 
-				if (npc.direction == 1)
+				if (NPC.direction == 1)
 				{
-					int proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 12f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj2 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
-				else if (npc.direction == -1)
+				else if (NPC.direction == -1)
 				{
-					int proj2 = Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 12f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj2 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 
 				Spiketimer2 = 120;
@@ -276,7 +277,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		#region Specials
 
-		private void Fireballs(NPC npc)
+		private void Fireballs(NPC NPC)
 		{
 			// Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
 			// You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
@@ -295,7 +296,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, npc.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
 					}
 
 					spintimer = 0;
@@ -316,7 +317,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, npc.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
 					}
 
 					spintimer = 0;
@@ -331,7 +332,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			}
 		}
 
-		private void Icicles(NPC npc)
+		private void Icicles(NPC NPC)
 		{
 			// Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
 			// You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
@@ -349,7 +350,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, npc.whoAmI);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 					}
 
 					icetimer2 = 0;
@@ -370,7 +371,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, npc.whoAmI);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 					}
 
 					icetimer2 = 0;
@@ -385,9 +386,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			}
 		}
 
-		private void Curse(NPC npc)
+		private void Curse(NPC NPC)
 		{
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 
 			if (Enraged)
 			{
@@ -409,7 +410,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			}
 		}
 
-		private void Sawblade(NPC npc)
+		private void Sawblade(NPC NPC)
 		{
 			if (Enraged)
 			{
@@ -422,9 +423,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
+					int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
-				int npcIndex2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
+				int NPCIndex2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				SpecChoice = 0;
 				SpecChoiceTimer = 60 * 25;
@@ -435,9 +436,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int npcIndex = NPC.NewNPC((int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
+					int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
-				int npcIndex2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
+				int NPCIndex2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				Sawtimer = 60 * 10;
 			}
@@ -447,7 +448,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		#region Basic Attacks
 
-		private void Leaves(NPC npc)
+		private void Leaves(NPC NPC)
 		{
 				if (LeafEndStacks <= 3)
 				{
@@ -457,9 +458,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					{
 						float mult = Main.rand.NextFloat(5f, 10f); //velocity randomization
 
-						velocity = npc.DirectionTo(new Vector2(Main.player[npc.target].Center.X, Main.player[npc.target].Center.Y + 18)) * mult; //Leaf velocity
+						velocity = NPC.DirectionTo(new Vector2(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y + 18)) * mult; //Leaf velocity
 
-						Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 18f), velocity, mod.ProjectileType("LeafShot"), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
 						LeafTimer = 40;
 						LeafEndStacks++;
@@ -471,15 +472,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				}
 		}
 
-		private void SparkBall(NPC npc)
+		private void SparkBall(NPC NPC)
 		{
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 
 				SparkTimer--;
 
 			if (SparkTimer <= 0)
 			{
-				int proj4 = Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 11), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
+				int proj4 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 11), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
 
 				SparkTimer = 100;
 			}
@@ -487,7 +488,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		#endregion Basic Attacks
 
-		private int Choosing(NPC npc)
+		private int Choosing(NPC NPC)
 		{
 			Choice = Main.rand.Next(1, 3);
 
@@ -508,7 +509,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			return Choice;
 		}//Choosing the basic attacks
 
-		private int SpecChoosing(NPC npc)
+		private int SpecChoosing(NPC NPC)
 		{
 			SpecChoice = Main.rand.Next(1, 5);
 
@@ -537,31 +538,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			return SpecChoice;
 		}//Choosing the Special attacks
 
-		#region Shading
-
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
-			/*Texture2D texture = Main.npcTexture[npc.type];
+        #region Shading
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+			/*Texture2D texture = Main.NPCTexture[NPC.type];
 			Vector2 origin = texture.Size() / 2;
-			SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			SpriteEffects effects = NPC.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
-			DrawData data = new DrawData(texture, npc.Center - Main.screenPosition, null, drawColor * npc.Opacity, npc.rotation, origin, npc.scale, effects, 0);
-			GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye), npc, data);
+			DrawData data = new DrawData(texture, NPC.Center - Main.screenPosition, null, drawColor * NPC.Opacity, NPC.rotation, origin, NPC.scale, effects, 0);
+			GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye), NPC, data);
 
 			data.Draw(spriteBatch);*/ //shading
 
 			return (true);
 		}
-
-		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
-		{
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 		}
-
 		#endregion Shading
 
 		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -575,16 +573,16 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				return null;
 			}
 		}
-
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), 10);
-			Item.NewItem(npc.getRect(), ItemID.Bone, 10);
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>(), 1, 3, 9));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilkScrap>(), 1, 5, 15));
+			npcLoot.Add(ItemDropRule.Common(ItemID.Bone, 1, 5, 15));
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (NPC.downedPlantBoss && spawnInfo.player.ZoneRockLayerHeight && !Main.dayTime && Main.hardMode)
+			if (NPC.downedPlantBoss && spawnInfo.Player.ZoneRockLayerHeight && !Main.dayTime && Main.hardMode)
 			{
 				return 0.001f;
 			}

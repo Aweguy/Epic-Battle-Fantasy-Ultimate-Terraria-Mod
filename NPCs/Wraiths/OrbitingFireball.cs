@@ -8,10 +8,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 {
 	internal class OrbitingFireball : ModNPC
 	{
-		// How many ticks it will orbit the npc.
+		// How many ticks it will orbit the NPC.
 		private int OrbitTimer;
 
-		// The distance of the projectile from the npc that is spawned.
+		// The distance of the projectile from the NPC that is spawned.
 		private float Distance = 90;
 
 		// The bool that makes it not follow the player after launched. Sets its velocity to the last player's position.
@@ -23,20 +23,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Orbiting Fireball");
-			Main.npcFrameCount[npc.type] = 3;
+			Main.npcFrameCount[NPC.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = npc.height = 48;
+			NPC.width = NPC.height = 48;
 
-			npc.damage = 40;
-			npc.lifeMax = 1;
+			NPC.damage = 40;
+			NPC.lifeMax = 1;
 
-			npc.dontTakeDamage = true;
-			npc.noGravity = true;
+			NPC.dontTakeDamage = true;
+			NPC.noGravity = true;
 
-			npc.noTileCollide = true;
+			NPC.noTileCollide = true;
 
 			Orbit = false;
 		}
@@ -53,18 +53,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				drawColor = Color.Red;
 			}
-			Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, 0f, 0f, 0, drawColor, 0.8f);
+			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0f, 0f, 0, drawColor, 0.8f);
 
-			NPC FatherNpc = Main.npc[(int)npc.ai[0]]; //Sets the npc that the projectile is spawned and will orbit
+			NPC FatherNpc = Main.npc[(int)NPC.ai[0]]; //Sets the NPC that the projectile is spawned and will orbit
 
-			if (!FatherNpc.active)//killing the projectile if the npc is not alive
+			if (!FatherNpc.active)//killing the projectile if the NPC is not alive
 			{
-				npc.life = 0;
+				NPC.life = 0;
 			}
 
-			if (FatherNpc.life <= 0)//killing the projectile if the npc dies
+			if (FatherNpc.life <= 0)//killing the projectile if the NPC dies
 			{
-				npc.life = 0;
+				NPC.life = 0;
 			}
 
 			if (Orbit == false)
@@ -72,7 +72,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				// Again, networking compatibility.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					npc.netUpdate = true;
+					NPC.netUpdate = true;
 					OrbitTimer = Main.rand.Next(60 * 8, 60 * 13);
 				}
 
@@ -81,15 +81,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (--OrbitTimer >= 0)
 			{
-				npc.DoNPC_OrbitPosition(FatherNpc.Center, Distance, MathHelper.PiOver2);
+				NPC.DoNPC_OrbitPosition(FatherNpc.Center, Distance, MathHelper.PiOver2);
 			}
 			else
 			{
 				if (!shoot)
 				{
-					npc.velocity = npc.DirectionTo(Main.player[FatherNpc.target].Center) * 10f;//sets the velocity of the projectile.
-					npc.netUpdate = true; // Eldrazi: Multiplayer compatibility.
-					npc.dontTakeDamage = false;
+					NPC.velocity = NPC.DirectionTo(Main.player[FatherNpc.target].Center) * 10f;//sets the velocity of the projectile.
+					NPC.netUpdate = true; // Eldrazi: Multiplayer compatibility.
+					NPC.dontTakeDamage = false;
 					shoot = true;
 				}
 			}
@@ -98,25 +98,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void FindFrame(int frameHeight)
 		{
-			if (++npc.frameCounter >= 4)
+			if (++NPC.frameCounter >= 4)
 			{
-				npc.frameCounter = 0;
-				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
+				NPC.frameCounter = 0;
+				NPC.frame.Y = (NPC.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[NPC.type]);
 			}
-		}
-
-		public override bool PreNPCLoot()
-		{
-			return false;
 		}
 
 		public override bool CheckDead()
 		{
 
-			npc.width = npc.height = 72;
+			NPC.width = NPC.height = 72;
 			for(int i = 0; i <= 20; i++)
 			{
-				Dust.NewDust(npc.position, npc.width, npc.height, DustID.Fire, 0, 0, 0, default, 1);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0, 0, 0, default, 1);
 			}
 
 			return true;

@@ -20,7 +20,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
             player.lifeRegen += 20;
             player.statDefense += 10;
             player.buffTime[buffIndex] = 18000;
-            player.meleeSpeed += 0.30f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.30f;
         }
     }
 }

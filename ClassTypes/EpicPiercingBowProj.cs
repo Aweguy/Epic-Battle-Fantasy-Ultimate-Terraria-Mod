@@ -156,7 +156,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 				if (timer == 0)
 				{
-					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback,out Ammo);
+					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback,out _);
 
 					if(Projectile.type == ModContent.ProjectileType<SharangaProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
 					{

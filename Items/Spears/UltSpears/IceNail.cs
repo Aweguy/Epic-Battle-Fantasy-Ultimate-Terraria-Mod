@@ -97,7 +97,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<SolidWater>(), 10)
 				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 10)
-				.AddRecipeGroup("EpicBattleFantasyUltimate:Silver", 10)
+				.AddRecipeGroup("SilverBar", 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

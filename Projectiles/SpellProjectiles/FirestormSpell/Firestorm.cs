@@ -28,7 +28,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 			Projectile.friendly = true;
 
 			Projectile.penetrate = -1;
-			Projectile.magic = true;
+			Projectile.DamageType = DamageClass.Magic;
 			Projectile.knockBack = 1f;
 
 			Projectile.timeLeft = 51;

@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +15,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		private int spectimer = 60 * 5;//Defines when the fireballs will start spawning
 		private int spintimer = 25; //A timer that sets wthe interval between the orbiting fireballs.
 		private int shootTimer = 60; //The timer that sets the shoot bool to false again.
-		private bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+		private bool shoot = false; //Definition of the bool that makes the NPC to move slower when it's ready to shoot
 		private int currentFireballs = 0;
 		private readonly int maxFireballs = 3;
 
@@ -25,18 +26,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void SetDefaults()
 		{
-			npc.CloneDefaults(NPCID.Wraith);
-			npc.width = (int)(53 * 0.8f);
-			npc.height = (int)(78 * 0.8f);
+			NPC.CloneDefaults(NPCID.Wraith);
+			NPC.width = (int)(53 * 0.8f);
+			NPC.height = (int)(78 * 0.8f);
 
-			npc.lifeMax = 185;
-			npc.damage = 25;
-			npc.defense = 40;
-			npc.lifeRegen = 4;
+			NPC.lifeMax = 185;
+			NPC.damage = 25;
+			NPC.defense = 40;
+			NPC.lifeRegen = 4;
 
-			npc.aiStyle = 22;
-			aiType = NPCID.Wraith;
-			npc.noTileCollide = true;
+			NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
+			NPC.noTileCollide = true;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -48,18 +49,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void AI()
 		{
-			Player player = Main.player[npc.target]; //Target
-			Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Fire, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
+			Player player = Main.player[NPC.target]; //Target
+			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
 			#region Movement Direction
 
-			if (npc.direction == 1)
+			if (NPC.direction == 1)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			}
-			else if (npc.direction == -1)
+			else if (NPC.direction == -1)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 			}
 
 			#endregion Movement Direction
@@ -73,7 +74,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		private void Fireballs()
 		{
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 
 			// Eldrazi: I've done some explicit variable statements, so you know what each of these variables is supposed to do.
 			// You could shrink this code down, but I'd only do that if you're comfortable with understanding it.
@@ -85,7 +86,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Projectile.NewProjectile(npc.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, npc.whoAmI);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 				}
 
 				spintimer = 0;
@@ -114,13 +115,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				if (player.statLife > 0)
 				{
-					if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
+					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 22f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 22f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 30f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 30f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -133,13 +134,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				if (player.statLife > 0)
 				{
-					if (npc.direction == 1)
+					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, mod.ProjectileType("BoneShot"), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -164,7 +165,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
 			{
-				npc.velocity.X *= 0.9f;
+				NPC.velocity.X *= 0.9f;
 			}
 
 			#endregion Logic Control
@@ -175,7 +176,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.player.ZoneUnderworldHeight)
+			if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight)
 			{
 				return 0.03f;
 			}
@@ -184,17 +185,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		}
 
 		#region NPCLoot
-
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), ModContent.ItemType<Wool>(), 1);
-
-			if (Main.rand.NextFloat() < .10f)
-			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), Main.rand.Next(2) + 1);
-			}
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilkScrap>(), 10, 1, 3));
 		}
-
 		#endregion NPCLoot
 	}
 }

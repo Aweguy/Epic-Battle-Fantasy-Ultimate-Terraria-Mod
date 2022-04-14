@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 {
@@ -16,40 +17,41 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 	{
 		public override string Texture => "EpicBattleFantasyUltimate/NPCs/TownNPCs/Matt";
 
-		public override bool Autoload(ref string name)
-		{
-			name = "LazySwordsman";
-			return mod.Properties.Autoload;
-		}
-
 		public override void SetStaticDefaults()
 		{
 			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
 			//DisplayName.SetDefault("Matt");
-			Main.npcFrameCount[npc.type] = 25;
-			NPCID.Sets.ExtraFramesCount[npc.type] = 9;
-			NPCID.Sets.AttackFrameCount[npc.type] = 4;
-			NPCID.Sets.DangerDetectRange[npc.type] = 16 * 5;
-			NPCID.Sets.AttackType[npc.type] = 3;
-			NPCID.Sets.AttackTime[npc.type] = 30;
-			NPCID.Sets.AttackAverageChance[npc.type] = 30;
-			NPCID.Sets.HatOffsetY[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 25;
+			NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
+			NPCID.Sets.AttackFrameCount[NPC.type] = 4;
+			NPCID.Sets.DangerDetectRange[NPC.type] = 16 * 5;
+			NPCID.Sets.AttackType[NPC.type] = 3;
+			NPCID.Sets.AttackTime[NPC.type] = 30;
+			NPCID.Sets.AttackAverageChance[NPC.type] = 30;
+			NPCID.Sets.HatOffsetY[NPC.type] = 4;
+			NPCID.Sets.ActsLikeTownNPC[Type] = true;
+			NPCID.Sets.SpawnsWithCustomName[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.townNPC = true;
-			npc.friendly = true;
-			npc.width = 30;
-			npc.height = 50;
-			npc.aiStyle = 7;
-			npc.damage = 30;
-			npc.defense = 25;
-			npc.lifeMax = 750;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
-			npc.knockBackResist = 0.9f;
-			animationType = NPCID.Guide;
+			NPC.townNPC = true;
+			NPC.friendly = true;
+			NPC.width = 30;
+			NPC.height = 50;
+			NPC.aiStyle = 7;
+			NPC.damage = 30;
+			NPC.defense = 25;
+			NPC.lifeMax = 750;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.knockBackResist = 0.9f;
+			AnimationType = NPCID.Guide;
+		}
+
+		public override string TownNPCName()
+		{
+			return "Matt";
 		}
 
 		public override string GetChat()
@@ -193,11 +195,6 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 			return false;
 		}
 
-		public override string TownNPCName()
-		{
-			return "Matt";
-		}
-
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			button = Language.GetTextValue("LegacyInterface.28");
@@ -219,12 +216,12 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 				{
 					Main.LocalPlayer.inventory[index].stack -= 1;
 					Main.LocalPlayer.QuickSpawnItem(ItemID.SilverCoin, Main.rand.Next(15, 30));
-					Main.npcChatText = $"Wow, it’s so shiny! Thanks for the loot!";
+					Main.NPCChatText = $"Wow, it’s so shiny! Thanks for the loot!";
 					return;
 				}
 				else
 				{
-					Main.npcChatText = $"Don't try to fool me by coming with no gems! I have food to buy.";
+					Main.NPCChatText = $"Don't try to fool me by coming with no gems! I have food to buy.";
 					return;
 				}
 			}*/
@@ -251,14 +248,14 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)
 		{
-			item = Main.itemTexture[ModContent.ItemType<HeavensGate>()];
+			item = TextureAssets.Item[ModContent.ItemType<HeavensGate>()].Value;
 		}
 
 		#endregion Npc Attack
 
 		public override bool CheckDead()
 		{
-			int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+			int goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 			Main.gore[goreIndex].scale = 1.5f;
 			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;

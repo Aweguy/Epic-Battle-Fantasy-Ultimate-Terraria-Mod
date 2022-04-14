@@ -14,11 +14,11 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Bows
 {
-	class EagleEye : EpicBow
+	public class EagleEye : EpicBow
 	{
 		public override void SetSafeStaticDefaults()
 		{
-			DisplayName.SetDefault("EagleEye");
+			DisplayName.SetDefault("Eagle Eye");
 			Tooltip.SetDefault("Heavy enough to block a blade.");
 		}
 

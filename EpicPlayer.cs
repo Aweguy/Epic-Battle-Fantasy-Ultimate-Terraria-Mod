@@ -751,9 +751,8 @@ namespace EpicBattleFantasyUltimate
 
 			#endregion Heaven's speed
 		}
-
-		public override void ModifyWeaponCrit(Item item, ref int crit)
-		{
+        public override void ModifyWeaponCrit(Item item, ref float crit)
+        {
 			#region Gungnir Crit
 
 			if (Player.HasItem(ModContent.ItemType<GungnirRifle>()) && Player.HasItem(ModContent.ItemType<GungnirRevolver>()) && (Player.HeldItem.type == ModContent.ItemType<GungnirRifle>() || Player.HeldItem.type == ModContent.ItemType<GungnirRevolver>()))

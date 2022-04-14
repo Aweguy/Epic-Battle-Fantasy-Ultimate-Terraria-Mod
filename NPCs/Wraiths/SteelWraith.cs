@@ -1,7 +1,9 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Debuffs;
+using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +15,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		private int timer2 = 12;  //The timer that makes the second projectile be shot. The two frames difference is there on purpose.
 		private int spectimer = 60 * 5;//Defines when the sawblade will spawn.
 		private int shootTimer = 60; //The timer that sets the shoot bool to false again.
-		private bool shoot; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+		private bool shoot; //Definition of the bool that makes the NPC to move slower when it's ready to shoot
 
 		public override void SetStaticDefaults()
 		{
@@ -22,18 +24,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void SetDefaults()
 		{
-			npc.CloneDefaults(NPCID.Wraith);
-			npc.width = (int)(53 * 0.8f);
-			npc.height = (int)(78 * 0.8f);
+			NPC.CloneDefaults(NPCID.Wraith);
+			NPC.width = (int)(53 * 0.8f);
+			NPC.height = (int)(78 * 0.8f);
 
-			npc.lifeMax = 400;
-			npc.damage = 40;
-			npc.defense = 5;
-			npc.lifeRegen = 4;
+			NPC.lifeMax = 400;
+			NPC.damage = 40;
+			NPC.defense = 5;
+			NPC.lifeRegen = 4;
 
-			npc.aiStyle = 22;
-			aiType = NPCID.Wraith;
-			npc.noTileCollide = true;
+			NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
+			NPC.noTileCollide = true;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -45,30 +47,30 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void AI()
 		{
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 
 			#region Movement Direction
 
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (NPC.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
-				npc.direction = 1;
+				NPC.direction = 1;
 			}
-			else if (npc.velocity.X < 0f)
+			else if (NPC.velocity.X < 0f)
 			{
-				npc.direction = -1;
+				NPC.direction = -1;
 			}
-			else if (npc.velocity.X == 0)
+			else if (NPC.velocity.X == 0)
 			{
-				npc.direction = npc.oldDirection;
+				NPC.direction = NPC.oldDirection;
 			}
 
-			if (npc.direction == 1)
+			if (NPC.direction == 1)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			}
-			else if (npc.direction == -1)
+			else if (NPC.direction == -1)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 			}
 
 			#endregion Movement Direction
@@ -80,7 +82,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (spectimer <= 0)
 			{
-				Sawblade(npc);
+				Sawblade(NPC);
 			}
 			#endregion Shooting
 		}
@@ -97,13 +99,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				if (timer <= 0) //If timer is 0 or less it shoots.
 				{
-					if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
+					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					timer = 120; //Resetting the timer to 120 ticks (2 seconds).
 				}
@@ -112,13 +114,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				if (timer2 <= 0)
 				{
-					if (npc.direction == 1)
+					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					timer2 = 120;
 				}
@@ -140,7 +142,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
 			{
-				npc.velocity.X *= 0.9f;
+				NPC.velocity.X *= 0.9f;
 			}
 
 			#endregion Logic Control
@@ -153,7 +155,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.player.ZoneRockLayerHeight)
+			if (Main.hardMode && spawnInfo.Player.ZoneRockLayerHeight)
 			{
 				return 0.03f;
 			}
@@ -163,25 +165,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		#endregion SpawnChance
 
-		private void Sawblade(NPC npc)
+		private void Sawblade(NPC NPC)
 		{
-			int npcIndex = NPC.NewNPC((int)(npc.Center.X), (int)(npc.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
+			int NPCIndex = NPC.NewNPC(NPC.GetSpawnSource_ForProjectile(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
 
 			spectimer = 60 * 10;
 		}
 
 		#region NPCLoot
-
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), mod.ItemType("Wool"), 1);
-
-			if (Main.rand.NextFloat() < .50f)
-			{
-				Item.NewItem(npc.getRect(), mod.ItemType("SteelPlate"), Main.rand.Next(2) + 1);
-			}
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>(), 1, 3, 9));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SteelPlate>(), 2, 1, 3));
 		}
-
 		#endregion NPCLoot
 	}
 }

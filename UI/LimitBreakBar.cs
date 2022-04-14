@@ -1,5 +1,4 @@
-﻿using EpicBattleFantasyUltimate.Config;
-using Microsoft.Xna.Framework;
+﻿/*using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -58,7 +57,7 @@ namespace EpicBattleFantasyUltimate.UI
             var epicPlayer = EpicPlayer.ModPlayer(Main.LocalPlayer);
             float quotient = (float)epicPlayer.LimitCurrent / epicPlayer.MaxLimit2;
 
-            BarFilling = (Texture2D)ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/UI/LimitBreakBarFilling");
+            BarFilling = ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/UI/LimitBreakBarFilling").Value;
             Rectangle hitbox = barFrame.GetInnerDimensions().ToRectangle();
             hitbox.X += 12;
             hitbox.Width -= 24;
@@ -75,7 +74,7 @@ namespace EpicBattleFantasyUltimate.UI
             }
         }
 
-        public override void Update(GameTime gameTime)
+        /*public override void Update(GameTime gameTime)
         {
             var config = ModContent.GetInstance<ClientSideConfig>();
 
@@ -89,4 +88,4 @@ namespace EpicBattleFantasyUltimate.UI
             base.Update(gameTime);
         }
     }
-}
+}*/

@@ -13,7 +13,7 @@ namespace EpicBattleFantasyUltimate.Buffs.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.meleeSpeed += 1f;
+            player.GetAttackSpeed(DamageClass.Generic) += 1f;
         }
     }
 }

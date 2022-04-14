@@ -3,6 +3,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,26 +14,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Peridot Ore");
-			Main.npcFrameCount[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 4;
 		}
 
 		public override void SetSafeDefaults()
 		{
-			npc.width = 40;
-			npc.height = 40;
+			NPC.width = 40;
+			NPC.height = 40;
 
-			npc.lifeMax = 180;
-			npc.damage = 40;
-			npc.defense = 10;
-			npc.lifeRegen = 4;
-			npc.knockBackResist = -0.2f;
+			NPC.lifeMax = 180;
+			NPC.damage = 40;
+			NPC.defense = 10;
+			NPC.lifeRegen = 4;
+			NPC.knockBackResist = -0.2f;
 
-			npc.noGravity = true;
+			NPC.noGravity = true;
 
-			drawOffsetY = -5;
+			DrawOffsetY = -5;
 
-			npc.noTileCollide = true;
-			npc.aiStyle = -1;
+			NPC.noTileCollide = true;
+			NPC.aiStyle = -1;
 
 			Explosion = ModContent.ProjectileType<PeridotExplosion>();
 
@@ -57,10 +58,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override void FindFrame(int frameHeight)
 		{
-			if (++npc.frameCounter >= 7)
+			if (++NPC.frameCounter >= 7)
 			{
-				npc.frameCounter = 0;
-				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
+				NPC.frameCounter = 0;
+				NPC.frame.Y = (NPC.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[NPC.type]);
 			}
 		}
 
@@ -71,48 +72,32 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		public override bool CheckDead()
 		{
 			Vector2 vel1 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel2 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel3 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel4 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel5 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel6 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel7 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel8 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
-
 			Vector2 vel9 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
 
-			int goreIndex = Gore.NewGore(npc.position, npc.velocity * vel1, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore1"), 1f);
-
-			int goreIndex2 = Gore.NewGore(npc.position, npc.velocity * vel2, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore2"), 1f);
-
-			int goreIndex3 = Gore.NewGore(npc.position, npc.velocity * vel3, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore3"), 1f);
-
-			int goreIndex4 = Gore.NewGore(npc.position, npc.velocity * vel4, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore4"), 1f);
-
-			int goreIndex5 = Gore.NewGore(npc.position, npc.velocity * vel5, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore5"), 1f);
-
-			int goreIndex6 = Gore.NewGore(npc.position, npc.velocity * vel6, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore6"), 1f);
-
-			int goreIndex7 = Gore.NewGore(npc.position, npc.velocity * vel7, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore7"), 1f);
-
-			int goreIndex8 = Gore.NewGore(npc.position, npc.velocity * vel8, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore8"), 1f);
-
-			int goreIndex9 = Gore.NewGore(npc.position, npc.velocity * vel9, mod.GetGoreSlot("Gores/Ores/PeridotOre/PeridotOre_Gore9"), 1f);
+			int goreIndex = Gore.NewGore(NPC.position, NPC.velocity * vel1, Mod.Find<ModGore>("PeridotOre_Gore1").Type, 1f);
+			int goreIndex2 = Gore.NewGore(NPC.position, NPC.velocity * vel2, Mod.Find<ModGore>("PeridotOre_Gore2").Type, 1f);
+			int goreIndex3 = Gore.NewGore(NPC.position, NPC.velocity * vel3, Mod.Find<ModGore>("PeridotOre_Gore3").Type, 1f);
+			int goreIndex4 = Gore.NewGore(NPC.position, NPC.velocity * vel4, Mod.Find<ModGore>("PeridotOre_Gore4").Type, 1f);
+			int goreIndex5 = Gore.NewGore(NPC.position, NPC.velocity * vel5, Mod.Find<ModGore>("PeridotOre_Gore5").Type, 1f);
+			int goreIndex6 = Gore.NewGore(NPC.position, NPC.velocity * vel6, Mod.Find<ModGore>("PeridotOre_Gore6").Type, 1f);
+			int goreIndex7 = Gore.NewGore(NPC.position, NPC.velocity * vel7, Mod.Find<ModGore>("PeridotOre_Gore7").Type, 1f);
+			int goreIndex8 = Gore.NewGore(NPC.position, NPC.velocity * vel8, Mod.Find<ModGore>("PeridotOre_Gore8").Type, 1f);
+			int goreIndex9 = Gore.NewGore(NPC.position, NPC.velocity * vel9, Mod.Find<ModGore>("PeridotOre_Gore9").Type, 1f);
 
 			for (int i = 0; i <= 15; i++)
 			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 			for (int j = 0; j <= 5; j++)
 			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.GrassBlades, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.GrassBlades, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
 			return true;
@@ -120,11 +105,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		#endregion CheckDead
 
-		public override void SafeNPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), ItemID.Emerald, 1);
+			npcLoot.Add(ItemDropRule.Common(ItemID.Emerald));
 		}
-
-
 	}
 }

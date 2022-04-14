@@ -37,7 +37,7 @@ namespace EpicBattleFantasyUltimate.Items.Spears.UltSpears
 
 		public override void HoldItem(Player player)
 		{
-			player.armorPenetration += 100;
+			player.GetArmorPenetration(DamageClass.Melee) += 100;
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 			player.moveSpeed += 0.05f;
 			player.statLifeMax2 += 10;
 			player.statManaMax2 += 10;
-			player.meleeSpeed += 0.05f;
+			player.GetAttackSpeed(DamageClass.Generic) += 0.05f;
 			player.GetCritChance(DamageClass.Generic) += 5;
 			player.maxMinions += 1;
 		}

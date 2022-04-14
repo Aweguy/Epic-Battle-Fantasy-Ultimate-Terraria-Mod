@@ -3,6 +3,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,26 +15,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ruby Ore");
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[NPC.type] = 6;
         }
 
         public override void SetSafeDefaults()
         {
-            npc.width = 40;
-            npc.height = 40;
+            NPC.width = 40;
+            NPC.height = 40;
 
-            npc.lifeMax = 80;
-            npc.damage = 40;
-            npc.defense = 3;
-            npc.lifeRegen = 4;
-            npc.knockBackResist = -0.2f;
+            NPC.lifeMax = 80;
+            NPC.damage = 40;
+            NPC.defense = 3;
+            NPC.lifeRegen = 4;
+            NPC.knockBackResist = -0.2f;
 
-            npc.noGravity = true;
+            NPC.noGravity = true;
 
-            drawOffsetY = -5;
+            DrawOffsetY = -5;
 
-            npc.noTileCollide = true;
-            npc.aiStyle = -1;
+            NPC.noTileCollide = true;
+            NPC.aiStyle = -1;
 
             Explosion = ModContent.ProjectileType<RubyExplosion>();
 
@@ -56,10 +57,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         public override void FindFrame(int frameHeight)
         {
-            if (++npc.frameCounter >= 7)
+            if (++NPC.frameCounter >= 7)
             {
-                npc.frameCounter = 0;
-                npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
+                NPC.frameCounter = 0;
+                NPC.frame.Y = (NPC.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[NPC.type]);
             }
         }
 
@@ -67,28 +68,26 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/RubyOre/RubyOre_Gore1"), 1f);
-            int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/RubyOre/RubyOre_Gore2"), 1f);
-            int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/RubyOre/RubyOre_Gore3"), 1f);
-            int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/RubyOre/RubyOre_Gore4"), 1f);
+            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("RubyOre_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("RubyOre_Gore2").Type, 1f);
+            int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("RubyOre_Gore3").Type, 1f);
+            int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("RubyOre_Gore4").Type, 1f);
 
             for (int i = 0; i <= 15; i++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
             for (int j = 0; j <= 5; j++)
             {
-                Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
             }
 
             return true;
         }
 
-        public override void SafeNPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            Item.NewItem(npc.getRect(), ItemID.Ruby, 1);
+            npcLoot.Add(ItemDropRule.Common(ItemID.Ruby));
         }
-
-
     }
 }

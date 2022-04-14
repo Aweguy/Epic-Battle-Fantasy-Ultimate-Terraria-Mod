@@ -25,7 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddRecipeGroup("EpicBattleFantasyUltimate: IronBar", 10)
+				.AddRecipeGroup("IronBar", 10)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

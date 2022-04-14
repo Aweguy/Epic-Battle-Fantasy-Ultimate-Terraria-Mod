@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,7 +18,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		private int specialStacks = 0;//The stacks that will define when the wraith will use its special attack
 		private int specialTimer = 10;//The interval between Special shots.
 		private int specialEndStacks = 0;//The stacks that will define when the Wraith will stop the special attack
-		private bool shoot = false; //Definition of the bool that makes the npc to move slower when it's ready to shoot
+		private bool shoot = false; //Definition of the bool that makes the NPC to move slower when it's ready to shoot
 		private bool special = false;//Definition of the bool that will make the wraith use its special attack
 		private bool attack = true;//Definition of the bool that will make the wraith use its normal attack.
 
@@ -32,20 +33,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void SetDefaults()
 		{
-			npc.CloneDefaults(NPCID.Wraith);
-			npc.width = (int)(53 * 0.8f);
-			npc.height = (int)(78 * 0.8f);
+			NPC.CloneDefaults(NPCID.Wraith);
+			NPC.width = (int)(53 * 0.8f);
+			NPC.height = (int)(78 * 0.8f);
 
-			npc.lifeMax = 150;
-			npc.damage = 25;
-			npc.defense = 15;
+			NPC.lifeMax = 150;
+			NPC.damage = 25;
+			NPC.defense = 15;
 
-			npc.HitSound = SoundID.NPCHit54;
-			npc.DeathSound = SoundID.NPCDeath52;
+			NPC.HitSound = SoundID.NPCHit54;
+			NPC.DeathSound = SoundID.NPCDeath52;
 
-			npc.aiStyle = 22;
-			aiType = NPCID.Wraith;
-			npc.noTileCollide = true;
+			NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
+			NPC.noTileCollide = true;
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -57,29 +58,29 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		public override void AI()
 		{
-			Player player = Main.player[npc.target]; //Target
+			Player player = Main.player[NPC.target]; //Target
 			#region Movement Direction
 
-			if (npc.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
+			if (NPC.velocity.X > 0f) // This is the code that makes the sprite turn. Based on the vanilla one.
 			{
-				npc.direction = 1;
+				NPC.direction = 1;
 			}
-			else if (npc.velocity.X < 0f)
+			else if (NPC.velocity.X < 0f)
 			{
-				npc.direction = -1;
+				NPC.direction = -1;
 			}
-			else if (npc.velocity.X == 0)
+			else if (NPC.velocity.X == 0)
 			{
-				npc.direction = npc.oldDirection;
+				NPC.direction = NPC.oldDirection;
 			}
 
-			if (npc.direction == 1)
+			if (NPC.direction == 1)
 			{
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			}
-			else if (npc.direction == -1)
+			else if (NPC.direction == -1)
 			{
-				npc.spriteDirection = -1;
+				NPC.spriteDirection = -1;
 			}
 
 			#endregion Movement Direction
@@ -106,13 +107,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				if (player.statLife > 0)
 				{
-					if (npc.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
+					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 20f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 28f, npc.Center.Y), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -127,13 +128,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				if (player.statLife > 0)
 				{
-					if (npc.direction == 1)
+					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X + 11f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
-					else if (npc.direction == -1)
+					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(new Vector2(npc.Center.X - 21f, npc.Center.Y + 9f), npc.DirectionTo(Main.player[npc.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -153,9 +154,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					float mult = Main.rand.NextFloat(5f, 10f); //velocity randomization
 
-					velocity = npc.DirectionTo(new Vector2(Main.player[npc.target].Center.X, Main.player[npc.target].Center.Y + 18)) * mult; //Leaf velocity
+					velocity = NPC.DirectionTo(new Vector2(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y + 18)) * mult; //Leaf velocity
 
-					Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y - 18f), velocity, mod.ProjectileType("LeafShot"), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
 					specialTimer = 40;
 					specialEndStacks++;
@@ -182,7 +183,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (shoot) //If the shoot bool is true, its X speed is reduced by 75% of its initial. That is to generate the effects of it stopping a little before shooting.
 			{
-				npc.velocity.X *= 0.9f;
+				NPC.velocity.X *= 0.9f;
 			}
 
 			#endregion Attack Logic
@@ -218,7 +219,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				&& !player.ZoneDungeon
 				&& !player.ZoneCorrupt
 				&& !player.ZoneCrimson
-				&& !player.ZoneHoly
+				&& !player.ZoneHallow
 				&& !player.ZoneSnow
 				&& !player.ZoneDesert
 				&& !player.ZoneUndergroundDesert
@@ -232,7 +233,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		{
 			Player player = Main.player[Main.myPlayer];
 
-			if (Main.hardMode && (spawnInfo.player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)) && !spawnInfo.invasion)
+			if (Main.hardMode && (spawnInfo.Player.ZoneJungle || (PlayerIsInForest(player) && !Main.dayTime)) && !spawnInfo.Invasion)
 			{
 				return 0.03f;
 			}
@@ -241,25 +242,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		}
 
 		#region NPCLoot
-
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), ModContent.ItemType<Wool>(), 2);
-
-			Item.NewItem(npc.getRect(), ItemID.Silk);
-
-
-			if (Main.rand.NextFloat() < .10f)
-			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<SilkScrap>(), Main.rand.Next(2) + 1);
-			}
-
-			if (Main.rand.NextFloat() < .20f)
-			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<GrapeLeaf>(), Main.rand.Next(3) + 1);
-			}
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>(), 1, 3, 3));
+			npcLoot.Add(ItemDropRule.Common(ItemID.Silk));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilkScrap>(), 10, 1, 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GrapeLeaf>(), 5, 1, 4));
 		}
-
 		#endregion NPCLoot
 	}
 }

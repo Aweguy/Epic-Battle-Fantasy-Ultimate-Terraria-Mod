@@ -174,11 +174,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 		}
         public override void PostDraw(Color lightColor)
         {
-			Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("Projectiles/SpellProjectiles/Airstrikes/Bomb_Glowmask");
+			Texture2D texture = ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/Projectiles/SpellProjectiles/Airstrikes/Bomb_Glowmask").Value;
 
 			if (HasGoneDown)
 			{
-				Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), new Color(255, 255, 255) * ((255 - GlowmaskOpacity) / 255f), Projectile.rotation, texture.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+				Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), new Color(255, 255, 255) * ((255 - GlowmaskOpacity) / 255f), Projectile.rotation, texture.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
 			}
 		}

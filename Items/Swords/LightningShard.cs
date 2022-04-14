@@ -19,8 +19,8 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 		{
 			Item.damage = 40;
 			Item.DamageType = DamageClass.Melee;;
-			Item.width = 104;
-			Item.height = 116;
+			Item.width = 52;
+			Item.height = 52;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
@@ -42,8 +42,8 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 			{
 				Item.damage = 50;
 				Item.DamageType = DamageClass.Melee;;
-				Item.width = 104;
-				Item.height = 116;
+				Item.width = 52;
+				Item.height = 52;
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useTime = 10;
 				Item.useAnimation = 10;
@@ -63,8 +63,8 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 			{
 				Item.damage = 50;
 				Item.DamageType = DamageClass.Melee;;
-				Item.width = 104;
-				Item.height = 116;
+				Item.width = 52;
+				Item.height = 52;
 				Item.useStyle = ItemUseStyleID.Swing;
 				Item.useTime = 10;
 				Item.useAnimation = 10;

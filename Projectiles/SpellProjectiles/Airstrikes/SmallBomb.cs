@@ -172,7 +172,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes
 
 		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("Projectiles/SpellProjectiles/Airstrikes/SmallBomb_Glowmask");
+			Texture2D texture = ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/Projectiles/SpellProjectiles/Airstrikes/SmallBomb_Glowmask").Value;
 
 			if (HasGoneDown)
 			{

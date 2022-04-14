@@ -12,6 +12,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 #endregion using
 
@@ -370,11 +371,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 
         public override void PostDraw(Color lightColor)
         {
-			Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("Projectiles/LimitBreaks/MothEarth/MotherEarth");
+			Texture2D texture = ModContent.Request<Texture2D>("EpicBattleFantasyUltimate/Projectiles/LimitBreaks/MothEarth/MotherEarth_Glowmask").Value;
 
 			if (GlowmaskOpacity < 255 && StartDamage <= 0)
 			{
-				Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * ((255 - GlowmaskOpacity) / 255f), Projectile.rotation, texture.Size() / 2, Projectile.scale * GlowmaskScale, SpriteEffects.None, 0);
+
+				Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * ((255 - GlowmaskOpacity) / 255f), Projectile.rotation, texture.Size() / 2, Projectile.scale * GlowmaskScale, SpriteEffects.None, 0);
 			}
 			#region Shading
 
@@ -385,4 +387,5 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 		}
 		
 	}
+	
 }

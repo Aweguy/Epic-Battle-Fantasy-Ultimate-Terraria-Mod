@@ -5,8 +5,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
     public abstract class LimitItem : ModItem
     {
-        public override bool CloneNewInstances => true;
-
         public int LimitCost = 0;
         public int LimitGain = 0;
         public int LimitDrain = 0;

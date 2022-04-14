@@ -7,6 +7,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
@@ -15,28 +16,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Ore");
-			Main.npcFrameCount[npc.type] = 6;
+			Main.npcFrameCount[NPC.type] = 6;
 		}
 
 		//bool Channeling = false;
 
 		public override void SetSafeDefaults()
 		{
-			npc.width = 40;
-			npc.height = 40;
+			NPC.width = 40;
+			NPC.height = 40;
 
-			npc.lifeMax = 95;
-			npc.damage = 30;
-			npc.defense = 6;
-			npc.lifeRegen = 4;
-			npc.knockBackResist = -0.2f;
+			NPC.lifeMax = 95;
+			NPC.damage = 30;
+			NPC.defense = 6;
+			NPC.lifeRegen = 4;
+			NPC.knockBackResist = -0.2f;
 
-			npc.noGravity = true;
+			NPC.noGravity = true;
 
-			drawOffsetY = -5;
+			DrawOffsetY = -5;
 
-			npc.noTileCollide = true;
-			npc.aiStyle = -1;
+			NPC.noTileCollide = true;
+			NPC.aiStyle = -1;
 
 			Explosion = ModContent.ProjectileType<SapphireExplosion>();
 
@@ -59,8 +60,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			if (!Channeling)
 			{
-				Player player = Main.player[npc.target];
-				Projectile.NewProjectile(npc.Center, npc.velocity, ModContent.ProjectileType<TestLaser2>(), 100, 1, Main.myPlayer, player.whoAmI, npc.whoAmI);
+				Player player = Main.player[NPC.target];
+				Projectile.NewProjectile(NPC.Center, NPC.velocity, ModContent.ProjectileType<TestLaser2>(), 100, 1, Main.myPlayer, player.whoAmI, NPC.whoAmI);
 				Channeling = true;
 			}
 			//ExpertLaser();
@@ -72,25 +73,25 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			laserTimer--;
 			if (laserTimer <= 0 && Main.netMode != NetmodeID.MultiplayerClient)
 			{
-				if (npc.localAI[0] == 2f)
+				if (NPC.localAI[0] == 2f)
 				{
-					Player target = Main.player[npc.target];
+					Player target = Main.player[NPC.target];
 
-					Vector2 pos = npc.Center;
-					int damage = npc.damage / 2;
+					Vector2 pos = NPC.Center;
+					int damage = NPC.damage / 2;
 					if (Main.expertMode)
 					{
 						damage = (int)(damage / Main.expertDamage);
 					}
-					Projectile.NewProjectile(pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<TestLaser>(), damage, 0f, Main.myPlayer, target.whoAmI, npc.whoAmI);
+					Projectile.NewProjectile(pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<TestLaser>(), damage, 0f, Main.myPlayer, target.whoAmI, NPC.whoAmI);
 				}
 				else
 				{
-					npc.localAI[0] = 2f;
+					NPC.localAI[0] = 2f;
 				}
 
 				laserTimer = 500 + Main.rand.Next(100);
-				laserTimer = 60 + laserTimer * npc.life / npc.lifeMax;
+				laserTimer = 60 + laserTimer * NPC.life / NPC.lifeMax;
 				laser1 = Main.rand.Next(6) - 1;
 				laser2 = Main.rand.Next(5) - 1;
 				if (laser2 >= laser1)
@@ -104,10 +105,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         public override void FindFrame(int frameHeight)
 		{
-			if (++npc.frameCounter >= 7)
+			if (++NPC.frameCounter >= 7)
 			{
-				npc.frameCounter = 0;
-				npc.frame.Y = (npc.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[npc.type]);
+				NPC.frameCounter = 0;
+				NPC.frame.Y = (NPC.frame.Y + frameHeight) % (frameHeight * Main.npcFrameCount[NPC.type]);
 			}
 		}
 
@@ -115,30 +116,28 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 		public override bool CheckDead()
 		{
-			int goreIndex = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore1"), 1f);
-			int goreIndex2 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore2"), 1f);
-			int goreIndex3 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore3"), 1f);
-			int goreIndex4 = Gore.NewGore(npc.position, (npc.velocity * npc.direction), mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore4"), 1f);
-			int goreIndex5 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore5"), 1f);
-			int goreIndex6 = Gore.NewGore(npc.position, (npc.velocity * npc.direction) * -1, mod.GetGoreSlot("Gores/Ores/SapphireOre/SapphireOre_Gore6"), 1f);
+			int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("SapphireOre_Gore1").Type, 1f);
+			int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("SapphireOre_Gore2").Type, 1f);
+			int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("SapphireOre_Gore3").Type, 1f);
+			int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("SapphireOre_Gore4").Type, 1f);
+			int goreIndex5 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("SapphireOre_Gore5").Type, 1f);
+			int goreIndex6 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("SapphireOre_Gore6").Type, 1f);
 
 			for (int i = 0; i <= 15; i++)
 			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Stone, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 			for (int j = 0; j <= 5; j++)
 			{
-				Dust.NewDustDirect(npc.Center, npc.width, npc.height, DustID.BlueCrystalShard, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.BlueCrystalShard, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
 			return true;
 		}
 
-		public override void SafeNPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(npc.getRect(), ItemID.Sapphire, 1);
+			npcLoot.Add(ItemDropRule.Common(ItemID.Sapphire));
 		}
-
-
 	}
 }

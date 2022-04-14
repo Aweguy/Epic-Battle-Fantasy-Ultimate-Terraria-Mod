@@ -69,7 +69,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 	public class IceNeedleIcicle : ModProjectile
 	{
-		public override string Texture => "Terraria/Projectile_" + ProjectileID.NorthPoleSnowflake;
+		public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.NorthPoleSnowflake}";
 
 		public enum Behaviour//The behaviour of the snowflake
 		{

@@ -55,7 +55,7 @@ namespace EpicBattleFantasyUltimate.Items.Summoning
             CreateRecipe()
                 .AddIngredient(ItemID.SoulofLight, 25)
                 .AddIngredient(ItemID.BeeWax, 20)
-                .AddRecipeGroup("EpicBattleFantasyUltimate:GoldBar")
+                .AddRecipeGroup("GoldBar")
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
