@@ -184,14 +184,14 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpearProjectiles
 					Point point = default(Point);
 					if (Projectile.localAI[1] == 1f || WorldUtils.Find(vector.ToTileCoordinates(), Searches.Chain(new Searches.Down(4), new Conditions.IsSolid()), out point))
 					{
-						Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, ProjectileID.MonkStaffT1Explosion, explDamage, 0f, Projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(),vector + new Vector2((float)(num5 * 20), -60f), Vector2.Zero, ProjectileID.MonkStaffT1Explosion, explDamage, 0f, Projectile.owner, 0f, 0f);
 
 						for (int i = 0; i < 20; i++)
 						{
 							Vector2 vel = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 0f));
 							if (vel.Length() < 3) vel = Vector2.Normalize(vel) * 3f;   //minimum speed
 							{
-								Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),vector + new Vector2((float)(num5 * 20), 3f), vel, ModContent.ProjectileType<GashSpike>(), 20, 0, Projectile.owner, 0, 1);
+								Projectile.NewProjectile(Projectile.GetSource_FromThis(),vector + new Vector2((float)(num5 * 20), 3f), vel, ModContent.ProjectileType<GashSpike>(), 20, 0, Projectile.owner, 0, 1);
 							}
 						}
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, Projectile.Center);

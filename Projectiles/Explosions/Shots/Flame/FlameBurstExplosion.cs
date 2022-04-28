@@ -95,7 +95,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
 				Vector2 vel = new Vector2(Main.rand.NextFloat(-10f, 10f), Main.rand.NextFloat(-10f, 10f));
 				if (vel.Length() < 3) vel = Vector2.Normalize(vel) * 5f;   //minimum speed
 				{
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, vel, ModContent.ProjectileType<HellfireBullet>(), 65, 0, Projectile.owner, 0, 1);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, vel, ModContent.ProjectileType<HellfireBullet>(), 65, 0, Projectile.owner, 0, 1);
 				}
 
 				timer = 4;

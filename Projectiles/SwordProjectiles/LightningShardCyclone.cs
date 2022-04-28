@@ -19,6 +19,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 		private float num601;
 		private float returnVel;
 		private float returnDistance = 500f;
+		bool Return;
 
 		#endregion Variables
 
@@ -41,14 +42,17 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			stay = true;
+            if (!Return)
+            {
+				stay = true;
+			}
 		}
 
 		public override void AI()
 		{
 			float between = Vector2.Distance(Main.player[Projectile.owner].Center, Projectile.Center);
 
-			bool Return = between > returnDistance;
+			Return = between > returnDistance;
 
 			if (Return)
 			{

@@ -211,13 +211,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (!CannonSpawn2)
 			{
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonBehind>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonBehind>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn2 = true;
 			}
 			if (!CannonSpawn1)
 			{
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonFront>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<RedCannonFront>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn1 = true;
 			}
@@ -289,14 +289,14 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 				gorevel = new Vector2(NPC.velocity.X / 3f, NPC.velocity.Y * 8f);
 			}
 
-			int goreIndex = Gore.NewGore(NPC.position, gorevel, Mod.Find<ModGore>("RedHelix").Type, 1f);
+			int goreIndex = Gore.NewGore(NPC.GetSource_Death(), NPC.position, gorevel, Mod.Find<ModGore>("RedHelix").Type, 1f);
 
 			for (int i = 0; i <= 20; i++)
 			{
 				Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Firefly, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
 			}
 
-			int a = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, NPC.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
+			int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, NPC.velocity, ModContent.ProjectileType<BrokenRedFlybot>(), 40, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
 			return true;
 		}

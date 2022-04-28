@@ -42,11 +42,11 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
 
                 if (choose == 0)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion>(), 70, 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion>(), 70, 0, Projectile.owner);
                 }
                 else if (choose == 1)
                 {
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion2>(), 70, 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<SurgeExplosion2>(), 70, 0, Projectile.owner);
                 }
 
                 timer = 5;

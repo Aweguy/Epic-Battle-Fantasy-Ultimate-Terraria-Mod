@@ -70,7 +70,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			SetSafeDefaults();
 			if (!Main.dedServ)
-				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/OreHit");
+				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/OreHit").WithPitchVariance(Main.rand.NextFloat(2f));
 
 			//Setting the ores to be immune
 			NPC.lavaImmune = true;//Making the ores immune to lava
@@ -111,7 +111,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 					NPC.netUpdate = true;
 
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
 
 					CheckDead();
 
@@ -156,7 +156,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			}
 			else
 			{
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion, 40, 5f, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion, 40, 5f, Main.myPlayer, 0, 1);
 
 				CheckDead();
 

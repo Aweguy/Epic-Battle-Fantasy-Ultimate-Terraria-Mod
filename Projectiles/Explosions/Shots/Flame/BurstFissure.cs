@@ -54,7 +54,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Flame
             {
                 float X = Main.rand.NextFloat(-100f, 100f);
                 float Y = Main.rand.NextFloat(-100f, 100f);
-                int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FlameBurstExplosion>(), 70, 0, Projectile.owner);
+                int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FlameBurstExplosion>(), 70, 0, Projectile.owner);
 
                 timer = 14;
             }

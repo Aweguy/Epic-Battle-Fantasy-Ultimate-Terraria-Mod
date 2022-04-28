@@ -56,7 +56,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
                                                                                                                                               // If you want to randomize the speed to stagger the Projectiles
                 float scale = 1f - (Main.rand.NextFloat() * .3f);                                                                                               // float scale = 1f - (Main.rand.NextFloat() * .3f);
                 perturbedSpeed = perturbedSpeed * scale;                                                                                                                                                 // perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, perturbedSpeed, ModContent.ProjectileType<WaveSplit>(), Projectile.damage, 0, Projectile.owner, 0, 1);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, perturbedSpeed, ModContent.ProjectileType<WaveSplit>(), Projectile.damage, 0, Projectile.owner, 0, 1);
             }
         }
     }

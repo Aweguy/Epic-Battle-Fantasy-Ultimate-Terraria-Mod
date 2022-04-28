@@ -75,7 +75,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Plasma
 
 					Vector2 SpawnPos = Projectile.Center + velocity * 100f;
 
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), SpawnPos, velocity * 6f, ModContent.ProjectileType<FieldWave>(), Projectile.damage, 0, Main.myPlayer);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), SpawnPos, velocity * 6f, ModContent.ProjectileType<FieldWave>(), Projectile.damage, 0, Main.myPlayer);
 
 					rotation += 360 / NumberOfBullets;
 				}

@@ -67,12 +67,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore1").Type, 1f);
-            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore2").Type, 1f);
-            int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore3").Type, 1f);
-            int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore4").Type, 1f);
-            int goreIndex5 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore5").Type, 1f);
-            int goreIndex6 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore6").Type, 1f);
+            int goreIndex = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore2").Type, 1f);
+            int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("TopazOre_Gore3").Type, 1f);
+            int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore4").Type, 1f);
+            int goreIndex5 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore5").Type, 1f);
+            int goreIndex6 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("TopazOre_Gore6").Type, 1f);
 
             for (int i = 0; i <= 15; i++)
             {

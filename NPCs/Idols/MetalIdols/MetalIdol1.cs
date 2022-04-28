@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,7 +38,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
             NPC.aiStyle = -1;
             NPC.noGravity = false;
             if (!Main.dedServ)
-                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/MetalIdolHit");
+                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/MetalIdolHit").WithPitchVariance(2f);
 
             if (Main.hardMode)
             {
@@ -104,7 +105,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump2");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump2").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -121,7 +122,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/MetalIdols/MetalIdolJump1");
+                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump1");
 
                     if (!Left && Right && !Spin)
                     {

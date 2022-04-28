@@ -47,11 +47,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0.9f;
 			AnimationType = NPCID.Guide;
-		}
-
-		public override string TownNPCName()
-		{
-			return "Matt";
+			NPC.setNPCName("Matt", ModContent.NPCType<Matt>());
 		}
 
 		public override string GetChat()
@@ -255,7 +251,7 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 
 		public override bool CheckDead()
 		{
-			int goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+			int goreIndex = Gore.NewGore(NPC.GetSource_Death(),new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
 			Main.gore[goreIndex].scale = 1.5f;
 			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;

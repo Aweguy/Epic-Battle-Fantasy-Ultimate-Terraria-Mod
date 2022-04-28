@@ -46,7 +46,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Dark
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
 
-            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<DarkExplosion>(), 30, 0, Projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<DarkExplosion>(), 30, 0, Projectile.owner);
         }
     }
 }

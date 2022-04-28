@@ -42,7 +42,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 			{
 				Vector2 velocity = Projectile.oldVelocity.RotatedBy(projRotation * 0.0174533f) * 0.5f;
 
-				Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<IceNeedleIcicle>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<IceNeedleIcicle>(), Projectile.damage / 2, Projectile.knockBack, Main.myPlayer);
 
 				projRotation += 360 / NumOfProjectiles;
 			}

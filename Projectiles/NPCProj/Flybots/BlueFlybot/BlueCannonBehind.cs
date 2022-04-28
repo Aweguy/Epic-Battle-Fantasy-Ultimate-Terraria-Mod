@@ -82,7 +82,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.BlueFlybot
 
 				ShotNum++;
 
-				Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, ProjectileVelocity, ModContent.ProjectileType<BlueBubble>(), damage, 10, Main.myPlayer, 0, 1);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, ProjectileVelocity, ModContent.ProjectileType<BlueBubble>(), damage, 10, Main.myPlayer, 0, 1);
 
 				if (ShotNum < 10)
 				{

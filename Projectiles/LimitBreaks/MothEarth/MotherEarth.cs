@@ -135,7 +135,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
                 {
 					Shaded = true;
 
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShaderProjectile>(), 0, 0, player.whoAmI, Projectile.Center.X, Projectile.Center.Y);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShaderProjectile>(), 0, 0, player.whoAmI, Projectile.Center.X, Projectile.Center.Y);
                 }
 
 				Particles();//Dust while it's alive.
@@ -206,7 +206,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			{
 				Vector2 origin = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 
-				Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 24, 2, Main.myPlayer, Projectile.Center.X, Projectile.Center.Y);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 24, 2, Main.myPlayer, Projectile.Center.X, Projectile.Center.Y);
 
 				BlastTimer = 15;
 			}

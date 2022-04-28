@@ -217,13 +217,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 		{
 			if (!CannonSpawn2)
 			{
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonBehind>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonBehind>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn2 = true;
 			}
 			if (!CannonSpawn1)
 			{
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonFront>(), 0, 0, Main.myPlayer, NPC.whoAmI);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y), Vector2.Zero, ModContent.ProjectileType<BlueCannonFront>(), 0, 0, Main.myPlayer, NPC.whoAmI);
 
 				CannonSpawn1 = true;
 			}

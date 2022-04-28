@@ -55,7 +55,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 1f; // Watch out for dividing by 0 if there is only 1 Projectile.
-				Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, perturbedSpeed, ModContent.ProjectileType<LeafSplinter>(), Projectile.damage, 0, Projectile.owner, 0, 1);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, perturbedSpeed, ModContent.ProjectileType<LeafSplinter>(), Projectile.damage, 0, Projectile.owner, 0, 1);
 			}
 		}
 	}

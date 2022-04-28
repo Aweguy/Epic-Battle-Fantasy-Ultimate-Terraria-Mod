@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -99,7 +100,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolJump");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
 
                     if (Main.rand.NextFloat() < .1f)
                     {
@@ -121,7 +122,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolJump");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -160,7 +161,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-                            int a = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
+                            int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
                             IceRotation += 40;
                         }
@@ -171,7 +172,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                         {
                             Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-                            int a = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
+                            int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
                             IceRotation += 120;
                         }
@@ -221,12 +222,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore1").Type, 1f);
-            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore2").Type, 1f);
-            int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore3").Type, 1f);
-            int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore4").Type, 1f);
-            int goreIndex5 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore5").Type, 1f);
-            int goreIndex6 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore6").Type, 1f);
+            int goreIndex = Gore.NewGore(NPC.GetSource_Death(),NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore2").Type, 1f);
+            int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore3").Type, 1f);
+            int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore4").Type, 1f);
+            int goreIndex5 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore5").Type, 1f);
+            int goreIndex6 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore6").Type, 1f);
 
             for (int i = 0; i <= 20; i++)
             {

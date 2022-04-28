@@ -17,6 +17,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 		public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 10;
+			Projectile.extraUpdates = 2;
 
 			Projectile.aiStyle = ProjectileID.WoodenArrowFriendly;
 			Projectile.DamageType = DamageClass.Ranged;
@@ -41,7 +42,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 		{
 			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 
-			Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.BabySpider, (int)Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.BabySpider, (int)Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 		}
 	}
 }

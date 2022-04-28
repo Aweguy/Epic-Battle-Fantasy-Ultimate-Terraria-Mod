@@ -200,7 +200,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		{
 			if (NPC.CountNPCS(ModContent.NPCType<CosmicIllusion>()) < 2)
 			{
-				int Illusion = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<CosmicIllusion>(),0,0,NPC.whoAmI,0,0);
+				int Illusion = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<CosmicIllusion>(),0,0,NPC.whoAmI,0,0);
 			}
 		}
 
@@ -226,7 +226,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 				if (teleports == 0 )//Initial teleportation cheaty effect
 				{
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 
 				if ((double)NPC.ai[2] != 0.0 && (double)NPC.ai[3] != 0.0)
@@ -243,7 +243,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 				if(teleports == 11)//ending teleportation cheaty effect
 				{
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 			}
 			else//Resetting the variables and passing to the attack state.
@@ -310,7 +310,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					{
 						CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
 
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 20, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 20, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
 					}
 					AttackTimer = 0;
 					CosmicSphereCirclesCurrent++;
@@ -326,7 +326,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		}
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
 		{
-			Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, NPC.whoAmI, 0);
+			Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, NPC.whoAmI, 0);
 
 			AIState = MonolithState.Nothing;
 			AttackChosen = false;
@@ -370,7 +370,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 				for (; num234 < Main.maxTilesY && Main.tile[num233, num234] != null && !WorldGen.SolidTile2(num233, num234) && Main.tile[num233 - 1, num234] != null && !WorldGen.SolidTile2(num233 - 1, num234) && Main.tile[num233 + 1, num234] != null && !WorldGen.SolidTile2(num233 + 1, num234); num234++)
 				{
 				}
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), new Vector2((float)player.Center.X, (float)(num234 * 16)), new Vector2(0, -1), ModContent.ProjectileType<Doomsday>(), NPC.damage, 10f, Main.myPlayer, ai1: NPC.whoAmI);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2((float)player.Center.X, (float)(num234 * 16)), new Vector2(0, -1), ModContent.ProjectileType<Doomsday>(), NPC.damage, 10f, Main.myPlayer, ai1: NPC.whoAmI);
 			}
 			else if (AttackTimer > 120)
 			{

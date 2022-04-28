@@ -101,11 +101,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					timer = 120; //Resetting the timer to 120 ticks (2 seconds).
 				}
@@ -116,11 +116,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<MetalShot>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					timer2 = 120;
 				}
@@ -167,7 +167,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 		private void Sawblade(NPC NPC)
 		{
-			int NPCIndex = NPC.NewNPC(NPC.GetSpawnSource_ForProjectile(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
+			int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);
 
 			spectimer = 60 * 10;
 		}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +32,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
             NPC.aiStyle = -1;
             NPC.noGravity = false;
             if (!Main.dedServ)
-                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/WoodIdolHit");
+                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/WoodIdolHit").WithPitchVariance(1.5f);
 
             if (Main.hardMode)
             {
@@ -90,7 +91,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -107,7 +108,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -155,8 +156,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("WoodenIdol3_Gore1").Type, 1f);
-            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("WoodenIdol3_Gore2").Type, 1f);
+            int goreIndex = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("WoodenIdol3_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("WoodenIdol3_Gore2").Type, 1f);
 
             for (int i = 0; i <= 20; i++)
             {

@@ -44,7 +44,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		#endregion//The variables of the bow
 
 		#region SafeMethods
-		public override bool CloneNewInstances => true;
 		public virtual void SetSafeDefaults()
 		{
 		}
@@ -185,7 +184,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					}
 					if (Main.netMode != NetmodeID.Server)
 					{
-						arrow = Main.projectile[Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, Projectile.owner)];
+						arrow = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, Projectile.owner)];
 					}
 				}
 				arrow.velocity = ProjectileExtensions.PolarVector(speed, Projectile.rotation - (float)Math.PI / 2);
@@ -240,11 +239,11 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 				int arrow2;
 				if (Projectile.type == ModContent.ProjectileType<AlchemistBowProj>())
 				{
-					arrow2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, arrow.velocity.RotatedByRandom(0.2f), Main.rand.Next(RandomArrows.ToArray()), (int)(arrow.damage * DamageMultiplier), arrow.knockBack, Projectile.owner);
+					arrow2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, arrow.velocity.RotatedByRandom(0.2f), Main.rand.Next(RandomArrows.ToArray()), (int)(arrow.damage * DamageMultiplier), arrow.knockBack, Projectile.owner);
 				}
 				else
 				{
-					arrow2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center, arrow.velocity.RotatedByRandom(0.2f), arrow.type, (int)(arrow.damage * DamageMultiplier), arrow.knockBack, Projectile.owner);
+					arrow2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, arrow.velocity.RotatedByRandom(0.2f), arrow.type, (int)(arrow.damage * DamageMultiplier), arrow.knockBack, Projectile.owner);
 
 				}
 				Main.projectile[arrow2].noDropItem = true;

@@ -59,15 +59,15 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 
 				if (randomizer == 0)
 				{
-					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballSmall>(), 70, 0, Projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballSmall>(), 70, 0, Projectile.owner);
 				}
 				else if (randomizer == 2)
 				{
-					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballMed>(), 70, 0, Projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<FireballMed>(), 70, 0, Projectile.owner);
 				}
 				else
 				{
-					int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<Fireball>(), 70, 0, Projectile.owner);
+					int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X + X, Projectile.Center.Y + Y, 0f, 0f, ModContent.ProjectileType<Fireball>(), 70, 0, Projectile.owner);
 				}
 
 				timer = 5;

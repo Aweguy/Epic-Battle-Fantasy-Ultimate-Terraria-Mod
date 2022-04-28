@@ -182,7 +182,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
 		{
-			Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 0, 0, Main.myPlayer, NPC.whoAmI, 0);
+			Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 0, 0, Main.myPlayer, NPC.whoAmI, 0);
 
 			AIState = MonolithState.Nothing;
 			AttackChosen = false;
@@ -209,7 +209,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 				if (teleports == 0 )//Initial teleportation cheaty effect
 				{
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 
 				if ((double)NPC.ai[2] != 0.0 && (double)NPC.ai[3] != 0.0)
@@ -226,7 +226,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 				if(teleports == 11)//ending teleportation cheaty effect
 				{
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, player.whoAmI);
 				}
 			}
 			else//Resetting the variables and passing to the attack state.
@@ -293,7 +293,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 					{
 						CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
 
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 0, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 0, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
 					}
 					AttackTimer = 0;
 					CosmicSphereCirclesCurrent++;

@@ -185,7 +185,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					{
 						int SpawnChoice = Main.rand.Next(EpicBattleFantasyUltimate.MasterWraithSummoning.ToArray()); //The Wraith that will be spawned based on the List
 
-						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawning the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), SpawnChoice, 0, 0f, 0f, 0f, 0f, 255);//Spawning the Wraith
 
 						NPC.position = new Vector2(player.Center.X + Main.rand.Next(-1000, 1000) * player.direction, player.Center.Y - Main.rand.Next(100, 300));//Blinking
 					}
@@ -248,11 +248,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 				{
-					int proj = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 				else if (NPC.direction == -1)
 				{
-					int proj = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj = Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 
 				Spiketimer = 120;
@@ -264,11 +264,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 				if (NPC.direction == 1)
 				{
-					int proj2 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj2 = Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 				else if (NPC.direction == -1)
 				{
-					int proj2 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
+					int proj2 = Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 12f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, Shot, 30, 2, Main.myPlayer, 0, 1);
 				}
 
 				Spiketimer2 = 120;
@@ -296,7 +296,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
 					}
 
 					spintimer = 0;
@@ -317,7 +317,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
+						int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(),(int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
 					}
 
 					spintimer = 0;
@@ -350,7 +350,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 					}
 
 					icetimer2 = 0;
@@ -371,7 +371,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 					// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 					if (Main.netMode != NetmodeID.MultiplayerClient)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinIcicle>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 					}
 
 					icetimer2 = 0;
@@ -423,9 +423,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
+					int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(),(int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
-				int NPCIndex2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
+				int NPCIndex2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				SpecChoice = 0;
 				SpecChoiceTimer = 60 * 25;
@@ -436,9 +436,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					Vector2 spawnPosition = Main.screenPosition - new Vector2(Main.rand.Next(-2000, 500), Main.screenHeight / 2);
 
-					int NPCIndex = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
+					int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(spawnPosition.X), (int)(spawnPosition.Y), ModContent.NPCType<WraithSawblade>(), 0, 0f, 0f, 0f, 0f, 255);//aerial spawn
 				}
-				int NPCIndex2 = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(),(int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
+				int NPCIndex2 = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WraithSawblade>(), 0, 0, 0, 0, 0, 255);//Central spawn
 
 				Sawtimer = 60 * 10;
 			}
@@ -460,7 +460,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 						velocity = NPC.DirectionTo(new Vector2(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y + 18)) * mult; //Leaf velocity
 
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
 						LeafTimer = 40;
 						LeafEndStacks++;
@@ -480,7 +480,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 			if (SparkTimer <= 0)
 			{
-				int proj4 = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 11), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
+				int proj4 = Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y - 11), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
 
 				SparkTimer = 100;
 			}

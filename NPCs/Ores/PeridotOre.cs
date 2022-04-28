@@ -81,15 +81,15 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 			Vector2 vel8 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
 			Vector2 vel9 = new Vector2(Main.rand.NextFloat(-6f, 6f), Main.rand.NextFloat(-6f, 6f));
 
-			int goreIndex = Gore.NewGore(NPC.position, NPC.velocity * vel1, Mod.Find<ModGore>("PeridotOre_Gore1").Type, 1f);
-			int goreIndex2 = Gore.NewGore(NPC.position, NPC.velocity * vel2, Mod.Find<ModGore>("PeridotOre_Gore2").Type, 1f);
-			int goreIndex3 = Gore.NewGore(NPC.position, NPC.velocity * vel3, Mod.Find<ModGore>("PeridotOre_Gore3").Type, 1f);
-			int goreIndex4 = Gore.NewGore(NPC.position, NPC.velocity * vel4, Mod.Find<ModGore>("PeridotOre_Gore4").Type, 1f);
-			int goreIndex5 = Gore.NewGore(NPC.position, NPC.velocity * vel5, Mod.Find<ModGore>("PeridotOre_Gore5").Type, 1f);
-			int goreIndex6 = Gore.NewGore(NPC.position, NPC.velocity * vel6, Mod.Find<ModGore>("PeridotOre_Gore6").Type, 1f);
-			int goreIndex7 = Gore.NewGore(NPC.position, NPC.velocity * vel7, Mod.Find<ModGore>("PeridotOre_Gore7").Type, 1f);
-			int goreIndex8 = Gore.NewGore(NPC.position, NPC.velocity * vel8, Mod.Find<ModGore>("PeridotOre_Gore8").Type, 1f);
-			int goreIndex9 = Gore.NewGore(NPC.position, NPC.velocity * vel9, Mod.Find<ModGore>("PeridotOre_Gore9").Type, 1f);
+			int goreIndex = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel1, Mod.Find<ModGore>("PeridotOre_Gore1").Type, 1f);
+			int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel2, Mod.Find<ModGore>("PeridotOre_Gore2").Type, 1f);
+			int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel3, Mod.Find<ModGore>("PeridotOre_Gore3").Type, 1f);
+			int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel4, Mod.Find<ModGore>("PeridotOre_Gore4").Type, 1f);
+			int goreIndex5 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel5, Mod.Find<ModGore>("PeridotOre_Gore5").Type, 1f);
+			int goreIndex6 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel6, Mod.Find<ModGore>("PeridotOre_Gore6").Type, 1f);
+			int goreIndex7 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel7, Mod.Find<ModGore>("PeridotOre_Gore7").Type, 1f);
+			int goreIndex8 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel8, Mod.Find<ModGore>("PeridotOre_Gore8").Type, 1f);
+			int goreIndex9 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity * vel9, Mod.Find<ModGore>("PeridotOre_Gore9").Type, 1f);
 
 			for (int i = 0; i <= 15; i++)
 			{

@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -90,7 +91,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump2");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -107,7 +108,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/StoneIdols/StoneIdolJump");
+                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(2f), NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -151,7 +152,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
 
             if (FireballTimer <= 0)
             {
-                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 11), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y - 11), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<Sparkle>(), 18, 2, Main.myPlayer, 0, 1);
                 FireballTimer = 60 * 5;
             }
         }
@@ -166,10 +167,10 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
 
         public override bool CheckDead()
         {
-            int goreIndex = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("ObsidianIdol2_Gore1").Type, 1f);
-            int goreIndex2 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("ObsidianIdol2_Gore2").Type, 1f);
-            int goreIndex3 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("ObsidianIdol2_Gore3").Type, 1f);
-            int goreIndex4 = Gore.NewGore(NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("ObsidianIdol2_Gore4").Type, 1f);
+            int goreIndex = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("ObsidianIdol2_Gore1").Type, 1f);
+            int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("ObsidianIdol2_Gore2").Type, 1f);
+            int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("ObsidianIdol2_Gore3").Type, 1f);
+            int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("ObsidianIdol2_Gore4").Type, 1f);
 
             for (int i = 0; i <= 20; i++)
             {

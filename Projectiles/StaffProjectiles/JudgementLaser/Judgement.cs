@@ -10,6 +10,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.GameContent;
+using Terraria.Audio;
 
 #endregion Using
 
@@ -158,7 +159,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), Projectile.damage, 0, Projectile.owner);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), Projectile.damage, 0, Projectile.owner);
 		}
 
 		public override void AI()
@@ -251,7 +252,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			if (timer2 == 40)
 			{
 				if (!Main.dedServ)
-					SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Spells/Judgement");
+					SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Spells/Judgement").WithPitchVariance(2f),Projectile.Center);
 
 				for (int i = 0; i < 85; ++i)
 				{

@@ -86,7 +86,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, NPC.whoAmI);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, NPC.whoAmI);
 				}
 
 				spintimer = 0;
@@ -117,11 +117,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 22f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 22f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 30f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 30f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -136,11 +136,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<BoneShot>(), 40, 2, Main.myPlayer, 0, 1);
 					}
 				}
 

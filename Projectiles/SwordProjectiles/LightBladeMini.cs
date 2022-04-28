@@ -57,7 +57,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
                 {
 					float rotation = Main.rand.NextFloat(360);
 					Vector2 Velocity = Projectile.velocity.RotatedBy(rotation * 0.0174533f);
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, Projectile.knockBack, Projectile.owner, target.whoAmI, Projectile.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(),target.Center - (Vector2.Normalize(Velocity) * 80f), Velocity, ModContent.ProjectileType<LightBladeMini>(), damage, Projectile.knockBack, Projectile.owner, target.whoAmI, Projectile.whoAmI);
 				}
 			}
 		}

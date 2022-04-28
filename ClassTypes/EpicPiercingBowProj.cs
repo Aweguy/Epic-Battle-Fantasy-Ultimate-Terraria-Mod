@@ -39,7 +39,6 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		#endregion//The variables of the bow
 
 		#region SafeMethods
-		public override bool CloneNewInstances => true;
 		public virtual void SetSafeDefaults()
 		{
 		}
@@ -162,9 +161,13 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					{
 						Ammo = ModContent.ProjectileType<SharangaArrow>();
 					}
+					if(Projectile.type == ModContent.ProjectileType<GaiasGiftProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
+                    {
+						Ammo = ModContent.ProjectileType<GaiasArrow>();
+					}
 					if (Main.netMode != NetmodeID.Server)
 					{
-						arrow = Main.projectile[Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, Projectile.owner)];
+						arrow = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, Projectile.owner)];
 					}
 				}
 				arrow.velocity = ProjectileExtensions.PolarVector(speed, Projectile.rotation - (float)Math.PI / 2);
@@ -221,6 +224,5 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 				arrow.tileCollide = true;
 			}
 		}
-
 	}
 }

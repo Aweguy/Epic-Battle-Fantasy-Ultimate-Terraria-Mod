@@ -52,7 +52,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Bullets.Shots.Plasma
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center); ;
 
-            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<PlasmaField>(), Projectile.damage, 0, Projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<PlasmaField>(), Projectile.damage, 0, Projectile.owner);
         }
     }
 }

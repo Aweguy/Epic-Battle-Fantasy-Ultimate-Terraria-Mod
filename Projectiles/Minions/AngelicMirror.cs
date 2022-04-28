@@ -162,7 +162,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions
 
 				if (timer <= 0)
 				{
-					Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),targetCenter.X, targetCenter.Y, 0, 0, ModContent.ProjectileType<AngelicMirrorExplosion>(), Projectile.damage, 0, Projectile.owner, 0, 0);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(),targetCenter.X, targetCenter.Y, 0, 0, ModContent.ProjectileType<AngelicMirrorExplosion>(), Projectile.damage, 0, Projectile.owner, 0, 0);
 					timer = 60;
 				}
 

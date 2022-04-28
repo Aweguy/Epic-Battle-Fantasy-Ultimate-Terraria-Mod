@@ -17,9 +17,9 @@ namespace EpicBattleFantasyUltimate.Players
 	{
 		/*bool VerticalStack = ModContent.GetInstance<EpicConfig>().FlairVerticalStack;
 		Vector2 position = ModContent.GetInstance<EpicConfig>().FlairSlotPosition;
-		float padding = 0;*/
+		float padding = 0;
 
-		//public override Vector2? CustomLocation => position;
+		public override Vector2? CustomLocation => position;*/
 
 		public override void OnMouseHover(AccessorySlotType context)
 		{

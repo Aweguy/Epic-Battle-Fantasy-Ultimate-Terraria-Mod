@@ -23,7 +23,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.PaintSplatt
 
         public override void Kill(int timeLeft)
         {
-            int a = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<GreyExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            int a = Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<GreyExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
     }
 }

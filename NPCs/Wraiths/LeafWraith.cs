@@ -109,11 +109,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)  //I did not find a better way to do this. This defines the positions the projectile based on its direction.
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 20f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 28f, NPC.Center.Y), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -130,11 +130,11 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				{
 					if (NPC.direction == 1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X + 11f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 					else if (NPC.direction == -1)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X - 21f, NPC.Center.Y + 9f), NPC.DirectionTo(Main.player[NPC.target].Center) * 10f, ModContent.ProjectileType<ThornSpike>(), 20, 2, Main.myPlayer, 0, 1);
 					}
 				}
 
@@ -156,7 +156,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 					velocity = NPC.DirectionTo(new Vector2(Main.player[NPC.target].Center.X, Main.player[NPC.target].Center.Y + 18)) * mult; //Leaf velocity
 
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
+					Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
 					specialTimer = 40;
 					specialEndStacks++;
