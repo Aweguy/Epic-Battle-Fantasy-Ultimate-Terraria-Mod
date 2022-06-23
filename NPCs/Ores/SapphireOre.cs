@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.GameContent.Bestiary;
 
 namespace EpicBattleFantasyUltimate.NPCs.Ores
 {
@@ -54,56 +55,21 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
 			StunDuration = 3;
 		}
-        #region Unused
-        /*public override void AI()
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
 		{
-
-			if (!Channeling)
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
 			{
-				Player player = Main.player[NPC.target];
-				Projectile.NewProjectile(NPC.Center, NPC.velocity, ModContent.ProjectileType<TestLaser2>(), 100, 1, Main.myPlayer, player.whoAmI, NPC.whoAmI);
-				Channeling = true;
-			}
-			//ExpertLaser();
-		}*/
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Some Ores are a clean gray and found by oceans and mountains. They fall under Poseidon’s domain.")
+			});
+		}
 
-        /*private void ExpertLaser()
-		{
-			laserTimer--;
-			if (laserTimer <= 0 && Main.netMode != NetmodeID.MultiplayerClient)
-			{
-				if (NPC.localAI[0] == 2f)
-				{
-					Player target = Main.player[NPC.target];
+		#region FindFrame
 
-					Vector2 pos = NPC.Center;
-					int damage = NPC.damage / 2;
-					if (Main.expertMode)
-					{
-						damage = (int)(damage / Main.expertDamage);
-					}
-					Projectile.NewProjectile(pos.X, pos.Y, 0f, 0f, ModContent.ProjectileType<TestLaser>(), damage, 0f, Main.myPlayer, target.whoAmI, NPC.whoAmI);
-				}
-				else
-				{
-					NPC.localAI[0] = 2f;
-				}
-
-				laserTimer = 500 + Main.rand.Next(100);
-				laserTimer = 60 + laserTimer * NPC.life / NPC.lifeMax;
-				laser1 = Main.rand.Next(6) - 1;
-				laser2 = Main.rand.Next(5) - 1;
-				if (laser2 >= laser1)
-				{
-					laser2++;
-				}
-			}
-		}*/
-        #endregion
-        #region FindFrame
-
-        public override void FindFrame(int frameHeight)
+		public override void FindFrame(int frameHeight)
 		{
 			if (++NPC.frameCounter >= 7)
 			{

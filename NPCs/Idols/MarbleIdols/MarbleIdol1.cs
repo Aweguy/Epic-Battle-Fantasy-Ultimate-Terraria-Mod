@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +10,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 {
     public class MarbleIdol1 : ModNPC
     {
+        public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MarbleIdolHit", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
         private bool Left = false;
         private bool Right = true;
         private bool Spin = false;
@@ -33,15 +52,25 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
             NPC.aiStyle = -1;
             NPC.noGravity = false;
             if (!Main.dedServ)
-                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/MarbleIdolHurt").WithPitchVariance(0.5f).WithVolume(0.5f);
+                NPC.HitSound = IdolHit;
 
             if (Main.hardMode)
             {
-                NPC.lifeMax *= 3;
+                NPC.lifeMax *= 2;
                 NPC.defense *= 2;
             }
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Marble,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Ornate idols found in ancient ruins. Possess a tidbit of magical power in their gem.")
+            });
+        }
         public override void AI()
         {
             Rotation(NPC);
@@ -91,7 +120,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(Main.rand.NextFloat(2f)), NPC.Center);
+                        SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -108,7 +137,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(Main.rand.NextFloat(2f)), NPC.Center);
+                        SoundEngine.PlaySound(IdolJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -182,7 +211,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert)
+            if (spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert || spawnInfo.Player.ZoneMarble)
             {
                 return .2f;
             }

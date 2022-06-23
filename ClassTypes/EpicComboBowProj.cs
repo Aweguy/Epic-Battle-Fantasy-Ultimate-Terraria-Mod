@@ -95,7 +95,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			Projectile.timeLeft = 2;
 
 			var modPlayer = player.GetModPlayer<EpicPlayer>();
-			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
+			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem) && !player.noItems && !player.CCed;
 
 			if (Projectile.type == ModContent.ProjectileType<AlchemistBowProj>())
 			{
@@ -177,7 +177,8 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 				if (timer == 0)
 				{
-					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, out _);
+					player.PickAmmo(player.HeldItem, out Ammo, out speed, out weaponDamage, out weaponKnockback, out _);
+
 					if (Projectile.type == ModContent.ProjectileType<BlackWidowProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
 					{
 						Ammo = ModContent.ProjectileType<SpiderArrow>();
@@ -212,7 +213,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					}
 					if (timer == maxTime)
 					{
-						SoundEngine.PlaySound(SoundID.MaxMana, player.position, 0);
+						SoundEngine.PlaySound(SoundID.MaxMana, player.position);
 					}
 				}
 			}

@@ -17,13 +17,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		{
 			Nothing = 0,
 			Teleport = 1,
-			Attack = 2
+			Slam = 2
 		}
 
 		public enum AttackState// THe attack AI state of the Monolith
 		{
-			CosmicSpheres = 0,
-			Slam = 1,
+			Nothing = 0,
+			CosmicSpheres = 1,
 			DarkBolt = 2
 		}
 
@@ -41,8 +41,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		}
 		float Atstate = 0;
 
-		
-
 		public float AttackTimer = 0;//The global timer for the attacks
 
 		private int teleports = 0;//The number of teleports the monolith has done until now
@@ -50,14 +48,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 		private bool spawned = false;//The teleport is to teleport
 
 		private Vector2 CosmicSphereSpawn;//Where the spheres will spawn
-		private int CosmicSphereCirclesCurrent = 0;//The number of the currently spawned sphere circles
-		private int CosmicSphereCirclesMax = 5;//The number of the maximum sphere circles that will spawn
 		private int CosmicSphereMax = 9;//The number of the maximum spheres that will spawn
 		private int CosmicSphereCurrent = 0;//The number of the current;y spawned spheres
 		private float CosmicSphereRotation;//The rotation for the spheres to create the circles. Used in their velocity
 
-		private bool AttackChosen = false;//Whether an attack is chosen after teleporting.
 		private int Attack = 0;//The randomized number that'll choose the attack
+
+		private int SlamTimer = 0;//When the monolith will attempt to slam its target
+		private int SlamNumber = 0;//The number of slams before its idle "rest"
+		private bool HasSlammed = false;//The bool that decides whether gravity should be applied or not.
+		private int SlamHeight = 160;//The default height over the player's head.
+
+		private int DoomsdayCounter = 0;//The number of slam sessions before casting Giga Doomsday. 
 
 		private int GlowmaskFrame = 0;
 		private int GlowmaskTimer = 0;
@@ -102,19 +104,9 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			Direction(player);//Direction of the monolith towards the player.
 
 			RippleEffect();
-
-			//Illusions();//Spawning the illusions
 			
 			if(AIState == MonolithState.Nothing)//If it does nothing it teleports behind the player when within range and if the player looks at it.
 			{
-
-				if (AttackChosen == false)//Choose an attack and random.
-				{
-					Attack = Main.rand.Next(0, 3);
-
-					AttackChosen = true;
-				}
-
 				if (DistanceFromPlayer > 16 * 50)
 				{
 					AIState = MonolithState.Teleport;
@@ -138,39 +130,52 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 			else if(AIState == MonolithState.Nothing)//The monolith waits around until its next teleport and attack
 			{
-				AttackTimer++;
-
-				if(AttackTimer >= 60 * 5)//After 5 seconds teleport and reset the timer
+				SlamTimer++;
+				
+				if (SlamTimer >= 10 && SlamNumber <= 3)//After half a second teleport and reset the timer
 				{
 					AIState = MonolithState.Teleport;
-
-					AttackTimer = 0;
+					
+					SlamTimer = 0;
 				}
+                else if(SlamNumber == 4 && DoomsdayCounter < 5)
+                {
+					DoomsdayCounter++;
+					SlamTimer = -60;
+					SlamNumber = 0;
+                }
+				else if(DoomsdayCounter >= 5)
+                {
+					SlamTimer = -120;
+					DoomsdayCounter = 0;
+                }
 			}
-			else if (AIState == MonolithState.Attack)//Choosing an attack from the roster
+
+			if (AIState == MonolithState.Slam)//
 			{
+				HasSlammed = false;
+				
+				Slam(player);
+				//Laser(player);
+			}
 
-				if (AttackChosen == false)//Choose an attack and random.
-				{
-					Attack = Main.rand.Next(0, 3);
+			/*if(AtState == AttackState.Nothing)
+            {
+				AttackTimer++;
+            }*/
 
-					AttackChosen = true;
-				}
-
+			if(++AttackTimer >= 60 * 2)
+            {
+				Attack = Main.rand.Next(1, 3);
 				AtState = (AttackState)Attack;//For now we only have one attack
 
-				if(AtState == AttackState.CosmicSpheres)//Cosmic Spheres attack. Bouncy spheres.
+				if (AtState == AttackState.CosmicSpheres)//Cosmic Spheres attack. Bouncy spheres.
 				{
 					CosmicSphere();
 				}
-				else if (AtState == AttackState.Slam)//Slam attack.
-				{
-					Slam(player);
-				}
 				else if (AtState == AttackState.DarkBolt)//Homing dark bolt attack.
 				{
-					//DarkBolt(player);
-					Laser(player);
+					DarkBolt(player);
 				}
 			}
 			return true;
@@ -195,15 +200,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 
 		}
-
-		private void Illusions()//Spawning the Illusions
-		{
-			if (NPC.CountNPCS(ModContent.NPCType<CosmicIllusion>()) < 2)
-			{
-				int Illusion = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<CosmicIllusion>(),0,0,NPC.whoAmI,0,0);
-			}
-		}
-
 
 		private void Teleportation()
 		{
@@ -248,7 +244,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			}
 			else//Resetting the variables and passing to the attack state.
 			{
-				AIState = MonolithState.Attack;
+				AIState = MonolithState.Slam;
 				teleports = 0;
 			}
 
@@ -301,59 +297,63 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 
 		private void CosmicSphere()//The cosmic bouncy  sphere attack code
 		{
-			if(CosmicSphereCirclesCurrent <= CosmicSphereCirclesMax)
-			{	
-				if (++AttackTimer > 20)
+			if (++AttackTimer > 20)
+			{
+				CosmicSphereSpawn = Main.screenPosition + new Vector2((Main.screenWidth / 2) + Main.rand.Next(-750, 750), (Main.screenHeight / 2) + Main.rand.Next(-300, 300));
+				for (CosmicSphereCurrent = 0; CosmicSphereCurrent <= CosmicSphereMax; CosmicSphereCurrent++)
 				{
-					CosmicSphereSpawn = Main.screenPosition + new Vector2((Main.screenWidth / 2) + Main.rand.Next(-750, 750), (Main.screenHeight / 2) + Main.rand.Next(-300, 300));
-					for (CosmicSphereCurrent = 0; CosmicSphereCurrent <= CosmicSphereMax; CosmicSphereCurrent++)
-					{
-						CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
+					CosmicSphereRotation = MathHelper.ToRadians(0 + 40 * CosmicSphereCurrent);
 
-						Projectile.NewProjectile(NPC.GetSource_FromAI(), CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 20, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
-					}
-					AttackTimer = 0;
-					CosmicSphereCirclesCurrent++;
-				}		
-			}
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), CosmicSphereSpawn, new Vector2(10, 0).RotatedBy(CosmicSphereRotation), ModContent.ProjectileType<CosmicSphere>(), 20, 0, Main.myPlayer, NPC.whoAmI, CosmicSphereRotation);
+				}
+				AttackTimer = 0;
+			}		
 			else//Resetting the variables.
 			{
 				AttackTimer = 0;
-				CosmicSphereCirclesCurrent = 0;
-				AttackChosen = false;
-				AIState = MonolithState.Nothing;
+				Attack = 0;
+				AtState = AttackState.Nothing;
 			}
 		}
 		private void DarkBolt(Player target)//The code that shoots the dark bolt 
 		{
 			Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(NPC.Center.X - 50, NPC.Center.Y), new Vector2(0, -1) * 10f, ModContent.ProjectileType<DarkBolt>(), 30, 0, Main.myPlayer, NPC.whoAmI, 0);
 
-			AIState = MonolithState.Nothing;
-			AttackChosen = false;
+			AttackTimer = 0;
+			Attack = 0;
+			AtState = AttackState.Nothing;
 		}
 
 		private void Slam(Player player)//The slam melee attack of the monolith
 		{
-			AttackTimer++;
-			if (AttackTimer >= 90)//Resetting the variables shortly after slaming
-			{
-				AttackTimer = 0;
-				AIState = MonolithState.Teleport;
-				AttackChosen = false;
-			}
-
+			//SlamTimer++;
 			
-			if (AttackTimer <= 30)
+			if (SlamTimer < 10)
 			{
 				/*if(AttackTimer == 1)
 				{
 					Projectile.NewProjectile(NPC.Center, Vector2.Zero, ModContent.ProjectileType<Cosmolith_Teleport>(), 0, 0, target.whoAmI);//teleportation cheaty effect for the slam attack
 				}*/
-				NPC.Center = new Vector2(player.Center.X,player.Center.Y - 150);//Positioning over the player's head.
+				
+				NPC.Center = new Vector2(player.Center.X,player.Center.Y - SlamHeight);//Positioning over the player's head.
+				SlamHeight += 3;//Incrementing the height to simulate the animation of preparing to slam.
 			}
-			else if (AttackTimer > 30)
+			else if (SlamTimer > 10)
 			{
-				NPC.velocity.Y = 10f;//Slaming downwards
+                if (!HasSlammed)
+                {
+					NPC.velocity.Y = 10f;//Slaming downwards
+					HasSlammed = true;
+				}
+				NPC.velocity.Y += 3f;
+			}
+
+			if (SlamTimer++ >= 30)//Resetting the variables shortly after slaming
+			{
+				SlamTimer = 0;
+				SlamNumber++;
+				SlamHeight = 160;//Back to the normal Slam Height
+				AIState = MonolithState.Nothing;
 			}
 		}
 
@@ -376,7 +376,6 @@ namespace EpicBattleFantasyUltimate.NPCs.Monoliths.CosmicMonolith
 			{
 				AttackTimer = 0;
 				AIState = MonolithState.Nothing;
-				AttackChosen = false;
 			}
 
 		}

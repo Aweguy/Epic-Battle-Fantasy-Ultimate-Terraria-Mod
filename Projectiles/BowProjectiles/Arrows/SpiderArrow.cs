@@ -17,10 +17,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles.Arrows
 		public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 10;
-			Projectile.extraUpdates = 2;
 
+			Projectile.penetrate = -1;
 			Projectile.aiStyle = ProjectileID.WoodenArrowFriendly;
 			Projectile.DamageType = DamageClass.Ranged;
+
+			Projectile.friendly = true;
 			Projectile.arrow = true;
 		}
 

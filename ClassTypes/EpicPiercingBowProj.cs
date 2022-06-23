@@ -80,7 +80,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			Projectile.timeLeft = 2;
 
 			var modPlayer = player.GetModPlayer<EpicPlayer>();
-			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
+			bool firing = (player.channel || timer < MinimumDrawTime) && player.HasAmmo(player.HeldItem) && !player.noItems && !player.CCed;
 
 			Ammo = AmmoID.Arrow;
 
@@ -155,7 +155,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 				if (timer == 0)
 				{
-					player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback,out _);
+					player.PickAmmo(player.HeldItem, out Ammo, out speed, out weaponDamage, out weaponKnockback, out _);
 
 					if(Projectile.type == ModContent.ProjectileType<SharangaProj>() && Ammo == ProjectileID.WoodenArrowFriendly)
 					{
@@ -199,7 +199,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 					}
 					if (timer == maxTime)
 					{
-						SoundEngine.PlaySound(SoundID.MaxMana, player.position, 0);
+						SoundEngine.PlaySound(SoundID.MaxMana, player.position);
 						//Projectile.Kill();
 					}
 				}
@@ -215,7 +215,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		public override void Kill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item5, Projectile.position);
-			arrow.velocity = (ProjectileExtensions.PolarVector(speed, Projectile.rotation - (float)Math.PI / 2)) * velocity;
+			arrow.velocity = (ProjectileExtensions.PolarVector(speed, Projectile.rotation - (float)Math.PI / 2));
 			arrow.damage *= (int)DamageMultiplier;
 			arrow.extraUpdates = 1;
 			arrow.friendly = true;

@@ -56,8 +56,5 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.AncientLight);
 			}
 		}
-
-		public override bool OnlyShootOnSwing => true;
-
 	}
 }

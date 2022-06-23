@@ -14,16 +14,22 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 {
 	class DarkBolt : ModProjectile
 	{
-		public override void SetDefaults()
+		int JumpTimer = 0;//When the projectile will start moving towards the player.
+		float JumpVelocity = 6f;//The velocity of each jump towards the player.
+		int AnimationTimer = 60 * 10;//Decides when the animation will end and therefore when the projectile will die
+        public override void SetStaticDefaults()
+        {
+			Main.projFrames[Projectile.type] = 12;
+		}
+        public override void SetDefaults()
 		{
 			Projectile.width = Projectile.height = 16;
 			Projectile.aiStyle = -1;
 			Projectile.friendly = false;
 			Projectile.hostile = true;
 			Projectile.penetrate = -1;
-			Projectile.timeLeft = 60 * 20;
 			Projectile.tileCollide = false;
-			Projectile.hide = true;
+			//Projectile.hide = true;
 		}
 
 		public override bool PreAI()
@@ -32,6 +38,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 			Player player = Main.player[npc.target];
 
 			Homing(player);//the Homing functionality of the Projectile.
+			Animation();
 			Dust();
 
 			return false;
@@ -39,16 +46,39 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 
 		private void Homing(Player player)
 		{
-			Vector2 target = player.Center - Projectile.Center;
-			float num1276 = target.Length();
-			float MoveSpeedMult = 6f; //How fast it moves and turns.
-			MoveSpeedMult += num1276 / 120f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-			int MoveSpeedBal = 50; //npc does the same as the above.... I do not understand.
-			target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-			target *= MoveSpeedMult;
-			Projectile.velocity = (Projectile.velocity * (float)(MoveSpeedBal - 1) + target) / (float)MoveSpeedBal;
+			
+			if(++JumpTimer < 60)
+            {
+				Projectile.velocity = Vector2.Zero;
+            }
+			else if(JumpTimer == 60)
+            {
+				Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * (JumpVelocity + Main.rand.NextFloat(1f,6f));//the speed that the ore will dash towards the player
+			}
+			else if(JumpTimer > 120)
+            {
+				JumpTimer = 0;
+            }
 		}
 
+		private void Animation()
+        {
+			AnimationTimer--;//Decreasing the animation timer so it stops after some seconds
+			if (++Projectile.frameCounter >= 5) //reducing the frame timer
+			{
+				Projectile.frameCounter = 0; //resetting it
+
+				Projectile.frame++;
+				if (Projectile.frame == 9 && AnimationTimer > 0) //Animation loop
+				{
+					Projectile.frame = 2;
+				}
+                else if(Projectile.frame >= 11)
+                {
+					Projectile.Kill();
+                }
+			}
+		}
 		private void Dust()
 		{
 			Dust dust;

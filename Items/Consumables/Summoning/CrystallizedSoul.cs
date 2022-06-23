@@ -63,14 +63,8 @@ namespace EpicBattleFantasyUltimate.Items.Consumables.Summoning
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ItemID.IllegalGunParts, 3)
-				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 2)
-				.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 2)
-				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 2)
-				.AddIngredient(ModContent.ItemType<CyclonicEmerald>(), 2)
-				.AddIngredient(ModContent.ItemType<PristineDiamond>(), 2)
-				.AddIngredient(ModContent.ItemType<AncientAmber>(), 2)
 				.AddIngredient(ModContent.ItemType<DarkMatter>(), 20)
+				.AddIngredient(ModContent.ItemType<RainbowOre>(), 5)
 				.AddTile(TileID.DemonAltar)
 				.Register();
 		}

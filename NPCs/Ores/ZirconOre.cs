@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Items.Materials;
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,7 +52,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
             StunDuration = 5;//In seconds
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundSnow,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Concentrated frosty magic in a rocky shell, bursting into magic to help Sprites naturally develop.")
+            });
+        }
 
         #region FindFrame
 

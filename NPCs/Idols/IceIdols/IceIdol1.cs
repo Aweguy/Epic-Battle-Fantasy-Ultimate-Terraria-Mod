@@ -3,255 +3,286 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 {
-    public class IceIdol1 : ModNPC
-    {
-        private int IceTimer = 30;
-        private float IceRotation = 0;
-        private bool Left = false;
-        private bool Right = true;
-        private bool Ice = false;
-        private bool Spin = false;
+	public class IceIdol1 : ModNPC
+	{
+		/*public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MarbleIdolHit", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};*/
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Idol");
-        }
+		public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
 
-        public override void SetDefaults()
-        {
-            NPC.width = 36;
-            NPC.height = 48;
+		public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
 
-            NPC.lifeMax = 95;
-            NPC.damage = 17;
-            NPC.defense = 3;
-            NPC.lifeRegen = 4;
-            NPC.value = 50;
+		private int IceTimer = 30;
+		private float IceRotation = 0;
+		private bool Left = false;
+		private bool Right = true;
+		private bool Ice = false;
+		private bool Spin = false;
 
-            NPC.aiStyle = -1;
-            NPC.noGravity = false;
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ice Idol");
+		}
 
-            if (Main.hardMode)
-            {
-                NPC.lifeMax *= 3;
-                NPC.damage = (int)(NPC.damage * 1.5f);
-            }
-        }
+		public override void SetDefaults()
+		{
+			NPC.width = 36;
+			NPC.height = 48;
 
-        public override void AI()
-        {
-            Rotation(NPC);
-            MovementSpeed(NPC);
-            Jumping(NPC);
-            //IceAttack(NPC);
+			NPC.lifeMax = 95;
+			NPC.damage = 17;
+			NPC.defense = 3;
+			NPC.lifeRegen = 4;
+			NPC.value = 50;
 
-            NPC.spriteDirection = NPC.direction;
-        }
+			NPC.aiStyle = -1;
+			NPC.noGravity = false;
 
-        #region MovementSpeed
+			if (Main.hardMode)
+			{
+				NPC.lifeMax *= 3;
+				NPC.damage = (int)(NPC.damage * 1.5f);
+			}
+		}
 
-        private void MovementSpeed(NPC NPC)
-        {
-            NPC.TargetClosest(true);
+		public override void AI()
+		{
+			Rotation(NPC);
+			MovementSpeed(NPC);
+			Jumping(NPC);
+			//IceAttack(NPC);
 
-            Vector2 target = Main.player[NPC.target].Center - NPC.Center;
+			NPC.spriteDirection = NPC.direction;
+		}
 
-            if (Spin)
-            {
-                float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 6f; //How fast it moves and turns. A multiplier maybe?
-                MoveSpeedMult += num1276 / 150f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 60; //This does the same as the above.... I do not understand.
-                target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-                target *= MoveSpeedMult;
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
 
-                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-            }
-            else
-            {
-                float num1276 = target.Length(); //This seems totally useless, not used anywhere.
-                float MoveSpeedMult = 3f; //How fast it moves and turns. A multiplier maybe?
-                MoveSpeedMult += num1276 / 300f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
-                int MoveSpeedBal = 120; //This does the same as the above.... I do not understand.
-                target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
-                target *= MoveSpeedMult;
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Carved idols found in nippy caves. Surprisingly warm for something made of ice.")
+			});
+		}
 
-                NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
-            }
-        }
+		#region MovementSpeed
 
-        #endregion MovementSpeed
+		private void MovementSpeed(NPC NPC)
+		{
+			NPC.TargetClosest(true);
 
-        #region Jumping
+			Vector2 target = Main.player[NPC.target].Center - NPC.Center;
 
-        private void Jumping(NPC NPC)
-        {
-            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.ai[0], ref NPC.ai[1]);
+			if (Spin)
+			{
+				float num1276 = target.Length(); //This seems totally useless, not used anywhere.
+				float MoveSpeedMult = 6f; //How fast it moves and turns. A multiplier maybe?
+				MoveSpeedMult += num1276 / 150f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+				int MoveSpeedBal = 60; //This does the same as the above.... I do not understand.
+				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+				target *= MoveSpeedMult;
 
-            if (NPC.collideY)
-            {
-                if (Main.rand.NextFloat() < .1f)
-                {
-                    NPC.velocity = new Vector2(NPC.velocity.X, -10f);
-                    if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
+				NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+			}
+			else
+			{
+				float num1276 = target.Length(); //This seems totally useless, not used anywhere.
+				float MoveSpeedMult = 3f; //How fast it moves and turns. A multiplier maybe?
+				MoveSpeedMult += num1276 / 300f; //Balancing the speed. Lowering the division value makes it have more sharp turns.
+				int MoveSpeedBal = 120; //This does the same as the above.... I do not understand.
+				target.Normalize(); //Makes the vector2 for the target have a lenghth of one facilitating in the calculation
+				target *= MoveSpeedMult;
 
-                    if (Main.rand.NextFloat() < .1f)
-                    {
-                        Ice = true;
-                    }
+				NPC.velocity.X = (NPC.velocity.X * (float)(MoveSpeedBal - 1) + target.X) / (float)MoveSpeedBal;
+			}
+		}
 
-                    if (!Left && Right && !Spin)
-                    {
-                        Left = true;
-                        Right = false;
-                    }
-                    else if (Left && !Right && !Spin)
-                    {
-                        Left = false;
-                        Right = true;
-                    }
-                }
-                else
-                {
-                    NPC.velocity = new Vector2(NPC.velocity.X, -5f);
-                    if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
+		#endregion MovementSpeed
 
-                    if (!Left && Right && !Spin)
-                    {
-                        Left = true;
-                        Right = false;
-                    }
-                    else if (Left && !Right && !Spin)
-                    {
-                        Left = false;
-                        Right = true;
-                    }
-                }
-            }
-        }
+		#region Jumping
 
-        #endregion Jumping
+		private void Jumping(NPC NPC)
+		{
+			Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.ai[0], ref NPC.ai[1]);
 
-        #region IceAttack
+			if (NPC.collideY)
+			{
+				if (Main.rand.NextFloat() < .1f)
+				{
+					NPC.velocity = new Vector2(NPC.velocity.X, -10f);
+					if (!Main.dedServ)
+						SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
-        private void IceAttack(NPC NPC)
-        {
-            if (Ice)
-            {
-                IceTimer--;
+					if (Main.rand.NextFloat() < .1f)
+					{
+						Ice = true;
+					}
 
-                Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Frost, 0, 0, 0, Scale: .7f);
+					if (!Left && Right && !Spin)
+					{
+						Left = true;
+						Right = false;
+					}
+					else if (Left && !Right && !Spin)
+					{
+						Left = false;
+						Right = true;
+					}
+				}
+				else
+				{
+					NPC.velocity = new Vector2(NPC.velocity.X, -5f);
+					if (!Main.dedServ)
+						SoundEngine.PlaySound(IdolJump, NPC.Center);
 
-                if (IceTimer <= 0)
-                {
-                    if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolMagic");
+					if (!Left && Right && !Spin)
+					{
+						Left = true;
+						Right = false;
+					}
+					else if (Left && !Right && !Spin)
+					{
+						Left = false;
+						Right = true;
+					}
+				}
+			}
+		}
 
-                    if (Spin)
-                    {
-                        for (int i = 0; i <= 360 / 40; i++)
-                        {
-                            Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
+		#endregion Jumping
 
-                            int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
+		#region IceAttack
 
-                            IceRotation += 40;
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i <= 360 / 120; i++)
-                        {
-                            Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
+		private void IceAttack(NPC NPC)
+		{
+			if (Ice)
+			{
+				IceTimer--;
 
-                            int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
+				Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Frost, 0, 0, 0, Scale: .7f);
 
-                            IceRotation += 120;
-                        }
-                    }
+				if (IceTimer <= 0)
+				{
+					/*if (!Main.dedServ)
+						SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolMagic");*/
 
-                    IceTimer = 30;
-                    Ice = false;
-                }
-            }
-        }
+					if (Spin)
+					{
+						for (int i = 0; i <= 360 / 40; i++)
+						{
+							Vector2 velocity = new Vector2(Main.rand.Next(7, 14), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-        #endregion IceAttack
+							int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
-        #region Rotation
+							IceRotation += 40;
+						}
+					}
+					else
+					{
+						for (int i = 0; i <= 360 / 120; i++)
+						{
+							Vector2 velocity = new Vector2(Main.rand.Next(5, 10), 0).RotatedBy(MathHelper.ToRadians(IceRotation));
 
-        private void Rotation(NPC NPC)
-        {
-            if (Right && !Spin)
-            {
-                NPC.rotation += MathHelper.ToRadians(1);
+							int a = Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, velocity, ModContent.ProjectileType<IceSpike>(), NPC.damage, 10f, Main.myPlayer, (int)(NPC.spriteDirection), 0);
 
-                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
-            }
-            else if (Left && !Spin)
-            {
-                NPC.rotation -= MathHelper.ToRadians(1);
+							IceRotation += 120;
+						}
+					}
 
-                NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
-            }
+					IceTimer = 30;
+					Ice = false;
+				}
+			}
+		}
 
-            if (NPC.life <= NPC.lifeMax * .25f)
-            {
-                NPC.rotation += MathHelper.ToRadians(30) * NPC.spriteDirection;
-                Spin = true;
-            }
-        }
+		#endregion IceAttack
 
-        #endregion Rotation
+		#region Rotation
 
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            for (int i = 0; i <= 5; i++)
-            {
-                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
-            }
-        }
+		private void Rotation(NPC NPC)
+		{
+			if (Right && !Spin)
+			{
+				NPC.rotation += MathHelper.ToRadians(1);
 
-        public override bool CheckDead()
-        {
-            int goreIndex = Gore.NewGore(NPC.GetSource_Death(),NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore1").Type, 1f);
-            int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore2").Type, 1f);
-            int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore3").Type, 1f);
-            int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore4").Type, 1f);
-            int goreIndex5 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore5").Type, 1f);
-            int goreIndex6 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore6").Type, 1f);
+				NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+			}
+			else if (Left && !Spin)
+			{
+				NPC.rotation -= MathHelper.ToRadians(1);
 
-            for (int i = 0; i <= 20; i++)
-            {
-                Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
-            }
+				NPC.rotation = MathHelper.Clamp(NPC.rotation, MathHelper.ToRadians(-10), MathHelper.ToRadians(10));
+			}
 
-            return true;
-        }
+			if (NPC.life <= NPC.lifeMax * .25f)
+			{
+				NPC.rotation += MathHelper.ToRadians(30) * NPC.spriteDirection;
+				Spin = true;
+			}
+		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
-        {
-            if (spawnInfo.Player.ZoneSnow)
-            {
-                return .02f;
-            }
+		#endregion Rotation
 
-            return 0f;
-        }
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			for (int i = 0; i <= 5; i++)
+			{
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+		}
 
-        #region NPCLoot
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SolidWater>(),3));
-        }
-        #endregion NPCLoot
-    }
+		public override bool CheckDead()
+		{
+			int goreIndex = Gore.NewGore(NPC.GetSource_Death(),NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore1").Type, 1f);
+			int goreIndex2 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore2").Type, 1f);
+			int goreIndex3 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore3").Type, 1f);
+			int goreIndex4 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction) * -1, Mod.Find<ModGore>("IceIdol1_Gore4").Type, 1f);
+			int goreIndex5 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore5").Type, 1f);
+			int goreIndex6 = Gore.NewGore(NPC.GetSource_Death(), NPC.position, (NPC.velocity * NPC.direction), Mod.Find<ModGore>("IceIdol1_Gore6").Type, 1f);
+
+			for (int i = 0; i <= 20; i++)
+			{
+				Dust.NewDustDirect(NPC.Center, NPC.width, NPC.height, DustID.Ice, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), Scale: 1);
+			}
+
+			return true;
+		}
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			if (spawnInfo.Player.ZoneSnow)
+			{
+				return .02f;
+			}
+
+			return 0f;
+		}
+
+		#region NPCLoot
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SolidWater>(),3));
+		}
+		#endregion NPCLoot
+	}
 }

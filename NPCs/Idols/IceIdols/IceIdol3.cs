@@ -3,6 +3,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.Idols.IceIdol;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 {
     public class IceIdol3 : ModNPC
     {
+        /*public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MarbleIdolHit", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};*/
+
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
         private int IceTimer = 30;
         private float IceRotation = 0;
         private bool Left = false;
@@ -42,6 +61,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 NPC.lifeMax *= 3;
                 NPC.damage = (int)(NPC.damage * 1.5f);
             }
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Carved idols found in nippy caves. Surprisingly warm for something made of ice.")
+            });
         }
 
         public override void AI()
@@ -100,7 +131,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
                     if (Main.rand.NextFloat() < .1f)
                     {
@@ -122,7 +153,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -152,8 +183,8 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
                 if (IceTimer <= 0)
                 {
-                    if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolMagic");
+                    /*if (!Main.dedServ)
+                        SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Idols/IceIdols/IceIdolMagic");*/
                     if (Spin)
                     {
                         for (int i = 0; i <= 360 / 40; i++)

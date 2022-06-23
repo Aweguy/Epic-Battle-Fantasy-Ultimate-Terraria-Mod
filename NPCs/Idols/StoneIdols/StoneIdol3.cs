@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +10,25 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 {
     public class StoneIdol3 : ModNPC
     {
+        public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/StoneIdolHit", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+
         private bool Left = false;
         private bool Right = true;
         private bool Spin = false;
@@ -32,7 +52,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
             NPC.aiStyle = -1;
             NPC.noGravity = false;
             if (!Main.dedServ)
-                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/StoneIdolHit").WithPitchVariance(1.5f);
+                NPC.HitSound = IdolHit;
 
             if (Main.hardMode)
             {
@@ -40,7 +60,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 NPC.defense *= 2;
             }
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Crude idols found along rocky beaches. It hurts when they hit you, but they’re not a real threat.")
+            });
+        }
         public override void AI()
         {
             Rotation(NPC);
@@ -90,7 +121,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -107,7 +138,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {

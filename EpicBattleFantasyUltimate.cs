@@ -31,7 +31,7 @@ namespace EpicBattleFantasyUltimate
 
 		public static List<int> MasterWraithBasic => new List<int> { ModContent.ProjectileType<FrostBoneShot>(), ModContent.ProjectileType<BoneShot>(), ModContent.ProjectileType<MetalShot>(), ModContent.ProjectileType<ThornSpike>(), ModContent.ProjectileType<CursedSpike>() };
 		public static List<int> MasterWraithTouchDebuffs => new List<int> { ModContent.BuffType<RampantBleed>(), BuffID.OnFire, BuffID.Poisoned, BuffID.Chilled, ModContent.BuffType<Cursed>() };
-		public static List<int> MasterWraithSummoning => new List<int> { ModContent.NPCType<FlameWraith>(), ModContent.NPCType<FlameWraith2>(), ModContent.NPCType<FrostWraith>(), ModContent.NPCType<FrostWraith2>(), ModContent.NPCType<SteelWraith>(), ModContent.NPCType<LeafWraith>(), ModContent.NPCType<SparkWraith>() };
+		public static List<int> MasterWraithSummoning => new List<int> { ModContent.NPCType<FlameWraith>(), ModContent.NPCType<FrostWraith>(), ModContent.NPCType<SteelWraith>(), ModContent.NPCType<LeafWraith>(), ModContent.NPCType<SparkWraith>() };
 
 		public static RecipeGroup GoldBar;
 

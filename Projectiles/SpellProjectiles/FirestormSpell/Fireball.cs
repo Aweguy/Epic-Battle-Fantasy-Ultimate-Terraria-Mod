@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.FirestormSpell
 				Dust dust;
 				// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 				Vector2 position = Projectile.position;
-				dust = Dust.NewDustDirect(position, Projectile.width, Projectile.height, DustID.Pixie, 0.2631578f, -2.368421f, 0, new Color(255, 251, 0), 1.25f);
+				dust = Dust.NewDustDirect(position, Projectile.width, Projectile.height, DustID.Torch, 0.2631578f, -2.368421f, 0, new Color(255, 251, 0), 1.25f);
 			}
 
 			if (++Projectile.frameCounter > 3)

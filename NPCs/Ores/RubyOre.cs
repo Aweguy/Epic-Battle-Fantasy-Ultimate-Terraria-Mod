@@ -3,6 +3,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,7 +52,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
             StunDuration = 3;
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Some Ores are a dark black and found by magma and volcanoes. They fall under Vulcan’s domain.")
+            });
+        }
 
         #region FindFrame
 

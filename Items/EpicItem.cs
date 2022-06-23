@@ -7,12 +7,11 @@ namespace EpicBattleFantasyUltimate.Items
 {
 	public class EpicItem : GlobalItem
 	{
-		#region PickAmmo
-		public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
-		{
-			#region Overheat
 
-			if (ammo.type == ModContent.ItemType<Shot9>() || ammo.type == ModContent.ItemType<Shot8>() || ammo.type == ModContent.ItemType<Shot7>())
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
+        {
+            #region Overheat
+            if (ammo.type == ModContent.ItemType<Shot9>() || ammo.type == ModContent.ItemType<Shot8>() || ammo.type == ModContent.ItemType<Shot7>())
 			{
 				player.AddBuff(ModContent.BuffType<Overheat>(), 60 * 4);
 			}
@@ -22,6 +21,5 @@ namespace EpicBattleFantasyUltimate.Items
 			}
 			#endregion Overheat
 		}
-		#endregion PickAmmo
 	}
 }

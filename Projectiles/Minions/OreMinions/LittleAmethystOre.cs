@@ -15,9 +15,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.Minions.OreMinions
 {
 	class LittleAmethystOre : LittleOre
 	{
-
-		NPC npc;
-
 		public override void SetSafeStaticDefaults()
 		{
 			DisplayName.SetDefault("Little Amethyst Ore");

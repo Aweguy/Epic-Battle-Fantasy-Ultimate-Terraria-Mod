@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
 {
     public class ObsidianIdol2 : ModNPC
     {
+        /*public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/StoneIdolHit", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };*/
+
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
         private int FireballTimer = 60 * 5;
 
         private bool Left = false;
@@ -41,7 +60,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
                 NPC.defense *= 2;
             }
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Marble,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Molten idols found in heated caverns. If you hit it with water, does it become a Basalt Idol?")
+            });
+        }
         public override void AI()
         {
             Rotation(NPC);
@@ -91,7 +120,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -108,7 +137,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,12 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
 	class BlueFlybot : ModNPC
 	{
+		public static readonly SoundStyle Bleep = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/FlybotBleep", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
 		private int BleepTimer = 20;//Determines when the check for the Bleep sound will happen
 		private bool CannonSpawn2 = false;
 		private bool CannonSpawn1 = false;
@@ -50,7 +57,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 			CannonSpawning();//Cannon spawn, only runs once the flybot spawns
 			movement();//Movement code from the bat
-			Bleep();//Bleeping sound of the flybot
+			Bleeping();//Bleeping sound of the flybot
 		}
 
 
@@ -264,13 +271,13 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		#endregion FindFrame
 
-		private void Bleep()
+		private void Bleeping()
 		{
 			if (--BleepTimer <= 0)
 			{
 				if (Main.rand.NextFloat() < .1f && !Main.dedServ)
 				{
-					SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Flybots/FlybotBleep");
+					SoundEngine.PlaySound(Bleep,NPC.Center);
 				}
 
 				BleepTimer = 20;

@@ -3,6 +3,7 @@ using EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,7 +52,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Ores
 
             StunDuration = 3;
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+            {
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Each Ore draws power from the drop of magic inside it and channels it through the gems on their bodies, which act as magical conduits.")
+            });
+        }
         #region FindFrame
 
         public override void FindFrame(int frameHeight)

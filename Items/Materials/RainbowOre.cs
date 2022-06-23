@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using EpicBattleFantasyUltimate.Items.Materials.Gems;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,6 +23,20 @@ namespace EpicBattleFantasyUltimate.Items.Materials
 			Item.rare = ItemRarityID.Yellow;
 			Item.maxStack = 99;
 			Item.consumable = true;
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<VolcanicRuby>(), 1)
+				.AddIngredient(ModContent.ItemType<VoltaicTopaz>(), 1)
+				.AddIngredient(ModContent.ItemType<AbyssalSapphire>(), 1)
+				.AddIngredient(ModContent.ItemType<CyclonicEmerald>(), 1)
+				.AddIngredient(ModContent.ItemType<PristineDiamond>(), 1)
+				.AddIngredient(ModContent.ItemType<AncientAmber>(), 1)
+				.AddIngredient(ItemID.StoneBlock, 10)
+				.AddTile(TileID.Furnaces)
+				.Register();
 		}
 	}
 }

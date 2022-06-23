@@ -17,7 +17,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Monoliths.CosmicMonolith
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("NatureBlast");
 			Main.projFrames[Projectile.type] = 23;
 		}
 

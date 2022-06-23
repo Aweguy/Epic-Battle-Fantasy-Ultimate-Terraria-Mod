@@ -53,7 +53,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			{
 				drawColor = Color.Red;
 			}
-			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0f, 0f, 0, drawColor, 0.8f);
+			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Torch, 0f, 0f, 0, drawColor, 0.8f);
 
 			NPC FatherNpc = Main.npc[(int)NPC.ai[0]]; //Sets the NPC that the projectile is spawned and will orbit
 
@@ -111,7 +111,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			NPC.width = NPC.height = 72;
 			for(int i = 0; i <= 20; i++)
 			{
-				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0, 0, 0, default, 1);
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 0, 0, 0, new Color(255, 251, 0), 1);
 			}
 
 			return true;

@@ -190,3 +190,5 @@ C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFanta
 C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFantasyUltimate\obj\Debug\net6.0\refint\EpicBattleFantasyUltimate.dll
 C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFantasyUltimate\obj\Debug\net6.0\EpicBattleFantasyUltimate.pdb
 C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFantasyUltimate\obj\Debug\net6.0\ref\EpicBattleFantasyUltimate.dll
+C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFantasyUltimate\bin\Debug\net6.0\System.Reflection.MetadataLoadContext.dll
+C:\Users\irene\Documents\My Games\Terraria\tModLoader\ModSources\EpicBattleFantasyUltimate\bin\Debug\net6.0\System.Reflection.MetadataLoadContext.xml

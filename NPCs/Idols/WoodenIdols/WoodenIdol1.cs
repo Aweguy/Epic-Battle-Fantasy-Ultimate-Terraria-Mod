@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +10,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 {
 	public class WoodenIdol1 : ModNPC
 	{
+		public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/WoodIdolHit", 4)
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+		public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
+		public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
 		private bool Left = false;
 		private bool Right = true;
 		private bool Spin = false;
@@ -32,7 +51,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 			NPC.aiStyle = -1;
 			NPC.noGravity = false;
 			if (!Main.dedServ)
-				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/WoodIdolHit").WithPitchVariance(1.5f);
+				NPC.HitSound = IdolHit;
 
 			if (Main.hardMode)
 			{
@@ -40,6 +59,18 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 				NPC.damage *= 2;
 				NPC.defense *= 2;
 			}
+		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Simple idols found in picturesque forests. Naturally occurring and the mascot of Greenwood.")
+			});
 		}
 
 		public override void AI()
@@ -91,7 +122,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 				{
 					NPC.velocity = new Vector2(NPC.velocity.X, -10f);
 					if (!Main.dedServ)
-						SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump").WithPitchVariance(2f), NPC.Center);
+						SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
 					if (!Left && Right && !Spin)
 					{
@@ -108,7 +139,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 				{
 					NPC.velocity = new Vector2(NPC.velocity.X, -5f);
 					if (!Main.dedServ)
-						SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2").WithPitchVariance(2f), NPC.Center);
+						SoundEngine.PlaySound(IdolJump, NPC.Center);
 
 					if (!Left && Right && !Spin)
 					{

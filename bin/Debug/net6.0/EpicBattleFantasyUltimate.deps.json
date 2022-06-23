@@ -22,8 +22,8 @@
           "Mono.Cecil.Mdb": "0.11.4.0",
           "Mono.Cecil.Pdb": "0.11.4.0",
           "Mono.Cecil.Rocks": "0.11.4.0",
-          "MonoMod.RuntimeDetour": "22.1.29.1",
-          "MonoMod.Utils": "22.1.29.1",
+          "MonoMod.RuntimeDetour": "22.5.1.1",
+          "MonoMod.Utils": "22.5.1.1",
           "MP3Sharp": "1.0.0.0",
           "Newtonsoft.Json": "12.0.0.0",
           "NVorbis": "0.10.0.3",
@@ -233,19 +233,19 @@
           }
         }
       },
-      "MonoMod.RuntimeDetour/22.1.29.1": {
+      "MonoMod.RuntimeDetour/22.5.1.1": {
         "runtime": {
           "MonoMod.RuntimeDetour.dll": {
-            "assemblyVersion": "22.1.29.1",
-            "fileVersion": "22.1.29.1"
+            "assemblyVersion": "22.5.1.1",
+            "fileVersion": "22.5.1.1"
           }
         }
       },
-      "MonoMod.Utils/22.1.29.1": {
+      "MonoMod.Utils/22.5.1.1": {
         "runtime": {
           "MonoMod.Utils.dll": {
-            "assemblyVersion": "22.1.29.1",
-            "fileVersion": "22.1.29.1"
+            "assemblyVersion": "22.5.1.1",
+            "fileVersion": "22.5.1.1"
           }
         }
       },
@@ -465,12 +465,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.RuntimeDetour/22.1.29.1": {
+    "MonoMod.RuntimeDetour/22.5.1.1": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.Utils/22.1.29.1": {
+    "MonoMod.Utils/22.5.1.1": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

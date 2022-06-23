@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.NPCProj.Wraith;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,7 +40,17 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 			AIType = NPCID.Wraith;
 			NPC.noTileCollide = true;
 		}
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+			{
+				// Sets the spawning conditions of this NPC that is listed in the bestiary.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
+				// Sets the description of this NPC that is listed in the bestiary.
+				new FlavorTextBestiaryInfoElement("Lesser ghosts that prowl scorched woods. Fond of the scent of chestnuts.")
+			});
+		}
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			target.AddBuff(BuffID.OnFire, 60 * 2);
@@ -50,7 +61,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		public override void AI()
 		{
 			Player player = Main.player[NPC.target]; //Target
-			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Firefly, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
+			Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Torch, 0.2631578f, -2.368421f, 0, Color.Orange, 0.6f);
 
 			#region Movement Direction
 
@@ -86,7 +97,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 				// Do not attempt to spawn the projectile on clients. Only in singleplayer and server instances.
 				if (Main.netMode != NetmodeID.MultiplayerClient)
 				{
-					Projectile.NewProjectile(NPC.GetSource_FromAI(),NPC.Center, Vector2.Zero, ModContent.ProjectileType<SpinFireball>(), 20, 2, Main.myPlayer, NPC.whoAmI);
+					int NPCIndex = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.Center.X), (int)(NPC.Center.Y), ModContent.NPCType<OrbitingFireball>(), 0, NPC.whoAmI, 0f, 0f, 0f, 255);//Spawnign the Wraith
 				}
 
 				spintimer = 0;

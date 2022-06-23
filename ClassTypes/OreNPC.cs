@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EpicBattleFantasyUltimate.NPCs.Ores;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +15,12 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
 	public abstract class OreNPC : ModNPC
 	{
+		public static readonly SoundStyle OreHit = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/NPCHit/OreHit", 4)
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
 		public enum OreState
 		{
 			Chase = 0,//the state in which the ore only chases the player without dashing
@@ -70,7 +78,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 		{
 			SetSafeDefaults();
 			if (!Main.dedServ)
-				NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/OreHit").WithPitchVariance(Main.rand.NextFloat(2f));
+				NPC.HitSound = OreHit;
 
 			//Setting the ores to be immune
 			NPC.lavaImmune = true;//Making the ores immune to lava
@@ -111,7 +119,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 
 					NPC.netUpdate = true;
 
-					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion , 40, 5f, Main.myPlayer, 0, 1);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, 0f, 0f, Explosion, 40, 5f, Main.myPlayer, 0, 1);
 
 					CheckDead();
 
@@ -334,14 +342,26 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				return 35f;
 			}
-			else if (spawnInfo.Player.ZoneRockLayerHeight)
+			else if ((NPC.type != ModContent.NPCType<AmethystOre>() && NPC.type != ModContent.NPCType<RubyOre>() && NPC.type != ModContent.NPCType<TopazOre>() && NPC.type != ModContent.NPCType<ZirconOre>()) && spawnInfo.Player.ZoneRockLayerHeight)
 			{
 				return 0.02f;
 			}
-			else
+			else if ((NPC.type == ModContent.NPCType<RubyOre>() || NPC.type == ModContent.NPCType<TopazOre>() || NPC.type == ModContent.NPCType<AmethystOre_Dark>()) && spawnInfo.Player.ZoneUnderworldHeight)
+            {
+				return 0.07f;
+            }
+			else if (NPC.type == ModContent.NPCType<ZirconOre>() && spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneUnderworldHeight)
+            {
+				return 0.02f;
+            }
+			else if (NPC.type == ModContent.NPCType<AmethystOre>() && spawnInfo.Player.ZoneMarble)
 			{
-				return 0f;
+				return 0.05f;
 			}
+            else
+            {
+				return 0f;
+            }
 		}
 
 		
