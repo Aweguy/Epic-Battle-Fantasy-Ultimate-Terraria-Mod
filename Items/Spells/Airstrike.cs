@@ -2,6 +2,7 @@
 using EpicBattleFantasyUltimate.Projectiles.SpellProjectiles.Airstrikes;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,13 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 {
 	public class Airstrike : ModItem
 	{
+		public static readonly SoundStyle AirstrikeSound = new("EpicBattleFantasyUltimate/Assets/Sounds/Item/Airstrike")
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
+
 		private float offsetX = 20f;
 
 		public override void SetStaticDefaults()
@@ -36,7 +44,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 			Item.DamageType = DamageClass.Magic;
 			Item.autoReuse = true;
 			if (!Main.dedServ)
-				Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Item/Airstrike").WithVolume(.5f);
+				Item.UseSound = AirstrikeSound;
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -54,7 +62,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 				Item.shoot = ModContent.ProjectileType<SmallBomb>();
 				Item.shootSpeed = 16f;
 				if (!Main.dedServ)
-					Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Item/Airstrike").WithVolume(.5f);
+					Item.UseSound = AirstrikeSound;
 			}
 			else
 			{
@@ -64,7 +72,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 				Item.shoot = ModContent.ProjectileType<Bomb>();
 				Item.shootSpeed = 10f;
 				if (!Main.dedServ)
-					Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Item/Airstrike").WithVolume(.5f);
+					Item.UseSound = AirstrikeSound;
 			}
 			return base.CanUseItem(player);
 		}

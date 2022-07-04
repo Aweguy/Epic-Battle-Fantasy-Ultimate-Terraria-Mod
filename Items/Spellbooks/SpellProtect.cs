@@ -1,6 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Buffs.Buffs;
 using EpicBattleFantasyUltimate.Buffs.Debuffs.CooldownDebuffs;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,6 +9,13 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 {
 	public class SpellProtect : ModItem
 	{
+		public static readonly SoundStyle ProtectSound = new("EpicBattleFantasyUltimate/Assets/Sounds/Item/Protect")
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Protection Spell");
@@ -27,7 +35,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 			Item.useTurn = true;
 			if (!Main.dedServ)
 			{
-				Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Item/Protect").WithVolume(.5f).WithPitchVariance(1f);
+				Item.UseSound = ProtectSound;
 			}
 		}
 

@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
 	public abstract class OreNPC : ModNPC
 	{
-		public static readonly SoundStyle OreHit = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/NPCHit/OreHit", 4)
+		public static readonly SoundStyle OreHit = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/NPCHit/OreHit")
 		{
 			Volume = 2f,
 			PitchVariance = 1f

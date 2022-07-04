@@ -14,6 +14,24 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
 {
     class MetalIdol1 : ModNPC
     {
+        public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MetalIdolHit")
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump1")
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump2")
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
 
         private bool Left = false;
         private bool Right = true;
@@ -38,7 +56,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
             NPC.aiStyle = -1;
             NPC.noGravity = false;
             if (!Main.dedServ)
-                NPC.HitSound = SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/NPCHit/MetalIdolHit").WithPitchVariance(2f);
+                NPC.HitSound = IdolHit;
 
             if (Main.hardMode)
             {
@@ -105,7 +123,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -10f);
                     if (!Main.dedServ)
-                        SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump2").WithPitchVariance(2f), NPC.Center);
+                        SoundEngine.PlaySound(IdolHighJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {
@@ -122,7 +140,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MetalIdols
                 {
                     NPC.velocity = new Vector2(NPC.velocity.X, -5f);
                     if (!Main.dedServ)
-                        SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Idols/MetalIdols/MetalIdolJump1");
+                        SoundEngine.PlaySound(IdolJump, NPC.Center);
 
                     if (!Left && Right && !Spin)
                     {

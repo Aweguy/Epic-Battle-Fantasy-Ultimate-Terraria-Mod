@@ -12,19 +12,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 {
     public class IceIdol3 : ModNPC
     {
-        /*public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MarbleIdolHit", 4)
+        /*public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/MarbleIdolHit")
 		{
 			Volume = 2f,
 			PitchVariance = 1f
 		};*/
 
-        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump")
         {
             Volume = 2f,
             PitchVariance = 1f
         };
 
-        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump", 4)
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/IceIdols/IceIdolJump")
         {
             Volume = 2f,
             PitchVariance = 1f

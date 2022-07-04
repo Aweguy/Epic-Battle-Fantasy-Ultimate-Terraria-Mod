@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 		public override void SetDefaults()
 		{
 			Item.damage = 150;
-			Item.DamageType = DamageClass.Melee;;
+			Item.DamageType = DamageClass.Melee;
 			Item.width = 64;
 			Item.height = 64;
 			Item.useStyle = ItemUseStyleID.Swing;

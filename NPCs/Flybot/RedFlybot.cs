@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
 	public class RedFlybot : ModNPC
 	{
-		public static readonly SoundStyle Bleep = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/FlybotBleep", 4)
+		public static readonly SoundStyle Bleep = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/FlybotBleep")
 		{
 			Volume = 2f,
 			PitchVariance = 1f

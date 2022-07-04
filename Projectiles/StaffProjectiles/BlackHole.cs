@@ -27,7 +27,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pulsar");
+			DisplayName.SetDefault("Black Hole");
 			Main.projFrames[Projectile.type] = 10;
 		}
 

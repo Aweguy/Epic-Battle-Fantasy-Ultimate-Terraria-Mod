@@ -10,19 +10,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 {
     public class StoneIdol3 : ModNPC
     {
-        public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/StoneIdolHit", 4)
+        public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/StoneIdolHit")
         {
             Volume = 2f,
             PitchVariance = 1f
         };
 
-        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2", 4)
+        public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2")
         {
             Volume = 2f,
             PitchVariance = 1f
         };
 
-        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump", 4)
+        public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump")
         {
             Volume = 2f,
             PitchVariance = 1f

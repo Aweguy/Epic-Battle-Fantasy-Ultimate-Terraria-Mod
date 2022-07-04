@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-			SoundEngine.PlaySound(2,(int)Projectile.position.X,(int)Projectile.position.Y,27,1,1); 
+			SoundEngine.PlaySound(SoundID.Item27,Projectile.position); 
 
 			Projectile.Kill();
 			return false;
@@ -59,7 +59,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 			for (int i = 0; i <= 10; i++)
 			{
-				dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Glass, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
+				dust = Main.dust[Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Glass, 0f, 0f, 0, new Color(255, 255, 255), 0.6578947f)];
 			}
 		}
 	}

@@ -7,6 +7,19 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
 {
     public class RedCannonFront : ModProjectile
     {
+        public static readonly SoundStyle CannonShoot = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/SnipeShot")
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+        public static readonly SoundStyle CannonTarget = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/SnipeTarget")
+        {
+            Volume = 2f,
+            PitchVariance = 1f
+        };
+
+
         private int ShootTimer = 60;//Determines when the cannon will shoot
         private int damage;//The damage of the Projectiles
         private int ShotNum = 0;//Number of shots
@@ -92,7 +105,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
                 ShotNum++;
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(),Projectile.Center, ProjectileVelocity, ModContent.ProjectileType<RedLaser>(), damage, 10, Main.myPlayer, 0, 1);
-                SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Flybots/SnipeShot");
+                SoundEngine.PlaySound(CannonShoot, Projectile.Center);
 
                 if (ShotNum < 2)
                 {
@@ -101,7 +114,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.Flybots.RedFlybot
                 else if (ShotNum == 2)
                 {
                     ShootTimer = 70;
-                    SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Custom/Flybots/SnipeTarget");
+                    SoundEngine.PlaySound(CannonTarget, Projectile.Center);
                 }
                 else
                 {

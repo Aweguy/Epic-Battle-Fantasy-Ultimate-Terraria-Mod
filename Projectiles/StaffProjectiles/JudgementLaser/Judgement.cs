@@ -18,6 +18,12 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 {
 	public class Judgement : ModProjectile
 	{
+		public static readonly SoundStyle JudgementSound = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Spells/Judgement")
+		{
+			Volume = 2f,
+			PitchVariance = 1f
+		};
+
 		#region Variables and Constants
 
 		private const float MAX_CHARGE = 40f;
@@ -252,7 +258,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			if (timer2 == 40)
 			{
 				if (!Main.dedServ)
-					SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Assets/Sounds/Custom/Spells/Judgement").WithPitchVariance(2f),Projectile.Center);
+					SoundEngine.PlaySound(JudgementSound, Projectile.Center);
 
 				for (int i = 0; i < 85; ++i)
 				{

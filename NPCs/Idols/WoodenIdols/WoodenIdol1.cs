@@ -10,19 +10,19 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.WoodenIdols
 {
 	public class WoodenIdol1 : ModNPC
 	{
-		public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/WoodIdolHit", 4)
+		public static readonly SoundStyle IdolHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/WoodIdolHit")
         {
             Volume = 2f,
             PitchVariance = 1f
         };
 
-		public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2", 4)
+		public static readonly SoundStyle IdolJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/StoneIdols/StoneIdolJump2")
 		{
 			Volume = 2f,
 			PitchVariance = 1f
 		};
 
-		public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump", 4)
+		public static readonly SoundStyle IdolHighJump = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Idols/WoodenIdols/WoodenIdolJump")
 		{
 			Volume = 2f,
 			PitchVariance = 1f

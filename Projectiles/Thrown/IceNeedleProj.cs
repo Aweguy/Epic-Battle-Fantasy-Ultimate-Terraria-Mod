@@ -29,7 +29,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0f);
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
 			return true;
 		}
 
@@ -173,7 +173,9 @@ namespace EpicBattleFantasyUltimate.Projectiles.Thrown
 
 		public override void Kill(int timeLeft)
 		{
-			for(int i = 0; i <= 6; i++)
+			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+
+			for (int i = 0; i <= 6; i++)
 			{
 				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, Projectile.oldVelocity.X, Projectile.oldVelocity.Y);
 			}
