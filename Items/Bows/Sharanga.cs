@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Bows
 		public override void SetSafeStaticDefaults()
 		{
 			DisplayName.SetDefault("Sharanga");
-			Tooltip.SetDefault("Heavy enough to block a blade.");
+			Tooltip.SetDefault("A bow infused with ectoplasm.\nConverts wooden arrows to Sharanga Arrows which ignore gravity");
 		}
 
 		public override void SetSafeDefaults()

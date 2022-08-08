@@ -25,8 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Materials.Gems
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.Ruby, 10)
-				.AddIngredient(ItemID.Hellstone, 10)
-				.AddIngredient(ItemID.Obsidian, 5)
+				.AddIngredient(ItemID.Hellstone, 3)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

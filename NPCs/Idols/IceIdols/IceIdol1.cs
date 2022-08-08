@@ -270,7 +270,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.IceIdols
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.Player.ZoneSnow)
+			if (spawnInfo.Player.ZoneSnow && !spawnInfo.Invasion)
 			{
 				return .02f;
 			}

@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Players
 		Vector2 position = ModContent.GetInstance<EpicConfig>().FlairSlotPosition;
 		float padding = 0;
 
-		public override Vector2? CustomLocation => position;*/
+		public override Vector2? CustomLocation => !VerticalStack ? new Vector2(position.X + padding, position.Y) : new Vector2(position.X, position.Y - padding);*/
 
 		public override void OnMouseHover(AccessorySlotType context)
 		{
@@ -51,6 +51,11 @@ namespace EpicBattleFantasyUltimate.Players
 	}
 	public class FlairSlot2 : ModAccessorySlot
 	{
+		/*bool VerticalStack = ModContent.GetInstance<EpicConfig>().FlairVerticalStack;
+		Vector2 position = ModContent.GetInstance<EpicConfig>().FlairSlotPosition;
+		float padding = 32;
+
+		public override Vector2? CustomLocation => !VerticalStack ? new Vector2(position.X + padding, position.Y) : new Vector2(position.X, position.Y - padding);*/
 		public override void OnMouseHover(AccessorySlotType context)
 		{
 			Main.hoverItemName = "Flair";
@@ -82,7 +87,13 @@ namespace EpicBattleFantasyUltimate.Players
 
 	public class FlairSlot3 : ModAccessorySlot
 	{
-        public override void OnMouseHover(AccessorySlotType context)
+		/*bool VerticalStack = ModContent.GetInstance<EpicConfig>().FlairVerticalStack;
+		Vector2 position = ModContent.GetInstance<EpicConfig>().FlairSlotPosition;
+		float padding = 64;
+
+		public override Vector2? CustomLocation => !VerticalStack ? new Vector2(position.X + padding, position.Y) : new Vector2(position.X,position.Y - padding);*/
+
+		public override void OnMouseHover(AccessorySlotType context)
         {
 			Main.hoverItemName = "Flair";
         }

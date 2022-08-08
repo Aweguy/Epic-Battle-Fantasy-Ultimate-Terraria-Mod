@@ -19,6 +19,7 @@ using Terraria.ModLoader.IO;
 using static EpicBattleFantasyUltimate.EpicBattleFantasyUltimate;
 using EpicBattleFantasyUltimate.Items.Swords;
 using EpicBattleFantasyUltimate.Items.Accessories;
+using EpicBattleFantasyUltimate.Items.Accessories.Flairs;
 
 namespace EpicBattleFantasyUltimate
 {
@@ -96,9 +97,15 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion Tired Variables
 
-		#region Rampant Bleed Variables
+		#region Morale Variables
 
-		public bool RBleed;
+		public bool Morale = false;
+
+        #endregion
+
+        #region Rampant Bleed Variables
+
+        public bool RBleed;
 		public int RBleedStacks;
 
 		#endregion Rampant Bleed Variables
@@ -136,14 +143,31 @@ namespace EpicBattleFantasyUltimate
 		#region Blessed Variables
 
 		public bool Blessed = false;
+		
 
 		#endregion Blessed Variables
 
+		#region Lucky Clover
+
+		public bool Lucky = false;
+		public int BlessedCD = 0;
+
+		#endregion
+
 		public override void OnHitByNPC(NPC npc, int damage, bool crit)
 		{
-			#region OreImmunity
+            #region Lucky Clover
+            if (Lucky && BlessedCD <= 0)
+            {
+				Player.AddBuff(ModContent.BuffType<BlessedBuff>(), 60 * 3);
 
-			if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
+				BlessedCD = 60 * 60;
+            }
+            #endregion
+
+            #region OreImmunity
+
+            if (npc.type == ModContent.NPCType<PeridotOre>() || npc.type == ModContent.NPCType<QuartzOre>() || npc.type == ModContent.NPCType<ZirconOre>() || npc.type == ModContent.NPCType<SapphireOre>() || npc.type == ModContent.NPCType<AmethystOre>() || npc.type == ModContent.NPCType<AmethystOre_Dark>() || npc.type == ModContent.NPCType<RubyOre>() || npc.type == ModContent.NPCType<TopazOre>())
 			{
 				Player.immune = false;
 			}
@@ -175,8 +199,30 @@ namespace EpicBattleFantasyUltimate
 				#endregion Sapphire Explosion Knockback
 			}
 
+            #region Morale
+            if (Morale)
+            {
+				if(Player.statLife >= (Player.statLifeMax/100 * 50))
+                {
+					if(damage > Player.statLife)
+                    {
+						Player.statLife = 1;
+						Player.immuneTime = 60 * 3;
 
-			return true;
+						for (int i = 0; i < Player.MaxBuffs; ++i)//Deleteing morale after getting hit
+						{
+							if (Player.buffType[i] != 0 && Player.buffType[i] == ModContent.BuffType<Morale>())
+							{
+								Player.DelBuff(i);
+								i--;
+							}
+						}
+					}
+                }
+            }
+            #endregion
+
+            return true;
 		}
 
 		#region Limit Hooks
@@ -347,13 +393,28 @@ namespace EpicBattleFantasyUltimate
 
 			numberOfDrawableBuffs = -1;
 
-			Blessed = false;
-
 			#endregion Number Of Drawable Buffs
 
-			#region Tryforce
+			#region Blessed Reset
 
-			Tryforce = false;
+			Blessed = false;
+
+			#endregion
+
+			#region Lucky Clover Reset
+			Lucky = false;
+
+			#endregion
+
+			#region Morale Reset
+
+			Morale = false;
+
+            #endregion
+
+            #region Tryforce
+
+            Tryforce = false;
 
 			#endregion Tryforce
 
@@ -619,7 +680,7 @@ namespace EpicBattleFantasyUltimate
 			{
 				LimitCurrent = 0;
 			}
-
+			
 			#region Doom Damage
 			if (Doom)
 			{
@@ -643,17 +704,12 @@ namespace EpicBattleFantasyUltimate
 
 		public override void PreUpdate()
 		{
+            #region Shadow Blaster Effect
 
-			#region Shadow Blaster Effect
-
-			if (Player.HasItem(ModContent.ItemType<ShadowBlaster>()) && Player.HeldItem.type == ModContent.ItemType<ShadowBlasterGun>())
+            if (Player.HasItem(ModContent.ItemType<ShadowBlaster>()) && Player.HeldItem.type == ModContent.ItemType<ShadowBlasterGun>())
 			{
 				shadow = true;
 			}
-
-			#endregion Shadow Blaster Effect
-
-			#region Limit Stuff
 
 			TimeDiff++;
 

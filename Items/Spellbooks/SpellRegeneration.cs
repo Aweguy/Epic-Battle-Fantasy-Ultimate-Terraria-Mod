@@ -36,7 +36,7 @@ namespace EpicBattleFantasyUltimate.Items.Spellbooks
 
 		public override bool? UseItem(Player player)
 		{
-			player.AddBuff(ModContent.BuffType<Regeneration>(), 60 * 10);
+			player.AddBuff(ModContent.BuffType<Regeneration>(), 60 * 5);
 			player.AddBuff(ModContent.BuffType<RegenerationSated>(), 60 * 30);
 
 			return base.UseItem(player);

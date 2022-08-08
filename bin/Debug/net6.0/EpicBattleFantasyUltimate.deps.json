@@ -8,10 +8,10 @@
     ".NETCoreApp,Version=v6.0": {
       "EpicBattleFantasyUltimate/1.0.0": {
         "dependencies": {
-          "tModLoader.CodeAssist": "0.1.3",
+          "tModLoader.CodeAssist": "0.1.5",
           "Basic.Reference.Assemblies.Net60": "1.0.0.0",
           "CsvHelper": "2.0.0.0",
-          "FNA": "22.3.0.0",
+          "FNA": "22.7.0.0",
           "Hjson": "1.0.0.0",
           "Humanizer": "2.2.0.0",
           "Ionic.Zip.Reduced": "1.9.1.8",
@@ -36,7 +36,6 @@
           "NVorbis": "0.10.0.3",
           "RailSDK.Net": "1.0.0.0",
           "ReLogic": "1.0.0.0",
-          "SixLabors.ImageSharp": "1.0.0.0",
           "Steamworks.NET": "20.1.0.0",
           "SteelSeriesEngineWrapper": "1.0.0.0",
           "System.CodeDom": "6.0.0.0",
@@ -62,7 +61,7 @@
           "EpicBattleFantasyUltimate.dll": {}
         }
       },
-      "tModLoader.CodeAssist/0.1.3": {},
+      "tModLoader.CodeAssist/0.1.5": {},
       "Basic.Reference.Assemblies.Net60/1.0.0.0": {
         "runtime": {
           "Basic.Reference.Assemblies.Net60.dll": {
@@ -79,11 +78,11 @@
           }
         }
       },
-      "FNA/22.3.0.0": {
+      "FNA/22.7.0.0": {
         "runtime": {
           "FNA.dll": {
-            "assemblyVersion": "22.3.0.0",
-            "fileVersion": "22.3.0.0"
+            "assemblyVersion": "22.7.0.0",
+            "fileVersion": "22.7.0.0"
           }
         }
       },
@@ -484,14 +483,6 @@
           }
         }
       },
-      "SixLabors.ImageSharp/1.0.0.0": {
-        "runtime": {
-          "SixLabors.ImageSharp.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.3.0"
-          }
-        }
-      },
       "Steamworks.NET/20.1.0.0": {
         "runtime": {
           "Steamworks.NET.dll": {
@@ -660,12 +651,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "tModLoader.CodeAssist/0.1.3": {
+    "tModLoader.CodeAssist/0.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2TVpwEsbJF+LZOGZ7q/VTTcsnFnQzngjVOcwkzGlXimFXEMjPROLjDv32F/eA+k2MLHtdL0DJ0JNWudUVs70fw==",
-      "path": "tmodloader.codeassist/0.1.3",
-      "hashPath": "tmodloader.codeassist.0.1.3.nupkg.sha512"
+      "sha512": "sha512-Sg/jKEg/z5eN+Cdi3/9CU4JfJwvXHVH+UDJf4Lipo26uTa+guLLJXH1XDJNPShTFwKK8jMUYbthINP4QhsgHSA==",
+      "path": "tmodloader.codeassist/0.1.5",
+      "hashPath": "tmodloader.codeassist.0.1.5.nupkg.sha512"
     },
     "Basic.Reference.Assemblies.Net60/1.0.0.0": {
       "type": "reference",
@@ -677,7 +668,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "FNA/22.3.0.0": {
+    "FNA/22.7.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -798,11 +789,6 @@
       "sha512": ""
     },
     "ReLogic/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "SixLabors.ImageSharp/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -41,8 +41,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-			Vector2 trueSpeed = new Vector2(velocity.Y, velocity.X);
-			shot = Main.projectile[Projectile.NewProjectile(source, position, trueSpeed, type, damage, knockback, player.whoAmI)];
+			shot = Main.projectile[Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI)];
 			shot.GetGlobalProjectile<LauncherProjectile>().B4Homingshot = true;
 
 			return false;

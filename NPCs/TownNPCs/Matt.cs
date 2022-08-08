@@ -89,15 +89,15 @@ namespace EpicBattleFantasyUltimate.NPCs.TownNPCs
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot>());
-			shop.item[nextSlot].shopCustomPrice = 10000;
+			shop.item[nextSlot].shopCustomPrice = 500;
 			nextSlot++;
 
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot2>());
-			shop.item[nextSlot].shopCustomPrice = 10000;
+			shop.item[nextSlot].shopCustomPrice = 500;
 			nextSlot++;
 
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot3>());
-			shop.item[nextSlot].shopCustomPrice = 10000;
+			shop.item[nextSlot].shopCustomPrice = 500;
 			nextSlot++;
 
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<Shot4>());

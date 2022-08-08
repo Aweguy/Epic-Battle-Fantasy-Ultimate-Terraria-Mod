@@ -311,7 +311,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Flybot
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.Player.ZoneBeach)
+			if (Main.hardMode && spawnInfo.Player.ZoneBeach && !spawnInfo.Invasion)
 			{
 				return 0.03f;
 			}

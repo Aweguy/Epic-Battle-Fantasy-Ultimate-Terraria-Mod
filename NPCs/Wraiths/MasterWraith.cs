@@ -474,7 +474,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 
 						Projectile.NewProjectile(NPC.GetSource_FromAI(),new Vector2(NPC.Center.X, NPC.Center.Y - 18f), velocity, ModContent.ProjectileType<LeafShot>(), 20, 2, Main.myPlayer, 0, 1); //Leaf spawning/
 
-						LeafTimer = 40;
+						LeafTimer = 90;
 						LeafEndStacks++;
 					}
 					if (LeafEndStacks == 3)
@@ -588,7 +588,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>(), 1, 3, 9));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilkScrap>(), 1, 5, 15));
+			npcLoot.Add(ItemDropRule.Common(ItemID.Silk, 1, 5, 15));
 			npcLoot.Add(ItemDropRule.Common(ItemID.Bone, 1, 5, 15));
 		}
 

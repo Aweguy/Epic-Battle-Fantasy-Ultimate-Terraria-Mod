@@ -23,7 +23,9 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
             Item.maxStack = 1;
             Item.crit = 4;
             Item.knockBack = 1f;
-            Item.value = 1000;
+            Item.consumable = true;
+            Item.maxStack = 9999;
+            Item.value = 100;
             Item.rare = ItemRarityID.LightRed;
             Item.shoot = ModContent.ProjectileType<DarkShot>();
             Item.shootSpeed = 7f;

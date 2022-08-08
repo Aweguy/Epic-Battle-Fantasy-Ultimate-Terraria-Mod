@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 
         public override void SetDefaults()
         {
-            Item.damage = 5;
+            Item.damage = 50;
             Item.knockBack = 5f;
             Item.DamageType = DamageClass.Melee;
 

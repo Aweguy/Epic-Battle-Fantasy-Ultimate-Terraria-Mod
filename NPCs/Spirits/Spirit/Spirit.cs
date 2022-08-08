@@ -49,7 +49,20 @@ namespace EpicBattleFantasyUltimate.NPCs.Spirits.Spirit
 			NPC.TargetClosest(true);
 			Player Target = Main.player[NPC.target]; //Target
 
-			if(HandNumber <= 1)
+			#region Movement Direction
+
+			if (NPC.direction == 1)
+			{
+				NPC.spriteDirection = 1;
+			}
+			else if (NPC.direction == -1)
+			{
+				NPC.spriteDirection = -1;
+			}
+
+			#endregion Movement Direction
+
+			if (HandNumber <= 1)
 			{
 				SpawnHand();
 			}

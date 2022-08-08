@@ -212,7 +212,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.MarbleIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert || spawnInfo.Player.ZoneMarble)
+            if (spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert || spawnInfo.Player.ZoneMarble && !spawnInfo.Invasion)
             {
                 return .2f;
             }

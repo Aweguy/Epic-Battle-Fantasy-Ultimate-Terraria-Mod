@@ -20,8 +20,8 @@ namespace EpicBattleFantasyUltimate.Items.Swords
 			Item.DamageType = DamageClass.Melee;;
 			Item.width = 54;
 			Item.height = 60;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 8f;
 			Item.value = Item.sellPrice(gold: 4);

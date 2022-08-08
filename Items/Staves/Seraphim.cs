@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Staves
 			Item.width = 90;
 			Item.height = 90;
 
-			Item.damage = 100;
+			Item.damage = 50;
 			Item.DamageType = DamageClass.Magic;
 			//Item.mana = 100;
 			Item.noMelee = true;

@@ -20,7 +20,9 @@ namespace EpicBattleFantasyUltimate.Items.Ammo.Shots
 			Item.width = 12;
 			Item.height = 12;
 			Item.maxStack = 1;
-			Item.value = 1000;
+			Item.value = 100;
+			Item.consumable = true;
+			Item.maxStack = 9999;
 			Item.rare = ItemRarityID.LightRed;
 			Item.shoot = ModContent.ProjectileType<FlameShot>();
 			Item.shootSpeed = 8f;

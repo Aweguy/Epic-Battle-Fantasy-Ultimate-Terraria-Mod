@@ -35,10 +35,11 @@ namespace EpicBattleFantasyUltimate.Items.Launchers
 			Item.UseSound = SoundID.Item36;
 			Item.shootSpeed = 7f;
 		}
+
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 30f;
-			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotaiton of the weapon
+			//Added this bit.  gets an initial (0, -8 * player.direction) vector then rotates it to be properly aligned with the rotation of the weapon
 			muzzleOffset += new Vector2(0, -9f * player.direction).RotatedBy(muzzleOffset.ToRotation());
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
@@ -55,6 +56,7 @@ namespace EpicBattleFantasyUltimate.Items.Launchers
 			}
 			return false;
 		}
+
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-30, 0);

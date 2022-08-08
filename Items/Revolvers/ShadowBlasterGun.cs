@@ -10,7 +10,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shadow Revolver");
-			Tooltip.SetDefault("'Oh my god, it’s full of stars.'\nUses bullets to fire\nHigh Critical Chance.");
+			Tooltip.SetDefault("'Oh my god, it’s full of stars.'");
 		}
 		public override void SetDefaults()
 		{

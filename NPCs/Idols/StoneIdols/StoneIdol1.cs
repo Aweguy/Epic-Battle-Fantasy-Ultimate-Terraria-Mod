@@ -202,7 +202,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.StoneIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert)
+            if (Main.hardMode && spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneUndergroundDesert && !spawnInfo.Invasion)
             {
                 return .2f;
             }

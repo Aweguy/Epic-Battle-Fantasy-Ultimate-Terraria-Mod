@@ -1,5 +1,7 @@
 ﻿using EpicBattleFantasyUltimate.Items.Materials;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -35,7 +37,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 			Item.shootSpeed = 30f;
 			Item.useStyle = ItemUseStyleID.Shoot;
 		}
-		public override void AddRecipes()
+        public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.IllegalGunParts)

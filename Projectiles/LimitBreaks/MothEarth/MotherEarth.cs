@@ -205,7 +205,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			{
 				Vector2 origin = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 24, 2, Main.myPlayer, Projectile.Center.X, Projectile.Center.Y);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), origin, Vector2.Zero, ModContent.ProjectileType<NatureBlast>(), 100, 2, Main.myPlayer, Projectile.Center.X, Projectile.Center.Y);
 
 				BlastTimer = 15;
 			}
@@ -219,28 +219,28 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			{
 				if (NPC.downedMoonlord)
 				{
-					player.ApplyDamageToNPC(npc, Projectile.damage + 1000, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
-
+					int damage = Projectile.damage + 250;
 				}
 				else if (NPC.downedGolemBoss)
 				{
-					player.ApplyDamageToNPC(npc, Projectile.damage + 500, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+					int damage = Projectile.damage + 125;
 
 				}
 				else if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 				{
-					player.ApplyDamageToNPC(npc, Projectile.damage + 300, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+					int damage = Projectile.damage + 75;
 
 				}
 				else if (Main.hardMode)
 				{
-					player.ApplyDamageToNPC(npc, Projectile.damage + 200, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+					int damage = Projectile.damage + 50;
 				}
 				else
 				{
-					player.ApplyDamageToNPC(npc, Projectile.damage + 100, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
+					int damage = Projectile.damage + 25;
 
 				}
+				player.ApplyDamageToNPC(npc, Projectile.damage + 100, 0f, (npc.Center.X - player.Center.X > 0f).ToDirectionInt(), true);
 
 				DamageTimer = 60;
 			}

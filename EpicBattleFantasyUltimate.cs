@@ -60,7 +60,7 @@ namespace EpicBattleFantasyUltimate
 
 		#endregion
 
-		public override void AddRecipeGroups()
+		public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
 		{
 			GoldBar = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]
 			{

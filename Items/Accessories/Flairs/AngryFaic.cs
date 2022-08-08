@@ -39,7 +39,7 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.SoulBottleNight, 10)
+                .AddIngredient(ItemID.SoulofNight, 10)
                 .AddIngredient(ItemID.HellstoneBar, 5)
                 .AddIngredient(ModContent.ItemType<TargetBadge>())
                 .AddTile(TileID.TinkerersWorkbench)

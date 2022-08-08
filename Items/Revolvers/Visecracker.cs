@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.Items.Revolvers
@@ -16,6 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 			Item.height = 28;
 
 			Item.damage = 25;
+			Item.knockBack = 10f;
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -29,5 +32,10 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 			Item.useAmmo = AmmoID.Bullet;
 			Item.UseSound = SoundID.Item41;
 		}
-	}
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+			player.velocity -= new Vector2(1f, 0f) * player.Directions;//Prototype, will fix later
+        }
+    }
 }

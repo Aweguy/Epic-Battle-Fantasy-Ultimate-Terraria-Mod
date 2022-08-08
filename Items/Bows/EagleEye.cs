@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Bows
 		public override void SetSafeStaticDefaults()
 		{
 			DisplayName.SetDefault("Eagle Eye");
-			Tooltip.SetDefault("Heavy enough to block a blade.");
+			Tooltip.SetDefault("Shoots Arrows at extreme speeds");
 		}
 
 		public override void SetSafeDefaults()

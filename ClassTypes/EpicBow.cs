@@ -35,6 +35,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
         {
             SetSafeDefaults();
 
+            Item.crit = 10;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.DamageType = DamageClass.Ranged;

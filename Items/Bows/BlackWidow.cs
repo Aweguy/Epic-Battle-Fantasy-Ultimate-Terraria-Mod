@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Items.Bows
         public override void SetSafeStaticDefaults()
         {
             DisplayName.SetDefault("Black Widow");
-            Tooltip.SetDefault("An unusual weapon that selects and shoots random arrows each volley.");
+            Tooltip.SetDefault("A spider looks small until it spreads its legs\nShoots arrows in a spreading volley\nConverts wooden arrows to Spider Arrows that spawn mini spiders on collision");
         }
 
         public override void SetSafeDefaults()

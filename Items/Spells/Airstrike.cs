@@ -14,7 +14,7 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 		public static readonly SoundStyle AirstrikeSound = new("EpicBattleFantasyUltimate/Assets/Sounds/Item/Airstrike")
 		{
 			Volume = 2f,
-			PitchVariance = 1f
+			PitchVariance = 0.5f
 		};
 
 
@@ -28,12 +28,12 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 
 		public override void SetDefaults()
 		{
-			Item.damage = 80;
+			Item.damage = 120;
 			Item.width = 24;
 			Item.height = 32;
 			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.useTime = 10;
-			Item.useAnimation = 10;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
 			Item.mana = 10;
 			Item.rare = ItemRarityID.Yellow;
 			Item.useTurn = true;
@@ -51,13 +51,14 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 		{
 			return true;
 		}
+
 		public override bool CanUseItem(Player player)
 		{
 			if (player.altFunctionUse == 2)
 			{
-				Item.useTime = 40;
-				Item.useAnimation = 40;
-				Item.damage = 30;
+				Item.useTime = 60;
+				Item.useAnimation = 60;
+				Item.damage = 60;
 				Item.mana = 30;
 				Item.shoot = ModContent.ProjectileType<SmallBomb>();
 				Item.shootSpeed = 16f;
@@ -66,8 +67,9 @@ namespace EpicBattleFantasyUltimate.Items.Spells
 			}
 			else
 			{
-				Item.useTime = 20;
-				Item.useAnimation = 20;
+				Item.damage = 120;
+				Item.useTime = 40;
+				Item.useAnimation = 40;
 				Item.mana = 10;
 				Item.shoot = ModContent.ProjectileType<Bomb>();
 				Item.shootSpeed = 10f;

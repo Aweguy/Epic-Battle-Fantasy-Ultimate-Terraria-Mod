@@ -11,7 +11,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Thunder Revolver");
-			Tooltip.SetDefault("A miniature railgun that fires electrifying shots.\nUses bullets to fire\nQuick fire with 2 round bursts.");
+			Tooltip.SetDefault("A miniature railgun that fires electrifying shots.\nQuick fire with 2 round bursts.");
 		}
 		public override void SetDefaults()
 		{
@@ -21,7 +21,7 @@ namespace EpicBattleFantasyUltimate.Items.Revolvers
 			Item.damage = 15;
 			Item.useTime = 4;
 			Item.useAnimation = 9;
-			Item.reuseDelay = 2;
+			Item.reuseDelay = 10;
 
 			Item.crit = 1;
 			Item.knockBack = 3f;

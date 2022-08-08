@@ -211,7 +211,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Idols.ObsidianIdols
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight)
+            if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight && !spawnInfo.Invasion)
             {
                 return .08f;
             }

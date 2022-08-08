@@ -41,8 +41,8 @@ namespace EpicBattleFantasyUltimate.Items.Accessories.Flairs
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ItemID.LightShard, 5)
-				.AddIngredient(ItemID.DarkShard,5)
+				.AddIngredient(ItemID.LightShard, 2)
+				.AddIngredient(ItemID.DarkShard,2)
 				.AddIngredient(ItemID.SoulofLight, 4)
 				.AddIngredient(ItemID.SoulofNight,4)
 				.AddTile(TileID.TinkerersWorkbench)

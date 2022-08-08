@@ -15,7 +15,7 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 {
 	public abstract class OreNPC : ModNPC
 	{
-		public static readonly SoundStyle OreHit = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/NPCHit/OreHit")
+		public static readonly SoundStyle OreHit = new("EpicBattleFantasyUltimate/Assets/Sounds/NPCHit/OreHit")
 		{
 			Volume = 2f,
 			PitchVariance = 1f
@@ -342,19 +342,19 @@ namespace EpicBattleFantasyUltimate.ClassTypes
 			{
 				return 35f;
 			}
-			else if ((NPC.type != ModContent.NPCType<AmethystOre>() && NPC.type != ModContent.NPCType<RubyOre>() && NPC.type != ModContent.NPCType<TopazOre>() && NPC.type != ModContent.NPCType<ZirconOre>()) && spawnInfo.Player.ZoneRockLayerHeight)
+			else if ((NPC.type != ModContent.NPCType<AmethystOre>() && NPC.type != ModContent.NPCType<RubyOre>() && NPC.type != ModContent.NPCType<TopazOre>() && NPC.type != ModContent.NPCType<ZirconOre>()) && spawnInfo.Player.ZoneRockLayerHeight && !spawnInfo.Invasion)
 			{
 				return 0.02f;
 			}
-			else if ((NPC.type == ModContent.NPCType<RubyOre>() || NPC.type == ModContent.NPCType<TopazOre>() || NPC.type == ModContent.NPCType<AmethystOre_Dark>()) && spawnInfo.Player.ZoneUnderworldHeight)
+			else if ((NPC.type == ModContent.NPCType<RubyOre>() || NPC.type == ModContent.NPCType<TopazOre>() || NPC.type == ModContent.NPCType<AmethystOre_Dark>()) && spawnInfo.Player.ZoneUnderworldHeight && !spawnInfo.Invasion)
             {
 				return 0.07f;
             }
-			else if (NPC.type == ModContent.NPCType<ZirconOre>() && spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneUnderworldHeight)
+			else if (NPC.type == ModContent.NPCType<ZirconOre>() && spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneUnderworldHeight && !spawnInfo.Invasion)
             {
 				return 0.02f;
             }
-			else if (NPC.type == ModContent.NPCType<AmethystOre>() && spawnInfo.Player.ZoneMarble)
+			else if (NPC.type == ModContent.NPCType<AmethystOre>() && spawnInfo.Player.ZoneMarble && !spawnInfo.Invasion)
 			{
 				return 0.05f;
 			}

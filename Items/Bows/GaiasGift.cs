@@ -18,7 +18,7 @@ namespace EpicBattleFantasyUltimate.Items.Bows
 		public override void SetSafeStaticDefaults()
 		{
 			DisplayName.SetDefault("Gaia's Gift");
-			Tooltip.SetDefault("Heavy enough to block a blade.");
+			Tooltip.SetDefault("Bwtter than a Wooden Bow\nConverts wooden arrows to Gaia's Arrows. They poison enemies and may apply regeneration to the player");
 		}
 
 		public override void SetSafeDefaults()

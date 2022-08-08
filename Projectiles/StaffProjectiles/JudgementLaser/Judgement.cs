@@ -84,7 +84,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.hide = true;
 
-			Projectile.localNPCHitCooldown = 3;
+			Projectile.localNPCHitCooldown = 7;
 			Projectile.usesLocalNPCImmunity = true;
 
 		}
@@ -163,10 +163,10 @@ namespace EpicBattleFantasyUltimate.Projectiles.StaffProjectiles.JudgementLaser
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), position, position + unit * Distance, beamWidth, ref point);
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		/*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightExplosion>(), Projectile.damage, 0, Projectile.owner);
-		}
+		}*/
 
 		public override void AI()
 		{

@@ -19,7 +19,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.BowProjectiles
 			Projectile.width = 70;
 			Projectile.height = 20;
 
-			velocity = 2f;
+			velocity = 5f;
 			maxTime = 90;
 			MinimumDrawTime = 20;
 			DamageMultiplier = 1.3f;

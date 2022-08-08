@@ -205,7 +205,7 @@ namespace EpicBattleFantasyUltimate.NPCs.Wraiths
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wool>()));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SilkScrap>(), 5, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Silk, 5, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SolidWater>(), 5, 1, 3));
         }
         #endregion NPCLoot

@@ -47,7 +47,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			if(Father.localAI[0] <= 4f)
+			if(Father.localAI[0] <= 3f)
             {
 				
 				Projectile.localAI[0] = Father.localAI[0];
