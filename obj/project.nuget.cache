@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i44k4CejO2X9J9hYZB70+l0+DWvz2+UTugAm08W5aF3XrgL+E30LiC6u6ogzGvtlCy3DylEBK97XXDO96+MVxA==",
+  "dgSpecHash": "XHjLA+dPs9000UYCoTx+4FLGS7pNDFVyZS7+YkAFlPTYSEWAOogyMZ9W7OXoNdgN3Ia8ellC9fZiFrbjEchJhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\irene\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
+  "projectFilePath": "C:\\Users\\irene\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EpicBattleFantasyUltimate\\EpicBattleFantasyUltimate.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\irene\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],
