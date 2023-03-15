@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 
 namespace EpicBattleFantasyUltimate.NPCs.Flybot
 {
-	class BlueFlybot : ModNPC
+	public class BlueFlybot : ModNPC
 	{
 		public static readonly SoundStyle Bleep = new("EpicBattleFantasyUltimate/Assets/Sounds/Custom/Flybots/FlybotBleep")
 		{

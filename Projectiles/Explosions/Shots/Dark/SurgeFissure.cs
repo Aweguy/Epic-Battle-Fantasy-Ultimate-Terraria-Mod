@@ -52,14 +52,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.Explosions.Shots.Dark
                 timer = 5;
             }
 
-            if (++Projectile.frameCounter >= 5)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 4)
-                {
-                    Projectile.frame = 0;
-                }
-            }
+           
         }
         public override bool PreDraw(ref Color lightColor)
         {

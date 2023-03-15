@@ -25,7 +25,7 @@ namespace EpicBattleFantasyUltimate.Items.Consumables
 			Item.consumable = true;
 			Item.UseSound = SoundID.Item2;
 			Item.buffType = ModContent.BuffType<SugarRush>();
-			Item.buffTime = 6000;
+			Item.buffTime = 2;
 		}
 
 		public override bool CanUseItem(Player player)

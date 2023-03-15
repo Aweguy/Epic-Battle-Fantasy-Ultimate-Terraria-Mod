@@ -8,8 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -348,13 +350,13 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			DrawData data = new DrawData(texture, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, origin, Projectile.scale, effects, 0);
 			GameShaders.Armor.Apply(GameShaders.Armor.GetShaderIdFromItemId(ItemID.AcidDye), Projectile, data);
 
-			data.Draw(spriteBatch);*/
+			data.Draw(Main.spriteBatch);*/
+			
+            #endregion Shading
 
-			#endregion Shading
+            #region Trailing
 
-			#region Trailing
-
-			float initialOpacity = 0.8f;
+            float initialOpacity = 0.8f;
 			float opacityDegrade = 0.2f;
 
 			for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Projectile.type]; i++)
@@ -364,7 +366,8 @@ namespace EpicBattleFantasyUltimate.Projectiles.LimitBreaks.MothEarth
 			}
 
 			#endregion Trailing
-
+			//Main.spriteBatch.End();
+			//Main.spriteBatch.Begin();
 			return this.DrawProjectileCentered(Main.spriteBatch, lightColor * Projectile.Opacity);
 		}
 

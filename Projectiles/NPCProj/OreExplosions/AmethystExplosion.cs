@@ -64,14 +64,7 @@ namespace EpicBattleFantasyUltimate.Projectiles.NPCProj.OreExplosions
 				}
 			}
 
-			if (++Projectile.frameCounter >= 3)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= 7)
-				{
-					Projectile.Kill();
-				}
-			}
+			
 		}
 
 		public override bool PreDraw(ref Color lightColor)

@@ -36,7 +36,6 @@ namespace EpicBattleFantasyUltimate.Projectiles.SwordProjectiles
 			Projectile.penetrate = -1;
 			Projectile.DamageType = DamageClass.Melee;
 
-			Projectile.knockBack = 7f;
 			Projectile.light = 1f;
 			Projectile.tileCollide = false;
 

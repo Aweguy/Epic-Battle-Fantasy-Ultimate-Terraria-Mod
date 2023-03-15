@@ -1,4 +1,5 @@
-﻿using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster;
+﻿using EpicBattleFantasyUltimate.Projectiles.Bullets;
+using EpicBattleFantasyUltimate.Projectiles.SignatureProjectiles.ScarletCaster;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
